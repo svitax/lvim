@@ -3,7 +3,7 @@
 -- NOTE: General
 lvim.format_on_save = true
 lvim.lint_on_save = true
-lvim.colorscheme = "gruvbox-flat"
+lvim.colorscheme = "fennec-gruvbox"
 
 -- NOTE: Custom keymappings
 lvim.leader = "space"
@@ -87,9 +87,11 @@ lvim.plugins = {
 			vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
 			vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
 		end,
+		event = "BufRead",
 	},
 	{
 		"turbio/bracey.vim",
+		event = "BufRead",
 	},
 	{
 		"eddyekofo94/gruvbox-flat.nvim",
@@ -99,7 +101,7 @@ lvim.plugins = {
 	},
 	{
 		"nvim-telescope/telescope-project.nvim",
-		event = "BufRead",
+		cmd = "Telescope",
 		config = function()
 			require("telescope").load_extension("project")
 		end,
@@ -126,13 +128,28 @@ lvim.plugins = {
 	},
 	{
 		"numToStr/Navigator.nvim",
-		-- event = "BufRead",
+		event = "BufRead",
 		config = function()
 			require("Navigator").setup()
 			vim.api.nvim_set_keymap("n", "<C-l>", "<cmd>lua require('Navigator').left()<CR>", { silent = true })
 			vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require('Navigator').down()<CR>", { silent = true })
 			vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require('Navigator').up()<CR>", { silent = true })
 			vim.api.nvim_set_keymap("n", "<C-h>", "<cmd>lua require('Navigator').right()<CR>", { silent = true })
+		end,
+	},
+	{
+		"TimUntersberger/neogit",
+		requires = "nvim-lua/plenary.nvim",
+		cmd = "Neogit",
+	},
+	{
+		"svitax/fennec-gruvbox.nvim",
+		requires = { "rktjmp/lush.nvim" },
+	},
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
 		end,
 	},
 }
@@ -152,6 +169,6 @@ lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>"
 
 lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
 lvim.builtin.which_key.mappings["s"]["n"] = {
-	"<cmd>lua require('telescope.builtin').find_files({cwd = '~/Desktop/vimwiki/markdown'})<CR>",
-	"Search notes",
+	"<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
+	"Search Obsidian notes",
 }
