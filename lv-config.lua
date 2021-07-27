@@ -1,5 +1,8 @@
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
+-- TODO: make a gruvbox git-delta theme (base of emacs magit with gruvbox theme)
+-- TODO: make fennec-eviline always show filetype instead of "no lsp server"
+
 -- NOTE: General
 lvim.format_on_save = true
 lvim.lint_on_save = true
@@ -81,14 +84,14 @@ lvim.plugins = {
 			vim.cmd(
 				"let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
 			)
-			-- -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
+			-- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
 			vim.g.vimwiki_global_ext = 0
 			vim.g.vimwiki_markdown_link_ext = 1
 			-- -- vim.g.vimwiki_ext2syntax = {}
 			vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
 			vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
 		end,
-		event = "BufRead",
+		-- event = "BufRead",
 	},
 	{
 		"turbio/bracey.vim",
@@ -102,7 +105,6 @@ lvim.plugins = {
 	},
 	{
 		"nvim-telescope/telescope-project.nvim",
-		cmd = "Telescope",
 		config = function()
 			require("telescope").load_extension("project")
 		end,
@@ -153,16 +155,6 @@ lvim.plugins = {
 			require("colorizer").setup()
 		end,
 	},
-	-- {
-	-- 	"glepnir/galaxyline.nvim",
-	-- 	config = function()
-	-- 		require("core.galaxyline")
-	-- 		if lvim.builtin.galaxyline.on_config_done then
-	-- 			lvim.builtin.galaxyline.on_config_done(require("galaxyline"))
-	-- 		end
-	-- 	end,
-	-- 	event = "BufWinEnter",
-	-- },
 }
 
 -- NOTE: Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -172,14 +164,46 @@ lvim.plugins = {
 
 -- NOTE: Overide bindings for WhichKey
 -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
-lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
+lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers theme=get_ivy<CR>", "Switch buffer" }
 lvim.builtin.which_key.mappings["b"]["h"] = { "<cmd>new<CR>", "New horizontal buffer" }
 lvim.builtin.which_key.mappings["b"]["l"] = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all buffers to the left" }
 lvim.builtin.which_key.mappings["b"]["v"] = { ":vnew<cr>", "New vertical buffer" }
 lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>", "Close all buffers to the right" }
 
-lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
+lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "Blame message" }
+
+lvim.builtin.which_key.mappings["l"]["d"] = {
+	"<cmd>TroubleToggle lsp_document_diagnostics<cr>",
+	"List document diagnostics",
+}
+lvim.builtin.which_key.mappings["l"]["D"] = {
+	"<cmd>TroubleToggle lsp_definitions<cr>",
+	"List definitions",
+}
+lvim.builtin.which_key.mappings["l"]["R"] = {
+	"<cmd>TroubleToggle lsp_references<cr>",
+	"List references",
+}
+lvim.builtin.which_key.mappings["l"]["w"] = {
+	"<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
+	"List workspace diagnostics",
+}
+
 lvim.builtin.which_key.mappings["s"]["n"] = {
 	"<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
 	"Search Obsidian notes",
+}
+lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
+lvim.builtin.which_key.mappings["s"]["T"] = { "<cmd>TodoTrouble<cr>", "Search todos" }
+
+lvim.builtin.which_key.mappings["w"] = {
+	name = "+Windows",
+	d = { "<C-w>q<CR>", "Delete current window" },
+	D = { "<cmd>only<CR>", "Delete all other windows" },
+	h = { "<cmd>split<CR>", "Split window horizontally" },
+	j = { "<C-w>j<cr>", "Move to window below" },
+	k = { "<C-w>k<cr>", "Move to window above" },
+	l = { "<C-w>h<cr>", "Move to left window" },
+	v = { "<cmd>vsplit<CR>", "Split window vertically" },
+	[";"] = { "<C-w>l<cr>", "Move to right window" },
 }
