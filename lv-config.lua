@@ -104,6 +104,10 @@ lvim.plugins = {
 		end,
 	},
 	{
+		"turbio/bracey.vim",
+		event = "BufRead",
+	},
+	{
 		"nvim-telescope/telescope-project.nvim",
 		config = function()
 			require("telescope").load_extension("project")
@@ -195,6 +199,11 @@ lvim.builtin.which_key.mappings["s"]["n"] = {
 }
 lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
 lvim.builtin.which_key.mappings["s"]["T"] = { "<cmd>TodoTrouble<cr>", "Search todos" }
+
+lvim.builtin.which_key.mappings["o"] = {
+	name = "Open",
+	w = { "<cmd>Bracey<cr>", "Web server with live reload" },
+}
 
 lvim.builtin.which_key.mappings["w"] = {
 	name = "+Windows",
