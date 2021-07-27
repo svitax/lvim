@@ -40,6 +40,7 @@ lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.show_icons.git = 1
 lvim.builtin.dap.active = true
 require("dap-install").config("python_dbg", {})
+-- lvim.builtin.galaxyline.active = false
 
 -- NOTE: Treesitter settings
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -76,7 +77,7 @@ lvim.plugins = {
 		"vimwiki/vimwiki",
 		branch = "dev",
 		config = function()
-			vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
+			-- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
 			vim.cmd(
 				"let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
 			)
@@ -152,6 +153,16 @@ lvim.plugins = {
 			require("colorizer").setup()
 		end,
 	},
+	-- {
+	-- 	"glepnir/galaxyline.nvim",
+	-- 	config = function()
+	-- 		require("core.galaxyline")
+	-- 		if lvim.builtin.galaxyline.on_config_done then
+	-- 			lvim.builtin.galaxyline.on_config_done(require("galaxyline"))
+	-- 		end
+	-- 	end,
+	-- 	event = "BufWinEnter",
+	-- },
 }
 
 -- NOTE: Autocommands (https://neovim.io/doc/user/autocmd.html)
