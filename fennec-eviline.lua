@@ -21,12 +21,19 @@ local lsp = require("galaxyline.provider_lsp")
 local buffer = require("galaxyline.provider_buffer")
 gl.short_line_list = { "NvimTree", "vista", "dbui", "packer", "minimap", "Outline", "toggleterm" }
 
--- local function is_not_dashboard()
---   local buftype = buffer.get_buffer_filetype()
---   if buftype ~= "DASHBOARD" then
---     return true
---   end
--- end
+local function is_dashboard()
+	local buftype = buffer.get_buffer_filetype()
+	if buftype == "DASHBOARD" then
+		return true
+	end
+end
+
+local function is_not_dashboard()
+	local buftype = buffer.get_buffer_filetype()
+	if buftype ~= "DASHBOARD" then
+		return true
+	end
+end
 
 gls.left[1] = {
 	RainbowRed = {
@@ -68,15 +75,15 @@ gls.left[2] = {
 		highlight = { colors.red, colors.bg, "bold" },
 	},
 }
-gls.left[3] = {
-	FileSize = {
-		provider = "FileSize",
-		condition = condition.buffer_not_empty,
-		highlight = { colors.fg, colors.bg },
-		separator = " ",
-		separator_highlight = { colors.bg, colors.bg },
-	},
-}
+-- gls.left[3] = {
+--   FileSize = {
+--     provider = "FileSize",
+--     condition = condition.buffer_not_empty,
+--     highlight = { colors.fg, colors.bg },
+--     separator = " ",
+--     separator_highlight = { colors.bg, colors.bg },
+--   },
+-- }
 
 gls.left[4] = {
 	FileIcon = {
@@ -145,21 +152,6 @@ gls.left[10] = {
 	},
 }
 
--- gls.mid[1] = {
---   ShowLspClient = {
---     provider = "GetLspClient",
---     condition = function()
---       local tbl = { ["dashboard"] = true, [""] = true }
---       if tbl[vim.bo.filetype] then
---         return false
---       end
---       return true
---     end,
---     icon = " LSP:",
---     highlight = { colors.cyan, colors.bg, "bold" },
---   },
--- }
-
 -- Right side
 -- alternate separator colors if the current buffer is a dashboard
 
@@ -182,34 +174,44 @@ gls.right[2] = {
 	},
 }
 local get_lsp_client = function(msg)
-	msg = msg or "lsp inactive"
+	msg = msg or "LSP Inactive"
 	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 	local clients = vim.lsp.get_active_clients()
 	if next(clients) == nil then
-		return msg
+		-- TODO idk why we need msg
+		-- return msg
+		return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
 	end
 	local lsps = ""
 	for _, client in ipairs(clients) do
-		local filetypes = client.config.filetypes
-		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-			-- print(client.name)
-			if lsps == "" then
-				-- print("first", lsps)
-				lsps = client.name
-			else
-				if not string.find(lsps, client.name) then
-					lsps = lsps .. ", " .. client.name
+		if client.name ~= "null-ls" then
+			local filetypes = client.config.filetypes
+			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+				-- print(client.name)
+				if lsps == "" then
+					-- print("first", lsps)
+					lsps = client.name
+				else
+					if not string.find(lsps, client.name) then
+						lsps = lsps .. ", " .. client.name
+					end
+					-- print("more", lsps)
 				end
-				-- print("more", lsps)
 			end
 		end
 	end
 	if lsps == "" then
-		return msg
+		return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
+		-- return msg
 	else
 		return " " .. lsps
 	end
 end
+
+-- local lsps = ""
+-- for _, client in ipairs(vim.lsp.buf_get_clients()) do
+--   lsps = lsps .. ", " .. client.name
+-- end
 
 gls.right[3] = {
 	ShowLspClientOrFileType = {
