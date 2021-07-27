@@ -94,13 +94,20 @@ lvim.plugins = {
 		-- event = "BufRead",
 	},
 	{
-		"turbio/bracey.vim",
-		event = "BufRead",
-	},
-	{
-		"eddyekofo94/gruvbox-flat.nvim",
+		"plasticboy/vim-markdown",
+		ft = { "markdown", "vimwiki" },
 		config = function()
-			vim.g.gruvbox_flat_style = "dark"
+			-- Vim Markdown
+			vim.g.vim_markdown_folding_disabled = 0
+			vim.g.vim_markdown_math = 1
+			vim.g.vim_markdown_frontmatter = 1
+			vim.g.vim_markdown_strikethrough = 1
+			vim.g.vim_markdown_conceal = 2
+			-- vim.cmd("set conceallevel=2")
+			vim.g.vim_markdown_follow_anchor = 1
+			vim.g.vim_markdown_no_extensions_in_markdown = 1
+			vim.g.vim_markdown_autowrite = 1
+			-- vim.cmd("let g:markdown_fenced_languages = ['python']")
 		end,
 	},
 	{
@@ -155,25 +162,52 @@ lvim.plugins = {
 	},
 	{
 		"norcalli/nvim-colorizer.lua",
+		event = "BufRead",
 		config = function()
 			require("colorizer").setup()
+		end,
+	},
+	-- {
+	-- 	"sindrets/diffview.nvim",
+	-- },
+	{
+		"tanvirtin/vgit.nvim",
+		cmd = "VGit",
+		config = function()
+			require("vgit").setup({
+				hunks_enabled = false,
+				blames_enabled = false,
+				diff_preference = "vertical",
+				diff_strategy = "index",
+			})
+		end,
+	},
+	{
+		"pwntester/octo.nvim",
+		cmd = "Octo",
+		config = function()
+			require("octo").setup()
 		end,
 	},
 }
 
 -- NOTE: Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
+lvim.autocommands.custom_groups = {
+	{ "BufWinEnter", "*.md", "set nospell" },
+	-- { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
+}
 
 -- NOTE: Overide bindings for WhichKey
 -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers theme=get_ivy<CR>", "Switch buffer" }
+lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferClose!<CR>", "Delete buffer" }
 lvim.builtin.which_key.mappings["b"]["h"] = { "<cmd>new<CR>", "New horizontal buffer" }
 lvim.builtin.which_key.mappings["b"]["l"] = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all buffers to the left" }
 lvim.builtin.which_key.mappings["b"]["v"] = { ":vnew<cr>", "New vertical buffer" }
 lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>", "Close all buffers to the right" }
 
+lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
+lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub pull requests" }
 lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "Blame message" }
 
 lvim.builtin.which_key.mappings["l"]["d"] = {
