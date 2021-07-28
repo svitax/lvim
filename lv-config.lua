@@ -39,7 +39,9 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.show_icons.git = 1
 lvim.builtin.dap.active = true
-require("dap-install").config("python_dbg", {})
+lvim.builtin.dap.on_config_done = function()
+	require("dap-install").config("python_dbg", {})
+end
 -- lvim.builtin.galaxyline.active = false
 
 -- NOTE: Treesitter settings
