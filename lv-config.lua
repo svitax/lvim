@@ -17,8 +17,8 @@ lvim.leader = "space"
 --   {'<Tab>', ':bnext<CR>'},
 --   {'<S-Tab>', ':bprevious<CR>'},
 -- }
--- if you just want to augment the existing ones then use the utility function
 
+-- if you just want to augment the existing ones then use the utility function
 require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
 	{ "<C-s>", ":w<cr>" },
 	{ ";", "l" },
@@ -61,6 +61,9 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- NOTE: Additional plugins
 lvim.plugins = {
+	-----[[------------]]-----
+	---        LSP         ---
+	-----]]------------[[-----
 	{
 		"ray-x/lsp_signature.nvim",
 		config = function()
@@ -73,6 +76,43 @@ lvim.plugins = {
 		end,
 		event = "InsertEnter",
 	},
+	{
+		"folke/trouble.nvim",
+		cmd = "TroubleToggle",
+	},
+	-----[[------------]]-----
+	---        Git         ---
+	-----]]------------[[-----
+	-- {
+	-- 	"sindrets/diffview.nvim",
+	-- },
+	-- {
+	-- 	"TimUntersberger/neogit",
+	-- 	requires = "nvim-lua/plenary.nvim",
+	-- 	cmd = "Neogit",
+	-- },
+	{
+		"tanvirtin/vgit.nvim",
+		cmd = "VGit",
+		config = function()
+			require("vgit").setup({
+				hunks_enabled = false,
+				blames_enabled = false,
+				diff_preference = "vertical",
+				diff_strategy = "index",
+			})
+		end,
+	},
+	{
+		"pwntester/octo.nvim",
+		cmd = "Octo",
+		config = function()
+			require("octo").setup()
+		end,
+	},
+	-----[[------------]]-----
+	---        Notes       ---
+	-----]]------------[[-----
 	{
 		"vimwiki/vimwiki",
 		branch = "dev",
@@ -107,39 +147,21 @@ lvim.plugins = {
 			-- vim.cmd("let g:markdown_fenced_languages = ['python']")
 		end,
 	},
-	{
-		"turbio/bracey.vim",
-		event = "BufRead",
-	},
-	{
-		"nvim-telescope/telescope-project.nvim",
-		config = function()
-			require("telescope").load_extension("project")
-		end,
-		-- :Telescope project
-	},
-	{
-		"folke/trouble.nvim",
-		cmd = "TroubleToggle",
-	},
-	{
-		"folke/todo-comments.nvim",
-		event = "BufRead",
-		config = function()
-			require("todo-comments").setup({})
-		end,
-	},
+	-----[[------------]]-----
+	---     Navigation     ---
+	-----]]------------[[-----
 	{
 		"ggandor/lightspeed.nvim",
 		event = "BufRead",
 	},
+	-- lsp-rooter vs vim-rooter?
 	{
 		"ahmedkhalf/lsp-rooter.nvim",
 		event = "BufRead",
 	},
 	{
 		"numToStr/Navigator.nvim",
-		event = "BufRead",
+		event = "BufWinEnter",
 		config = function()
 			require("Navigator").setup()
 			vim.api.nvim_set_keymap("n", "<C-l>", "<cmd>lua require('Navigator').left()<CR>", { silent = true })
@@ -149,9 +171,19 @@ lvim.plugins = {
 		end,
 	},
 	{
-		"TimUntersberger/neogit",
-		requires = "nvim-lua/plenary.nvim",
-		cmd = "Neogit",
+		"nvim-telescope/telescope-project.nvim",
+		event = "BufWinEnter",
+		config = function()
+			require("telescope").load_extension("project")
+		end,
+		-- :Telescope project
+	},
+	-----[[------------]]-----
+	---        Web         ---
+	-----]]------------[[-----
+	{
+		"turbio/bracey.vim",
+		event = "BufRead",
 	},
 	-----[[------------]]-----
 	---       Debug        ---
@@ -179,19 +211,11 @@ lvim.plugins = {
 			require("colorizer").setup()
 		end,
 	},
-	-- {
-	-- 	"sindrets/diffview.nvim",
-	-- },
 	{
-		"tanvirtin/vgit.nvim",
-		cmd = "VGit",
+		"folke/todo-comments.nvim",
+		event = "BufRead",
 		config = function()
-			require("vgit").setup({
-				hunks_enabled = false,
-				blames_enabled = false,
-				diff_preference = "vertical",
-				diff_strategy = "index",
-			})
+			require("todo-comments").setup({})
 		end,
 	},
 	-----[[------------]]-----
