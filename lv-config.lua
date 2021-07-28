@@ -153,6 +153,21 @@ lvim.plugins = {
 		requires = "nvim-lua/plenary.nvim",
 		cmd = "Neogit",
 	},
+	-----[[------------]]-----
+	---       Debug        ---
+	-----]]------------[[-----
+	{
+		"rcarriga/nvim-dap-ui",
+		config = function()
+			require("dapui").setup()
+		end,
+		requires = { "mfussenegger/nvim-dap" },
+		ft = "python",
+	},
+
+	-----[[------------]]-----
+	---       Colors       ---
+	-----]]------------[[-----
 	{
 		"svitax/fennec-gruvbox.nvim",
 		requires = { "rktjmp/lush.nvim" },
@@ -202,6 +217,9 @@ lvim.builtin.which_key.mappings["b"]["h"] = { "<cmd>new<CR>", "New horizontal bu
 lvim.builtin.which_key.mappings["b"]["l"] = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all buffers to the left" }
 lvim.builtin.which_key.mappings["b"]["v"] = { ":vnew<cr>", "New vertical buffer" }
 lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>", "Close all buffers to the right" }
+
+lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle debug UI" }
+lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }
 
 lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
 lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub pull requests" }
