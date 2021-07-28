@@ -1,8 +1,5 @@
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
--- TODO: make a gruvbox git-delta theme (base of emacs magit with gruvbox theme)
--- TODO: make fennec-eviline always show filetype instead of "no lsp server"
-
 -- NOTE: General
 lvim.format_on_save = true
 lvim.lint_on_save = true
