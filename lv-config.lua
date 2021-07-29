@@ -45,6 +45,9 @@ lvim.builtin.dap.active = true
 lvim.builtin.dap.on_config_done = function()
 	require("dap-install").config("python_dbg", {})
 end
+
+lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
+
 -- lvim.builtin.galaxyline.active = false
 
 -- NOTE: Treesitter settings
@@ -248,6 +251,12 @@ lvim.plugins = {
 	-----[[------------]]-----
 	---       Extras       ---
 	-----]]------------[[-----
+	{
+		"tzachar/compe-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-compe",
+		event = "InsertEnter",
+	},
 	{
 		"ianding1/leetcode.vim",
 		config = function()
