@@ -184,6 +184,11 @@ lvim.plugins = {
 	-- {
 	--   'code-biscuits/nvim-biscuits'
 	-- },
+	{
+		"mg979/vim-visual-multi",
+		event = "CursorMoved",
+	},
+	-----[[------------]]-----
 	---     Navigation     ---
 	-----]]------------[[-----
 	{
