@@ -158,6 +158,26 @@ lvim.plugins = {
 		"ggandor/lightspeed.nvim",
 		event = "BufRead",
 	},
+	{
+		"abecodes/tabout.nvim",
+		event = "InsertEnter",
+		config = function()
+			require("tabout").setup({
+				completion = true,
+				tabkey = "<M-Tab>",
+				-- backwards_tabkey = "<M-S-Tab>",
+			})
+		end,
+		after = { "nvim-compe" },
+	},
+	-- TODO not working
+	-- {
+	-- 	"nvim-telescope/telescope-hop.nvim",
+	-- 	after = "telescope.nvim",
+	-- 	config = function()
+	-- 		require("telescope").load_extension("hop")
+	-- 	end,
+	-- },
 	-- lsp-rooter vs vim-rooter?
 	{
 		"ahmedkhalf/lsp-rooter.nvim",
