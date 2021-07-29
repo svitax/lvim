@@ -56,6 +56,7 @@ lvim.builtin.treesitter.ensure_installed = {}
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.disable = { "python" }
+lvim.builtin.treesitter.matchup.enable = true
 
 -- NOTE: Generic LSP settings
 lvim.lsp.diagnostics.virtual_text = false
@@ -206,7 +207,14 @@ lvim.plugins = {
 		config = function()
 			require("telescope").load_extension("project")
 		end,
-		-- :Telescope project
+	},
+	{
+		"andymass/vim-matchup",
+		event = "CursorMoved",
+		config = function()
+			vim.g.matchup_matchparen_offscreen = { method = "popup" }
+			-- vim.g.matchup_matchparen_enabled = 0
+		end,
 	},
 	-----[[------------]]-----
 	---        Web         ---
