@@ -255,6 +255,7 @@ lvim.plugins = {
 	{
 		"turbio/bracey.vim",
 		event = "BufRead",
+		run = "npm install --prefix server",
 	},
 	-----[[------------]]-----
 	---       Debug        ---
