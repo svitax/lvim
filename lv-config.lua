@@ -173,6 +173,17 @@ lvim.plugins = {
 		end,
 	},
 	-----[[------------]]-----
+	---       Editing      ---
+	-----]]------------[[-----
+	-- {
+	--   "blackCauldron7/surround.nvim"
+	-- },
+	-- {
+	--   'mizlan/iswap.nvim'
+	-- },
+	-- {
+	--   'code-biscuits/nvim-biscuits'
+	-- },
 	---     Navigation     ---
 	-----]]------------[[-----
 	{
