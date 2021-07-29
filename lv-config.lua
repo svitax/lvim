@@ -49,6 +49,7 @@ end
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 
 -- lvim.builtin.galaxyline.active = false
+-- lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = require("telescope").extensions.hop.hop
 
 -- NOTE: Treesitter settings
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -102,6 +103,7 @@ lvim.plugins = {
 	-- 	requires = "nvim-lua/plenary.nvim",
 	-- 	cmd = "Neogit",
 	-- },
+	-- {"ThePrimeagen/git-worktree.nvim"},
 	{
 		"tanvirtin/vgit.nvim",
 		cmd = "VGit",
@@ -141,6 +143,18 @@ lvim.plugins = {
 		end,
 		-- event = "BufRead",
 	},
+	-- {
+	--   'iamcco/markdown-preview.nvim',
+	--   run = 'cd app && npm install',
+	--   ft = 'markdown',
+	-- },
+	-- {"shurcooL/markdownfmt"},
+	-- {
+	--   'jubnzv/mdeval.nvim',
+	--   config = function ()
+	--     require 'mdeval'.setup()
+	--   end
+	-- },
 	{
 		"plasticboy/vim-markdown",
 		ft = { "markdown", "vimwiki" },
@@ -165,6 +179,7 @@ lvim.plugins = {
 		"ggandor/lightspeed.nvim",
 		event = "BufRead",
 	},
+	-- {'karb94/neoscroll.nvim'},
 	{
 		"abecodes/tabout.nvim",
 		event = "InsertEnter",
@@ -190,6 +205,8 @@ lvim.plugins = {
 		"ahmedkhalf/lsp-rooter.nvim",
 		event = "BufRead",
 	},
+	-- {"rmagatti/auto-session"},
+	-- {"rmagatti/session-lens"},
 	{
 		"numToStr/Navigator.nvim",
 		event = "BufWinEnter",
@@ -234,6 +251,7 @@ lvim.plugins = {
 		requires = { "mfussenegger/nvim-dap" },
 		ft = "python",
 	},
+	-- { 'michaelb/sniprun', run = 'bash ./install.sh'},
 
 	-----[[------------]]-----
 	---       Colors       ---
@@ -275,6 +293,15 @@ lvim.plugins = {
 		end,
 		cmd = "LeetCodeList",
 	},
+	-- {
+	--   'simrat39/symbols-outline.nvim'
+	-- },
+	-- {
+	--   'kristijanhusak/vim-dadbod-ui'
+	-- },
+	-- {
+	--   'tpope/vim-dadbod'
+	-- },
 }
 
 -- NOTE: Autocommands (https://neovim.io/doc/user/autocmd.html)
