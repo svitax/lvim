@@ -35,9 +35,12 @@ require("utils").add_keymap_visual_mode({ silent = true, noremap = true }, {
 -- NOTE: Custom config for builtin plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
+
 lvim.builtin.terminal.active = true
+
 lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.show_icons.git = 1
+
 lvim.builtin.dap.active = true
 lvim.builtin.dap.on_config_done = function()
 	require("dap-install").config("python_dbg", {})
