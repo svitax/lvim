@@ -17,7 +17,7 @@ local colors = {
 local bo = vim.bo
 local condition = require("galaxyline.condition")
 local gls = gl.section
-local lsp = require("galaxyline.provider_lsp")
+-- local lsp = require("galaxyline.provider_lsp")
 local buffer = require("galaxyline.provider_buffer")
 gl.short_line_list = { "NvimTree", "vista", "dbui", "packer", "minimap", "Outline", "toggleterm" }
 

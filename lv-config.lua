@@ -201,7 +201,7 @@ lvim.plugins = {
 		event = "InsertEnter",
 		config = function()
 			require("tabout").setup({
-				completion = true,
+				completion = false,
 				tabkey = "<M-Tab>",
 				-- backwards_tabkey = "<M-S-Tab>",
 			})
@@ -260,6 +260,7 @@ lvim.plugins = {
 	-----[[------------]]-----
 	---       Debug        ---
 	-----]]------------[[-----
+	-- TODO: fix dap for python cause it doesn't recognize conda
 	{
 		"rcarriga/nvim-dap-ui",
 		config = function()
