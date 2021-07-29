@@ -284,7 +284,7 @@ lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Sea
 lvim.builtin.which_key.mappings["s"]["T"] = { "<cmd>TodoTrouble<cr>", "Search todos" }
 
 lvim.builtin.which_key.mappings["o"] = {
-	name = "Open",
+	name = "+Open",
 	w = { "<cmd>Bracey<cr>", "Web server with live reload" },
 }
 
