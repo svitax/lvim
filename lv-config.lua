@@ -106,18 +106,18 @@ lvim.plugins = {
 	-- 	cmd = "Neogit",
 	-- },
 	-- {"ThePrimeagen/git-worktree.nvim"},
-	{
-		"tanvirtin/vgit.nvim",
-		cmd = "VGit",
-		config = function()
-			require("vgit").setup({
-				hunks_enabled = false,
-				blames_enabled = false,
-				diff_preference = "vertical",
-				diff_strategy = "index",
-			})
-		end,
-	},
+	-- {
+	-- 	"tanvirtin/vgit.nvim",
+	-- 	event = "BufWinEnter",
+	-- 	config = function()
+	-- 		require("vgit").setup({
+	-- 			hunks_enabled = false,
+	-- 			blames_enabled = false,
+	-- 			diff_preference = "vertical",
+	-- 			diff_strategy = "index",
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"pwntester/octo.nvim",
 		cmd = "Octo",
@@ -342,6 +342,8 @@ lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>"
 lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle debug UI" }
 lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }
 
+-- lvim.builtin.which_key.mappings["g"]["b"] = { ":VGit buffer_preview<CR>", "Diff current buffer" }
+-- lvim.builtin.which_key.mappings["g"]["h"] = { ":VGit buffer_history<cr>", "Diff buffer history" }
 lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
 lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub pull requests" }
 lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "Blame message" }
