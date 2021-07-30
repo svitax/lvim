@@ -95,9 +95,11 @@ lvim.plugins = {
 	-----[[------------]]-----
 	---        Git         ---
 	-----]]------------[[-----
-	-- {
-	-- 	"sindrets/diffview.nvim",
-	-- },
+	-- TODO waiting for diff file history (there's an issue already put up)
+	{
+		"sindrets/diffview.nvim",
+		cmd = "DiffviewOpen",
+	},
 	-- {
 	-- 	"TimUntersberger/neogit",
 	-- 	requires = "nvim-lua/plenary.nvim",
@@ -343,6 +345,7 @@ lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>"
 lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
 lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub pull requests" }
 lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "Blame message" }
+lvim.builtin.which_key.mappings["g"]["d"] = { "<cmd>DiffviewOpen<cr>", "View diffs" }
 
 lvim.builtin.which_key.mappings["l"]["d"] = {
 	"<cmd>TroubleToggle lsp_document_diagnostics<cr>",
