@@ -259,6 +259,10 @@ lvim.plugins = {
 		event = "BufRead",
 		run = "npm install --prefix server",
 	},
+	{
+		"windwp/nvim-ts-autotag",
+		event = "InsertEnter",
+	},
 	-----[[------------]]-----
 	---       Debug        ---
 	-----]]------------[[-----
