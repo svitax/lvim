@@ -380,7 +380,7 @@ lvim.builtin.which_key.mappings["o"] = {
 
 lvim.builtin.which_key.mappings["w"] = {
 	name = "+Windows",
-	d = { "<C-w>q<CR>", "Delete current window" },
+	d = { "<cmd>close<CR>", "Delete current window" },
 	D = { "<cmd>only<CR>", "Delete all other windows" },
 	h = { "<cmd>split<CR>", "Split window horizontally" },
 	j = { "<C-w>j<cr>", "Move to window below" },
