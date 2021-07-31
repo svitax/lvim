@@ -69,6 +69,9 @@ lvim.builtin.terminal.active = true
 -- }
 
 lvim.builtin.nvimtree.side = "left"
+-- if i ever want to use netrw
+-- lvim.builtin.nvimtree.disable_netrw = 0
+-- lvim.builtin.nvimtree.hijack_netrw = 0
 -- lvim.builtin.nvimtree.show_icons.git = 1
 
 lvim.builtin.dap.active = true
