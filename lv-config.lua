@@ -64,6 +64,9 @@ require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
 lvim.builtin.dashboard.active = true
 
 lvim.builtin.terminal.active = true
+-- lvim.builtin.terminal.execs = {
+-- 	{ "lazygit", "gg", "LazyGit" },
+-- }
 
 lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.show_icons.git = 1
