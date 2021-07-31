@@ -92,6 +92,7 @@ lvim.builtin.dap.on_config_done = function()
 end
 
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
+lvim.builtin.compe.source.orgmode = true
 
 -- lvim.builtin.galaxyline.active = false
 
@@ -231,6 +232,12 @@ lvim.plugins = {
 			vim.g.vim_markdown_no_extensions_in_markdown = 1
 			vim.g.vim_markdown_autowrite = 1
 			-- vim.cmd("let g:markdown_fenced_languages = ['python']")
+		end,
+	},
+	{
+		"kristijanhusak/orgmode.nvim",
+		config = function()
+			require("orgmode").setup({})
 		end,
 	},
 	-----[[------------]]-----
