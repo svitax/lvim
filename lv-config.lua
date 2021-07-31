@@ -21,7 +21,8 @@ lvim.leader = "space"
 -- }
 
 -- if you just want to augment the existing ones then use the utility function
-require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
+-- require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
+require("utils.keymap").load_mode("n", {
 	{ "<C-s>", ":w<cr>" },
 	{ ";", "l" },
 	{ "l", "h" },
@@ -35,8 +36,12 @@ require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
 	-- move current line up/down
 	{ "<C-M-j>", ":m .+1<cr>==" },
 	{ "<C-M-k>", ":m .-2<cr>==" },
+}, {
+	silent = true,
+	noremap = true,
 })
-require("utils").add_keymap_visual_mode({ silent = true, noremap = true }, {
+-- require("utils").add_keymap_visual_mode({ silent = true, noremap = true }, {
+require("utils.keymap").load_mode("v", {
 	-- move visual selection up/down
 	{ "<C-s>", ":w<cr>" },
 	{ ";", "l" },
@@ -44,8 +49,12 @@ require("utils").add_keymap_visual_mode({ silent = true, noremap = true }, {
 	-- Move visual selection up/down
 	{ "<C-M-j>", ":m '>+1<cr>gv=gv" },
 	{ "<C-M-k>", ":m '<-2<cr>gv=gv" },
+}, {
+	silent = true,
+	noremap = true,
 })
-require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
+-- require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
+require("utils.keymap").load_mode("i", {
 	-- Undo break points (for a finer-grained undo command)
 	-- should I add space to this list?
 	{ ",", ",<c-g>u" },
@@ -55,6 +64,9 @@ require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
 	-- Move current line up/down
 	{ "<C-M-j>", "<Esc>:m .+1<CR>==gi" },
 	{ "<C-M-k>", "<Esc>:m .-2<CR>==gi" },
+}, {
+	silent = true,
+	noremap = true,
 })
 -- you can also use the native vim way directly
 -- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
@@ -82,6 +94,7 @@ end
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 
 -- lvim.builtin.galaxyline.active = false
+
 -- lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = require("telescope").extensions.hop.hop
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
 lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
