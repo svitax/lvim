@@ -83,6 +83,18 @@ lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts 
 
 -- lvim.builtin.galaxyline.active = false
 -- lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = require("telescope").extensions.hop.hop
+lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
+lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
+lvim.builtin.telescope.defaults.layout_config.horizontal = {
+	width_padding = 0.04,
+	height_padding = 0.1,
+	preview_width = 0.6,
+}
+lvim.builtin.telescope.defaults.layout_config.vertical = {
+	width_padding = 0.05,
+	height_padding = 1,
+	preview_height = 0.5,
+}
 
 -- NOTE: Treesitter settings
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -414,7 +426,7 @@ lvim.autocommands.custom_groups = {
 
 -- NOTE: Overide bindings for WhichKey
 -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
-lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers theme=get_ivy<CR>", "Switch buffer" }
+lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
 lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferClose!<CR>", "Delete buffer" }
 lvim.builtin.which_key.mappings["b"]["h"] = { "<cmd>new<CR>", "New horizontal buffer" }
 lvim.builtin.which_key.mappings["b"]["l"] = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all buffers to the left" }
