@@ -1,5 +1,7 @@
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
+-- TODO: refactor config into multiple files
+
 -- NOTE: General
 lvim.format_on_save = true
 lvim.lint_on_save = true
