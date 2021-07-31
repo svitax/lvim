@@ -87,6 +87,7 @@ lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.show_icons.git = 1
 
 lvim.builtin.dap.active = true
+-- TODO: fix python debugging
 lvim.builtin.dap.on_config_done = function()
 	require("dap-install").config("python_dbg", {})
 end
@@ -242,6 +243,7 @@ lvim.plugins = {
 		config = function()
 			require("orgmode").setup({})
 		end,
+		event = "BufRead",
 	},
 	-----[[------------]]-----
 	---       Editing      ---
