@@ -264,8 +264,6 @@ lvim.plugins = {
 		"ahmedkhalf/lsp-rooter.nvim",
 		event = "BufRead",
 	},
-	-- {"rmagatti/auto-session"},
-	-- {"rmagatti/session-lens"},
 	{
 		"numToStr/Navigator.nvim",
 		event = "BufWinEnter",
@@ -313,6 +311,24 @@ lvim.plugins = {
 			vim.g.rnvimr_ranger_cmd = "/Users/svitax/.miniconda/envs/ranger/bin/ranger"
 		end,
 	},
+	-----[[------------]]-----
+	---      Sessions      ---
+	-----]]------------[[-----
+	-- {"rmagatti/auto-session"},
+	-- {"rmagatti/session-lens"},
+	-- {
+	--   "ethanholz/nvim-lastplace",
+	--   event = "BufRead",
+	--   config = function()
+	--       require'nvim-lastplace'.setup {
+	--         lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
+	--         lastplace_ignore_filetype = {
+	--           "gitcommit", "gitrebase", "svn", "hgcommit"
+	--         },
+	--         lastplace_open_folds = true
+	--       }
+	--   end,
+	-- },
 	-----[[------------]]-----
 	---        Web         ---
 	-----]]------------[[-----
