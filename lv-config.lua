@@ -198,7 +198,13 @@ lvim.plugins = {
 		"ggandor/lightspeed.nvim",
 		event = "BufRead",
 	},
-	-- {'karb94/neoscroll.nvim'},
+	{
+		"karb94/neoscroll.nvim",
+		event = "BufRead",
+		config = function()
+			require("neoscroll").setup()
+		end,
+	},
 	{
 		"abecodes/tabout.nvim",
 		event = "InsertEnter",
