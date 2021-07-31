@@ -245,7 +245,8 @@ lvim.plugins = {
 			require("tabout").setup({
 				completion = false,
 				tabkey = "<M-Tab>",
-				-- backwards_tabkey = "<M-S-Tab>",
+				backwards_tabkey = "<M-S-Tab>",
+				-- ignore_beginning = true, -- if the cursor is at the beginning of a filled element it will rather tab out than shift the content
 			})
 		end,
 		after = { "nvim-compe" },
