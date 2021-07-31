@@ -430,6 +430,7 @@ lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHu
 lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub pull requests" }
 lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "Blame message" }
 lvim.builtin.which_key.mappings["g"]["d"] = { "<cmd>DiffviewOpen<cr>", "View diffs" }
+lvim.builtin.which_key.mappings["g"]["D"] = { "<cmd>DiffviewClose<cr>", "Close diff view" }
 
 lvim.builtin.which_key.mappings["l"]["d"] = {
 	"<cmd>TroubleToggle lsp_document_diagnostics<cr>",
