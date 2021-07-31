@@ -97,6 +97,9 @@ lvim.builtin.compe.source.orgmode = true
 -- lvim.builtin.galaxyline.active = false
 
 -- lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = require("telescope").extensions.hop.hop
+local actions = require("telescope.actions")
+lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
 lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
 lvim.builtin.telescope.defaults.layout_config.horizontal = {
