@@ -158,12 +158,12 @@ lvim.plugins = {
 		"sindrets/diffview.nvim",
 		cmd = "DiffviewOpen",
 	},
+	-- {"ThePrimeagen/git-worktree.nvim"},
 	-- {
 	-- 	"TimUntersberger/neogit",
 	-- 	requires = "nvim-lua/plenary.nvim",
 	-- 	cmd = "Neogit",
 	-- },
-	-- {"ThePrimeagen/git-worktree.nvim"},
 	-- {
 	-- 	"tanvirtin/vgit.nvim",
 	-- 	event = "BufWinEnter",
@@ -369,6 +369,7 @@ lvim.plugins = {
 	-----[[------------]]-----
 	---       Debug        ---
 	-----]]------------[[-----
+	-- { 'michaelb/sniprun', run = 'bash ./install.sh'},
 	-- TODO: fix dap for python cause it doesn't recognize conda
 	{
 		"rcarriga/nvim-dap-ui",
@@ -378,8 +379,6 @@ lvim.plugins = {
 		requires = { "mfussenegger/nvim-dap" },
 		ft = "python",
 	},
-	-- { 'michaelb/sniprun', run = 'bash ./install.sh'},
-
 	-----[[------------]]-----
 	---       Colors       ---
 	-----]]------------[[-----
@@ -402,14 +401,20 @@ lvim.plugins = {
 		end,
 	},
 	-----[[------------]]-----
-	---       Extras       ---
+	---     Completion     ---
 	-----]]------------[[-----
+	-- {
+	--   "tamago324/compe-zsh"
+	-- },
 	{
 		"tzachar/compe-tabnine",
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-compe",
 		event = "InsertEnter",
 	},
+	-----[[------------]]-----
+	---       Extras       ---
+	-----]]------------[[-----
 	{
 		"ianding1/leetcode.vim",
 		config = function()
