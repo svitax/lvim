@@ -25,11 +25,36 @@ require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
 	{ "<C-s>", ":w<cr>" },
 	{ ";", "l" },
 	{ "l", "h" },
+	-- make Y act like D and C but for yanking
+	{ "Y", "y$" },
+	-- keep cursor centered when using n(next) and N(previous)
+	{ "n", "nzzzv" },
+	{ "N", "Nzzzv" },
+	-- keep cursor centered and in-place when joining lines with J
+	{ "J", "mzJ`z" },
+	-- move current line up/down
+	{ "<C-M-j>", ":m .+1<cr>==" },
+	{ "<C-M-k>", ":m .-2<cr>==" },
 })
 require("utils").add_keymap_visual_mode({ silent = true, noremap = true }, {
+	-- move visual selection up/down
 	{ "<C-s>", ":w<cr>" },
 	{ ";", "l" },
 	{ "l", "h" },
+	-- Move visual selection up/down
+	{ "<C-M-j>", ":m '>+1<cr>gv=gv" },
+	{ "<C-M-k>", ":m '<-2<cr>gv=gv" },
+})
+require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
+	-- Undo break points (for a finer-grained undo command)
+	-- should I add space to this list?
+	{ ",", ",<c-g>u" },
+	{ ".", ".<c-g>u" },
+	{ "!", "!<c-g>u" },
+	{ "?", "?<c-g>u" },
+	-- Move current line up/down
+	{ "<C-M-j>", "<Esc>:m .+1<CR>==gi" },
+	{ "<C-M-k>", "<Esc>:m .-2<CR>==gi" },
 })
 -- you can also use the native vim way directly
 -- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
