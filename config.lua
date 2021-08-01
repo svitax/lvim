@@ -413,7 +413,6 @@ lvim.plugins = {
 	---       Debug        ---
 	-----]]------------[[-----
 	-- { 'michaelb/sniprun', run = 'bash ./install.sh'},
-	-- TODO: fix dap for python cause it doesn't recognize conda
 	{
 		"rcarriga/nvim-dap-ui",
 		config = function()
