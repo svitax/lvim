@@ -87,9 +87,35 @@ lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.show_icons.git = 1
 
 lvim.builtin.dap.active = true
--- TODO: fix python debugging
 lvim.builtin.dap.on_config_done = function()
-	require("dap-install").config("python_dbg", {})
+	-- require("dap-install").config("python_dbg", {})
+	local dap = require("dap")
+	dap.adapters.python = {
+		type = "executable",
+		command = "python",
+		args = { "-m", "debugpy.adapter" },
+	}
+	dap.configurations.python = {
+		{
+			type = "python",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}", -- This configuration will launch the current file if used.
+			pythonPath = "/usr/local/bin/python3",
+			-- TODO: fix python debugging resolving to conda environment
+			-- pythonPath = function()
+			-- 	-- TODO: the problem is my VIRTUAL_ENV variable is never set
+			-- 	local cwd = vim.fn.getenv("VIRTUAL_ENV")
+			-- 	if vim.fn.executable(cwd .. "/bin/python") == 1 then
+			-- 		return cwd .. "/bin/python"
+			-- 	elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+			-- 		return cwd .. "/.venv/bin/python"
+			-- 	else
+			-- 		return "/usr/local/bin/python3"
+			-- 	end
+			-- end,
+		},
+	}
 end
 
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
