@@ -61,6 +61,7 @@ require("utils.keymap").load_mode("i", {
 	{ ".", ".<c-g>u" },
 	{ "!", "!<c-g>u" },
 	{ "?", "?<c-g>u" },
+	{ "<cr>", "<cr><c-g>u" },
 	-- Move current line up/down
 	{ "<C-M-j>", "<Esc>:m .+1<CR>==gi" },
 	{ "<C-M-k>", "<Esc>:m .-2<CR>==gi" },
