@@ -28,6 +28,8 @@ require("utils.keymap").load_mode("n", {
 	{ "l", "h" },
 	-- make Y act like D and C but for yanking
 	{ "Y", "y$" },
+	-- like the previous but ignores white space
+	-- { "Y", "yg_"},
 	-- keep cursor centered when using n(next) and N(previous)
 	{ "n", "nzzzv" },
 	{ "N", "Nzzzv" },
@@ -495,6 +497,7 @@ lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>"
 
 lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle debug UI" }
 lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }
+lvim.builtin.which_key.mappings["dq"] = { "<cmd>lua require'dap'.close()<cr>", "Quit" }
 
 -- lvim.builtin.which_key.mappings["g"]["b"] = { ":VGit buffer_preview<CR>", "Diff current buffer" }
 -- lvim.builtin.which_key.mappings["g"]["h"] = { ":VGit buffer_history<cr>", "Diff buffer history" }
