@@ -1,16 +1,14 @@
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
-
 -- TODO: refactor config into multiple files
 
 -- NOTE: General
+-- =========================================
 lvim.format_on_save = true
 lvim.lint_on_save = true
+lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
 
--- NOTE: Custom keymappings
-lvim.leader = "space"
-
--- NOTE: Custom config for builtin plugins
+-- NOTE: Builtin
+-- =========================================
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 
@@ -25,42 +23,8 @@ lvim.builtin.nvimtree.side = "left"
 -- lvim.builtin.nvimtree.hijack_netrw = 0
 -- lvim.builtin.nvimtree.show_icons.git = 1
 
-lvim.builtin.dap.active = true
-lvim.builtin.dap.on_config_done = function()
-  -- require("dap-install").config("python_dbg", {})
-  local dap = require "dap"
-  dap.adapters.python = {
-    type = "executable",
-    command = "python",
-    args = { "-m", "debugpy.adapter" },
-  }
-  dap.configurations.python = {
-    {
-      type = "python",
-      request = "launch",
-      name = "Launch file",
-      program = "${file}", -- This configuration will launch the current file if used.
-      pythonPath = "/usr/local/bin/python3",
-      -- TODO: fix python debugging resolving to conda environment
-      -- pythonPath = function()
-      -- 	-- TODO: the problem is my VIRTUAL_ENV variable is never set
-      -- 	local cwd = vim.fn.getenv("VIRTUAL_ENV")
-      -- 	if vim.fn.executable(cwd .. "/bin/python") == 1 then
-      -- 		return cwd .. "/bin/python"
-      -- 	elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-      -- 		return cwd .. "/.venv/bin/python"
-      -- 	else
-      -- 		return "/usr/local/bin/python3"
-      -- 	end
-      -- end,
-    },
-  }
-end
-
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 -- lvim.builtin.compe.source.orgmode = true
-
--- lvim.builtin.galaxyline.active = false
 
 -- lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = require("telescope").extensions.hop.hop
 local actions = require "telescope.actions"
@@ -80,7 +44,6 @@ lvim.builtin.telescope.defaults.layout_config.vertical = {
   preview_height = 0.5,
 }
 
--- NOTE: Treesitter settings
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {}
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -107,8 +70,14 @@ lvim.lsp.diagnostics.virtual_text = false
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
+-- NOTE: Additional plugins
+-- =========================================
 require("user.plugins").config()
 
+-- NOTE: Addtional autocommands
+-- =========================================
 require("user.autocommands").config()
 
+-- NOTE: Additional mappngs
+-- =========================================
 require("user.keymappings").config()
