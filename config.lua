@@ -15,10 +15,10 @@ lvim.leader = "space"
 lvim.builtin.dashboard.active = true
 
 lvim.builtin.terminal.active = true
--- lvim.builtin.terminal.execs = {
--- 	{ "lazygit", "gg", "LazyGit" },
--- }
-
+lvim.builtin.terminal.execs = {
+  { "lazygit", "gg", "LazyGit" },
+  { "cobib", "ob", "Cobib" },
+}
 lvim.builtin.nvimtree.side = "left"
 -- if i ever want to use netrw
 -- lvim.builtin.nvimtree.disable_netrw = 0
@@ -27,57 +27,57 @@ lvim.builtin.nvimtree.side = "left"
 
 lvim.builtin.dap.active = true
 lvim.builtin.dap.on_config_done = function()
-	-- require("dap-install").config("python_dbg", {})
-	local dap = require("dap")
-	dap.adapters.python = {
-		type = "executable",
-		command = "python",
-		args = { "-m", "debugpy.adapter" },
-	}
-	dap.configurations.python = {
-		{
-			type = "python",
-			request = "launch",
-			name = "Launch file",
-			program = "${file}", -- This configuration will launch the current file if used.
-			pythonPath = "/usr/local/bin/python3",
-			-- TODO: fix python debugging resolving to conda environment
-			-- pythonPath = function()
-			-- 	-- TODO: the problem is my VIRTUAL_ENV variable is never set
-			-- 	local cwd = vim.fn.getenv("VIRTUAL_ENV")
-			-- 	if vim.fn.executable(cwd .. "/bin/python") == 1 then
-			-- 		return cwd .. "/bin/python"
-			-- 	elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-			-- 		return cwd .. "/.venv/bin/python"
-			-- 	else
-			-- 		return "/usr/local/bin/python3"
-			-- 	end
-			-- end,
-		},
-	}
+  -- require("dap-install").config("python_dbg", {})
+  local dap = require "dap"
+  dap.adapters.python = {
+    type = "executable",
+    command = "python",
+    args = { "-m", "debugpy.adapter" },
+  }
+  dap.configurations.python = {
+    {
+      type = "python",
+      request = "launch",
+      name = "Launch file",
+      program = "${file}", -- This configuration will launch the current file if used.
+      pythonPath = "/usr/local/bin/python3",
+      -- TODO: fix python debugging resolving to conda environment
+      -- pythonPath = function()
+      -- 	-- TODO: the problem is my VIRTUAL_ENV variable is never set
+      -- 	local cwd = vim.fn.getenv("VIRTUAL_ENV")
+      -- 	if vim.fn.executable(cwd .. "/bin/python") == 1 then
+      -- 		return cwd .. "/bin/python"
+      -- 	elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+      -- 		return cwd .. "/.venv/bin/python"
+      -- 	else
+      -- 		return "/usr/local/bin/python3"
+      -- 	end
+      -- end,
+    },
+  }
 end
 
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
-lvim.builtin.compe.source.orgmode = true
+-- lvim.builtin.compe.source.orgmode = true
 
 -- lvim.builtin.galaxyline.active = false
 
 -- lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = require("telescope").extensions.hop.hop
-local actions = require("telescope.actions")
+local actions = require "telescope.actions"
 lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
 lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
 lvim.builtin.telescope.defaults.path_display.shorten = 4
 lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
 lvim.builtin.telescope.defaults.layout_config.horizontal = {
-	width_padding = 0.04,
-	height_padding = 0.1,
-	preview_width = 0.6,
+  width_padding = 0.04,
+  height_padding = 0.1,
+  preview_width = 0.6,
 }
 lvim.builtin.telescope.defaults.layout_config.vertical = {
-	width_padding = 0.05,
-	height_padding = 1,
-	preview_height = 0.5,
+  width_padding = 0.05,
+  height_padding = 1,
+  preview_height = 0.5,
 }
 
 -- NOTE: Treesitter settings
