@@ -480,12 +480,6 @@ lvim.plugins = {
 	-- },
 }
 
--- NOTE: Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-	{ "BufWinEnter", "*.md", "set nospell" },
-	-- { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
-}
-
 -- NOTE: Overide bindings for WhichKey
 -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
