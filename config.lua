@@ -40,11 +40,12 @@ lvim.builtin.telescope.defaults.layout_config.vertical = {
 }
 
 -- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = { "all" }
+lvim.builtin.treesitter.ensure_installed = {}
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.disable = { "python" }
 lvim.builtin.treesitter.matchup.enable = true
+-- lvim.builtin.treesitter.autotag.enable = true
 
 -- NOTE: Debugging
 -- =========================================
@@ -54,6 +55,7 @@ lvim.builtin.dap.on_config_done = require("user.dap").config()
 -- NOTE: Language Specific
 -- =========================================
 lvim.lang.markdown = {}
+lvim.lang.vimwiki = {}
 lvim.lsp.diagnostics.virtual_text = false
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>

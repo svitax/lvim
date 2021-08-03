@@ -35,18 +35,6 @@ M.config = function()
     -- 	requires = "nvim-lua/plenary.nvim",
     -- 	cmd = "Neogit",
     -- },
-    -- {
-    -- 	"tanvirtin/vgit.nvim",
-    -- 	event = "BufWinEnter",
-    -- 	config = function()
-    -- 		require("vgit").setup({
-    -- 			hunks_enabled = false,
-    -- 			blames_enabled = false,
-    -- 			diff_preference = "vertical",
-    -- 			diff_strategy = "index",
-    -- 		})
-    -- 	end,
-    -- },
     {
       "pwntester/octo.nvim",
       cmd = "Octo",
@@ -57,26 +45,23 @@ M.config = function()
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
-    -- {
-    --   "lervag/wiki.vim",
-    --   -- ft = "markdown",
-    -- },
-    -- {
-    --   "vimwiki/vimwiki",
-    --   branch = "dev",
-    --   config = function()
-    --     -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
-    --     vim.cmd "let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
-    --     -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
-    --     vim.g.vimwiki_global_ext = 0
-    --     vim.g.vimwiki_markdown_link_ext = 1
-    --     vim.g.vimwiki_folding = "expr"
-    --     -- -- vim.g.vimwiki_ext2syntax = {}
-    --     vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
-    --     vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
-    --   end,
-    --   -- event = "BufRead",
-    -- },
+    {
+      "vimwiki/vimwiki",
+      branch = "dev",
+      config = function()
+        -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
+        vim.cmd "let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
+        -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
+        vim.g.vimwiki_global_ext = 0
+        vim.g.vimwiki_markdown_link_ext = 1
+        -- vim.g.vimwiki_folding = "expr"
+        -- -- vim.g.vimwiki_ext2syntax = {}
+        vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
+      end,
+      -- ft = { "markdown", "vimwiki" },
+      -- event = "BufRead",
+    },
     -- {
     --   'iamcco/markdown-preview.nvim',
     --   run = 'cd app && npm install',
@@ -106,13 +91,6 @@ M.config = function()
     --     -- vim.cmd("let g:markdown_fenced_languages = ['python']")
     --   end,
     -- },
-    -- {
-    --   "kristijanhusak/orgmode.nvim",
-    --   config = function()
-    --     require("orgmode").setup {}
-    --   end,
-    --   event = "BufRead",
-    -- },
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
@@ -121,9 +99,6 @@ M.config = function()
     -- },
     -- {
     --   'mizlan/iswap.nvim'
-    -- },
-    -- {
-    --   'code-biscuits/nvim-biscuits'
     -- },
     {
       "mg979/vim-visual-multi",
@@ -144,27 +119,33 @@ M.config = function()
       end,
     },
     {
+      -- TODO: vsnip tab jumping not really working?
       "abecodes/tabout.nvim",
-      event = "InsertEnter",
       config = function()
         require("tabout").setup {
-          completion = false,
-          tabkey = "<M-Tab>",
-          backwards_tabkey = "<M-S-Tab>",
-          -- ignore_beginning = true, -- if the cursor is at the beginning of a filled element it will rather tab out than shift the content
+          tabkey = "<Tab>",
+          backwards_tabkey = "<S-Tab>",
+          act_as_tab = false,
+          act_as_shift_tab = false,
+          enable_backwards = true,
+          completion = true,
+          ignore_beginning = true,
+          tabouts = {
+            { open = "'", close = "'" },
+            { open = '"', close = '"' },
+            { open = "`", close = "`" },
+            { open = "(", close = ")" },
+            { open = "[", close = "]" },
+            { open = "{", close = "}" },
+            { open = "<", close = ">" },
+          },
+          exclude = {},
         }
       end,
-      after = { "nvim-compe" },
+      requires = "nvim-treesitter/nvim-treesitter",
+      after = "nvim-compe",
+      -- event = "InsertEnter",
     },
-    -- TODO not working
-    -- {
-    -- 	"nvim-telescope/telescope-hop.nvim",
-    -- 	after = "telescope.nvim",
-    -- 	config = function()
-    -- 		require("telescope").load_extension("hop")
-    -- 	end,
-    -- },
-    -- lsp-rooter vs vim-rooter?
     {
       "ahmedkhalf/lsp-rooter.nvim",
       event = "BufRead",
@@ -245,10 +226,13 @@ M.config = function()
       event = "BufRead",
       run = "npm install --prefix server",
     },
-    {
-      "windwp/nvim-ts-autotag",
-      event = "InsertEnter",
-    },
+    -- {
+    --   "windwp/nvim-ts-autotag",
+    -- config = function()
+    --   require("nvim-ts-autotag").setup()
+    -- end,
+    --   event = "InsertEnter",
+    -- },
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
