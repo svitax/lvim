@@ -1,5 +1,3 @@
--- TODO: refactor config into multiple files
-
 -- NOTE: General
 -- =========================================
 lvim.format_on_save = true
@@ -26,6 +24,8 @@ lvim.builtin.nvimtree.on_config_done = function()
     { key = "v", cb = tree_cb "vsplit" },
   }
 end
+
+-- TODO: Refactor fennec-eviline into lua/user
 
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 
