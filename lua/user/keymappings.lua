@@ -1,72 +1,53 @@
 M = {}
 
 M.config = function()
-  -- overwrite the key-mappings provided by LunarVim for any mode, or leave it empty to keep them
-  -- lvim.keys.normal_mode = {
-  --   Page down/up
-  --   {'[d', '<PageUp>'},
-  --   {']d', '<PageDown>'},
-  --
-  --   Navigate buffers
-  --   {'<Tab>', ':bnext<CR>'},
-  --   {'<S-Tab>', ':bprevious<CR>'},
-  -- }
+  -- NOTE: Normal mode
+  -- better movement keys
+  lvim.keys.normal_mode[";"] = "l"
+  lvim.keys.normal_mode["l"] = "h"
 
-  -- if you just want to augment the existing ones then use the utility function
-  -- require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
-  require("utils.keymap").load_mode("n", {
-    { "<C-s>", ":w<cr>" },
-    { ";", "l" },
-    { "l", "h" },
-    -- make Y act like D and C but for yanking
-    { "Y", "y$" },
-    -- like the previous but ignores white space
-    -- { "Y", "yg_"},
-    -- keep cursor centered when using n(next) and N(previous)
-    { "n", "nzzzv" },
-    { "N", "Nzzzv" },
-    -- keep cursor centered and in-place when joining lines with J
-    { "J", "mzJ`z" },
-    -- move current line up/down
-    { "<C-M-j>", ":m .+1<cr>==" },
-    { "<C-M-k>", ":m .-2<cr>==" },
-  }, {
-    silent = true,
-    noremap = true,
-  })
-  -- require("utils").add_keymap_visual_mode({ silent = true, noremap = true }, {
-  require("utils.keymap").load_mode("v", {
-    -- move visual selection up/down
-    { "<C-s>", ":w<cr>" },
-    { ";", "l" },
-    { "l", "h" },
-    -- Move visual selection up/down
-    { "<C-M-j>", ":m '>+1<cr>gv=gv" },
-    { "<C-M-k>", ":m '<-2<cr>gv=gv" },
-  }, {
-    silent = true,
-    noremap = true,
-  })
-  -- require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
-  require("utils.keymap").load_mode("i", {
-    -- Undo break points (for a finer-grained undo command)
-    -- should I add space to this list?
-    { ",", ",<c-g>u" },
-    { ".", ".<c-g>u" },
-    { "!", "!<c-g>u" },
-    { "?", "?<c-g>u" },
-    { "<cr>", "<cr><c-g>u" },
-    -- Move current line up/down
-    { "<C-M-j>", "<Esc>:m .+1<CR>==gi" },
-    { "<C-M-k>", "<Esc>:m .-2<CR>==gi" },
-  }, {
-    silent = true,
-    noremap = true,
-  })
+  -- make Y act like D and C but for yanking
+  lvim.keys.normal_mode["Y"] = "y$"
+
+  -- like the previous but ignores white space
+  -- lvim.keys.normal_mode["Y"] = "yg_"
+
+  -- keep cursor centered when using n(next) and N(previous)
+  lvim.keys.normal_mode["n"] = "nzzzv"
+  lvim.keys.normal_mode["N"] = "Nzzzv"
+
+  -- keep cursor centered and in-place when joining lines with J
+  lvim.keys.normal_mode["J"] = "mzJ`z"
+
+  -- move current line up/down
+  lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
+  lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
+
+  -- NOTE: Visual mode
+  -- better movement keys
+  lvim.keys.visual_mode[";"] = "l"
+  lvim.keys.visual_mode["l"] = "h"
+  -- Move visual selection up/down
+  lvim.keys.visual_mode["<C-M-j>"] = ":m '>+1<cr>gv=gv"
+  lvim.keys.visual_mode["<C-M-k>"] = ":m '<-2<cr>gv=gv"
+
+  -- Undo break points (for a finer-grained undo command)
+  -- should I add space to this list?
+  lvim.keys.visual_mode[","] = ",<c-g>u"
+  lvim.keys.visual_mode["."] = ".<c-g>u"
+  lvim.keys.visual_mode["!"] = "!<c-g>u"
+  lvim.keys.visual_mode["?"] = "?<c-g>u"
+  lvim.keys.visual_mode["<cr>"] = "<cr><c-g>u"
+
+  -- NOTE: Visual mode
+  -- Move current line up/down
+  lvim.keys.insert_mode["<C-M-j>"] = "<Esc>:m .+1<CR>==gi"
+  lvim.keys.insert_mode["<C-M-k>"] = "<Esc>:m .-2<CR>==gi"
+
   -- you can also use the native vim way directly
   -- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
 
-  -- NOTE: Overide bindings for WhichKey
+  -- NOTE: WhichKey
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
   lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
   lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferClose!<CR>", "Delete buffer" }
