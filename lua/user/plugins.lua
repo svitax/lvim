@@ -118,34 +118,34 @@ M.config = function()
         require("neoscroll").setup()
       end,
     },
-    {
-      -- TODO: vsnip tab jumping not really working?
-      "abecodes/tabout.nvim",
-      config = function()
-        require("tabout").setup {
-          tabkey = "<Tab>",
-          backwards_tabkey = "<S-Tab>",
-          act_as_tab = false,
-          act_as_shift_tab = false,
-          enable_backwards = true,
-          completion = true,
-          ignore_beginning = true,
-          tabouts = {
-            { open = "'", close = "'" },
-            { open = '"', close = '"' },
-            { open = "`", close = "`" },
-            { open = "(", close = ")" },
-            { open = "[", close = "]" },
-            { open = "{", close = "}" },
-            { open = "<", close = ">" },
-          },
-          exclude = {},
-        }
-      end,
-      requires = "nvim-treesitter/nvim-treesitter",
-      after = "nvim-compe",
-      -- event = "InsertEnter",
-    },
+    -- {
+    -- TODO: vsnip tab jumping not really working?
+    -- "abecodes/tabout.nvim",
+    -- config = function()
+    --   require("tabout").setup {
+    --     tabkey = "<Tab>",
+    --     backwards_tabkey = "<S-Tab>",
+    --     act_as_tab = false,
+    --     act_as_shift_tab = false,
+    --     enable_backwards = true,
+    --     completion = true,
+    --     ignore_beginning = true,
+    --     tabouts = {
+    --       { open = "'", close = "'" },
+    --       { open = '"', close = '"' },
+    --       { open = "`", close = "`" },
+    --       { open = "(", close = ")" },
+    --       { open = "[", close = "]" },
+    --       { open = "{", close = "}" },
+    --       { open = "<", close = ">" },
+    --     },
+    --     exclude = {},
+    --   }
+    -- end,
+    -- requires = "nvim-treesitter/nvim-treesitter",
+    -- after = "nvim-compe",
+    -- event = "InsertEnter",
+    -- },
     {
       "ahmedkhalf/lsp-rooter.nvim",
       event = "BufRead",
