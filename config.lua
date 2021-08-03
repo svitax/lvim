@@ -25,7 +25,9 @@ lvim.builtin.nvimtree.on_config_done = function()
   }
 end
 
--- TODO: Refactor fennec-eviline into lua/user
+lvim.builtin.galaxyline.on_config_done = function(gl)
+  require("user.fennec-eviline").config(gl)
+end
 
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 
