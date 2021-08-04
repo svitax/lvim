@@ -20,11 +20,15 @@ lvim.builtin.dashboard.active = true
 -- }
 
 lvim.builtin.terminal.active = true
+-- lvim.builtin.terminal.on_config_done = function ()
+--   -- TODO: find out how to quit a terminal window with q
+-- end
 lvim.builtin.terminal.execs = {
   { "lazygit", "gg", "LazyGit" },
   { "cobib", "ob", "Bibliography (Cobib)" },
   { "gomi --restore", "fr", "Restore deleted files (Gomi)" },
 }
+
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.on_config_done = function()
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
