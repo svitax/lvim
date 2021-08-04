@@ -158,6 +158,36 @@ M.config = function()
       end,
     },
     {
+      "tamago324/lir.nvim",
+      -- cmd = "lua require'lir.float'.toggle()",
+      event = "BufEnter",
+      config = function()
+        require "user.lir"
+      end,
+    },
+    -- {
+    --   -- TODO: add git icons
+    --   "tamago324/lir-git-status.nvim",
+    --   wants = "lir",
+    --   config = function()
+    --     require("lir.git_status").setup {
+    --       -- show_ignored = true,
+    --     }
+    --   end,
+    --   -- highlight link LirGitStatusBracket Comment
+    --   -- highlight link LirGitStatusIndex Special
+    --   -- highlight link LirGitStatusWorktree WarningMsg
+    --   -- highlight link LirGitStatusUnmerged ErrorMsg
+    --   -- highlight link LirGitStatusUntracked Comment
+    --   -- highlight link LirGitStatusIgnored Comment
+    -- },
+    -- {
+    --   -- https://github.com/mhinz/neovim-remote
+    --   -- https://github.com/itchyny/mmv
+    --   'tamago324/lir-mmv.nvim',
+    --   wants = "lir",
+    -- },
+    {
       "kevinhwang91/rnvimr",
       cmd = "RnvimrToggle",
       config = function()

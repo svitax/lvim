@@ -22,7 +22,8 @@ lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.execs = {
   { "lazygit", "gg", "LazyGit" },
-  { "cobib", "ob", "Cobib" },
+  { "cobib", "ob", "Bibliography (Cobib)" },
+  { "gomi --restore", "fr", "Restore deleted files (Gomi)" },
 }
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.on_config_done = function()

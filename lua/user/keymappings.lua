@@ -85,7 +85,12 @@ M.config = function()
     "List workspace diagnostics",
   }
 
-  lvim.builtin.which_key.mappings["r"] = { "<cmd>RnvimrToggle<cr>", "Ranger" }
+  lvim.builtin.which_key.mappings["f"] = {
+    name = "+Files",
+    f = { "<cmd>lua require'lir.float'.toggle()<cr>", "Floating file manager" },
+    b = { "<cmd>edit .<cr>", "File manager in this buffer" },
+    -- r = { "<cmd>RnvimrToggle<cr>", "Ranger" },
+  }
 
   lvim.builtin.which_key.mappings["s"]["n"] = {
     "<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
