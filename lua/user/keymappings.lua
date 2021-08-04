@@ -5,20 +5,15 @@ M.config = function()
   -- better movement keys
   lvim.keys.normal_mode[";"] = "l"
   lvim.keys.normal_mode["l"] = "h"
-
   -- make Y act like D and C but for yanking
   lvim.keys.normal_mode["Y"] = "y$"
-
   -- like the previous but ignores white space
   -- lvim.keys.normal_mode["Y"] = "yg_"
-
   -- keep cursor centered when using n(next) and N(previous)
   lvim.keys.normal_mode["n"] = "nzzzv"
   lvim.keys.normal_mode["N"] = "Nzzzv"
-
   -- keep cursor centered and in-place when joining lines with J
   lvim.keys.normal_mode["J"] = "mzJ`z"
-
   -- move current line up/down
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
@@ -30,7 +25,8 @@ M.config = function()
   -- Move visual selection up/down
   lvim.keys.visual_mode["<C-M-j>"] = ":m '>+1<cr>gv=gv"
   lvim.keys.visual_mode["<C-M-k>"] = ":m '<-2<cr>gv=gv"
-
+  -- better pasting in visual mode
+  lvim.keys.visual_mode["p"] = [["_dP]]
   -- Undo break points (for a finer-grained undo command)
   -- should I add space to this list?
   lvim.keys.visual_mode[","] = ",<c-g>u"
@@ -39,13 +35,29 @@ M.config = function()
   lvim.keys.visual_mode["?"] = "?<c-g>u"
   lvim.keys.visual_mode["<cr>"] = "<cr><c-g>u"
 
-  -- NOTE: Visual mode
+  -- NOTE: Insert mode
   -- Move current line up/down
   lvim.keys.insert_mode["<C-M-j>"] = "<Esc>:m .+1<CR>==gi"
   lvim.keys.insert_mode["<C-M-k>"] = "<Esc>:m .-2<CR>==gi"
 
+  -- NOTE: Terminal mode
+  -- this prevents lazygit from working properly
+  -- lvim.keys.term_mode["<esc>"] = [[<C-\><C-n>]]
+
   -- you can also use the native vim way directly
   -- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
+
+  -- if has 'mac' then
+  --   -- Allow using alt in macOS without enabling “Use Option as Meta key”
+  --   nmap('¬', '<a-l>')
+  --   nmap('˙', '<a-h>')
+  --   nmap('∆', '<a-j>')
+  --   nmap('˚', '<a-k>')
+  --   nnoremap('∆', '<cmd>move+<CR>==')
+  --   nnoremap('˚', '<cmd>move-2<CR>==')
+  --   xnoremap('˚', ":move-2<CR>='[gv")
+  --   xnoremap('∆', ":move'>+<CR>='[gv")
+  -- else
 
   -- NOTE: WhichKey
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
