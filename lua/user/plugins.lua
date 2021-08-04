@@ -164,6 +164,7 @@ M.config = function()
         require "user.lir"
       end,
     },
+    -- { "tamago324/lir-bookmark.nvim", event = "BufEnter" },
     -- {
     --   -- TODO: lir-git-status doesn't support custom git icons yet
     --   "tamago324/lir-git-status.nvim",
