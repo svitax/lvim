@@ -119,14 +119,14 @@ M.config = function()
         require("neoscroll").setup()
       end,
     },
-    {
-      "abecodes/tabout.nvim",
-      config = function()
-        require("user.tabout").config()
-      end,
-      wants = { "nvim-treesitter" }, -- or require if not used so far
-      after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
-    },
+    -- {
+    --   "abecodes/tabout.nvim",
+    --   config = function()
+    --     require("user.tabout").config()
+    --   end,
+    --   wants = { "nvim-treesitter" }, -- or require if not used so far
+    --   after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
+    -- },
     {
       "ahmedkhalf/lsp-rooter.nvim",
       event = "BufRead",
