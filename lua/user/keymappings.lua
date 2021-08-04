@@ -74,6 +74,18 @@ M.config = function()
 
   -- lvim.builtin.which_key.mappings["g"]["b"] = { ":VGit buffer_preview<CR>", "Diff current buffer" }
   -- lvim.builtin.which_key.mappings["g"]["h"] = { ":VGit buffer_history<cr>", "Diff buffer history" }
+  lvim.builtin.which_key.mappings["g"]["c"] = {
+    "<cmd>lua require('user.telescope').delta_git_commits()<CR>",
+    "Project's commits",
+  }
+  lvim.builtin.which_key.mappings["g"]["C"] = {
+    "<cmd>lua require('user.telescope').delta_git_bcommits()<CR>",
+    "Buffer's commits",
+  }
+  lvim.builtin.which_key.mappings["gS"] = {
+    "<cmd>lua require('user.telescope').delta_git_status()<CR>",
+    "Git status",
+  }
   lvim.builtin.which_key.mappings["g"]["d"] = { "<cmd>DiffviewOpen<cr>", "View diffs" }
   lvim.builtin.which_key.mappings["g"]["D"] = { "<cmd>DiffviewClose<cr>", "Close diff view" }
   lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
