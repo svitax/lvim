@@ -6,6 +6,7 @@ M.config = function()
   lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
   lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
   lvim.builtin.telescope.defaults.mappings.n["q"] = actions.close
+  lvim.builtin.telescope.defaults.mappings.n["<esc>"] = function() end
   lvim.builtin.telescope.defaults.path_display.shorten = 4
   lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
   lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
