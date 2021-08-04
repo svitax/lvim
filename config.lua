@@ -20,6 +20,7 @@ lvim.builtin.dashboard.active = true
 -- }
 
 lvim.builtin.terminal.active = true
+lvim.builtin.terminal.open_mapping = [[…]] -- alt+; in macos
 -- lvim.builtin.terminal.on_config_done = function ()
 --   -- TODO: find out how to quit a terminal window with q
 -- end
