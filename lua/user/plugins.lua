@@ -5,6 +5,7 @@ M.config = function()
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
+    -- { "mfussenegger/nvim-jdtls" },
     {
       "ray-x/lsp_signature.nvim",
       config = function()
@@ -100,6 +101,7 @@ M.config = function()
     -----]]------------[[-----
     -- { "blackCauldron7/surround.nvim" },
     -- { 'mizlan/iswap.nvim' },
+    -- { "windwp/nvim-spectre" },
     {
       "mg979/vim-visual-multi",
       event = "CursorMoved",
@@ -250,6 +252,7 @@ M.config = function()
     ---       Debug        ---
     -----]]------------[[-----
     -- { 'michaelb/sniprun', run = 'bash ./install.sh'},
+    -- {'metakirby5/codi.vim'},
     {
       "rcarriga/nvim-dap-ui",
       config = function()
@@ -308,6 +311,7 @@ M.config = function()
       cmd = "LeetCodeList",
     },
     -- { 'simrat39/symbols-outline.nvim' },
+    -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
     -- { 'kristijanhusak/vim-dadbod-ui' },
     -- { 'tpope/vim-dadbod' },
   }
