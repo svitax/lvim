@@ -94,12 +94,8 @@ M.config = function()
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
-    -- {
-    --   "blackCauldron7/surround.nvim"
-    -- },
-    -- {
-    --   'mizlan/iswap.nvim'
-    -- },
+    -- { "blackCauldron7/surround.nvim" },
+    -- { 'mizlan/iswap.nvim' },
     {
       "mg979/vim-visual-multi",
       event = "CursorMoved",
@@ -188,6 +184,7 @@ M.config = function()
     --   "tamago324/lir-mmv.nvim",
     --   wants = "lir",
     -- },
+    -- TODO: don't need rnvimr anymore
     -- {
     --   "kevinhwang91/rnvimr",
     --   cmd = "RnvimrToggle",
@@ -281,8 +278,11 @@ M.config = function()
     -----[[------------]]-----
     ---     Completion     ---
     -----]]------------[[-----
-    -- {
-    --   "tamago324/compe-zsh"
+    -- { "tamago324/compe-zsh" },
+    -- { "gelguy/wilder.nvim",
+    --   config = function ()
+    --     vim.cmd("source $HOME/.config/lvim/lua/user/wilder.vim")
+    --   end
     -- },
     {
       "tzachar/compe-tabnine",
@@ -303,15 +303,9 @@ M.config = function()
       end,
       cmd = "LeetCodeList",
     },
-    -- {
-    --   'simrat39/symbols-outline.nvim'
-    -- },
-    -- {
-    --   'kristijanhusak/vim-dadbod-ui'
-    -- },
-    -- {
-    --   'tpope/vim-dadbod'
-    -- },
+    -- { 'simrat39/symbols-outline.nvim' },
+    -- { 'kristijanhusak/vim-dadbod-ui' },
+    -- { 'tpope/vim-dadbod' },
   }
 end
 
