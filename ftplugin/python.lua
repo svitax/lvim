@@ -1,7 +1,7 @@
--- TODO: use black
 lvim.lang.python.formatters = {
   {
-    exe = "yapf",
+    -- @usage black or yapf
+    exe = "black",
     args = {},
   },
 }
