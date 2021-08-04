@@ -40,17 +40,20 @@ local delta = previewers.new_termopen_previewer {
     -- You can get the AM things in entry.status. So we are displaying file if entry.status == '??' or 'A '
     -- just do an if and return a different command
     if entry.status == "??" or "A " then
-      return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=false", "diff", entry.value }
+      -- return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=false", "diff", entry.value }
+      return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=true", "diff", entry.value }
     end
     -- note we can't use pipes
     -- this command is for git_commits and git_bcommits
-    return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=false", "diff", entry.value .. "^!" }
+    -- return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=false", "diff", entry.value .. "^!" }
+    return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=true", "diff", entry.value .. "^!" }
   end,
 }
 
+-- TODO: delta_git_commits is kinda buggy
 M.delta_git_commits = function(opts)
   opts = opts or {}
-  -- make the layout big so I can read everything with my large font
+  -- make the layout big so I can read everything with my large font and side-by-side preview
   opts.layout_config = {
     preview_width = 0.8,
     width = 0.96,
@@ -60,9 +63,10 @@ M.delta_git_commits = function(opts)
   builtin.git_commits(opts)
 end
 
+-- TODO: delta_git_bcommits is also kinda buggy
 M.delta_git_bcommits = function(opts)
   opts = opts or {}
-  -- make the layout big so I can read everything with my large font
+  -- make the layout big so I can read everything with my large font and side-by-side preview
   opts.layout_config = {
     preview_width = 0.8,
     width = 0.96,
@@ -74,7 +78,7 @@ end
 
 M.delta_git_status = function(opts)
   opts = opts or {}
-  -- make the layout big so I can read everything with my large font
+  -- make the layout big so I can read everything with my large font and side-by-side preview
   opts.layout_config = {
     preview_width = 0.8,
     width = 0.96,
