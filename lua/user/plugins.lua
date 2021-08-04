@@ -21,7 +21,11 @@ M.config = function()
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
     },
-    -- { "mfussenegger/nvim-jdtls" },
+    -- {
+    --   -- TODO: get lsp-stauts to show current function, and find a way to only show current function
+    --   "nvim-lua/lsp-status.nvim",
+    --   -- event = "BufEnter",
+    -- },
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
