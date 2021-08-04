@@ -26,11 +26,10 @@ M.config = function()
     ---        Git         ---
     -----]]------------[[-----
     -- TODO waiting for diff file history (there's an issue already put up)
-    {
-      "sindrets/diffview.nvim",
-      cmd = "DiffviewOpen",
-    },
-    -- {"ThePrimeagen/git-worktree.nvim"},
+    -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", },
+    -- { "ruifm/gitlinker.nvim", event = "BufRead"},
+    -- { "ThePrimeagen/git-worktree.nvim" },
+    -- { "mattn/vim-gist", event = "BufRead" },
     -- {
     -- 	"TimUntersberger/neogit",
     -- 	requires = "nvim-lua/plenary.nvim",
@@ -166,7 +165,7 @@ M.config = function()
       end,
     },
     -- {
-    --   -- TODO: add git icons
+    --   -- TODO: lir-git-status doesn't support custom git icons yet
     --   "tamago324/lir-git-status.nvim",
     --   wants = "lir",
     --   config = function()
@@ -182,9 +181,10 @@ M.config = function()
     --   -- highlight link LirGitStatusIgnored Comment
     -- },
     -- {
+    -- TODO: get lir.mmv to work (i think something is wrong with nvr)
     --   -- https://github.com/mhinz/neovim-remote
     --   -- https://github.com/itchyny/mmv
-    --   'tamago324/lir-mmv.nvim',
+    --   "tamago324/lir-mmv.nvim",
     --   wants = "lir",
     -- },
     -- {

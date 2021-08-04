@@ -173,6 +173,7 @@ lir.setup {
     -- ["a"] = actions.newfile,
     ["a"] = input_newfile,
     ["r"] = actions.rename,
+    -- TODO: get lir.mmv to work (i think something is wrong with nvr)
     -- ["R"] = require("lir.mmv.actions").mmv,
     ["@"] = actions.cd,
     ["y"] = actions.yank_path,
