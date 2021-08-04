@@ -1,3 +1,5 @@
+-- squash this please
+-- first commit
 local M = {}
 
 M.config = function()
