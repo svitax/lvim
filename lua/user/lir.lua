@@ -168,6 +168,7 @@ lir.setup {
 
     ["l"] = actions.up,
     ["q"] = actions.quit,
+    ["<esc>"] = actions.quit,
 
     -- ["A"] = actions.mkdir,
     -- ["a"] = actions.newfile,
