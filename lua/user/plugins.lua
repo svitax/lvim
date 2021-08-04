@@ -21,6 +21,7 @@ M.config = function()
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
     },
+    -- { "mfussenegger/nvim-jdtls" },
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
