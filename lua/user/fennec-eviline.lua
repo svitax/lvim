@@ -292,17 +292,26 @@ M.config = function(gl)
     },
   }
   gls.right[6] = {
+    DiffSeparator = {
+      provider = function()
+        return "   "
+      end,
+      condition = is_not_dashboard,
+      highlight = { colors.bg, colors.bg },
+    },
+  }
+  gls.right[7] = {
     DiffAdd = {
       provider = "DiffAdd",
       condition = condition.hide_in_width and is_not_dashboard,
       icon = " ",
       -- icon = " ",
-      separator = "  ",
-      separator_highlight = { "NONE", colors.bg },
+      -- separator = " ",
+      -- separator_highlight = { "NONE", colors.bg },
       highlight = { colors.green, colors.bg },
     },
   }
-  gls.right[7] = {
+  gls.right[8] = {
     DiffModified = {
       provider = "DiffModified",
       condition = condition.hide_in_width and is_not_dashboard,
@@ -313,7 +322,7 @@ M.config = function(gl)
       highlight = { colors.orange, colors.bg },
     },
   }
-  gls.right[8] = {
+  gls.right[9] = {
     DiffRemove = {
       provider = "DiffRemove",
       condition = condition.hide_in_width and is_not_dashboard,
@@ -326,10 +335,10 @@ M.config = function(gl)
   }
   -- If the current buffer is the dashboard then show Doom Nvim version
   if is_dashboard then
-    gls.right[9] = {
+    gls.right[10] = {
       DoomVersion = {
         provider = function()
-          return "LunarVim "
+          return " LunarVim "
           -- return 'DOOM v' .. utils.doom_version .. ' '
         end,
         condition = is_dashboard,
