@@ -1,6 +1,13 @@
 M = {}
 
 M.config = function()
+  -- Allow using alt in macOS without enabling “Use Option as Meta key”
+  -- vim.api.nvim_set_keymap("n", "¬", "<A-l>", { noremap = false, silent = true, expr = true })
+  -- vim.api.nvim_set_keymap("n", "˙", "<A-h>", { noremap = false, silent = true, expr = true })
+  -- vim.api.nvim_set_keymap("n", "…", "<A-;>", { noremap = false, silent = true, expr = true })
+  -- vim.api.nvim_set_keymap("n", "∆", "<A-j>", { noremap = false, silent = true, expr = true })
+  -- vim.api.nvim_set_keymap("n", "˚", "<A-k>", { noremap = false, silent = true, expr = true })
+
   -- NOTE: Normal mode
   -- better movement keys
   lvim.keys.normal_mode[";"] = "l"
@@ -15,6 +22,8 @@ M.config = function()
   -- keep cursor centered and in-place when joining lines with J
   lvim.keys.normal_mode["J"] = "mzJ`z"
   -- move current line up/down
+  lvim.keys.normal_mode["∆"] = ":m .+1<cr>=="
+  lvim.keys.normal_mode["˚"] = ":m .-2<cr>=="
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
 
@@ -23,6 +32,8 @@ M.config = function()
   lvim.keys.visual_mode[";"] = "l"
   lvim.keys.visual_mode["l"] = "h"
   -- Move visual selection up/down
+  lvim.keys.visual_mode["∆"] = ":m '>+1<cr>gv=gv"
+  lvim.keys.visual_mode["˚"] = ":m '<-2<cr>gv=gv"
   lvim.keys.visual_mode["<C-M-j>"] = ":m '>+1<cr>gv=gv"
   lvim.keys.visual_mode["<C-M-k>"] = ":m '<-2<cr>gv=gv"
   -- better pasting in visual mode
@@ -46,18 +57,6 @@ M.config = function()
 
   -- you can also use the native vim way directly
   -- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
-
-  -- if has 'mac' then
-  --   -- Allow using alt in macOS without enabling “Use Option as Meta key”
-  --   nmap('¬', '<a-l>')
-  --   nmap('˙', '<a-h>')
-  --   nmap('∆', '<a-j>')
-  --   nmap('˚', '<a-k>')
-  --   nnoremap('∆', '<cmd>move+<CR>==')
-  --   nnoremap('˚', '<cmd>move-2<CR>==')
-  --   xnoremap('˚', ":move-2<CR>='[gv")
-  --   xnoremap('∆', ":move'>+<CR>='[gv")
-  -- else
 
   -- NOTE: WhichKey
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
