@@ -23,14 +23,14 @@ M.config = function()
       cmd = "TroubleToggle",
     },
     -- {
-    --   -- TODO: get lsp-stauts to show current function, and find a way to only show current function
+    --   -- TODO: get lsp-status to show current function, and find a way to only show current function
     --   "nvim-lua/lsp-status.nvim",
     --   -- event = "BufEnter",
     -- },
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
-    -- TODO waiting for diff file history (there's an issue already put up)
+    -- TODO waiting for diff file history in diffview.nvim (there's an issue already put up)
     -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "ThePrimeagen/git-worktree.nvim" },
@@ -50,6 +50,7 @@ M.config = function()
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
+    -- {"shurcooL/markdownfmt"},
     {
       "vimwiki/vimwiki",
       branch = "dev",
@@ -72,7 +73,6 @@ M.config = function()
     --   run = 'cd app && npm install',
     --   ft = 'markdown',
     -- },
-    -- {"shurcooL/markdownfmt"},
     -- {
     --   'jubnzv/mdeval.nvim',
     --   config = function ()
@@ -160,7 +160,6 @@ M.config = function()
     },
     {
       "tamago324/lir.nvim",
-      -- cmd = "lua require'lir.float'.toggle()",
       event = "BufEnter",
       config = function()
         require "user.lir"
@@ -293,7 +292,6 @@ M.config = function()
     -----[[------------]]-----
     ---     Completion     ---
     -----]]------------[[-----
-    -- { "tamago324/compe-zsh" },
     -- { "gelguy/wilder.nvim",
     --   config = function ()
     --     vim.cmd("source $HOME/.config/lvim/lua/user/wilder.vim")
@@ -305,9 +303,12 @@ M.config = function()
       requires = "hrsh7th/nvim-compe",
       event = "InsertEnter",
     },
+    -- { "tamago324/compe-zsh" },
     -----[[------------]]-----
     ---       Extras       ---
     -----]]------------[[-----
+    -- { 'simrat39/symbols-outline.nvim' },
+    -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
     {
       "ianding1/leetcode.vim",
       config = function()
@@ -318,8 +319,6 @@ M.config = function()
       end,
       cmd = "LeetCodeList",
     },
-    -- { 'simrat39/symbols-outline.nvim' },
-    -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
     -- { 'kristijanhusak/vim-dadbod-ui' },
     -- { 'tpope/vim-dadbod' },
   }
