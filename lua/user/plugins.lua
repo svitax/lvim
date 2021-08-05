@@ -65,8 +65,12 @@ M.config = function()
         vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
         vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
       end,
-      -- ft = { "markdown", "vimwiki" },
-      -- event = "BufRead",
+    },
+    {
+      "vhyrro/neorg",
+      branch = "unstable",
+      config = require("user.neorg").config(),
+      requires = "nvim-lua/plenary.nvim",
     },
     -- {
     --   'iamcco/markdown-preview.nvim',
