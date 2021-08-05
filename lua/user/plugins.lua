@@ -153,6 +153,11 @@ M.config = function()
     --   "tamago324/lir-mmv.nvim",
     --   wants = "lir",
     -- },
+    {
+      -- need this since no longer using barbar
+      "famiu/bufdelete.nvim",
+      cmd = { "Bdelete", "Bwipeout" },
+    },
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----

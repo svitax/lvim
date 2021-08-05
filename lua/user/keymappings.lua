@@ -63,12 +63,19 @@ M.config = function()
 
   -- +Buffers
   -- =========================================
-  lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
-  lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferClose!<CR>", "Delete buffer" }
+  -- :lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.5}})
+  lvim.builtin.which_key.mappings["b"]["b"] = {
+    ":lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({previewer=false, layout_config={height=0.25}}))<cr>",
+    "Switch buffer",
+  }
+  -- lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
+  lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>Bdelete<CR>", "Delete buffer" }
+  -- lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferClose!<CR>", "Delete buffer" }
   lvim.builtin.which_key.mappings["b"]["s"] = { "<cmd>new<CR>", "New horizontal buffer" }
-  lvim.builtin.which_key.mappings["b"]["l"] = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all buffers to the left" }
+  -- lvim.builtin.which_key.mappings["b"]["l"] = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all buffers to the left" }
   lvim.builtin.which_key.mappings["b"]["v"] = { ":vnew<cr>", "New vertical buffer" }
-  lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>", "Close all buffers to the right" }
+  -- lvim.builtin.which_key.mappings["b"][";"] = { "<cmd>BufferCloseBuffersRight<cr>", "Close all buffers to the right" }
+  lvim.builtin.which_key.mappings["b"]["w"] = { "<cmd>Bwipeout<CR>", "Wipeout buffers" }
 
   lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle debug UI" }
   lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }

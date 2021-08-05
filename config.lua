@@ -11,6 +11,7 @@ vim.opt.timeoutlen = 200
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 10
+vim.opt.showtabline = 0
 -- vim.opt.guifont = "FiraCode Nerd Font:h15"
 
 -- Dashboard (builtin)
@@ -40,6 +41,11 @@ lvim.builtin.galaxyline.active = true
 lvim.builtin.galaxyline.on_config_done = function(gl)
   require("user.fennec-eviline").config(gl)
 end
+
+-- Bufferline (builtin)
+-- =========================================
+-- not exposed in lunarvim
+lvim.builtin.bufferline.active = false
 
 -- Compe (builtin)
 -- =========================================
