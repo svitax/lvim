@@ -68,6 +68,22 @@ M.config = function()
       requires = "nvim-lua/plenary.nvim",
     },
     -- {
+    --   "vimwiki/vimwiki",
+    --   branch = "dev",
+    --   config = function()
+    --     -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
+    --     vim.cmd "let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
+    --     -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
+    --     vim.g.vimwiki_global_ext = 0
+    --     vim.g.vimwiki_markdown_link_ext = 1
+    --     -- vim.g.vimwiki_folding = "expr"
+    --     -- -- vim.g.vimwiki_ext2syntax = {}
+    --     vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
+    --     vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
+    --   end,
+    --   -- ft = { "markdown", "vimwiki" },
+    --   -- event = "BufRead",
+    -- },
     --   'iamcco/markdown-preview.nvim',
     --   run = 'cd app && npm install',
     --   ft = 'markdown',
