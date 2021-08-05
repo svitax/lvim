@@ -50,20 +50,15 @@ M.config = function()
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
-    -- {"shurcooL/markdownfmt"},
+    -- I'm only using this for norg until it gets builtin link creation/following
+    -- remove norg and use only for markdown when that happens
     {
-      "vimwiki/vimwiki",
-      branch = "dev",
+      "lervag/wiki.vim",
       config = function()
-        -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
-        vim.cmd "let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
-        -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
-        vim.g.vimwiki_global_ext = 0
-        vim.g.vimwiki_markdown_link_ext = 1
-        -- vim.g.vimwiki_folding = "expr"
-        -- -- vim.g.vimwiki_ext2syntax = {}
-        vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
-        vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
+        vim.g.wiki_root = "~/Desktop/vimwiki"
+        vim.g.wiki_filetypes = { "norg", "md" }
+        vim.g.wiki_link_extension = ".norg"
+        vim.g.wiki_link_target_type = "md"
       end,
     },
     {
