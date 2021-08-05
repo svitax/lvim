@@ -126,7 +126,7 @@ M.config = function()
       "tamago324/lir.nvim",
       event = "BufEnter",
       config = function()
-        require "user.lir"
+        require("user.lir").config()
       end,
     },
     -- { "tamago324/lir-bookmark.nvim", event = "BufEnter" },
