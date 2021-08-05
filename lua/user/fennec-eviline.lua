@@ -6,8 +6,14 @@ M.config = function(gl)
   -- local colors = require('galaxyline.theme').default
   local colors = {
     -- bg = "#32302f",
-    bg = "#3c3836",
+    -- bg = "#3c3836",
+
+    bg2 = "#32302f",
+    bg = "#433E3A",
+
+    fg2 = "#a89984",
     fg = "#d4be98",
+
     fg_alt = "#ddc7a1",
     yellow = "#d8a657",
     cyan = "#89b482",
@@ -23,7 +29,7 @@ M.config = function(gl)
   local gls = gl.section
   -- local lsp = require("galaxyline.provider_lsp")
   local buffer = require "galaxyline.provider_buffer"
-  gl.short_line_list = { "NvimTree", "vista", "dbui", "packer", "minimap", "Outline", "toggleterm" }
+  gl.short_line_list = { "NvimTree", "vista", "dbui", "packer", "minimap", "Outline", "toggleterm", "LspTrouble" }
 
   local function is_dashboard()
     local buftype = buffer.get_buffer_filetype()
@@ -115,40 +121,56 @@ M.config = function(gl)
   }
   gls.left[3] = {
     FileIcon = {
-      provider = "FileIcon",
+      -- provider = "FileIcon",
+      provider = function()
+        local icon = require("galaxyline.provider_fileinfo").get_file_icon()
+        if icon == " " then
+          return " "
+        else
+          return icon
+        end
+      end,
       condition = condition.buffer_not_empty and is_not_dashboard,
       highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg },
     },
   }
   gls.left[4] = {
     FileName = {
-      provider = "FileName",
+      -- provider = "FileName",
+      provider = function()
+        local file_name = require("galaxyline.provider_fileinfo").get_current_file_name()
+        if file_name == ". " then
+          return bo.filetype:gsub("^%l", string.upper)
+        else
+          return file_name
+        end
+      end,
       condition = condition.buffer_not_empty and is_not_dashboard,
       highlight = { colors.fg, colors.bg, "bold" },
       separator = " ",
       separator_highlight = { colors.bg, colors.bg },
     },
   }
-  gls.left[5] = {
-    LineInfo = {
-      provider = function()
-        local line = vim.fn.line "."
-        local column = vim.fn.col "."
-        return string.format("%3d : %2d  ", line, column)
-      end,
-      condition = is_not_dashboard,
-      highlight = { colors.fg_alt, colors.bg },
-    },
-  }
-  gls.left[6] = {
-    LinePercent = {
-      provider = "LinePercent",
-      condition = is_not_dashboard,
-      highlight = { colors.fg_alt, colors.bg },
-      separator = " ",
-      separator_highlight = { colors.bg, colors.bg },
-    },
-  }
+  -- gls.left[5] = {
+  --   LineInfo = {
+  --     provider = function()
+  --       local line = vim.fn.line "."
+  --       local column = vim.fn.col "."
+  --       return string.format("%3d : %2d  ", line, column)
+  --     end,
+  --     condition = is_not_dashboard,
+  --     highlight = { colors.fg_alt, colors.bg },
+  --   },
+  -- }
+  -- gls.left[6] = {
+  --   LinePercent = {
+  --     provider = "LinePercent",
+  --     condition = is_not_dashboard,
+  --     highlight = { colors.fg_alt, colors.bg },
+  --     separator = " ",
+  --     separator_highlight = { colors.bg, colors.bg },
+  --   },
+  -- }
   gls.left[7] = {
     DiagnosticError = {
       provider = "DiagnosticError",
@@ -199,24 +221,24 @@ M.config = function(gl)
   -- }
 
   -- Right side
-  gls.right[1] = {
-    FileFormat = {
-      provider = "FileFormat",
-      condition = condition.hide_in_width and is_not_dashboard,
-      highlight = { colors.fg, colors.bg },
-      separator = " ",
-      separator_highlight = { colors.bg, colors.bg },
-    },
-  }
-  gls.right[2] = {
-    FileEncode = {
-      provider = "FileEncode",
-      condition = condition.hide_in_width and is_not_dashboard,
-      highlight = { colors.fg, colors.bg },
-      separator = " ",
-      separator_highlight = { colors.bg, colors.bg },
-    },
-  }
+  -- gls.right[1] = {
+  --   FileFormat = {
+  --     provider = "FileFormat",
+  --     condition = condition.hide_in_width and is_not_dashboard,
+  --     highlight = { colors.fg, colors.bg },
+  --     separator = " ",
+  --     separator_highlight = { colors.bg, colors.bg },
+  --   },
+  -- }
+  -- gls.right[2] = {
+  --   FileEncode = {
+  --     provider = "FileEncode",
+  --     condition = condition.hide_in_width and is_not_dashboard,
+  --     highlight = { colors.fg, colors.bg },
+  --     separator = " ",
+  --     separator_highlight = { colors.bg, colors.bg },
+  --   },
+  -- }
 
   local get_lsp_client = function()
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -352,56 +374,57 @@ M.config = function(gl)
 
   -- Short status line
   gls.short_line_left[1] = {
-    ViMode = {
+    Short_RainbowLeft = {
       provider = function()
-        -- auto change color according the vim mode
-        local mode_color = {
-          n = colors.green,
-          i = colors.red,
-          v = colors.yellow,
-          [""] = colors.blue,
-          V = colors.blue,
-          c = colors.magenta,
-          no = colors.red,
-          s = colors.orange,
-          S = colors.orange,
-          [""] = colors.orange,
-          ic = colors.yellow,
-          R = colors.magenta,
-          Rv = colors.magenta,
-          cv = colors.red,
-          ce = colors.red,
-          r = colors.cyan,
-          rm = colors.cyan,
-          ["r?"] = colors.cyan,
-          ["!"] = colors.red,
-          t = colors.red,
-        }
-        vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim.fn.mode()])
-        -- return "  "
         return "▊ "
       end,
-      highlight = { colors.red, colors.bg, "bold" },
+      highlight = { colors.bg2, colors.bg2 },
     },
   }
 
   gls.short_line_left[2] = {
-    BufferType = {
-      provider = "FileTypeName",
-      condition = is_not_dashboard,
-      highlight = { colors.fg, colors.bg },
+    VirtualEnv = {
+      provider = PythonEnv,
+      event = "BufEnter",
+      highlight = { colors.fg2, colors.bg2 },
+    },
+  }
+  gls.short_line_left[3] = {
+    Short_FileIcon = {
+      -- provider = "FileIcon",
+      provider = function()
+        local icon = require("galaxyline.provider_fileinfo").get_file_icon()
+        if icon == " " then
+          return " "
+        else
+          return icon
+        end
+      end,
+      condition = condition.buffer_not_empty and is_not_dashboard,
+      -- highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg },
+      highlight = { colors.fg2, colors.bg2 },
+    },
+  }
+  gls.short_line_left[4] = {
+    Short_FileName = {
+      -- provider = "FileName",
+      provider = function()
+        local file_name = require("galaxyline.provider_fileinfo").get_current_file_name()
+        if file_name == ". " then
+          return bo.filetype:gsub("^%l", string.upper)
+        else
+          return file_name
+        end
+      end,
+      condition = condition.buffer_not_empty and is_not_dashboard,
+      highlight = { colors.fg2, colors.bg2, "bold" },
       separator = " ",
-      separator_highlight = { "NONE", colors.bg },
+      separator_highlight = { colors.bg2, colors.bg2 },
     },
   }
 
-  gls.short_line_right[1] = {
-    BufferIcon = {
-      provider = "BufferIcon",
-      condition = is_not_dashboard,
-      highlight = { colors.yellow, colors.bg },
-    },
-  }
+  -- ''
+  -- return " " .. (bo.filetype:gsub("^%l", string.upper))
 end
 
 return M
