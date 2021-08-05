@@ -115,6 +115,13 @@ M.config = function()
     -- r = { "<cmd>RnvimrToggle<cr>", "Ranger" },
   }
 
+  lvim.builtin.which_key.mappings["r"] = {
+    name = "Replace",
+    r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
+    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
+    f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
+  }
+
   lvim.builtin.which_key.mappings["s"]["n"] = {
     "<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
     "Search Obsidian notes",

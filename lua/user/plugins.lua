@@ -101,7 +101,13 @@ M.config = function()
     -----]]------------[[-----
     -- { "blackCauldron7/surround.nvim" },
     -- { 'mizlan/iswap.nvim' },
-    -- { "windwp/nvim-spectre" },
+    {
+      "windwp/nvim-spectre",
+      event = "BufRead",
+      config = function()
+        require("user.spectre").config()
+      end,
+    },
     {
       "mg979/vim-visual-multi",
       event = "CursorMoved",
