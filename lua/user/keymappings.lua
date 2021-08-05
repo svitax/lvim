@@ -124,11 +124,12 @@ M.config = function()
 
   -- +Files
   -- =========================================
+  lvim.builtin.which_key.mappings["e"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "Explorer" }
   lvim.builtin.which_key.mappings["f"] = {
     name = "+Files",
-    f = { "<cmd>lua require'lir.float'.toggle()<cr>", "Floating file manager" },
     b = { "<cmd>edit .<cr>", "File manager in this buffer" },
-    -- r = { "<cmd>RnvimrToggle<cr>", "Ranger" },
+    f = { "<cmd>lua require'lir.float'.toggle()<cr>", "Floating file manager" },
+    t = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "Explorer" },
   }
 
   -- +Replace
