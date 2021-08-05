@@ -145,7 +145,7 @@ M.config = function()
   -- =========================================
   lvim.builtin.which_key.mappings["sc"] = {
     "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
-    "Search colorschemes with preview",
+    "Search colorschemes",
   }
   lvim.builtin.which_key.mappings["s"]["n"] = {
     "<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
