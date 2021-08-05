@@ -5,6 +5,14 @@ lvim.lint_on_save = true
 lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
 
+-- Default options
+-- =========================================
+vim.opt.timeoutlen = 200
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 5
+-- vim.opt.guifont = "FiraCode Nerd Font:h15"
+
 -- Dashboard (builtin)
 -- =========================================
 lvim.builtin.dashboard.active = true
