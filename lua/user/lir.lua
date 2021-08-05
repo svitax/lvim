@@ -159,8 +159,10 @@ lir.setup {
     -- home
     ["h"] = home,
 
+    -- TODO look into making an edit command that doesn't split if the file is already open in a buffer
     [";"] = actions.edit,
     ["<cr>"] = actions.edit,
+
     ["<C-s>"] = actions.split,
     ["S"] = actions.split,
     ["V"] = actions.vsplit,
@@ -168,7 +170,6 @@ lir.setup {
 
     ["l"] = actions.up,
     ["q"] = actions.quit,
-    -- ["<esc>"] = actions.quit,
 
     -- ["A"] = actions.mkdir,
     -- ["a"] = actions.newfile,
@@ -256,6 +257,7 @@ vim.cmd [[  autocmd!]]
 vim.cmd [[  autocmd Filetype lir :lua LirSettings()]]
 vim.cmd [[augroup END]]
 
+-- TODO add to fennec-gruvbox theme
 -- Highlight groups
 -- hi LirFloatNormal guibg=#32302f
 -- hi LirDir guifg=#7ebae4
