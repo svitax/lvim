@@ -60,6 +60,9 @@ M.config = function()
 
   -- NOTE: WhichKey
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
+
+  -- +Buffers
+  -- =========================================
   lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<CR>", "Switch buffer" }
   lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferClose!<CR>", "Delete buffer" }
   lvim.builtin.which_key.mappings["b"]["s"] = { "<cmd>new<CR>", "New horizontal buffer" }
@@ -85,21 +88,26 @@ M.config = function()
   --   "<cmd>lua require('user.telescope').delta_git_status()<CR>",
   --   "Git status",
   -- }
+
+  -- +Git
+  -- =========================================
   lvim.builtin.which_key.mappings["g"]["d"] = { "<cmd>DiffviewOpen<cr>", "View diffs" }
   lvim.builtin.which_key.mappings["g"]["D"] = { "<cmd>DiffviewClose<cr>", "Close diff view" }
   lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
   lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "Blame message" }
   lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub pull requests" }
 
-  lvim.builtin.which_key.mappings["l"]["d"] = {
+  -- +LSP
+  -- =========================================
+  lvim.builtin.which_key.mappings["ld"] = {
     "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
     "List document diagnostics",
   }
-  lvim.builtin.which_key.mappings["l"]["D"] = {
+  lvim.builtin.which_key.mappings["lD"] = {
     "<cmd>TroubleToggle lsp_definitions<cr>",
     "List definitions",
   }
-  lvim.builtin.which_key.mappings["l"]["R"] = {
+  lvim.builtin.which_key.mappings["lR"] = {
     "<cmd>TroubleToggle lsp_references<cr>",
     "List references",
   }
@@ -107,7 +115,15 @@ M.config = function()
     "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
     "List workspace diagnostics",
   }
+  lvim.builtin.which_key.mappings["l"]["p"] = {
+    name = "Peek",
+    d = { "<cmd>lua require('lsp.peek').Peek('definition')<cr>", "Peek definition" },
+    t = { "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "Peek type definition" },
+    i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "Peek implementation" },
+  }
 
+  -- +Files
+  -- =========================================
   lvim.builtin.which_key.mappings["f"] = {
     name = "+Files",
     f = { "<cmd>lua require'lir.float'.toggle()<cr>", "Floating file manager" },
@@ -115,13 +131,21 @@ M.config = function()
     -- r = { "<cmd>RnvimrToggle<cr>", "Ranger" },
   }
 
+  -- +Replace
+  -- =========================================
   lvim.builtin.which_key.mappings["r"] = {
-    name = "Replace",
+    name = "+Replace",
     r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
     w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
     f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
   }
 
+  -- +Search
+  -- =========================================
+  lvim.builtin.which_key.mappings["sc"] = {
+    "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
+    "Search colorschemes with preview",
+  }
   lvim.builtin.which_key.mappings["s"]["n"] = {
     "<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
     "Search Obsidian notes",
@@ -129,11 +153,15 @@ M.config = function()
   lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
   lvim.builtin.which_key.mappings["s"]["T"] = { "<cmd>TodoTrouble<cr>", "Search todos" }
 
+  -- +Open
+  -- =========================================
   lvim.builtin.which_key.mappings["o"] = {
     name = "+Open",
     w = { "<cmd>Bracey<cr>", "Web server with live reload" },
   }
 
+  -- +Window
+  -- =========================================
   lvim.builtin.which_key.mappings["w"] = {
     name = "+Windows",
     d = { "<cmd>close<CR>", "Delete current window" },

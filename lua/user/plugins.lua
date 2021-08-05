@@ -113,6 +113,47 @@ M.config = function()
       event = "CursorMoved",
     },
     -----[[------------]]-----
+    ---       Files        ---
+    -----]]------------[[-----
+    {
+      "nvim-telescope/telescope-project.nvim",
+      event = "BufWinEnter",
+      config = function()
+        require("telescope").load_extension "project"
+      end,
+    },
+    {
+      "tamago324/lir.nvim",
+      event = "BufEnter",
+      config = function()
+        require "user.lir"
+      end,
+    },
+    -- { "tamago324/lir-bookmark.nvim", event = "BufEnter" },
+    -- {
+    --   -- TODO: lir-git-status doesn't support custom git icons yet
+    --   "tamago324/lir-git-status.nvim",
+    --   wants = "lir",
+    --   config = function()
+    --     require("lir.git_status").setup {
+    --       -- show_ignored = true,
+    --     }
+    --   end,
+    --   -- highlight link LirGitStatusBracket Comment
+    --   -- highlight link LirGitStatusIndex Special
+    --   -- highlight link LirGitStatusWorktree WarningMsg
+    --   -- highlight link LirGitStatusUnmerged ErrorMsg
+    --   -- highlight link LirGitStatusUntracked Comment
+    --   -- highlight link LirGitStatusIgnored Comment
+    -- },
+    -- {
+    -- TODO: get lir.mmv to work (i think something is wrong with nvr)
+    --   -- https://github.com/mhinz/neovim-remote
+    --   -- https://github.com/itchyny/mmv
+    --   "tamago324/lir-mmv.nvim",
+    --   wants = "lir",
+    -- },
+    -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
     {
@@ -166,13 +207,6 @@ M.config = function()
       end,
     },
     {
-      "nvim-telescope/telescope-project.nvim",
-      event = "BufWinEnter",
-      config = function()
-        require("telescope").load_extension "project"
-      end,
-    },
-    {
       "andymass/vim-matchup",
       event = "CursorMoved",
       config = function()
@@ -180,37 +214,6 @@ M.config = function()
         -- vim.g.matchup_matchparen_enabled = 0
       end,
     },
-    {
-      "tamago324/lir.nvim",
-      event = "BufEnter",
-      config = function()
-        require "user.lir"
-      end,
-    },
-    -- { "tamago324/lir-bookmark.nvim", event = "BufEnter" },
-    -- {
-    --   -- TODO: lir-git-status doesn't support custom git icons yet
-    --   "tamago324/lir-git-status.nvim",
-    --   wants = "lir",
-    --   config = function()
-    --     require("lir.git_status").setup {
-    --       -- show_ignored = true,
-    --     }
-    --   end,
-    --   -- highlight link LirGitStatusBracket Comment
-    --   -- highlight link LirGitStatusIndex Special
-    --   -- highlight link LirGitStatusWorktree WarningMsg
-    --   -- highlight link LirGitStatusUnmerged ErrorMsg
-    --   -- highlight link LirGitStatusUntracked Comment
-    --   -- highlight link LirGitStatusIgnored Comment
-    -- },
-    -- {
-    -- TODO: get lir.mmv to work (i think something is wrong with nvr)
-    --   -- https://github.com/mhinz/neovim-remote
-    --   -- https://github.com/itchyny/mmv
-    --   "tamago324/lir-mmv.nvim",
-    --   wants = "lir",
-    -- },
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
