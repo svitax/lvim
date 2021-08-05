@@ -17,7 +17,8 @@ require("user.toggleterm").config()
 
 -- Telescope (builtin)
 -- =========================================
-lvim.builtin.telescope.on_config_done = require("user.telescope").config()
+lvim.builtin.telescope.active = true
+require("user.telescope").config()
 
 -- Nvimtree (builtin)
 -- =========================================

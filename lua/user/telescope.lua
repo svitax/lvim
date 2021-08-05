@@ -30,8 +30,8 @@ local previewers = require "telescope.previewers"
 local builtin = require "telescope.builtin"
 -- local conf = require('telescope.config')
 
--- TODO: can't seem to scroll up or down with just <c-u>/<c-d> in the delta previewer
--- TODO: need to <c-u>/<c-d> and scroll with mouse to see everything
+-- TODO can't seem to scroll up or down with just <c-u>/<c-d> in the delta previewer
+-- TODO need to <c-u>/<c-d> and scroll with mouse to see everything
 local delta = previewers.new_termopen_previewer {
   get_command = function(entry)
     -- this is for status
@@ -48,7 +48,7 @@ local delta = previewers.new_termopen_previewer {
   end,
 }
 
--- TODO: delta_git_commits is kinda buggy
+-- TODO delta_git_commits is kinda buggy
 M.delta_git_commits = function(opts)
   opts = opts or {}
   -- make the layout big so I can read everything with my large font and side-by-side preview
@@ -61,7 +61,7 @@ M.delta_git_commits = function(opts)
   builtin.git_commits(opts)
 end
 
--- TODO: delta_git_bcommits is also kinda buggy
+-- TODO delta_git_bcommits is also kinda buggy
 M.delta_git_bcommits = function(opts)
   opts = opts or {}
   -- make the layout big so I can read everything with my large font and side-by-side preview
