@@ -194,7 +194,7 @@ M.config = function()
     --   wants = { "nvim-treesitter" }, -- or require if not used so far
     --   after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
     -- },
-    -- { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead", },
+    -- { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
     {
       "numToStr/Navigator.nvim",
       event = "BufWinEnter",
