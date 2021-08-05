@@ -10,7 +10,7 @@ lvim.colorscheme = "fennec-gruvbox"
 vim.opt.timeoutlen = 200
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 10
+vim.opt.foldlevel = 20
 vim.opt.showtabline = 0
 -- vim.opt.guifont = "FiraCode Nerd Font:h15"
 
