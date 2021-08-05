@@ -1,5 +1,6 @@
 M = {}
-
+-- Short configs are done inline,
+-- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
     -----[[------------]]-----
@@ -22,6 +23,7 @@ M.config = function()
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
     },
+    -- { 'simrat39/symbols-outline.nvim' },
     -- {
     --   -- TODO: get lsp-status to show current function, and find a way to only show current function
     --   "nvim-lua/lsp-status.nvim",
@@ -84,6 +86,8 @@ M.config = function()
     --   -- ft = { "markdown", "vimwiki" },
     --   -- event = "BufRead",
     -- },
+    -- {"shurcooL/markdownfmt"},
+    -- {
     --   'iamcco/markdown-preview.nvim',
     --   run = 'cd app && npm install',
     --   ft = 'markdown',
@@ -330,7 +334,6 @@ M.config = function()
     -----[[------------]]-----
     ---       Extras       ---
     -----]]------------[[-----
-    -- { 'simrat39/symbols-outline.nvim' },
     -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
     {
       "ianding1/leetcode.vim",
