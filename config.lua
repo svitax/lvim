@@ -5,7 +5,7 @@ lvim.lint_on_save = true
 lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
 
--- NOTE: Builtin
+-- NOTE: Dashboard (builtin)
 -- =========================================
 lvim.builtin.dashboard.active = true
 -- TODO: lunarvim's footer isn't exposed for user config, but here's how I want the footer to look
@@ -19,6 +19,8 @@ lvim.builtin.dashboard.active = true
 --   -- "LunarVim loaded " .. packages .. " plugins   in " .. loadtime .. "  seconds ",
 -- }
 
+-- NOTE: Toggleterm (builtin)
+-- =========================================
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.open_mapping = [[…]] -- alt+; in macos
 -- lvim.builtin.terminal.on_config_done = function ()
@@ -30,6 +32,12 @@ lvim.builtin.terminal.execs = {
   { "gomi --restore", "fr", "Restore deleted files (Gomi)" },
 }
 
+-- NOTE: Telescope (builtin)
+-- =========================================
+lvim.builtin.telescope.on_config_done = require("user.telescope").config()
+
+-- NOTE: Nvimtree (builtin)
+-- =========================================
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.on_config_done = function()
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
@@ -40,14 +48,18 @@ lvim.builtin.nvimtree.on_config_done = function()
   }
 end
 
+-- NOTE: Galaxyline (builtin)
+-- =========================================
 lvim.builtin.galaxyline.on_config_done = function(gl)
   require("user.fennec-eviline").config(gl)
 end
 
+-- NOTE: Compe (builtin)
+-- =========================================
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 
-lvim.builtin.telescope.on_config_done = require("user.telescope").config()
-
+-- NOTE: Treesitter (builtin)
+-- =========================================
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {}
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -56,7 +68,7 @@ lvim.builtin.treesitter.indent.disable = { "python" }
 lvim.builtin.treesitter.matchup.enable = true
 -- lvim.builtin.treesitter.autotag.enable = true
 
--- NOTE: Debugging
+-- NOTE: Dap (builtin)
 -- =========================================
 lvim.builtin.dap.active = true
 lvim.builtin.dap.on_config_done = require("user.dap").config()
