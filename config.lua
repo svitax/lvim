@@ -50,6 +50,15 @@ lvim.builtin.bufferline.active = false
 -- =========================================
 lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
 
+-- Comment (builtin)
+-- =========================================
+lvim.builtin.comment.on_config_done = function()
+  require("nvim_comment").setup {
+    hook = function()
+      require("ts_context_commentstring.internal").update_commentstring()
+    end,
+  }
+end
 -- Treesitter (builtin)
 -- =========================================
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -58,6 +67,7 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.disable = { "python" }
 lvim.builtin.treesitter.matchup.enable = true
+lvim.builtin.treesitter.context_commentstring.enable = true
 -- BUG on tags with attributes, you need to edit the close tag for autotag to properly work
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.playground.enable = true

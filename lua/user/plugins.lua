@@ -34,6 +34,10 @@ M.config = function()
       after = "nvim-treesitter",
       cmd = "TSPlaygroundToggle",
     },
+    {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      event = "BufEnter",
+    },
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
