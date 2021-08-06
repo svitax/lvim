@@ -80,7 +80,6 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle debug UI" }
   lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }
-  lvim.builtin.which_key.mappings["dq"] = { "<cmd>lua require'dap'.close()<cr>", "Quit" }
 
   -- lvim.builtin.which_key.mappings["g"]["b"] = { ":VGit buffer_preview<CR>", "Diff current buffer" }
   -- lvim.builtin.which_key.mappings["g"]["h"] = { ":VGit buffer_history<cr>", "Diff buffer history" }
