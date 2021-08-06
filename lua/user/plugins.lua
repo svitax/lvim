@@ -98,8 +98,19 @@ M.config = function()
     --   ft = 'markdown',
     -- },
     {
-      "plasticboy/vim-markdown",
-      config = require("user.vim-markdown").config,
+      "jubnzv/mdeval.nvim",
+      config = function()
+        vim.g.markdown_fenced_languages = { "python", "cpp" }
+        require("mdeval").setup {
+          eval_options = {
+            -- Set custom configuration for C++
+            cpp = {
+              command = { "clang++", "-std=c++20", "-O0" },
+            },
+          },
+        }
+      end,
+      ft = "markdown",
     },
     -- {
     --   -- vimwiki conceal is better
