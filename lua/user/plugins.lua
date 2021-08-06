@@ -107,6 +107,13 @@ M.config = function()
       "plasticboy/vim-markdown",
       config = require("user.vim-markdown").config,
     },
+    -- {
+    --   -- vimwiki conceal is better
+    --   "plasticboy/vim-markdown",
+    --   config = require("user.vim-markdown").config,
+    --   ft = { "markdown" },
+    --   disable = true,
+    -- },
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
