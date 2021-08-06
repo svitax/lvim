@@ -29,6 +29,11 @@ M.config = function()
     --   "nvim-lua/lsp-status.nvim",
     --   -- event = "BufEnter",
     -- },
+    {
+      "nvim-treesitter/playground",
+      after = "nvim-treesitter",
+      cmd = "TSPlaygroundToggle",
+    },
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
