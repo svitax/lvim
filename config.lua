@@ -59,6 +59,7 @@ lvim.builtin.comment.on_config_done = function()
     end,
   }
 end
+
 -- Treesitter (builtin)
 -- =========================================
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -67,10 +68,10 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.disable = { "python" }
 lvim.builtin.treesitter.matchup.enable = true
+lvim.builtin.treesitter.playground.enable = true
 lvim.builtin.treesitter.context_commentstring.enable = true
 -- BUG on tags with attributes, you need to edit the close tag for autotag to properly work
 lvim.builtin.treesitter.autotag.enable = true
-lvim.builtin.treesitter.playground.enable = true
 -- neorg treesitter syntax, maybe one day it will be builtin and we won't need this
 lvim.builtin.treesitter.on_config_done = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
