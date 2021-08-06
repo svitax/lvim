@@ -22,6 +22,37 @@ M.config = function()
   }
 end
 
+M.projects = function()
+  local actions = require "telescope.actions"
+  -- local builtin = require "telescope.builtin"
+  local _actions = require "telescope._extensions.project.actions"
+  local _utils = require "telescope._extensions.project.utils"
+  -- Browse through files within the selected project using
+  -- the Telescope builtin `file_browser`.
+  local browse_project_files = function(prompt_bufnr)
+    local project_path = _actions.get_selected_path(prompt_bufnr)
+    actions._close(prompt_bufnr, true)
+    local cd_successful = _utils.change_project_dir(project_path)
+    if cd_successful then
+      -- builtin.file_browser { cwd = project_path }
+      -- vim.cmd(":edit " .. project_path)
+      require("lir.float").toggle(project_path)
+      vim.cmd "stopinsert"
+    end
+  end
+
+  require("telescope").extensions.project.project {
+    display_type = "full",
+    attach_mappings = function(_, map)
+      -- map("i", "<Esc>", actions.close)
+      -- map("n", "<Esc>", actions.close)
+      map("i", "<cr>", browse_project_files)
+      map("n", "<cr>", browse_project_files)
+      return true
+    end,
+  }
+end
+
 -- Implement delta as previewer for diffs
 
 -- Requires git-delta, e.g. on macOS
@@ -88,3 +119,27 @@ M.delta_git_status = function(opts)
 end
 
 return M
+
+-- -- If I ever wanna make my own sessions telescope picker
+-- M.sessions = function()
+--   local actions = require "telescope.actions"
+--   local action_state = require "telescope.actions.state"
+--   local persistence = require "persistence"
+--
+--   local source_session = function(prompt_bufnr)
+--     local selection = action_state.get_selected_entry()
+--   end
+--
+--   require("telescope.builtin").find_files {
+--     prompt_title = "Sessions",
+--     -- entry_maker = Lib.make_entry.gen_from_file({cwd = cwd, path_display = path_display}),
+--     cwd = "~/.config/nvim/sessions",
+--     -- TOOD: support custom mappings?
+--     attach_mappings = function(_, map)
+--       actions.select_default:replace(source_session)
+--       -- TODO: add delete session
+--       -- map("i", "<c-d>", SessionLensActions.delete_session)
+--       return true
+--     end,
+--   }
+-- end
