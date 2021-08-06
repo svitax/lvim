@@ -244,7 +244,7 @@ M.config = function(gl)
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
-      return "︁ " .. (bo.filetype:gsub("^%l", string.upper))
+      return ""
       -- return " " .. (bo.filetype:gsub("^%l", string.upper))
     end
     local lsps = ""
@@ -266,7 +266,7 @@ M.config = function(gl)
       end
     end
     if lsps == "" then
-      return "︁ " .. (bo.filetype:gsub("^%l", string.upper))
+      return ""
       -- return " " .. (bo.filetype:gsub("^%l", string.upper))
     else
       return " " .. lsps
