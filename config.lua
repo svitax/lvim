@@ -44,7 +44,6 @@ end
 
 -- Bufferline (builtin)
 -- =========================================
--- not exposed in lunarvim
 lvim.builtin.bufferline.active = false
 
 -- Compe (builtin)

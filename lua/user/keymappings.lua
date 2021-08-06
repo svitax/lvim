@@ -60,6 +60,7 @@ M.config = function()
 
   -- NOTE: WhichKey
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>Telescope find_files<CR>", "Find File" }
+  lvim.builtin.which_key.mappings["c"] = { "<cmd>Bdelete<CR>", "Delete buffer" }
 
   -- +Buffers
   -- =========================================
