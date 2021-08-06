@@ -1,7 +1,15 @@
 local M = {}
 
+local builtin = require "telescope.builtin"
+local actions = require "telescope.actions"
+local themes = require "telescope.themes"
+local previewers = require "telescope.previewers"
+-- local conf = require('telescope.config')
+
+-- Defaults
+-- =========================================
 M.config = function()
-  local actions = require "telescope.actions"
+  -- lvim.builtin.telescope.defaults.winblend = 10
   lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
   lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
   lvim.builtin.telescope.defaults.mappings.n["q"] = actions.close
@@ -22,17 +30,33 @@ M.config = function()
   }
 end
 
+-- Buffers picker
+-- =========================================
+M.buffers = function()
+  local theme_opts = themes.get_dropdown { border = true, previewer = false }
+  local opts = {
+    attach_mappings = function(_, map)
+      map("i", "<c-d>", actions.delete_buffer)
+      map("n", "<c-d>", actions.delete_buffer)
+      map("n", "d", actions.delete_buffer)
+      return true
+    end,
+  }
+  local buffers_conf = vim.tbl_deep_extend("force", opts, theme_opts)
+  builtin.buffers(buffers_conf)
+end
+
+-- Projects picker
+-- =========================================
 M.projects = function()
-  local actions = require "telescope.actions"
-  -- local builtin = require "telescope.builtin"
-  local _actions = require "telescope._extensions.project.actions"
-  local _utils = require "telescope._extensions.project.utils"
+  local project_actions = require "telescope._extensions.project.actions"
+  local project_utils = require "telescope._extensions.project.utils"
   -- Browse through files within the selected project using
-  -- the Telescope builtin `file_browser`.
+  -- a lir float window
   local browse_project_files = function(prompt_bufnr)
-    local project_path = _actions.get_selected_path(prompt_bufnr)
+    local project_path = project_actions.get_selected_path(prompt_bufnr)
     actions._close(prompt_bufnr, true)
-    local cd_successful = _utils.change_project_dir(project_path)
+    local cd_successful = project_utils.change_project_dir(project_path)
     if cd_successful then
       -- builtin.file_browser { cwd = project_path }
       -- vim.cmd(":edit " .. project_path)
@@ -41,26 +65,38 @@ M.projects = function()
     end
   end
 
-  require("telescope").extensions.project.project {
+  local load_project = function(prompt_bufnr)
+    local project_path = project_actions.get_selected_path(prompt_bufnr)
+    actions._close(prompt_bufnr, true)
+    local cd_successful = project_utils.change_project_dir(project_path)
+    if cd_successful then
+      vim.cmd "RestoreSession"
+      vim.cmd "stopinsert"
+    end
+  end
+
+  local theme_opts = themes.get_dropdown { border = true, previewer = false }
+  local opts = {
     display_type = "full",
     attach_mappings = function(_, map)
-      -- map("i", "<Esc>", actions.close)
-      -- map("n", "<Esc>", actions.close)
-      map("i", "<cr>", browse_project_files)
-      map("n", "<cr>", browse_project_files)
+      map("n", "f", browse_project_files)
+      map("i", "<cr>", load_project)
+      map("n", "<cr>", load_project)
       return true
     end,
   }
+
+  local projects_conf = vim.tbl_deep_extend("force", opts, theme_opts)
+  require("telescope").extensions.project.project(projects_conf)
 end
+
+-- Delta
+-- =========================================
 
 -- Implement delta as previewer for diffs
 
 -- Requires git-delta, e.g. on macOS
 -- brew install git-delta
-
-local previewers = require "telescope.previewers"
-local builtin = require "telescope.builtin"
--- local conf = require('telescope.config')
 
 -- TODO can't seem to scroll up or down with just <c-u>/<c-d> in the delta previewer
 -- TODO need to <c-u>/<c-d> and scroll with mouse to see everything

@@ -64,10 +64,7 @@ M.config = function()
 
   -- +Buffers
   -- =========================================
-  lvim.builtin.which_key.mappings["b"]["b"] = {
-    ":lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({previewer=false, layout_config={height=0.25}}))<cr>",
-    "Switch buffer",
-  }
+  lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>lua require('user.telescope').buffers()<cr>", "Switch buffer" }
   lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>Bdelete<CR>", "Delete buffer" }
   lvim.builtin.which_key.mappings["b"]["s"] = { "<cmd>new<CR>", "New horizontal buffer" }
   lvim.builtin.which_key.mappings["b"]["v"] = { ":vnew<cr>", "New vertical buffer" }
@@ -145,6 +142,19 @@ M.config = function()
   lvim.builtin.which_key.mappings["o"] = {
     name = "+Open",
     w = { "<cmd>Bracey<cr>", "Web server with live reload" },
+  }
+
+  -- +Quit
+  -- =========================================
+  -- lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<CR>", "Quit" }
+  lvim.builtin.which_key.mappings["q"] = {
+    name = "+Quit",
+    q = { "<cmd>SaveSession<cr> <cmd>qa<cr>", "Quit and save session" },
+    Q = { "<cmd>qa<cr>", "Quit" },
+    r = { "<cmd>RestoreSession<cr>", "Restore session" },
+    s = { "<cmd>SearchSession<cr>", "Search sessions" },
+    w = { "<cmd>SaveSession<cr>", "Save session" },
+    -- s = { "<cmd>lua require('persistence').load()<cr>", "Restore for current dir" },
   }
 
   -- +Replace

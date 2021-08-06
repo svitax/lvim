@@ -249,22 +249,44 @@ M.config = function()
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
-    -- {"rmagatti/auto-session"},
-    -- {"rmagatti/session-lens"},
+    {
+      "rmagatti/auto-session",
+      config = function()
+        require("auto-session").setup {
+          log_level = "info",
+          auto_session_enable_last_session = false,
+          auto_session_root_dir = vim.fn.stdpath "data" .. "/sessions/",
+          auto_session_enabled = false,
+          auto_save_enabled = true,
+          auto_restore_enabled = false,
+          auto_session_suppress_dirs = nil,
+        }
+        require("telescope").load_extension "session-lens"
+      end,
+      -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
+      -- cmd = ""
+    },
+    {
+      "rmagatti/session-lens",
+      requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
+      config = function()
+        require("session-lens").setup {
+          -- session-lens lets us pass in telescope opts through its setup func, pretty neat
+          path_display = { "shorten" },
+          previewer = false,
+          attach_mappings = function(_, map)
+            map("n", "<c-d>", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
+            map("n", "d", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
+            return true
+          end,
+        }
+      end,
+    },
     {
       "ethanholz/nvim-lastplace",
-      event = "BufRead",
+      event = "BufWinEnter",
       config = function()
-        require("nvim-lastplace").setup {
-          lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-          lastplace_ignore_filetype = {
-            "gitcommit",
-            "gitrebase",
-            "svn",
-            "hgcommit",
-          },
-          lastplace_open_folds = true,
-        }
+        require("nvim-lastplace").setup {}
       end,
     },
     -----[[------------]]-----
