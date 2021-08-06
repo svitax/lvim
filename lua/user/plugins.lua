@@ -66,7 +66,7 @@ M.config = function()
     {
       "vhyrro/neorg",
       branch = "unstable",
-      config = require("user.neorg").config(),
+      config = require("user.neorg").config,
       requires = "nvim-lua/plenary.nvim",
     },
     -- {

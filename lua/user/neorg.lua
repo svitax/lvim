@@ -75,4 +75,5 @@ M.config = function()
   }
   lvim.builtin.compe.source.neorg = true
 end
+
 return M
