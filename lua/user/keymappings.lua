@@ -137,6 +137,10 @@ M.config = function()
     b = { "<cmd>edit .<cr>", "File manager in this buffer" },
     f = { "<cmd>lua require'lir.float'.toggle()<cr>", "Floating file manager" },
     t = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "Explorer" },
+    n = {
+      "<cmd>lua require('lir.float').toggle('~/.config/lvim/lua/notes/obsidian-notes')<CR>",
+      "Notes dir",
+    },
   }
 
   -- +Replace
