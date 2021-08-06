@@ -1,5 +1,8 @@
 local M = {}
 
+-- TODO directories wiht ~ seems to bug out
+-- what if I symlink instead
+
 M.config = function()
   local status_ok, lir = pcall(require, "lir")
   if not status_ok then
@@ -8,10 +11,10 @@ M.config = function()
   local api = vim.api
   local config = require "lir.config"
   local actions = require "lir.actions"
-  local history = require "lir.history"
-  local lirvim = require "lir.vim"
   local mark_actions = require "lir.mark.actions"
   local clipboard_actions = require "lir.clipboard.actions"
+  local history = require "lir.history"
+  local lirvim = require "lir.vim"
   local utils = require "lir.utils"
   local Path = require "plenary.path"
 
@@ -202,6 +205,7 @@ M.config = function()
       -- ["a"] = actions.newfile,
       ["a"] = input_newfile,
       ["r"] = actions.rename,
+      -- ["R"] = actions.reload,
       -- TODO: get lir.mmv to work (i think something is wrong with nvr)
       -- ["R"] = require("lir.mmv.actions").mmv,
       ["@"] = actions.cd,
