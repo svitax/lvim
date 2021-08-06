@@ -67,7 +67,7 @@ M.config = function()
       -- TODO disable or remap default mappings
       "lervag/wiki.vim",
       config = function()
-        vim.g.wiki_root = "~/Desktop/vimwiki"
+        vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
         vim.g.wiki_filetypes = { "norg", "md" }
         vim.g.wiki_link_extension = ".norg"
         vim.g.wiki_link_target_type = "md" -- md style links or wiki style links

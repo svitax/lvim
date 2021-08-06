@@ -154,12 +154,16 @@ M.config = function()
 
   -- +Search
   -- =========================================
-  lvim.builtin.which_key.mappings["sc"] = {
+  lvim.builtin.which_key.mappings["s"]["c"] = {
+    "<cmd>lua require('telescope.builtin').find_files({cwd = '~/.config/lvim'})<CR>",
+    "Search config",
+  }
+  lvim.builtin.which_key.mappings["sC"] = {
     "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
     "Search colorschemes",
   }
   lvim.builtin.which_key.mappings["s"]["n"] = {
-    "<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
+    "<cmd>lua require('telescope.builtin').find_files({cwd = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
     "Search Obsidian notes",
   }
   lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
