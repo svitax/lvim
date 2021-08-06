@@ -7,6 +7,7 @@ M.config = function()
     -- Tell Neorg what modules to load
     load = {
       ["core.defaults"] = {}, -- Load all the default modules
+      ["core.integrations.telescope"] = {}, -- Enable the telescope module
       ["core.norg.tangle"] = {},
       ["core.keybinds"] = {
         config = {
