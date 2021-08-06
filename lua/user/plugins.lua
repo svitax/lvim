@@ -97,12 +97,6 @@ M.config = function()
     --   run = 'cd app && npm install',
     --   ft = 'markdown',
     -- },
-    -- {
-    --   'jubnzv/mdeval.nvim',
-    --   config = function ()
-    --     require 'mdeval'.setup()
-    --   end
-    -- },
     {
       "plasticboy/vim-markdown",
       config = require("user.vim-markdown").config,
@@ -122,9 +116,7 @@ M.config = function()
     {
       "windwp/nvim-spectre",
       event = "BufRead",
-      config = function()
-        require("user.spectre").config()
-      end,
+      config = require("user.spectre").config,
     },
     {
       "mg979/vim-visual-multi",
@@ -143,9 +135,7 @@ M.config = function()
     {
       "tamago324/lir.nvim",
       event = "BufEnter",
-      config = function()
-        require("user.lir").config()
-      end,
+      config = require("user.lir").config,
     },
     -- { "tamago324/lir-bookmark.nvim", event = "BufEnter" },
     -- {
