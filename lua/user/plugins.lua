@@ -68,6 +68,7 @@ M.config = function()
         vim.g.wiki_link_target_type = "md"
       end,
     },
+    -- { "dkarter/bullets.vim" },
     {
       "vhyrro/neorg",
       branch = "unstable",
