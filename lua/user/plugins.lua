@@ -60,12 +60,13 @@ M.config = function()
     -- I'm only using this for norg until it gets builtin link creation/following
     -- remove norg and use only for markdown when that happens
     {
+      -- TODO disable or remap default mappings
       "lervag/wiki.vim",
       config = function()
         vim.g.wiki_root = "~/Desktop/vimwiki"
         vim.g.wiki_filetypes = { "norg", "md" }
         vim.g.wiki_link_extension = ".norg"
-        vim.g.wiki_link_target_type = "md"
+        vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
       end,
     },
     -- { "dkarter/bullets.vim" },
