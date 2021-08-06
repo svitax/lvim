@@ -65,6 +65,7 @@ M.config = function()
     -- remove norg and use only for markdown when that happens
     {
       -- TODO disable or remap default mappings
+      -- TODO neorg needs compe to load first, so on init we can't jump to a .norg index with wiki.vim unless we load compe first (InsertEnter)
       "lervag/wiki.vim",
       config = function()
         vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
@@ -75,6 +76,7 @@ M.config = function()
     },
     -- { "dkarter/bullets.vim" },
     {
+      -- TODO compe gets unloaded once I open a .norg file
       "vhyrro/neorg",
       branch = "unstable",
       config = require("user.neorg").config,
