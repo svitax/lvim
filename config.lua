@@ -58,7 +58,8 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.disable = { "python" }
 lvim.builtin.treesitter.matchup.enable = true
--- lvim.builtin.treesitter.autotag.enable = true
+-- BUG on tags with attributes, you need to edit the close tag for autotag to properly work
+lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.playground.enable = true
 -- neorg treesitter syntax, maybe one day it will be builtin and we won't need this
 lvim.builtin.treesitter.on_config_done = function()

@@ -268,13 +268,14 @@ M.config = function()
       event = "BufRead",
       run = "npm install --prefix server",
     },
-    -- {
-    --   "windwp/nvim-ts-autotag",
-    -- config = function()
-    --   require("nvim-ts-autotag").setup()
-    -- end,
-    --   event = "InsertEnter",
-    -- },
+    {
+      "windwp/nvim-ts-autotag",
+      config = function()
+        require("nvim-ts-autotag").setup()
+      end,
+      ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+      -- event = "InsertEnter",
+    },
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
