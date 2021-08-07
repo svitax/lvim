@@ -242,8 +242,9 @@ M.config = function()
       "andymass/vim-matchup",
       event = "CursorMoved",
       config = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup" }
+        vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
         -- vim.g.matchup_matchparen_enabled = 0
+        vim.g.matchup_surround_enabled = 1
       end,
     },
     -----[[------------]]-----

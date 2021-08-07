@@ -214,20 +214,20 @@ M.config = function()
       -- ["d"] = actions.delete,
       ["D"] = gomi,
 
-      -- ["m"] = function()
-      --   mark_actions.toggle_mark()
-      --   vim.cmd "normal! j"
-      -- end,
-      ["<space>"] = function()
+      ["m"] = function()
         mark_actions.toggle_mark()
         vim.cmd "normal! j"
       end,
+      -- ["<space>"] = function()
+      --   mark_actions.toggle_mark()
+      --   vim.cmd "normal! j"
+      -- end,
       ["Y"] = clipboard_actions.copy,
       ["X"] = clipboard_actions.cut,
       ["P"] = clipboard_actions.paste,
     },
     float = {
-      winblend = 0,
+      winblend = 12,
       -- -- You can define a function that returns a table to be passed as the third
       -- -- argument of nvim_open_win().
       win_opts = construct_win_opts,
@@ -253,7 +253,7 @@ M.config = function()
       --   }
       -- end,
     },
-    hide_cursor = false,
+    hide_cursor = true,
   }
 
   -- custom folder icon

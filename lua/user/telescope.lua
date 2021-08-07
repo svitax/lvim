@@ -9,7 +9,7 @@ local previewers = require "telescope.previewers"
 -- Defaults
 -- =========================================
 M.config = function()
-  -- lvim.builtin.telescope.defaults.winblend = 10
+  lvim.builtin.telescope.defaults.winblend = 12
   lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
   lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
   lvim.builtin.telescope.defaults.mappings.n["q"] = actions.close
@@ -80,8 +80,9 @@ M.projects = function()
     display_type = "full",
     attach_mappings = function(_, map)
       map("n", "f", browse_project_files)
-      map("i", "<cr>", load_project)
-      map("n", "<cr>", load_project)
+      actions.select_default:replace(load_project)
+      -- map("i", "<cr>", load_project)
+      -- map("n", "<cr>", load_project)
       return true
     end,
   }

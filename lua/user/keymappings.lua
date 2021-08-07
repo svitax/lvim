@@ -26,6 +26,9 @@ M.config = function()
   lvim.keys.normal_mode["˚"] = ":m .-2<cr>=="
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
+  -- more ergonomic matchup mapping
+  -- lvim.keys.normal_mode[","] = "%"
+  vim.api.nvim_set_keymap("n", ",", "<plug>(matchup-%)", { silent = true })
 
   -- NOTE: Visual mode
   -- better movement keys
@@ -38,18 +41,21 @@ M.config = function()
   lvim.keys.visual_mode["<C-M-k>"] = ":m '<-2<cr>gv=gv"
   -- better pasting in visual mode
   lvim.keys.visual_mode["p"] = [["_dP]]
-  -- Undo break points (for a finer-grained undo command)
-  -- should I add space to this list?
-  lvim.keys.visual_mode[","] = ",<c-g>u"
-  lvim.keys.visual_mode["."] = ".<c-g>u"
-  lvim.keys.visual_mode["!"] = "!<c-g>u"
-  lvim.keys.visual_mode["?"] = "?<c-g>u"
-  lvim.keys.visual_mode["<cr>"] = "<cr><c-g>u"
+  -- more ergonomic matchup mapping
+  -- lvim.keys.visual_mode[","] = "%"
+  vim.api.nvim_set_keymap("x", ",", "<plug>(matchup-%)", { silent = true })
 
   -- NOTE: Insert mode
   -- Move current line up/down
   lvim.keys.insert_mode["<C-M-j>"] = "<Esc>:m .+1<CR>==gi"
   lvim.keys.insert_mode["<C-M-k>"] = "<Esc>:m .-2<CR>==gi"
+  -- Undo break points (for a finer-grained undo command)
+  -- should I add space to this list?
+  lvim.keys.insert_mode[","] = ",<c-g>u"
+  lvim.keys.insert_mode["."] = ".<c-g>u"
+  lvim.keys.insert_mode["!"] = "!<c-g>u"
+  lvim.keys.insert_mode["?"] = "?<c-g>u"
+  lvim.keys.insert_mode["<cr>"] = "<cr><c-g>u"
 
   -- NOTE: Terminal mode
   -- this prevents lazygit from working properly
@@ -152,7 +158,6 @@ M.config = function()
     q = { "<cmd>SaveSession<cr> <cmd>qa<cr>", "Quit and save session" },
     Q = { "<cmd>qa<cr>", "Quit" },
     r = { "<cmd>RestoreSession<cr>", "Restore session" },
-    s = { "<cmd>SearchSession<cr>", "Search sessions" },
     w = { "<cmd>SaveSession<cr>", "Save session" },
     -- s = { "<cmd>lua require('persistence').load()<cr>", "Restore for current dir" },
   }
@@ -181,7 +186,8 @@ M.config = function()
     "Search Obsidian notes",
   }
   -- lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>Telescope project<cr>", "Search project" }
-  lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>lua require('user.telescope').projects()<cr>", "Search project" }
+  lvim.builtin.which_key.mappings["s"]["p"] = { "<cmd>lua require('user.telescope').projects()<cr>", "Search projects" }
+  lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>SearchSession<cr>", "Search sessions" }
   lvim.builtin.which_key.mappings["s"]["T"] = { "<cmd>TodoTrouble<cr>", "Search todos" }
 
   -- +Window
