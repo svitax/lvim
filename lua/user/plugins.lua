@@ -274,7 +274,11 @@ M.config = function()
           -- session-lens lets us pass in telescope opts through its setup func, pretty neat
           path_display = { "shorten" },
           previewer = false,
+          -- unfortunately attaching a new mapping wipes out the defaults, so we have to put those back in
           attach_mappings = function(_, map)
+            require("telescope.actions").select_default:replace(
+              require("telescope._extensions.session-lens.session-lens-actions").source_session
+            )
             map("n", "<c-d>", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
             map("n", "d", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
             return true
