@@ -5,16 +5,8 @@ M.config = function(gl)
   -- TODO galaxyline themes
   -- local colors = require('galaxyline.theme').default
   local colors = {
-    -- bg = "#32302f",
-    -- bg = "#3c3836",
-
     bg2 = "#433E3A",
-    -- bg2 = "#32302f", -- default
-
     bg = "#433E3A", -- default
-    -- bg = "#504945",
-
-    -- fg2 = "#a89984",
     fg2 = "#7c6f64",
     fg = "#d4be98",
 
