@@ -349,7 +349,9 @@ M.config = function()
       "folke/todo-comments.nvim",
       event = "BufRead",
       config = function()
-        require("todo-comments").setup {}
+        require("todo-comments").setup {
+          signs = false, -- show icons in the signs column
+        }
       end,
     },
     -----[[------------]]-----
