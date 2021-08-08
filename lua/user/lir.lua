@@ -1,7 +1,7 @@
 local M = {}
 
--- TODO directories wiht ~ seems to bug out
--- what if I symlink instead
+-- TODO directories with ~ seems to bug out
+-- symlinking kinda works, still not perfect
 
 M.config = function()
   local status_ok, lir = pcall(require, "lir")
@@ -254,7 +254,7 @@ M.config = function()
       --   }
       -- end,
     },
-    hide_cursor = true,
+    hide_cursor = false,
   }
 
   -- custom folder icon
