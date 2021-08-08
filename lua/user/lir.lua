@@ -227,7 +227,8 @@ M.config = function()
       ["P"] = clipboard_actions.paste,
     },
     float = {
-      winblend = 12,
+      -- winblend = 8,
+      winblend = lvim.winblend,
       -- -- You can define a function that returns a table to be passed as the third
       -- -- argument of nvim_open_win().
       win_opts = construct_win_opts,
