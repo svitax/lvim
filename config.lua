@@ -13,7 +13,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 20
 vim.opt.showtabline = 0
-vim.opt.guifont = "Hark Nerd Font:h14"
+-- vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 
 -- Dashboard (builtin)
 -- =========================================
@@ -98,8 +98,6 @@ lvim.builtin.rooter.active = true
 
 -- Language Specific
 -- =========================================
-lvim.lang.markdown = {}
-lvim.lang.vimwiki = {}
 lvim.lsp.diagnostics.virtual_text = false
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>

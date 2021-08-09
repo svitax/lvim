@@ -36,6 +36,7 @@ M.config = function()
       "JoosepAlviste/nvim-ts-context-commentstring",
       event = "BufRead",
     },
+    -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
@@ -54,12 +55,10 @@ M.config = function()
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
-    -- I'm only using this for norg until it gets builtin link creation/following
-    -- remove norg and use only for markdown when that happens
     {
-      -- TODO disable or remap default mappings
-      -- <plug>(wiki-index)
-      -- TODO neorg needs compe to load first, so on init we can't jump to a .norg index with wiki.vim unless we load compe first (InsertEnter)
+      -- I'm only using this for norg until it gets builtin link creation/following
+      -- remove norg and use only for markdown when that happens
+      -- TODO disable or remap default local mappings
       "lervag/wiki.vim",
       config = function()
         vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
@@ -68,12 +67,14 @@ M.config = function()
         -- vim.g.wiki_link_extension = ".norg"
         vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
         vim.g.wiki_mappings_use_defaults = "local"
+        -- BUG neorg needs compe to load first, so on init we can't jump to a .norg index with <plug>wiki-index
+        -- unless we load compe first (InsertEnter)
         lvim.builtin.which_key.mappings["nw"] = { "<plug>(wiki-index)", "Wiki index" }
       end,
     },
-    -- { "dkarter/bullets.vim" },
+    -- { "dkarter/bullets.vim" }, -- https://github.com/dkarter/bullets.vim
     {
-      -- TODO compe gets unloaded once I open a .norg file?
+      -- BUG compe gets unloaded once I open a .norg file?
       "vhyrro/neorg",
       event = "BufWinEnter",
       branch = "unstable",
@@ -84,6 +85,7 @@ M.config = function()
     ---       Editing      ---
     -----]]------------[[-----
     -- { "blackCauldron7/surround.nvim" },
+    -- { "tpope/vim-surround" }, -- https://github.com/tpope/vim-surround
     -- { 'mizlan/iswap.nvim' },
     {
       "windwp/nvim-spectre",
@@ -106,13 +108,13 @@ M.config = function()
     },
     {
       "tamago324/lir.nvim",
-      -- event = "BufEnter",
+      -- event = "BufWinEnter",
       config = require "user.lir.config",
     },
     {
       -- TODO: refactor into separate file under a lir/ directory
       "tamago324/lir-bookmark.nvim",
-      -- event = "BufEnter",
+      -- event = "BufWinEnter",
       config = require "user.lir.extensions.bookmark",
       requires = { "tamago324/lir.nvim" },
     },
@@ -121,6 +123,7 @@ M.config = function()
       -- NOTE: lir-git-status doesn't support custom git icons yet
       "tamago324/lir-git-status.nvim",
       wants = "lir",
+      -- event = "BufWinEnter",
       config = require "user.lir.extensions.git_status",
     },
     {
@@ -209,7 +212,7 @@ M.config = function()
         require("telescope").load_extension "session-lens"
       end,
       -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
-      -- cmd = ""
+      -- event = "BufWinEnter",
     },
     {
       "rmagatti/session-lens",
@@ -230,6 +233,7 @@ M.config = function()
           end,
         }
       end,
+      -- event = "BufWinEnter",
     },
     {
       -- FIX when I save and press j/k, it jumps me through the jumplist
