@@ -256,8 +256,7 @@ M.config = function()
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
-    -- { 'michaelb/sniprun', run = 'bash ./install.sh'},
-    -- {'metakirby5/codi.vim'},
+    { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },
     {
       "rcarriga/nvim-dap-ui",
       config = function()

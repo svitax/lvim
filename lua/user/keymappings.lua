@@ -148,7 +148,10 @@ M.config = function()
   lvim.builtin.which_key.mappings["c"] = { "<cmd>close<CR>", "close window" }
   lvim.builtin.which_key.mappings["C"] = { "<cmd>only<CR>", "win-wipeout" }
 
-  lvim.builtin.which_key.mappings["e"] = "eval"
+  lvim.builtin.which_key.mappings["e"] = { "<Plug>SnipRun", "eval" }
+  lvim.builtin.which_key.vmappings["e"] = { "<Plug>SnipRun", "eval bloc" }
+  -- The operator mapping allows you to combine movements with sniprun:
+  -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
 
   lvim.builtin.which_key.mappings["f"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
   -- TODO i want this command to make a new blank buffer in the current window and then open lir
