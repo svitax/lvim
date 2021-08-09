@@ -56,21 +56,21 @@ M.config = function()
     -----]]------------[[-----
     -- I'm only using this for norg until it gets builtin link creation/following
     -- remove norg and use only for markdown when that happens
-    -- {
-    --   -- TODO disable or remap default mappings
-    --   -- <plug>(wiki-index)
-    --   -- TODO neorg needs compe to load first, so on init we can't jump to a .norg index with wiki.vim unless we load compe first (InsertEnter)
-    --   "lervag/wiki.vim",
-    --   config = function()
-    --     vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax/index.norg"
-    --     -- vim.g.wiki_filetypes = { "norg" }
-    --     vim.g.wiki_filetypes = { "norg", "md" }
-    --     -- vim.g.wiki_link_extension = ".norg"
-    --     vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
-    --     vim.g.wiki_mappings_use_defaults = "local"
-    --     lvim.builtin.which_key.mappings["nw"] = { "<plug>(wiki-index)", "Wiki index" }
-    --   end,
-    -- },
+    {
+      -- TODO disable or remap default mappings
+      -- <plug>(wiki-index)
+      -- TODO neorg needs compe to load first, so on init we can't jump to a .norg index with wiki.vim unless we load compe first (InsertEnter)
+      "lervag/wiki.vim",
+      config = function()
+        vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
+        -- vim.g.wiki_filetypes = { "norg" }
+        vim.g.wiki_filetypes = { "norg", "md" }
+        -- vim.g.wiki_link_extension = ".norg"
+        vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
+        vim.g.wiki_mappings_use_defaults = "local"
+        lvim.builtin.which_key.mappings["nw"] = { "<plug>(wiki-index)", "Wiki index" }
+      end,
+    },
     -- { "dkarter/bullets.vim" },
     {
       -- TODO compe gets unloaded once I open a .norg file?
