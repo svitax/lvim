@@ -1,6 +1,9 @@
 local M = {}
 
 M.config = function()
+  lvim.builtin.which_key.on_config_done = function()
+    lvim.builtin.which_key.mappings[";"] = "dashboard"
+  end
   -- TODO lunarvim's footer isn't exposed for user config, but here's how I want the footer to look
   -- this needs to be in init.lua
   -- vim.g.start_time = vim.fn.reltime()

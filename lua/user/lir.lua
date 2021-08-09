@@ -1,7 +1,13 @@
+-- TODO refactor lir.lua into multiple files
+-- TODO make a command :Delete: where it deletes a buffer and the file on disk simultaneously.
+-- make a command :Chmod: Change the permissions of the current file.
+-- make a filter/search command
 local M = {}
 
--- TODO directories with ~ seems to bug out
--- symlinking kinda works, still not perfect
+-- TODO lir can't handle opening paths with ~ the first time round
+-- once I close the buffer and redo the command, it works once then it stops working again
+
+-- symlinking to avoid having a path with ~s lets be open the directory consistently
 
 M.config = function()
   local status_ok, lir = pcall(require, "lir")
@@ -17,10 +23,15 @@ M.config = function()
   local lirvim = require "lir.vim"
   local utils = require "lir.utils"
   local Path = require "plenary.path"
-
   local get_context = lirvim.get_context
+
+  -- Lir Plugins
+  local bkm_actions = require "lir.bookmark.actions"
+
   -- Custom Lir actions
 
+  -- edit without splitting (builtin edit splits sometimes)
+  -- =========================================
   local function edit_nosplit()
     local ctx = get_context()
     local dir, file = ctx.dir, ctx:current_value()
@@ -41,12 +52,17 @@ M.config = function()
     vim.cmd(string.format("%s %s %s", keepalt, cmd, vim.fn.fnameescape(dir .. file)))
     history.add(dir, file)
   end
+  -- =========================================
 
+  -- go to home dir
+  -- =========================================
   local function home()
     vim.cmd("edit " .. vim.fn.expand "$HOME")
   end
 
-  -- START gomi
+  -- gomi (rm replacement)
+  -- TODO: make gomi work with no files marked
+  -- =========================================
   local function esc_path(path)
     return vim.fn.shellescape(vim.fn.fnamemodify(path, ":p"), true)
   end
@@ -68,12 +84,15 @@ M.config = function()
       return
     end
     vim.fn.system("gomi " .. vim.fn.join(path_list))
+    -- vim.fn.system("gomi -f" .. vim.fn.join(path_list))
     actions.reload()
   end
-  -- START gomi
+  -- =========================================
 
   -- local function nop() end
 
+  -- go to git root
+  -- =========================================
   local function goto_git_root()
     local dir = require("lspconfig.util").find_git_ancestor(vim.fn.getcwd())
     if dir == nil or dir == "" then
@@ -82,15 +101,19 @@ M.config = function()
     vim.cmd("e " .. dir)
   end
 
+  -- input new file (create dirctories and files with the same command)
+  -- If the input value ends with '/', the directory will be created and
+  -- If the input value contains '/', and the directory does not exist, it will be created recursively
+  -- If the input file name does not contain '.' or '/', check if it is a directory.
+  -- If the first string is '.' and show_hidden_files is false, set it to true and display it again.
+  -- =========================================
   local no_confirm_patterns = {
     "^LICENSE$",
     "^Makefile$",
   }
-
   local lcd = function(path)
     vim.cmd(string.format([[silent execute (haslocaldir() ? 'lcd' : 'cd') '%s']], path))
   end
-
   local need_confirm = function(filename)
     for _, pattern in ipairs(no_confirm_patterns) do
       if filename:match(pattern) then
@@ -156,6 +179,8 @@ M.config = function()
       vim.cmd(tostring(lnum))
     end
   end
+  -- =========================================
+  -- END input new file
 
   -- Construct the Lir floating window options according to the window we are
   -- currently in. The position of the window will be centered in the current
@@ -184,47 +209,61 @@ M.config = function()
     show_hidden_files = false,
     devicons_enable = true,
     mappings = {
-      -- goto_git_root
-      ["g"] = goto_git_root,
-      -- home
-      ["h"] = home,
-
-      -- [";"] = actions.edit,
-      [";"] = edit_nosplit,
-      ["<cr>"] = actions.edit,
-
-      ["<C-s>"] = actions.split,
-      ["S"] = actions.split,
-      ["V"] = actions.vsplit,
-      ["<C-t>"] = actions.tabedit,
-
-      ["l"] = actions.up,
-      ["q"] = actions.quit,
-
-      -- ["A"] = actions.mkdir,
-      -- ["a"] = actions.newfile,
-      ["a"] = input_newfile,
-      ["r"] = actions.rename,
-      -- ["R"] = actions.reload,
-      -- TODO: get lir.mmv to work (i think something is wrong with nvr)
-      -- ["R"] = require("lir.mmv.actions").mmv,
       ["@"] = actions.cd,
-      ["y"] = actions.yank_path,
+      [";"] = edit_nosplit,
       ["."] = actions.toggle_show_hidden,
-      -- ["d"] = actions.delete,
-      ["D"] = gomi,
+      ["<cr>"] = edit_nosplit,
+      ["<esc>"] = actions.quit,
 
+      ["a"] = input_newfile,
+      ["ba"] = bkm_actions.add,
+      -- ["b"] = ""
+      -- ["B"] = "",
+      -- ["c"] = ""
+      -- ["d"] = ""
+      ["D"] = gomi,
+      -- ["e"] = ""
+      -- ["f"] = ""
+      ["g"] = bkm_actions.list, -- opens a writeable buffer with all added bookmarks
+      ["G"] = goto_git_root, -- navigates to the git root
+      ["h"] = home, -- navigates to home dir
+      -- ["i"] = ""
+      ["l"] = actions.up,
       ["m"] = function()
         mark_actions.toggle_mark()
         vim.cmd "normal! j"
       end,
-      -- ["<space>"] = function()
-      --   mark_actions.toggle_mark()
-      --   vim.cmd "normal! j"
-      -- end,
-      ["Y"] = clipboard_actions.copy,
-      ["X"] = clipboard_actions.cut,
+      -- ["n"] = ""
+      -- ["o"] = ""
       ["P"] = clipboard_actions.paste,
+      ["q"] = actions.quit,
+      ["r"] = actions.rename,
+      ["S"] = actions.split,
+      -- ["t"] = "" -- make this open a toggleterm in the cwd
+      -- ["u"] = ""
+      ["V"] = actions.vsplit,
+      -- ["w"] = ""
+      ["X"] = clipboard_actions.cut,
+      ["y"] = actions.yank_path,
+      ["Y"] = clipboard_actions.copy,
+      -- ["z"] = ""
+
+      ["<C-s>"] = actions.split,
+      ["<C-t>"] = actions.tabedit,
+      ["<C-v>"] = actions.vsplit,
+      ["<space>"] = function()
+        mark_actions.toggle_mark()
+        vim.cmd "normal! j"
+      end,
+
+      -- ["R"] = actions.reload,
+      -- TODO: get lir.mmv to work (i think something is wrong with nvr)
+      -- ["R"] = require("lir.mmv.actions").mmv,
+      -- ["A"] = actions.mkdir,
+      -- ["a"] = actions.newfile,
+      -- ["d"] = actions.delete,
+      -- ["w"] = actions.wipeout,
+      -- [";"] = actions.edit,
     },
     float = {
       -- winblend = 8,
@@ -295,10 +334,17 @@ M.config = function()
 
   -- TODO add to fennec-gruvbox theme
   -- Highlight groups
-  -- hi LirFloatNormal guibg=#32302f
-  -- hi LirDir guifg=#7ebae4
-  -- hi LirSymLink guifg=#7c6f64
-  -- hi LirEmptyDirText guifg=#7c6f64
+  -- hi LirFloatNormal guibg=#32302f -- The highlight for float window
+  -- Default: `highlight def link LirFloatNormal Normal``
+
+  -- hi LirDir guifg=#7ebae4 -- The highlighting a directory when `devicons_enable` is `false`
+  -- Default: `highlight def link LirDir PreProc`
+
+  -- hi LirSymLink guifg=#7c6f64 -- The highlighting for sym links
+  -- Default: `highlight def link LirSymLink PreProc`
+
+  -- hi LirEmptyDirText guifg=#7c6f64 -- The highlighting for text to be displayed when the directory is empt
+  -- Default: `highlight def link LirEmptyDirText BlueSign`
 end
 
 return M

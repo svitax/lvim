@@ -7,6 +7,7 @@ M.config = function()
     ---        LSP         ---
     -----]]------------[[-----
     -- { "mfussenegger/nvim-jdtls" },
+    -- { 'simrat39/symbols-outline.nvim' },
     {
       "ray-x/lsp_signature.nvim",
       config = function()
@@ -23,12 +24,9 @@ M.config = function()
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
     },
-    -- { 'simrat39/symbols-outline.nvim' },
-    -- {
-    --   -- TODO: get lsp-status to show current function, and find a way to only show current function
-    --   "nvim-lua/lsp-status.nvim",
-    --   -- event = "BufEnter",
-    -- },
+    -----[[------------]]-----
+    ---       Syntax       ---
+    -----]]------------[[-----
     {
       "nvim-treesitter/playground",
       after = "nvim-treesitter",
@@ -43,14 +41,9 @@ M.config = function()
     -----]]------------[[-----
     -- TODO waiting for diff file history in diffview.nvim (there's an issue already put up)
     -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", },
-    -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "ThePrimeagen/git-worktree.nvim" },
+    -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
-    -- {
-    -- 	"TimUntersberger/neogit",
-    -- 	requires = "nvim-lua/plenary.nvim",
-    -- 	cmd = "Neogit",
-    -- },
     {
       "pwntester/octo.nvim",
       cmd = "Octo",
@@ -63,70 +56,29 @@ M.config = function()
     -----]]------------[[-----
     -- I'm only using this for norg until it gets builtin link creation/following
     -- remove norg and use only for markdown when that happens
-    {
-      -- TODO disable or remap default mappings
-      -- TODO neorg needs compe to load first, so on init we can't jump to a .norg index with wiki.vim unless we load compe first (InsertEnter)
-      "lervag/wiki.vim",
-      config = function()
-        vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
-        vim.g.wiki_filetypes = { "norg", "md" }
-        vim.g.wiki_link_extension = ".norg"
-        vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
-      end,
-    },
+    -- {
+    --   -- TODO disable or remap default mappings
+    --   -- <plug>(wiki-index)
+    --   -- TODO neorg needs compe to load first, so on init we can't jump to a .norg index with wiki.vim unless we load compe first (InsertEnter)
+    --   "lervag/wiki.vim",
+    --   config = function()
+    --     vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax/index.norg"
+    --     -- vim.g.wiki_filetypes = { "norg" }
+    --     vim.g.wiki_filetypes = { "norg", "md" }
+    --     -- vim.g.wiki_link_extension = ".norg"
+    --     vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
+    --     vim.g.wiki_mappings_use_defaults = "local"
+    --     lvim.builtin.which_key.mappings["nw"] = { "<plug>(wiki-index)", "Wiki index" }
+    --   end,
+    -- },
     -- { "dkarter/bullets.vim" },
     {
-      -- TODO compe gets unloaded once I open a .norg file
+      -- TODO compe gets unloaded once I open a .norg file?
       "vhyrro/neorg",
       branch = "unstable",
       config = require("user.neorg").config,
       requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
     },
-    -- {
-    --   "vimwiki/vimwiki",
-    --   branch = "dev",
-    --   config = function()
-    --     -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki/markdown', 'syntax': 'markdown', 'ext': '.md'}]")
-    --     vim.cmd "let g:vimwiki_list = [{'path': '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax', 'syntax': 'markdown', 'ext': '.md'}]"
-    --     -- vim.cmd("let g:vimwiki_list = [{'path': '~/Desktop/vimwiki', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp'}}]")
-    --     vim.g.vimwiki_global_ext = 0
-    --     vim.g.vimwiki_markdown_link_ext = 1
-    --     -- vim.g.vimwiki_folding = "expr"
-    --     -- -- vim.g.vimwiki_ext2syntax = {}
-    --     vim.api.nvim_set_keymap("n", "<leader>wn", "<Plug>VimwikiNextLink", { silent = true })
-    --     vim.api.nvim_set_keymap("n", "<leader>wb", "<Plug>VimwikiPrevLink", { silent = true })
-    --   end,
-    --   -- ft = { "markdown", "vimwiki" },
-    --   -- event = "BufRead",
-    -- },
-    -- {"shurcooL/markdownfmt"},
-    -- {
-    --   'iamcco/markdown-preview.nvim',
-    --   run = 'cd app && npm install',
-    --   ft = 'markdown',
-    -- },
-    {
-      "jubnzv/mdeval.nvim",
-      config = function()
-        vim.g.markdown_fenced_languages = { "python", "cpp" }
-        require("mdeval").setup {
-          eval_options = {
-            -- Set custom configuration for C++
-            cpp = {
-              command = { "clang++", "-std=c++20", "-O0" },
-            },
-          },
-        }
-      end,
-      ft = "markdown",
-    },
-    -- {
-    --   -- vimwiki conceal is better
-    --   "plasticboy/vim-markdown",
-    --   config = require("user.vim-markdown").config,
-    --   ft = { "markdown" },
-    --   disable = true,
-    -- },
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
@@ -153,12 +105,41 @@ M.config = function()
     },
     {
       "tamago324/lir.nvim",
-      event = "BufEnter",
+      -- event = "BufEnter",
       config = require("user.lir").config,
     },
-    -- { "tamago324/lir-bookmark.nvim", event = "BufEnter" },
+    {
+      -- TODO: refactor into separate file under a lir/ directory
+      "tamago324/lir-bookmark.nvim",
+      -- event = "BufEnter",
+      config = function()
+        local bkm_actions = require "lir.bookmark.actions"
+        local actions = require "lir..actions"
+        require("lir.bookmark").setup {
+          bookmark_path = "~/.config/lvim/.lir_bookmark",
+          mappings = {
+            [";"] = bkm_actions.edit,
+
+            ["B"] = bkm_actions.open_lir,
+            ["l"] = bkm_actions.open_lir,
+            ["q"] = actions.quit,
+            ["S"] = bkm_actions.split,
+            ["V"] = bkm_actions.vsplit,
+
+            -- ["<C-e>"] = bkm_actions.open_lir,
+            ["<C-s>"] = bkm_actions.vsplit,
+            ["<C-t>"] = bkm_actions.tabedit,
+            ["<C-v>"] = bkm_actions.vsplit,
+          },
+        }
+        -- highlight link lirBookmarkDirectory PreProc
+      end,
+      requires = { "tamago324/lir.nvim" },
+    },
+
     -- {
-    --   -- TODO: lir-git-status doesn't support custom git icons yet
+    --   -- TODO: refactor into separate file under a lir/ directory
+    --   -- NOTE: lir-git-status doesn't support custom git icons yet
     --   "tamago324/lir-git-status.nvim",
     --   wants = "lir",
     --   config = function()
@@ -172,13 +153,6 @@ M.config = function()
     --   -- highlight link LirGitStatusUnmerged ErrorMsg
     --   -- highlight link LirGitStatusUntracked Comment
     --   -- highlight link LirGitStatusIgnored Comment
-    -- },
-    -- {
-    -- TODO: get lir.mmv to work (i think something is wrong with nvr)
-    --   -- https://github.com/mhinz/neovim-remote
-    --   -- https://github.com/itchyny/mmv
-    --   "tamago324/lir-mmv.nvim",
-    --   wants = "lir",
     -- },
     {
       -- need this since no longer using barbar
@@ -288,6 +262,7 @@ M.config = function()
       end,
     },
     {
+      -- FIX when I save and press j/k, it jumps me through the jumplist
       "ethanholz/nvim-lastplace",
       event = "BufWinEnter",
       config = function()
@@ -357,11 +332,6 @@ M.config = function()
     -----[[------------]]-----
     ---     Completion     ---
     -----]]------------[[-----
-    -- { "gelguy/wilder.nvim",
-    --   config = function ()
-    --     vim.cmd("source $HOME/.config/lvim/lua/user/wilder.vim")
-    --   end
-    -- },
     {
       "tzachar/compe-tabnine",
       run = "./install.sh",
@@ -370,21 +340,9 @@ M.config = function()
     },
     -- { "tamago324/compe-zsh" },
     -----[[------------]]-----
-    ---       Extras       ---
+    ---      QuickFix      ---
     -----]]------------[[-----
     -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
-    {
-      "ianding1/leetcode.vim",
-      config = function()
-        vim.g.leetcode_browser = "firefox"
-        vim.g.leetcode_solution_filetype = "python3"
-        vim.g.leetcode_hide_topics = 1
-        vim.g.leetcode_hide_companies = 1
-      end,
-      cmd = "LeetCodeList",
-    },
-    -- { 'kristijanhusak/vim-dadbod-ui' },
-    -- { 'tpope/vim-dadbod' },
   }
 end
 
