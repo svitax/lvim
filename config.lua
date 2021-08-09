@@ -28,11 +28,13 @@ require("user.toggleterm").config()
 -- Telescope (builtin)
 -- =========================================
 lvim.builtin.telescope.active = true
-require("user.telescope").config()
+require "user.telescope.config"()
+-- require("user.telescope").config()
 
 -- Nvimtree (builtin)
 -- =========================================
 -- lvim.builtin.nvimtree.active = true
+lvim.builtin.nvimtree.auto_open = 0
 require("user.nvimtree").config()
 
 -- Galaxyline (builtin)

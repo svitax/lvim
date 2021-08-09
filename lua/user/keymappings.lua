@@ -31,8 +31,8 @@ M.config = function()
   -- more ergonomic matchup mapping
   -- lvim.keys.normal_mode[","] = "%"
   vim.api.nvim_set_keymap("n", ",", "<plug>(matchup-%)", { silent = true })
-  -- add new line when enter in normal mode
-  lvim.keys.normal_mode["<Enter>"] = "o<Esc>"
+  -- add new line when enter in normal mode (conflicts with wiki.vim)
+  -- lvim.keys.normal_mode["<Enter>"] = "o<Esc>"
   -- no highlight on esc
   lvim.keys.normal_mode["<Esc>"] = '<cmd>let @/=""<CR>'
   -- visual line mode on <A-v>
@@ -141,7 +141,10 @@ M.config = function()
   -- ["("] =
   -- [")"] =
 
-  lvim.builtin.which_key.mappings["b"] = { "<cmd>lua require('user.telescope').buffers()<cr>", "switch buffer" }
+  lvim.builtin.which_key.mappings["b"] = {
+    "<cmd>lua require'user.telescope.pickers.buffers'()<cr>",
+    "switch buffer",
+  }
   lvim.builtin.which_key.mappings["c"] = { "<cmd>close<CR>", "close window" }
   lvim.builtin.which_key.mappings["C"] = { "<cmd>only<CR>", "win-wipeout" }
 
@@ -161,7 +164,7 @@ M.config = function()
   }
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<CR>", "quit" }
   lvim.builtin.which_key.mappings["w"] = { "<cmd>w!<CR>", "save" }
-  lvim.builtin.which_key.mappings["x"] = { "<cmd>Bdelete<CR>", "close buffer" }
+  lvim.builtin.which_key.mappings["x"] = { "<cmd>Bdelete!<CR>", "close buffer" }
   lvim.builtin.which_key.mappings["X"] = { "<cmd>Bwipeout<CR>", "buf-wipeout" }
 
   -- show up only on html files (maybe css/js too)
@@ -207,22 +210,22 @@ M.config = function()
   lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message" }
   lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub prs" }
   -- lvim.builtin.which_key.mappings["g"]["c"] = {
-  --   "<cmd>lua require('user.telescope').delta_git_commits()<CR>",
+  --   "<cmd>lua require('user.telescope.pickers').delta_git_commits()<CR>",
   --   "Project's commits",
   -- }
   -- lvim.builtin.which_key.mappings["g"]["C"] = {
-  --   "<cmd>lua require('user.telescope').delta_git_bcommits()<CR>",
+  --   "<cmd>lua require('user.telescope.pickers').delta_git_bcommits()<CR>",
   --   "Buffer's commits",
   -- }
   -- lvim.builtin.which_key.mappings["gS"] = {
-  --   "<cmd>lua require('user.telescope').delta_git_status()<CR>",
+  --   "<cmd>lua require('user.telescope.pickers').delta_git_status()<CR>",
   --   "Git status",
   -- }
 
   -- TODO override builtin LSP mappings
   -- +LSP
   -- =========================================
-  lvim.builtin.which_key.mappings["ld"] = {
+  lvim.builtin.which_key.mappings["l"]["d"] = {
     "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
     "document diagnostics",
   }
@@ -297,7 +300,7 @@ M.config = function()
       "notes",
     },
     -- p = {},
-    p = { "<cmd>lua require('user.telescope').projects()<cr>", "workspaces" },
+    p = { "<cmd>lua require'user.telescope.pickers.projects'()<cr>", "workspaces" },
     r = { "<cmd>Telescope oldfiles<cr>", "recent files" },
     R = { "registers" },
     s = { "<cmd>SearchSession<cr>", "sessions" },
