@@ -106,54 +106,22 @@ M.config = function()
     {
       "tamago324/lir.nvim",
       -- event = "BufEnter",
-      config = require("user.lir").config,
+      config = require "user.lir.config",
     },
     {
       -- TODO: refactor into separate file under a lir/ directory
       "tamago324/lir-bookmark.nvim",
       -- event = "BufEnter",
-      config = function()
-        local bkm_actions = require "lir.bookmark.actions"
-        local actions = require "lir..actions"
-        require("lir.bookmark").setup {
-          bookmark_path = "~/.config/lvim/.lir_bookmark",
-          mappings = {
-            [";"] = bkm_actions.edit,
-
-            ["B"] = bkm_actions.open_lir,
-            ["l"] = bkm_actions.open_lir,
-            ["q"] = actions.quit,
-            ["S"] = bkm_actions.split,
-            ["V"] = bkm_actions.vsplit,
-
-            -- ["<C-e>"] = bkm_actions.open_lir,
-            ["<C-s>"] = bkm_actions.vsplit,
-            ["<C-t>"] = bkm_actions.tabedit,
-            ["<C-v>"] = bkm_actions.vsplit,
-          },
-        }
-        -- highlight link lirBookmarkDirectory PreProc
-      end,
+      config = require "user.lir.extensions.bookmark",
       requires = { "tamago324/lir.nvim" },
     },
-
-    -- {
-    --   -- TODO: refactor into separate file under a lir/ directory
-    --   -- NOTE: lir-git-status doesn't support custom git icons yet
-    --   "tamago324/lir-git-status.nvim",
-    --   wants = "lir",
-    --   config = function()
-    --     require("lir.git_status").setup {
-    --       -- show_ignored = true,
-    --     }
-    --   end,
-    --   -- highlight link LirGitStatusBracket Comment
-    --   -- highlight link LirGitStatusIndex Special
-    --   -- highlight link LirGitStatusWorktree WarningMsg
-    --   -- highlight link LirGitStatusUnmerged ErrorMsg
-    --   -- highlight link LirGitStatusUntracked Comment
-    --   -- highlight link LirGitStatusIgnored Comment
-    -- },
+    {
+      -- TODO: refactor into separate file under a lir/ directory
+      -- NOTE: lir-git-status doesn't support custom git icons yet
+      "tamago324/lir-git-status.nvim",
+      wants = "lir",
+      config = require "user.lir.extensions.git_status",
+    },
     {
       -- need this since no longer using barbar
       "famiu/bufdelete.nvim",
