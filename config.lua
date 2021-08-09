@@ -4,7 +4,6 @@ lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
--- TODO: a global variable for winblend
 lvim.winblend = 6
 
 -- Default options
