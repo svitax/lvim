@@ -34,7 +34,7 @@ M.config = function()
     },
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
-      event = "BufEnter",
+      event = "BufRead",
     },
     -----[[------------]]-----
     ---        Git         ---
@@ -75,6 +75,7 @@ M.config = function()
     {
       -- TODO compe gets unloaded once I open a .norg file?
       "vhyrro/neorg",
+      event = "BufWinEnter",
       branch = "unstable",
       config = require("user.neorg").config,
       requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
@@ -132,6 +133,7 @@ M.config = function()
     -----]]------------[[-----
     {
       "ggandor/lightspeed.nvim",
+      -- cmd on lightspeed activate? s/S/f/F keys?
       event = "BufRead",
     },
     {
@@ -242,7 +244,8 @@ M.config = function()
     -----]]------------[[-----
     {
       "turbio/bracey.vim",
-      event = "BufRead",
+      --      event = "BufRead",
+      ft = { "html", "javascript", "css" },
       run = "npm install --prefix server",
     },
     {
