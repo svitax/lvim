@@ -24,6 +24,8 @@ return function()
   local goto_git_root = require "user.lir.actions.goto_git_root"
   local home = require "user.lir.actions.home"
 
+  local open_terminal = require "user.lir.actions.open_terminal"
+
   local bkm_actions = require "lir.bookmark.actions"
 
   lir.setup {
@@ -60,7 +62,7 @@ return function()
       ["q"] = actions.quit,
       ["r"] = actions.rename,
       ["S"] = actions.split,
-      -- ["t"] = "" -- make this open a toggleterm in the cwd
+      ["t"] = open_terminal, -- make this open a toggleterm in the cwd
       -- ["u"] = ""
       ["V"] = actions.vsplit,
       -- ["w"] = ""
