@@ -13,10 +13,27 @@ M.config = function()
   -- lvim.builtin.terminal.float_opts.height = vim.fn.float2nr(vim.o.lines * 0.87)
   -- lvim.builtin.terminal.float_opts.winblend = 10
   lvim.builtin.terminal.float_opts.winblend = lvim.winblend
-
-  -- lvim.builtin.terminal.on_config_done = function ()
-  --   -- TODO find out how to quit a terminal window with q
-  -- end
+  lvim.builtin.terminal.float_opts.highlights.border = "Comment"
+  lvim.builtin.terminal.shade_terminals = false
 end
+
+-- An example of what a custom terminal would look like
+-- M.algoexpert_runner = function()
+--   vim.cmd "Neorg tangle"
+--   -- <cmd>TermExec direction='horizontal' size=10 cmd='clear && python3 "temp.py" && rm "temp.py"'<cr>]],
+--   local terminal = require("toggleterm.terminal").Terminal:new {
+--     cmd = "clear && python3 'temp.py' && rm 'temp.py'",
+--     close_on_exit = false,
+--     hidden = true,
+--     go_back = true,
+--     direction = "horizontal",
+--     on_open = function(term)
+--       vim.cmd "startinsert!"
+--       -- this is how you make it so that in a custom terminal you can quit with q
+--       vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+--     end,
+--   }
+--   terminal:open(7)
+-- end
 
 return M
