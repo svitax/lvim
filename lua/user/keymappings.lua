@@ -3,6 +3,7 @@ M = {}
 M.config = function()
   -- you can also use the native vim way directly to remap keys
 
+  -- Fix previous spelling mistake
   lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
 
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
@@ -125,7 +126,9 @@ M.config = function()
   -- vim.api.nvim_set_keymap("n", "<ESC>", ":nohls | :setlocal nospell<ESC>", { noremap = true, silent = true })
 
   lvim.builtin.which_key.mappings["c"] = nil
-  lvim.builtin.which_key.mappings["h"] = nil
+  -- toggle spell check
+  -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
+  lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr>", "spellcheck" }
 
   lvim.builtin.which_key.mappings["e"] = { "<Plug>SnipRun", "eval" }
   lvim.builtin.which_key.vmappings["e"] = { "<Plug>SnipRun", "eval bloc" }
