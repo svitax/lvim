@@ -1,7 +1,13 @@
 M = {}
 
+-- test 1 commit
+
 M.config = function()
   -- you can also use the native vim way directly to remap keys
+
+  -- degenerate emacs inside nvim just to use magit
+  lvim.keys.normal_mode["<C-a>"] = "<cmd>lua require('user.toggleterm')._toggle_magit()<cr>"
+  -- lvim.builtin.which_key.mappings["<space>"] = { ":term emacsclient -nw -e '(magit-status)' <cr>", "magit" }
 
   -- Fix previous spelling mistake
   lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"

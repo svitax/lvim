@@ -17,6 +17,27 @@ M.config = function()
   lvim.builtin.terminal.shade_terminals = false
 end
 
+-- emacsclient -nw -e '(magit-status)' <cr>"
+M.magit = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    cmd = "emacsclient -nw -e '(magit-status)'",
+    close_on_exit = true,
+    hidden = false,
+    on_open = function(term)
+      vim.cmd "startinsert!"
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+      -- this is how you make it so that in a custom terminal you can quit with q
+      vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+  }
+  return terminal
+end
+
+M._toggle_magit = function()
+  magit = M.magit()
+  magit:toggle()
+end
+
 -- An example of what a custom terminal would look like
 -- M.algoexpert_runner = function()
 --   vim.cmd "Neorg tangle"
