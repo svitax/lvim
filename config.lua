@@ -4,7 +4,8 @@ lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
-lvim.winblend = 6
+-- winblend screws up the colors in toggleterm for me
+lvim.winblend = 0
 
 -- Default options
 -- =========================================

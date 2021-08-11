@@ -58,7 +58,7 @@ M.config = function()
     {
       -- I'm only using this for norg until it gets builtin link creation/following
       -- remove norg and use only for markdown when that happens
-      -- TODO disable or remap default local mappings
+      -- find a way to disable local mappings but keep <cr> as link follow
       "lervag/wiki.vim",
       config = function()
         vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
@@ -66,17 +66,15 @@ M.config = function()
         vim.g.wiki_filetypes = { "norg", "md" }
         -- vim.g.wiki_link_extension = ".norg"
         vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
-        vim.g.wiki_mappings_use_defaults = "local"
+        vim.g.wiki_mappings_use_defaults = "local" -- all, local, global, or none
         -- BUG neorg needs compe to load first, so on init we can't jump to a .norg index with <plug>wiki-index
         -- unless we load compe first (InsertEnter)
-        lvim.builtin.which_key.mappings["nw"] = { "<plug>(wiki-index)", "Wiki index" }
       end,
     },
     -- { "dkarter/bullets.vim" }, -- https://github.com/dkarter/bullets.vim
     {
       -- BUG compe gets unloaded once I open a .norg file?
       "vhyrro/neorg",
-      event = "BufWinEnter",
       branch = "unstable",
       config = require("user.neorg").config,
       requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
@@ -85,7 +83,7 @@ M.config = function()
     ---       Editing      ---
     -----]]------------[[-----
     -- { "blackCauldron7/surround.nvim" },
-    -- { "tpope/vim-surround" }, -- https://github.com/tpope/vim-surround
+    -- { "tpope/vim-surround", keys = { "c", "d", "y" } }, -- https://github.com/tpope/vim-surround
     -- { 'mizlan/iswap.nvim' },
     {
       "windwp/nvim-spectre",
@@ -101,6 +99,7 @@ M.config = function()
     -----]]------------[[-----
     {
       "nvim-telescope/telescope-project.nvim",
+      branch = "feat/workspaces",
       event = "BufWinEnter",
       config = function()
         require("telescope").load_extension "project"
@@ -108,13 +107,11 @@ M.config = function()
     },
     {
       "tamago324/lir.nvim",
-      -- event = "BufWinEnter",
       config = require "user.lir.config",
     },
     {
       -- TODO: refactor into separate file under a lir/ directory
       "tamago324/lir-bookmark.nvim",
-      -- event = "BufWinEnter",
       config = require "user.lir.extensions.bookmark",
       requires = { "tamago324/lir.nvim" },
     },
@@ -123,13 +120,20 @@ M.config = function()
       -- NOTE: lir-git-status doesn't support custom git icons yet
       "tamago324/lir-git-status.nvim",
       wants = "lir",
-      -- event = "BufWinEnter",
       config = require "user.lir.extensions.git_status",
     },
     {
-      -- need this since no longer using barbar
-      "famiu/bufdelete.nvim",
-      cmd = { "Bdelete", "Bwipeout" },
+      "kazhala/close-buffers.nvim",
+      cmd = { "BDelete", "BDelete!", "BWipeout", "BWipeout!" },
+      config = function()
+        require("close_buffers").setup {
+          filetype_ignore = {}, -- Filetype to ignore when running deletions
+          file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
+          file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
+          preserve_window_layout = { "this", "nameless" }, -- Types of deletion that should preserve the window layout
+          next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
+        }
+      end,
     },
     -----[[------------]]-----
     ---     Navigation     ---
@@ -165,14 +169,14 @@ M.config = function()
         require("neoscroll.config").set_mappings(t)
       end,
     },
-    -- {
-    --   "abecodes/tabout.nvim",
-    --   config = function()
-    --     require("user.tabout").config()
-    --   end,
-    --   wants = { "nvim-treesitter" }, -- or require if not used so far
-    --   after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
-    -- },
+    {
+      "abecodes/tabout.nvim",
+      config = function()
+        require("user.tabout").config()
+      end,
+      wants = { "nvim-treesitter" }, -- or require if not used so far
+      after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
+    },
     -- { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
     {
       "numToStr/Navigator.nvim",
@@ -197,6 +201,16 @@ M.config = function()
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
+    -- {
+    --   "folke/persistence.nvim",
+    --   -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    --   -- module = "persistence",
+    --   config = function()
+    --     require("persistence").setup {
+    --       dir = vim.fn.expand(vim.fn.stdpath "data" .. "/sessions/"),
+    --     }
+    --   end,
+    -- },
     {
       "rmagatti/auto-session",
       config = function()
@@ -205,19 +219,17 @@ M.config = function()
           auto_session_enable_last_session = false,
           auto_session_root_dir = vim.fn.stdpath "data" .. "/sessions/",
           auto_session_enabled = false,
-          auto_save_enabled = true,
+          auto_save_enabled = false,
           auto_restore_enabled = false,
           auto_session_suppress_dirs = nil,
         }
-        require("telescope").load_extension "session-lens"
       end,
-      -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
-      -- event = "BufWinEnter",
     },
     {
       "rmagatti/session-lens",
       requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
       config = function()
+        require("telescope").load_extension "session-lens"
         require("session-lens").setup {
           -- session-lens lets us pass in telescope opts through its setup func, pretty neat
           path_display = { "shorten" },
@@ -233,7 +245,6 @@ M.config = function()
           end,
         }
       end,
-      -- event = "BufWinEnter",
     },
     {
       -- FIX when I save and press j/k, it jumps me through the jumplist
