@@ -8,8 +8,8 @@ return function()
   -- local theme_opts = themes.get_ivy { border = true }
   local theme_opts = themes.get_dropdown { border = true, previewer = false }
   local opts = {
-    initial_mode = "insert",
     -- workaround to telescope bug #1018 until a fix gets merged so I can use initial_mode = "normal"
+    initial_mode = "insert",
     on_complete = {
       function()
         vim.cmd "stopinsert"

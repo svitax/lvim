@@ -1,3 +1,7 @@
+-- TODO: better project+session handling
+-- I can load a projects session, but I can't reliably save a project's session
+-- If I do :SaveSession while in a window that has a file that's not part of the project,
+-- it will save the session under that other file's project
 -- Projects picker
 return function()
   local actions = require "telescope.actions"
@@ -21,10 +25,18 @@ return function()
 
   local load_project = function(prompt_bufnr)
     local project_path = project_actions.get_selected_path(prompt_bufnr)
-    actions._close(prompt_bufnr, true)
+
     local cd_successful = project_utils.change_project_dir(project_path)
     if cd_successful then
-      vim.cmd "RestoreSession"
+      local AutoSession = require "auto-session"
+
+      local session_file = project_path:gsub("/", "%%") .. ".vim"
+      local session_file_path = vim.fn.stdpath "data" .. "/sessions/" .. session_file
+      -- vim.fn.stdpath("data" .. "/sessions/") -- auto_session_root_dir
+      actions._close(prompt_bufnr, true)
+      AutoSession.AutoSaveSession() -- save the current session
+      vim.cmd "%bd!" -- deletes all buffers
+      AutoSession.RestoreSession(session_file_path)
       vim.cmd "stopinsert"
     end
   end
@@ -32,6 +44,14 @@ return function()
   local theme_opts = themes.get_dropdown { border = true, previewer = false }
   local opts = {
     display_type = "full",
+    -- workaround to telescope bug #1018 until a fix gets merged so I can use initial_mode = "normal"
+    -- TODO normal mode for this picker
+    initial_mode = "insert",
+    on_complete = {
+      function()
+        vim.cmd "stopinsert"
+      end,
+    },
     attach_mappings = function(_, map)
       map("n", "f", browse_project_files)
       actions.select_default:replace(load_project)
