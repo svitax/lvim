@@ -2,7 +2,7 @@ local M = {}
 
 M.config = function()
   lvim.builtin.which_key.on_config_done = function()
-    lvim.builtin.which_key.mappings[";"] = "dashboard"
+    lvim.builtin.which_key.mappings[";"] = { "<cmd>Dashboard<cr>", "dashboard" }
   end
   -- TODO lunarvim's footer isn't exposed for user config, but here's how I want the footer to look
   -- this needs to be in init.lua
@@ -14,5 +14,33 @@ M.config = function()
   --   -- 
   --   -- "LunarVim loaded " .. packages .. " plugins   in " .. loadtime .. "  seconds ",
   -- }
+
+  lvim.builtin.dashboard.custom_section = {
+    a = {
+      description = { "  Recently used files" },
+      command = "Telescope oldfiles",
+    },
+    b = {
+      description = { "  Load project        " },
+      command = "lua require'user.telescope.pickers.projects'()",
+    },
+    c = {
+      description = { "  Find file          " },
+      command = "Telescope find_files",
+    },
+    -- d = {
+    --   description = { "  Load last session  " },
+    --   command = "SessionLoad",
+    -- },
+    e = {
+      description = { "  Grep                " },
+      command = "Telescope live_grep",
+    },
+    f = {
+      description = { "  Settings           " },
+      command = ":e " .. USER_CONFIG_PATH,
+    },
+  }
 end
+
 return M
