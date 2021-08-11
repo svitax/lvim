@@ -3,6 +3,8 @@ M = {}
 M.config = function()
   -- you can also use the native vim way directly to remap keys
 
+  lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
+
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
   -- vim.api.nvim_set_keymap("n", "¬", "<A-l>", { noremap = false, silent = true, expr = true })
   -- vim.api.nvim_set_keymap("n", "˙", "<A-h>", { noremap = false, silent = true, expr = true })
@@ -73,43 +75,16 @@ M.config = function()
 
   -- NOTE: WhichKey
 
-  -- Implemented
-  -- =====================================
-  -- ["b"] = (buffer switcher)
-  -- ["c"] = (close window)
-  -- ["C"] = (wipeout windows)
-  -- ["d"] = +Debug
-  -- ["f"] = (floating file manager)
-  -- ["F"] = (buffer file manager)
-  -- ["g"] = +Git
-  -- ["h"] = (new vertical split)
-  -- ["j"] = (new horizontal split)
-  -- ["l"] = +LSP
-  -- ["n"] = +Notes
-  -- ["nf"] (open notes dir in file manager to create/delete notes until lir fix)
-  -- ["p"] = +Packer
-  -- ["q"] = quit
-  -- ["r"] = +Replace
-  -- ["s"] = +Search
-  -- ["w"] = (save buffer)
-  -- ["x"] = (close buffer)
-  -- ["X"] = (wipeout buffers)
-  -- ["y"] = (bracey) -- web server with live reloading
-
-  -- ["/"] = comment
-  -- [","] = (dashboard)
-
   -- Assigned, not implemented
   -- =====================================
-  -- [";"] = (workspaces/sessions)
-  -- ["e"] = (sniprun) basically a repl/code snippet runner/evaluater
+  -- ["p"] = +Workspaces
+  -- ["P"] = +Packer
   -- ["m"] = +move (windows and buffers)
   -- ["M"] = (make) -- autocommands based on filetype
   -- ["R"] = (run)  -- autocommands based on filetype
   -- ["T"] = (test) -- autocommands based on filetype
   -- ["z"] = (zen)
 
-  -- ["lo"] symbol outline
   -- ["Tt"] (TSPlaygroundToggle)
 
   -- not assigned
@@ -119,15 +94,17 @@ M.config = function()
   -- (bibliography)
 
   -- ["a"] =
+  -- ["c"] =
+  -- ["C"] =
+  -- ["h"] =
   -- ["i"] =
+  -- ["j"] =
   -- ["k"] =
   -- ["o"] =
   -- ["u"] =
   -- ["v"] =
-  -- ["<up>"] =
-  -- ["<down>"] =
-  -- ["<left>"] =
-  -- ["<right>"] =
+  -- ["x"] =
+  -- ["X"] =
   -- ["."] =
   -- ["\"] =
   -- ["["] =
@@ -141,12 +118,14 @@ M.config = function()
   -- ["("] =
   -- [")"] =
 
-  lvim.builtin.which_key.mappings["b"] = {
-    "<cmd>lua require'user.telescope.pickers.buffers'()<cr>",
-    "switch buffer",
-  }
-  lvim.builtin.which_key.mappings["c"] = { "<cmd>close<CR>", "close window" }
-  lvim.builtin.which_key.mappings["C"] = { "<cmd>only<CR>", "win-wipeout" }
+  -- format with prettier
+  -- vim.api.nvim_set_keymap("n", "<F7>", ":!prettier --stdin-filepath % | e!<cr>", { noremap = true, silent = true })
+
+  -- Hitting escape also clears spelling and search highlights
+  -- vim.api.nvim_set_keymap("n", "<ESC>", ":nohls | :setlocal nospell<ESC>", { noremap = true, silent = true })
+
+  lvim.builtin.which_key.mappings["c"] = nil
+  lvim.builtin.which_key.mappings["h"] = nil
 
   lvim.builtin.which_key.mappings["e"] = { "<Plug>SnipRun", "eval" }
   lvim.builtin.which_key.vmappings["e"] = { "<Plug>SnipRun", "eval bloc" }
@@ -157,18 +136,15 @@ M.config = function()
   -- TODO i want this command to make a new blank buffer in the current window and then open lir
   lvim.builtin.which_key.mappings["F"] = { "<cmd>edit .<cr>", "file buffer" }
 
-  -- maybe the splits should be v and h?
-  lvim.builtin.which_key.mappings["h"] = { "<cmd>split<CR>", "split" }
-  lvim.builtin.which_key.mappings["v"] = { "<cmd>vsplit<CR>", "vsplit" }
-
   lvim.builtin.which_key.mappings["nf"] = {
     "<cmd>lua require('lir.float').toggle('~/.config/lvim/lua/notes/obsidian-notes')<CR>",
     "manage notes",
   }
-  lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<CR>", "quit" }
-  lvim.builtin.which_key.mappings["w"] = { "<cmd>w!<CR>", "save" }
-  lvim.builtin.which_key.mappings["x"] = { "<cmd>Bdelete!<CR>", "close buffer" }
-  lvim.builtin.which_key.mappings["X"] = { "<cmd>Bwipeout<CR>", "buf-wipeout" }
+
+  lvim.builtin.which_key.mappings["q"] = { "<cmd>w<cr> <cmd>qa<cr>", "save and quit" }
+  -- lvim.builtin.which_key.mappings["q"] = { "<cmd>SaveSession<cr> <cmd>w<cr> <cmd>qa<cr>", "save and quit" }
+  lvim.builtin.which_key.mappings["Q"] = { "<cmd>qa!<cr>", "quit" }
+  lvim.builtin.which_key.mappings["W"] = { "<cmd>w<cr>", "save" }
 
   -- show up only on html files (maybe css/js too)
   lvim.builtin.which_key.mappings["y"] = { "<cmd>Bracey<cr>", "live server" }
@@ -185,6 +161,32 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
   -- lvim.builtin.which_key.mappings["["] = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "file tree" }
+
+  -- +Buffers
+  -- =========================================
+  lvim.builtin.which_key.mappings["b"] = {
+    name = "+Buffers",
+    a = {
+      "<cmd>BufWipeout all",
+      "delete all buffers",
+    },
+    b = {
+      "<cmd>lua require'user.telescope.pickers.buffers'()<cr>",
+      "switch buffer",
+    },
+    d = {
+      "<cmd>BWipeout! this<CR>",
+      "close this buffer",
+    },
+    D = {
+      "<cmd>BWipeout! other<CR>",
+      "close other buffers",
+    },
+    h = {
+      "<cmd>BWipeout hidden",
+      "close hidden buffers",
+    },
+  }
 
   -- +Debugging
   -- =========================================
@@ -228,6 +230,7 @@ M.config = function()
   -- TODO override builtin LSP mappings
   -- +LSP
   -- =========================================
+  -- ["lo"] symbol outline
   lvim.builtin.which_key.mappings["l"]["d"] = {
     "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
     "document diagnostics",
@@ -251,17 +254,24 @@ M.config = function()
     i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation" },
   }
 
-  -- +Quit
+  -- +Notes
   -- =========================================
-  -- lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<CR>", "Quit" }
-  -- lvim.builtin.which_key.mappings["q"] = {
-  --   name = "+Quit",
-  --   q = { "<cmd>SaveSession<cr> <cmd>qa<cr>", "Quit and save session" },
-  --   Q = { "<cmd>qa<cr>", "Quit" },
-  --   r = { "<cmd>RestoreSession<cr>", "Restore session" },
-  --   w = { "<cmd>SaveSession<cr>", "Save session" },
-  --   s = { "<cmd>lua require('persistence').load()<cr>", "Restore for current dir" },
-  -- }
+  lvim.builtin.which_key.mappings["n"] = {
+    name = "+Notes",
+    t = { "<cmd>Neorg tangle<cr>", "tangle blocks" },
+    r = {
+      [[<cmd>!rm "temp.py"<cr> <cmd>Neorg tangle<cr> <cmd>TermExec direction='horizontal' size=7 cmd='clear && python3 "temp.py" && rm "temp.py"'<cr>]],
+      "run tangle",
+    },
+    R = {
+      [[<cmd>lua require('user.toggleterm').algo_runner()<cr>]],
+      "algo runner",
+    },
+    -- <cmd>lua require('toggleterm.terminal').Terminal:new({cmd='lazygit', direction='horizontal', size=10}):toggle()
+    w = { "<plug>(wiki-index)", "wiki index" },
+    d = { "<cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_cycle<cr>", "task cycle" },
+    n = { "<cmd>Neorg keybind norg core.norg.dirman.new.note<cr>", "new note" },
+  }
 
   -- +Replace
   -- =========================================
@@ -282,12 +292,8 @@ M.config = function()
       "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim'})<CR>",
       "config",
     },
-    -- C = {
-    --   "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
-    --   "colorscheme",
-    -- },
     d = {
-      "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config'})<CR>",
+      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config'})<CR>",
       "dotfiles",
     },
     f = { ":Telescope find_files<cr>", "files in project" },
@@ -310,6 +316,17 @@ M.config = function()
     -- fuzzy grep? change layout
     t = { "<cmd>Telescope current_buffer_fuzzy_find", "text" },
     T = { "<cmd>TodoTrouble<cr>", "todos" },
+  }
+
+  -- +Windows
+  -- =========================================
+  lvim.builtin.which_key.mappings["w"] = {
+    name = "+Windows",
+    d = { "<cmd>close<CR>", "close window" },
+    D = { "<cmd>only<CR>", "win-wipeout" },
+    s = { "<cmd>split<CR>", "split" },
+    v = { "<cmd>vsplit<CR>", "vsplit" },
+    z = "zoom window",
   }
 end
 
