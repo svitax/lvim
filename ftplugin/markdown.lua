@@ -1,4 +1,3 @@
-vim.cmd "set nospell"
 -- TODO markdown formatting and linting not working
 -- lvim.lang.markdown.formatters = {
 --   {
