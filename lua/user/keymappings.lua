@@ -38,12 +38,12 @@ M.config = function()
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
   -- more ergonomic matchup mapping
-  -- lvim.keys.normal_mode[","] = "%"
-  vim.api.nvim_set_keymap("n", ",", "<plug>(matchup-%)", { silent = true })
-  -- add new line when enter in normal mode (conflicts with wiki.vim)
-  -- lvim.keys.normal_mode["<Enter>"] = "o<Esc>"
+  vim.cmd "nnoremap <silent> <Tab> :normal %<CR>"
+  lvim.keys.visual_mode["<Tab>"] = "%"
   -- no highlight on esc
   lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<CR>"
+  -- -- add new line when enter in normal mode (conflicts with wiki.vim)
+  -- lvim.keys.normal_mode["<Enter>"] = "o<Esc>"
   -- -- visual line mode on <A-v>
   -- lvim.keys.normal_mode["â"] = "V"
   -- -- V acts like D, C, and Y but for selecting lines
