@@ -5,13 +5,6 @@ M = {}
 M.config = function()
   -- you can also use the native vim way directly to remap keys
 
-  -- degenerate emacs inside nvim just to use magit
-  lvim.keys.normal_mode["<C-a>"] = "<cmd>lua require('user.toggleterm')._toggle_magit()<cr>"
-  -- lvim.builtin.which_key.mappings["<space>"] = { ":term emacsclient -nw -e '(magit-status)' <cr>", "magit" }
-
-  -- Fix previous spelling mistake
-  lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
-
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
   -- vim.api.nvim_set_keymap("n", "¬", "<A-l>", { noremap = false, silent = true, expr = true })
   -- vim.api.nvim_set_keymap("n", "˙", "<A-h>", { noremap = false, silent = true, expr = true })
@@ -48,6 +41,9 @@ M.config = function()
   -- lvim.keys.normal_mode["â"] = "V"
   -- -- V acts like D, C, and Y but for selecting lines
   -- lvim.keys.normal_mode["V"] = "v$"
+  -- degenerate emacs inside nvim just to use magit
+  lvim.keys.normal_mode["<C-a>"] = "<cmd>lua require('user.toggleterm')._toggle_magit()<cr>"
+  -- lvim.builtin.which_key.mappings["<space>"] = { ":term emacsclient -nw -e '(magit-status)' <cr>", "magit" }
 
   -- NOTE: Visual mode
   -- better movement keys
@@ -75,6 +71,8 @@ M.config = function()
   lvim.keys.insert_mode["!"] = "!<c-g>u"
   lvim.keys.insert_mode["?"] = "?<c-g>u"
   lvim.keys.insert_mode["<cr>"] = "<cr><c-g>u"
+  -- Fix previous spelling mistake
+  lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
 
   -- NOTE: Terminal mode
   -- this prevents lazygit from working properly

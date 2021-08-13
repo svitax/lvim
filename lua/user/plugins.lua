@@ -36,8 +36,8 @@ M.config = function()
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
-    -- TODO waiting for diff file history in diffview.nvim (there's an issue already put up)
-    -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", },
+    -- TODO find a comfier way to integrate magit into my config (toggleterm config)
+    -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", }, -- waiting for diff file history in diffview.nvim (there's an issue already put up)
     -- { "ThePrimeagen/git-worktree.nvim" },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
@@ -51,7 +51,12 @@ M.config = function()
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
-    { "dkarter/bullets.vim" }, -- https://github.com/dkarter/bullets.vim
+    {
+      "dkarter/bullets.vim",
+      config = function()
+        vim.g.bullets_enabled_file_types = { "markdown" }
+      end,
+    }, -- https://github.com/dkarter/bullets.vim
     {
       "plasticboy/vim-markdown",
       config = function()
@@ -67,13 +72,6 @@ M.config = function()
         vim.g.vim_markdown_follow_anchor = 1
         vim.g.vim_markdown_auto_insert_bullets = 1
         vim.g.vim_markdown_new_list_item_indent = 0
-      end,
-    },
-    {
-      "kristijanhusak/orgmode.nvim",
-      ft = { "org" },
-      config = function()
-        require("orgmode").setup {}
       end,
     },
     {
@@ -102,9 +100,13 @@ M.config = function()
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
-    -- { "blackCauldron7/surround.nvim" },
-    -- { "tpope/vim-surround", keys = { "c", "d", "y" } }, -- https://github.com/tpope/vim-surround
     -- { 'mizlan/iswap.nvim' },
+    {
+      "machakann/vim-sandwich",
+      config = function()
+        vim.cmd "runtime macros/sandwich/keymap/surround.vim"
+      end,
+    },
     {
       "windwp/nvim-spectre",
       event = "BufRead",
@@ -114,11 +116,8 @@ M.config = function()
       "mg979/vim-visual-multi",
       event = "CursorMoved",
       config = function()
+        vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi
         vim.cmd "let g:VM_custom_motions = {';': 'l', 'l': 'h', 'h': ';'}"
-        -- VM_Mono {fg = colors.bg, bg = colors.yellow_2},
-        -- VM_Extend {fg = colors.bg, bg = colors.blue },
-        -- VM_Cursor {fg = colors.bg, bg = colors.yellow_2},
-        -- VM_Insert {fg = colors.fg, bg = colors.red},
       end,
     },
     -----[[------------]]-----
