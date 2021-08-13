@@ -333,7 +333,7 @@ M.config = function()
     D = { "<cmd>only<CR>", "delete all windows" },
     s = { "<cmd>split<CR>", "split" },
     v = { "<cmd>vsplit<CR>", "vsplit" },
-    z = "zoom window",
+    m = { "<Plug>Zoom", "toggle zoom window" },
   }
 end
 

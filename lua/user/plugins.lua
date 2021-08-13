@@ -119,6 +119,10 @@ M.config = function()
       end,
       event = "BufRead",
     },
+    {
+      "Mathijs-Bakker/zoom-vim",
+      event = "BufRead",
+    },
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
