@@ -5,7 +5,7 @@ M.config = function()
   lvim.autocommands.custom_groups = {
     { "BufEnter", "*.md", "setlocal conceallevel=2" },
     { "BufEnter", "*.norg", "setlocal conceallevel=2" },
-
+    { "FileType", "spectre_panel", "nnoremap <silent> <buffer> q :q<CR>" },
     -- { "BufEnter", "*.md", "setlocal spell" },
     -- { "BufEnter", "*.md", "setlocal spellcapcheck=" },
     -- { "BufEnter", "*.norg", "setlocal spell" },
