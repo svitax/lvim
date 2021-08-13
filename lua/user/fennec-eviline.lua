@@ -104,7 +104,7 @@ M.config = function(gl)
       -- return " " .. lsps
       -- return "異" .. lsps
       -- return " " .. lsps
-      return " " .. lsps
+      return "  " .. lsps
     end
   end
 
@@ -168,6 +168,11 @@ M.config = function(gl)
         icon = "",
         color = "#558140",
         name = "Norg",
+      },
+      org = {
+        icon = "",
+        color = "#d3869b",
+        name = "Org",
       },
       lir = {
         icon = "",
