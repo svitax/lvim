@@ -27,16 +27,12 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
-    {
-      "nvim-treesitter/playground",
-      after = "nvim-treesitter",
-      cmd = "TSPlaygroundToggle",
-    },
+    -- { "nvim-treesitter/playground", after = "nvim-treesitter", cmd = "TSPlaygroundToggle", },
+    -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
       event = "BufRead",
     },
-    -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
@@ -55,6 +51,31 @@ M.config = function()
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
+    { "dkarter/bullets.vim" }, -- https://github.com/dkarter/bullets.vim
+    {
+      "plasticboy/vim-markdown",
+      config = function()
+        -- " Configuration for vim-markdown
+        vim.g.vim_markdown_conceal = 2
+        vim.g.vim_markdown_conceal_code_blocks = 0
+        vim.g.vim_markdown_math = 1
+        vim.g.vim_markdown_toml_frontmatter = 1
+        vim.g.vim_markdown_frontmatter = 1
+        vim.g.vim_markdown_strikethrough = 1
+        vim.g.vim_markdown_autowrite = 1
+        vim.g.vim_markdown_edit_url_in = "tab"
+        vim.g.vim_markdown_follow_anchor = 1
+        vim.g.vim_markdown_auto_insert_bullets = 1
+        vim.g.vim_markdown_new_list_item_indent = 0
+      end,
+    },
+    {
+      "kristijanhusak/orgmode.nvim",
+      ft = { "org" },
+      config = function()
+        require("orgmode").setup {}
+      end,
+    },
     {
       -- I'm only using this for norg until it gets builtin link creation/following
       -- remove norg and use only for markdown when that happens
@@ -71,7 +92,6 @@ M.config = function()
         -- unless we load compe first (InsertEnter)
       end,
     },
-    -- { "dkarter/bullets.vim" }, -- https://github.com/dkarter/bullets.vim
     {
       -- BUG compe gets unloaded once I open a .norg file?
       "vhyrro/neorg",
@@ -93,6 +113,13 @@ M.config = function()
     {
       "mg979/vim-visual-multi",
       event = "CursorMoved",
+      config = function()
+        vim.cmd "let g:VM_custom_motions = {';': 'l', 'l': 'h', 'h': ';'}"
+        -- VM_Mono {fg = colors.bg, bg = colors.yellow_2},
+        -- VM_Extend {fg = colors.bg, bg = colors.blue },
+        -- VM_Cursor {fg = colors.bg, bg = colors.yellow_2},
+        -- VM_Insert {fg = colors.fg, bg = colors.red},
+      end,
     },
     -----[[------------]]-----
     ---       Files        ---
@@ -110,17 +137,22 @@ M.config = function()
       config = require "user.lir.config",
     },
     {
-      -- TODO: refactor into separate file under a lir/ directory
       "tamago324/lir-bookmark.nvim",
       config = require "user.lir.extensions.bookmark",
       requires = { "tamago324/lir.nvim" },
     },
     {
-      -- TODO: refactor into separate file under a lir/ directory
-      -- NOTE: lir-git-status doesn't support custom git icons yet
+      -- TODO find a way to get custom git icons with lir-git-status
       "tamago324/lir-git-status.nvim",
       wants = "lir",
       config = require "user.lir.extensions.git_status",
+    },
+    {
+      -- TODO get lir.mmv to work (i think something is wrong with nvr)
+      -- https://github.com/mhinz/neovim-remote
+      -- https://github.com/itchyny/mmv
+      "tamago324/lir-mmv.nvim",
+      requires = { "tamago324/lir.nvim" },
     },
     {
       "kazhala/close-buffers.nvim",
@@ -139,11 +171,13 @@ M.config = function()
     ---     Navigation     ---
     -----]]------------[[-----
     {
+      -- TODO: cmd on lightspeed activate? s/S/f/F keys?
       "ggandor/lightspeed.nvim",
-      -- cmd on lightspeed activate? s/S/f/F keys?
       event = "BufRead",
     },
     {
+      -- TODO: use neoscroll more often
+      -- TODO: zz center before doing neoscroll movement
       "karb94/neoscroll.nvim",
       event = "BufRead",
       config = function()
@@ -170,6 +204,7 @@ M.config = function()
       end,
     },
     {
+      -- TODO: maybe disable tab completion for compe to prevent conflicts with tabout
       "abecodes/tabout.nvim",
       config = function()
         require("user.tabout").config()
@@ -177,8 +212,8 @@ M.config = function()
       wants = { "nvim-treesitter" }, -- or require if not used so far
       after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
     },
-    -- { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
     {
+      -- TODO: don't need Navigator if I'm not going to use tmux
       "numToStr/Navigator.nvim",
       event = "BufWinEnter",
       config = function()
@@ -190,6 +225,7 @@ M.config = function()
       end,
     },
     {
+      -- TODO: find better mappings for matchup, and learn how to do matchup surround
       "andymass/vim-matchup",
       event = "CursorMoved",
       config = function()
@@ -201,16 +237,6 @@ M.config = function()
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
-    -- {
-    --   "folke/persistence.nvim",
-    --   -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
-    --   -- module = "persistence",
-    --   config = function()
-    --     require("persistence").setup {
-    --       dir = vim.fn.expand(vim.fn.stdpath "data" .. "/sessions/"),
-    --     }
-    --   end,
-    -- },
     {
       "rmagatti/auto-session",
       config = function()
@@ -247,7 +273,7 @@ M.config = function()
       end,
     },
     {
-      -- FIX when I save and press j/k, it jumps me through the jumplist
+      -- FIX: when I save and press j/k, it jumps me through the jumplist
       "ethanholz/nvim-lastplace",
       event = "BufWinEnter",
       config = function()
@@ -259,7 +285,7 @@ M.config = function()
     -----]]------------[[-----
     {
       "turbio/bracey.vim",
-      --      event = "BufRead",
+      event = "BufRead",
       ft = { "html", "javascript", "css" },
       run = "npm install --prefix server",
     },
@@ -274,7 +300,16 @@ M.config = function()
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
-    { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },
+    {
+      "michaelb/sniprun",
+      run = "bash ./install.sh",
+      cmd = "SnipRun",
+      config = function()
+        require("sniprun").setup {
+          repl_enable = { "Python3_original", "R_original" }, --" enable REPL-like behavior for the given interpreters
+        }
+      end,
+    },
     {
       "rcarriga/nvim-dap-ui",
       config = function()
