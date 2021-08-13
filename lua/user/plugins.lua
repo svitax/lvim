@@ -98,6 +98,23 @@ M.config = function()
       requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
     },
     -----[[------------]]-----
+    ---         UI         ---
+    -----]]------------[[-----
+    {
+      "folke/zen-mode.nvim",
+      config = function()
+        require("user.zen").config()
+      end,
+      event = "BufRead",
+    },
+    {
+      "folke/twilight.nvim",
+      config = function()
+        require("user.twilight").config()
+      end,
+      event = "BufRead",
+    },
+    -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
     -- { 'mizlan/iswap.nvim' },

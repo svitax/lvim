@@ -162,7 +162,7 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["T"] = "test"
 
   lvim.builtin.which_key.mappings["m"] = "move"
-  lvim.builtin.which_key.mappings["z"] = "zen"
+  lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "zen" }
   -- lvim.builtin.which_key.mappings["p"] = "workspaces"
   -- lvim.builtin.which_key.mappings["P"] = "Packer"
 
