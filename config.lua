@@ -15,6 +15,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 20
 vim.opt.showtabline = 0
 -- vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
+vim.opt.pumblend = 10 -- Popup blend auto_open
 
 -- Dashboard (builtin)
 -- =========================================
@@ -52,7 +53,9 @@ lvim.builtin.bufferline.active = false
 
 -- Compe (builtin)
 -- =========================================
-lvim.builtin.compe.source.tabnine = { kind = " ", priority = 200, max_reslts = 6 }
+lvim.builtin.compe.source.tabnine = { kind = " ", priority = 150, max_reslts = 6 }
+lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+-- lvim.builtin.compe.preselect = "always"
 
 -- Comment (builtin)
 -- =========================================

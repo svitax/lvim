@@ -167,7 +167,7 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["P"] = "Packer"
 
   lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
-  -- lvim.builtin.which_key.mappings["["] = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "file tree" }
+  lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<CR>", "file tree" }
 
   -- +Buffers
   -- =========================================
@@ -217,6 +217,7 @@ M.config = function()
   -- +Git
   -- =========================================
   lvim.builtin.which_key.mappings["g"]["d"] = { "<cmd>DiffviewOpen<cr>", "diff open" }
+  -- lvim.builtin.which_key.mappings["gd"] = { "<cmd>DiffviewOpen HEAD~1<cr>", "diff open" }
   lvim.builtin.which_key.mappings["g"]["D"] = { "<cmd>DiffviewClose<cr>", "diff close" }
   lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
   lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message" }
