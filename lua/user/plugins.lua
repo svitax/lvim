@@ -97,6 +97,11 @@ M.config = function()
       config = require("user.neorg").config,
       requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
     },
+    {
+      "iamcco/markdown-preview.nvim",
+      run = "cd app && npm install",
+      ft = "markdown",
+    },
     -----[[------------]]-----
     ---         UI         ---
     -----]]------------[[-----
@@ -316,6 +321,21 @@ M.config = function()
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
+    {
+      "jubnzv/mdeval.nvim",
+      config = function()
+        vim.g.markdown_fenced_languages = { "python", "cpp" }
+        require("mdeval").setup {
+          eval_options = {
+            -- Set custom configuration for C++
+            cpp = {
+              command = { "clang++", "-std=c++20", "-O0" },
+            },
+          },
+        }
+      end,
+      ft = "markdown",
+    },
     {
       "michaelb/sniprun",
       run = "bash ./install.sh",
