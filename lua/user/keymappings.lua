@@ -43,11 +43,11 @@ M.config = function()
   -- add new line when enter in normal mode (conflicts with wiki.vim)
   -- lvim.keys.normal_mode["<Enter>"] = "o<Esc>"
   -- no highlight on esc
-  lvim.keys.normal_mode["<Esc>"] = '<cmd>let @/=""<CR>'
-  -- visual line mode on <A-v>
-  lvim.keys.normal_mode["â"] = "V"
-  -- V acts like D, C, and Y but for selecting lines
-  lvim.keys.normal_mode["V"] = "v$"
+  lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<CR>"
+  -- -- visual line mode on <A-v>
+  -- lvim.keys.normal_mode["â"] = "V"
+  -- -- V acts like D, C, and Y but for selecting lines
+  -- lvim.keys.normal_mode["V"] = "v$"
 
   -- NOTE: Visual mode
   -- better movement keys
@@ -136,8 +136,8 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
   lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr>", "spellcheck" }
 
-  lvim.builtin.which_key.mappings["e"] = { "<Plug>SnipRun", "eval" }
-  lvim.builtin.which_key.vmappings["e"] = { "<Plug>SnipRun", "eval bloc" }
+  lvim.builtin.which_key.mappings["e"] = { "<cmd>SnipRun<cr>", "eval" }
+  lvim.builtin.which_key.vmappings["e"] = { "<cmd>SnipRun<cr>", "eval bloc" }
   -- The operator mapping allows you to combine movements with sniprun:
   -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
 
@@ -150,10 +150,10 @@ M.config = function()
     "manage notes",
   }
 
-  lvim.builtin.which_key.mappings["q"] = { "<cmd>w<cr> <cmd>qa<cr>", "save and quit" }
+  lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit" }
   -- lvim.builtin.which_key.mappings["q"] = { "<cmd>SaveSession<cr> <cmd>w<cr> <cmd>qa<cr>", "save and quit" }
-  lvim.builtin.which_key.mappings["Q"] = { "<cmd>qa!<cr>", "quit" }
   lvim.builtin.which_key.mappings["W"] = { "<cmd>w<cr>", "save" }
+  lvim.keys.normal_mode["<C-s>"] = "<cmd>w<cr>"
 
   -- show up only on html files (maybe css/js too)
   lvim.builtin.which_key.mappings["y"] = { "<cmd>Bracey<cr>", "live server" }
@@ -176,7 +176,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["b"] = {
     name = "+Buffers",
     a = {
-      "<cmd>BufWipeout all",
+      "<cmd>BufDelete all",
       "delete all buffers",
     },
     b = {
@@ -184,15 +184,15 @@ M.config = function()
       "switch buffer",
     },
     d = {
-      "<cmd>BWipeout! this<CR>",
+      "<cmd>BDelete this<CR>",
       "close this buffer",
     },
     D = {
-      "<cmd>BWipeout! other<CR>",
+      "<cmd>BDelete! other<CR>",
       "close other buffers",
     },
     h = {
-      "<cmd>BWipeout hidden",
+      "<cmd>BDelete! hidden",
       "close hidden buffers",
     },
   }
@@ -269,7 +269,7 @@ M.config = function()
     name = "+Notes",
     t = { "<cmd>Neorg tangle<cr>", "tangle blocks" },
     r = {
-      [[<cmd>!rm "temp.py"<cr> <cmd>Neorg tangle<cr> <cmd>TermExec direction='horizontal' size=7 cmd='clear && python3 "temp.py" && rm "temp.py"'<cr>]],
+      [[<cmd>!rm temp.py<cr> <cmd>Neorg tangle<cr> <cmd>TermExec direction='horizontal' size=7 cmd='clear && python3 "temp.py" && rm "temp.py"'<cr>]],
       "run tangle",
     },
     R = {
@@ -331,8 +331,8 @@ M.config = function()
   -- =========================================
   lvim.builtin.which_key.mappings["w"] = {
     name = "+Windows",
-    d = { "<cmd>close<CR>", "close window" },
-    D = { "<cmd>only<CR>", "win-wipeout" },
+    d = { "<cmd>close<CR>", "delete window" },
+    D = { "<cmd>only<CR>", "delete all windows" },
     s = { "<cmd>split<CR>", "split" },
     v = { "<cmd>vsplit<CR>", "vsplit" },
     z = "zoom window",
