@@ -56,6 +56,7 @@ return function()
         mark_actions.toggle_mark()
         vim.cmd "normal! j"
       end,
+      ["M"] = require("lir.mmv.actions").mmv,
       -- ["n"] = ""
       -- ["o"] = ""
       ["P"] = clipboard_actions.paste,
@@ -78,8 +79,6 @@ return function()
       --   mark_actions.toggle_mark()
       --   vim.cmd "normal! j"
       -- end,
-      -- TODO get lir.mmv to work (i think something is wrong with nvr)
-      -- ["R"] = require("lir.mmv.actions").mmv,
     },
     float = {
       winblend = lvim.winblend,
