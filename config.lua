@@ -111,6 +111,7 @@ end
 --   --Enable completion triggered by <c-x><c-o>
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
+require("user.json_schemas").setup()
 
 -- Additional plugins
 -- =========================================
