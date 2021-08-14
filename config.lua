@@ -4,6 +4,9 @@ lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
+
+-- User config (not builtin)
+-- =========================================
 -- winblend screws up the colors in toggleterm for me
 lvim.winblend = 0
 
@@ -15,7 +18,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 20
 vim.opt.showtabline = 0
 -- vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
-vim.opt.pumblend = 10 -- Popup blend auto_open
+-- vim.opt.pumblend = 10 -- Popup blend auto_open
 
 -- Dashboard (builtin)
 -- =========================================
