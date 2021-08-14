@@ -13,9 +13,9 @@ lvim.lang.markdown.linters = {
   {
     exe = "markdownlint",
   },
-  {
-    exe = "vale",
-  },
+  -- {
+  --   exe = "vale",
+  -- },
   -- {
   --   exe = "write_good",
   -- },
