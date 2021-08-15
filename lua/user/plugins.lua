@@ -27,7 +27,7 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
-    -- { "nvim-treesitter/playground", after = "nvim-treesitter", cmd = "TSPlaygroundToggle", },
+    -- { "nvim-treesitter/playground", after = "nvim-treesitter", cmd = "TSPlaygroundToggle" },
     -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -82,7 +82,8 @@ M.config = function()
       config = function()
         vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
         -- vim.g.wiki_filetypes = { "norg" }
-        vim.g.wiki_filetypes = { "norg", "md" }
+        -- vim.g.wiki_filetypes = { "norg", "md" }
+        vim.g.wiki_filetypes = { "md" }
         -- vim.g.wiki_link_extension = ".norg"
         vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
         vim.g.wiki_mappings_use_defaults = "local" -- all, local, global, or none
@@ -181,7 +182,8 @@ M.config = function()
     },
     {
       "kazhala/close-buffers.nvim",
-      cmd = { "BDelete", "BDelete!", "BWipeout", "BWipeout!" },
+      event = "BufRead",
+      -- cmd = { "BDelete", "BDelete!", "BWipeout", "BWipeout!" },
       config = function()
         require("close_buffers").setup {
           filetype_ignore = {}, -- Filetype to ignore when running deletions
@@ -238,7 +240,7 @@ M.config = function()
       after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
     },
     {
-      -- TODO: don't need Navigator if I'm not going to use tmux
+      -- I need this to make winndow movement work with my prefered movement keys (jkl;)
       "numToStr/Navigator.nvim",
       event = "BufWinEnter",
       config = function()
@@ -403,6 +405,17 @@ M.config = function()
     ---      QuickFix      ---
     -----]]------------[[-----
     -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
+
+    {
+      "ianding1/leetcode.vim",
+      config = function()
+        vim.g.leetcode_browser = "firefox"
+        vim.g.leetcode_solution_filetype = "python3"
+        vim.g.leetcode_hide_topics = 1
+        vim.g.leetcode_hide_companies = 1
+      end,
+      -- cmd = "LeetCodeList",
+    },
   }
 end
 
