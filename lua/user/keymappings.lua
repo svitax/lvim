@@ -174,7 +174,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["b"] = {
     name = "+Buffers",
     a = {
-      "<cmd>BufDelete all",
+      "<cmd>BDelete all<cr>",
       "delete all buffers",
     },
     b = {
@@ -190,7 +190,7 @@ M.config = function()
       "close other buffers",
     },
     h = {
-      "<cmd>BDelete! hidden",
+      "<cmd>BDelete! hidden<cr>",
       "close hidden buffers",
     },
   }
