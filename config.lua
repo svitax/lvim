@@ -130,3 +130,5 @@ require("user.autocommands").config()
 -- Additional mappngs
 -- =========================================
 require("user.keymappings").config()
+
+require "user.emmet"
