@@ -1,10 +1,10 @@
 local M = {}
 
 M.config = function()
-  -- vim lastplace like functionality
-  vim.cmd [[
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
-]]
+  --   -- vim lastplace like functionality
+  --   vim.cmd [[
+  --   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+  -- ]]
   -- NOTE Autocommands (https://neovim.io/doc/user/autocmd.html)
   lvim.autocommands.custom_groups = {
     { "BufEnter", "*.md", "setlocal conceallevel=2" },
