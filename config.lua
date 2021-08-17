@@ -56,7 +56,7 @@ lvim.builtin.bufferline.active = false
 
 -- Compe (builtin)
 -- =========================================
-lvim.builtin.compe.source.tabnine = { kind = " ", priority = 150, max_reslts = 6 }
+-- lvim.builtin.compe.source.tabnine = { kind = " ", priority = 150, max_reslts = 6 }
 lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 -- lvim.builtin.compe.preselect = "always"
 
