@@ -194,6 +194,7 @@ M.config = function()
         }
       end,
     },
+    { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
