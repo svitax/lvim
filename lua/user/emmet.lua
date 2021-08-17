@@ -12,6 +12,8 @@ if not lspconfig.emmet_ls then
         "html",
         "css",
         "svelte",
+        "javascript",
+        "typescript",
         "typescriptreact",
         "javascriptreact",
         "vue",
