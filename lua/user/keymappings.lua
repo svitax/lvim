@@ -16,7 +16,7 @@ M.config = function()
   -- better movement keys
   lvim.keys.normal_mode[";"] = "l"
   lvim.keys.normal_mode["l"] = "h"
-  -- make Y act like D and C but for yanking
+  -- make Y act like D and C but for yanking (this is going to get merged into neovim core)
   lvim.keys.normal_mode["Y"] = "y$"
   -- like the previous but ignores white space
   -- lvim.keys.normal_mode["Y"] = "yg_"
@@ -30,7 +30,7 @@ M.config = function()
   lvim.keys.normal_mode["˚"] = ":m .-2<cr>=="
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
-  -- more ergonomic matchup mapping
+  -- more ergonomic matchup mapping with tab
   vim.cmd "nnoremap <silent> <Tab> :normal %<CR>"
   lvim.keys.visual_mode["<Tab>"] = "%"
   -- no highlight on esc
