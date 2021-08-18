@@ -150,14 +150,14 @@ M.config = function()
     -----[[------------]]-----
     ---       Files        ---
     -----]]------------[[-----
-    {
-      "nvim-telescope/telescope-project.nvim",
-      branch = "feat/workspaces",
-      event = "BufWinEnter",
-      config = function()
-        require("telescope").load_extension "project"
-      end,
-    },
+    -- {
+    --   "nvim-telescope/telescope-project.nvim",
+    --   branch = "feat/workspaces",
+    --   event = "BufWinEnter",
+    --   config = function()
+    --     require("telescope").load_extension "project"
+    --   end,
+    -- },
     {
       "tamago324/lir.nvim",
       config = require "user.lir.config",

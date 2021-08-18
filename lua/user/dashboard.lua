@@ -22,7 +22,8 @@ M.config = function()
     },
     b = {
       description = { "  Load project        " },
-      command = "lua require'user.telescope.pickers.projects'()",
+      command = "",
+      -- command = "lua require'user.telescope.pickers.projects'()",
     },
     c = {
       description = { "  Find file          " },
