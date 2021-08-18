@@ -60,6 +60,11 @@ lvim.builtin.bufferline.active = false
 lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 -- lvim.builtin.compe.preselect = "always"
 
+-- Projects (builtin)
+-- =========================================
+-- TODO I need change all the config that used telescope-projects
+-- lvim.builtin.project.active = true
+
 -- Comment (builtin)
 -- =========================================
 lvim.builtin.comment.on_config_done = function()
