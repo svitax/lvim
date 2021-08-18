@@ -322,7 +322,8 @@ M.config = function()
     R = { "registers" },
     s = { "<cmd>SearchSession<cr>", "sessions" },
     -- fuzzy grep? change layout
-    t = { "<cmd>Telescope current_buffer_fuzzy_find", "text" },
+    g = { "<cmd>Telescope live_grep<cr>", "text in project" },
+    G = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "text in buffer" },
     T = { "<cmd>TodoTrouble<cr>", "todos" },
   }
 
