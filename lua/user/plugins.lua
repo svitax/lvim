@@ -195,6 +195,13 @@ M.config = function()
       end,
     },
     { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
+    {
+      "nvim-telescope/telescope-fzy-native.nvim",
+      run = "make",
+      config = function()
+        require("telescope").load_extension "fzy_native"
+      end,
+    },
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
