@@ -73,6 +73,8 @@ M.config = function()
   lvim.keys.insert_mode["<cr>"] = "<cr><c-g>u"
   -- Fix previous spelling mistake
   lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
+  -- A-del is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
+  lvim.keys.insert_mode["<A-bs>"] = "<c-w>"
 
   -- NOTE: Terminal mode
   -- this prevents lazygit from working properly

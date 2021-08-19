@@ -1,8 +1,8 @@
 local M = {}
 
 M.config = function()
-  lvim.builtin.terminal.open_mapping = [[…]] -- alt+; in macos
-  -- lvim.builtin.terminal.open_mapping = [[<C-t>]]
+  -- lvim.builtin.terminal.open_mapping = [[…]] -- alt+; in macos
+  lvim.builtin.terminal.open_mapping = [[<C-t>]]
   lvim.builtin.terminal.execs = {
     { "lazygit", "gg", "LazyGit" },
     -- { "cobib", "ob", "Bibliography (Cobib)" },
