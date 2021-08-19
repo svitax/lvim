@@ -89,20 +89,20 @@ M.config = function()
   -- ["R"] = (run)  -- autocommands based on filetype
   -- ["T"] = (test) -- autocommands based on filetype
   -- ["z"] = (zen)
+  -- ["t"] = (nvimtree)
 
   -- ["Tt"] (TSPlaygroundToggle)
 
   -- not assigned
   -- =====================================
   -- (restore deleted files)
-  -- (nvimtree)
   -- (bibliography)
 
-  -- ["a"] =
+  -- ["a"] = mark file in harpoon
   -- ["c"] =
   -- ["C"] =
-  -- ["h"] =
-  -- ["i"] =
+  -- ["h"] = harpoon quick toggle
+  -- ["i"] = spell
   -- ["j"] =
   -- ["k"] =
   -- ["o"] =
@@ -129,10 +129,9 @@ M.config = function()
   -- Hitting escape also clears spelling and search highlights
   -- vim.api.nvim_set_keymap("n", "<ESC>", ":nohls | :setlocal nospell<ESC>", { noremap = true, silent = true })
 
+  lvim.builtin.which_key.mappings["a"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "mark file" }
+
   lvim.builtin.which_key.mappings["c"] = nil
-  -- toggle spell check
-  -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
-  lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr>", "spellcheck" }
 
   lvim.builtin.which_key.mappings["e"] = { "<cmd>SnipRun<cr>", "eval" }
   lvim.builtin.which_key.vmappings["e"] = { "<cmd>SnipRun<cr>", "eval bloc" }
@@ -142,6 +141,19 @@ M.config = function()
   lvim.builtin.which_key.mappings["f"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
   -- TODO i want this command to make a new blank buffer in the current window and then open lir
   lvim.builtin.which_key.mappings["F"] = { "<cmd>edit .<cr>", "file buffer" }
+
+  lvim.builtin.which_key.mappings["h"] = {
+    "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
+    "switch file",
+  }
+  lvim.keys.normal_mode["¡"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" -- <A-1>
+  lvim.keys.normal_mode["â¢"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" -- <A-2>
+  lvim.keys.normal_mode["£"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" -- <A-3>
+  lvim.keys.normal_mode["¢"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" -- <A-4>
+
+  -- toggle spell check
+  -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
+  lvim.builtin.which_key.mappings["i"] = { "<cmd>set spell!<cr>", "spellcheck" }
 
   lvim.builtin.which_key.mappings["nf"] = {
     "<cmd>lua require('lir.float').toggle('~/.config/lvim/lua/notes/obsidian-notes')<CR>",
