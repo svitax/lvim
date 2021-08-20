@@ -278,32 +278,6 @@ M.config = function(gl)
     },
   }
 
-  -- LSP STATUS
-  -- =====================================
-  -- local lsp_status = require "lsp-status"
-  -- lsp_status.config {
-  --   indicator_errors = "E",
-  --   indicator_warnings = "W",
-  --   indicator_info = "i",
-  --   indicator_hint = "?",
-  --   indicator_ok = "Ok",
-  --   diagnostics = false,
-  --   status_symbol = "",
-  -- }
-  -- lsp_status.register_progress()
-  -- gls.left[10] = {
-  --   LspStatus = {
-  --     provider = function()
-  --       -- TODO get current function to show, and find a way to only show current function
-  --       return lsp_status.status()
-  --     end,
-  --     -- event = "BufEnter",
-  --     separator = " ",
-  --     separator_highlight = { colors.bg, colors.bg },
-  --     highlight = { colors.fg, colors.bg },
-  --   },
-  -- }
-
   -- File Format and File Encoding
   -- =====================================
   -- Right side
