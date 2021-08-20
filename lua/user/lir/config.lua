@@ -1,4 +1,3 @@
--- make gomi delete file and any buffers with that file
 -- make a command :Chmod: Change the permissions of the current file.
 -- make a filter/search command
 
@@ -44,7 +43,8 @@ return function()
       -- ["B"] = "",
       -- ["c"] = ""
       -- ["d"] = ""
-      ["D"] = gomi,
+      ["d"] = gomi.wipeout,
+      ["D"] = gomi.wipeout_marked,
       -- ["e"] = ""
       -- ["f"] = ""
       ["g"] = bkm_actions.list, -- opens a writeable buffer with all added bookmarks
