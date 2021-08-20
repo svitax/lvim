@@ -102,10 +102,6 @@ end
 lvim.builtin.dap.active = true
 lvim.builtin.dap.on_config_done = require("user.dap").config()
 
--- Rooter (builtin)
--- =========================================
--- lvim.builtin.rooter.active = true
-
 -- Language Specific
 -- =========================================
 lvim.lsp.diagnostics.virtual_text = false
