@@ -16,7 +16,7 @@ M.config = function()
     },
     mapping = {
       ["toggle_line"] = {
-        map = "t",
+        map = "dd",
         cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
         desc = "toggle current item",
       },
@@ -125,7 +125,9 @@ M.config = function()
     default = {
       find = {
         --pick one of item in find_engine
-        cmd = "rg",
+        -- cmd = "rg",
+        -- options = { "ignore-case" },
+        cmd = "ag",
         options = { "ignore-case" },
       },
       replace = {

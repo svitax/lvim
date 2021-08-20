@@ -11,9 +11,8 @@ return function()
     bookmark_path = "~/.config/lvim/lua/user/lir/extensions/.lir_bookmark",
     mappings = {
       [";"] = bkm_actions.edit,
-
-      ["B"] = bkm_actions.open_lir,
       ["l"] = bkm_actions.open_lir,
+      -- ["B"] = bkm_actions.open_lir,
       ["q"] = actions.quit,
       ["S"] = bkm_actions.split,
       ["V"] = bkm_actions.vsplit,
