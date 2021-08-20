@@ -8,13 +8,10 @@ return function()
   -- local theme_opts = themes.get_ivy { border = true }
   local theme_opts = themes.get_dropdown { border = true, previewer = false }
   local opts = {
-    -- workaround to telescope bug #1018 until a fix gets merged so I can use initial_mode = "normal"
-    initial_mode = "insert",
-    on_complete = {
-      function()
-        vim.cmd "stopinsert"
-      end,
-    },
+    initial_mode = "normal",
+    sort_lastused = true,
+    sort_mru = true,
+    -- ignore_current_buffer = true,
     -- path_display = { shorten = 5 },
     path_display = function(opts, path)
       -- would be cool if instead of the path we could show the project

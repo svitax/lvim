@@ -44,14 +44,7 @@ return function()
   local theme_opts = themes.get_dropdown { border = true, previewer = false }
   local opts = {
     display_type = "full",
-    -- workaround to telescope bug #1018 until a fix gets merged so I can use initial_mode = "normal"
-    -- TODO normal mode for this picker
-    initial_mode = "insert",
-    on_complete = {
-      function()
-        vim.cmd "stopinsert"
-      end,
-    },
+    initial_mode = "normal",
     attach_mappings = function(_, map)
       map("n", "f", browse_project_files)
       actions.select_default:replace(load_project)
