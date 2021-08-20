@@ -97,7 +97,6 @@ M.config = function()
 
   -- not assigned
   -- =====================================
-  -- (restore deleted files)
   -- (bibliography)
 
   -- ["a"] = mark file in harpoon
@@ -164,6 +163,12 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit" }
   -- lvim.builtin.which_key.mappings["q"] = { "<cmd>SaveSession<cr> <cmd>w<cr> <cmd>qa<cr>", "save and quit" }
+
+  lvim.builtin.which_key.mappings["u"] = {
+    "<cmd>lua require('user.toggleterm').restore_files()<cr>",
+    "restore files",
+  }
+
   lvim.builtin.which_key.mappings["W"] = { "<cmd>w<cr>", "save" }
   lvim.keys.normal_mode["<C-s>"] = "<cmd>w<cr>"
 

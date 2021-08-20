@@ -17,6 +17,25 @@ M.config = function()
   lvim.builtin.terminal.shade_terminals = false
 end
 
+M.restore_files = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    cmd = "gomi --restore",
+    close_on_exit = true,
+    hidden = true,
+    direction = "horizontal",
+    size = 15,
+    on_open = function(term)
+      vim.cmd "startinsert!"
+      -- quit with esc
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+      -- this is how you make it so that in a custom terminal you can quit with q
+      vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      -- vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+    end,
+  }
+  terminal:toggle()
+end
+
 -- emacsclient -nw -e '(magit-status)' <cr>"
 M.magit = function()
   local terminal = require("toggleterm.terminal").Terminal:new {
