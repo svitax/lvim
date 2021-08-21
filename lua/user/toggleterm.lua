@@ -6,8 +6,6 @@ M.config = function()
   lvim.builtin.terminal.execs = {
     { "lazygit", "gg", "LazyGit" },
     -- { "cobib", "ob", "Bibliography (Cobib)" },
-    -- TODO sometimes different from just opening up a terminal and running gomi --restore, find out why and fix
-    -- { "gomi --restore", "fr", "Restore deleted files (Gomi)" },
   }
   -- lvim.builtin.terminal.float_opts.width = vim.fn.float2nr(vim.o.columns * 0.99)
   -- lvim.builtin.terminal.float_opts.height = vim.fn.float2nr(vim.o.lines * 0.87)

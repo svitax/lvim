@@ -1,16 +1,26 @@
 M = {}
 
--- test 1 commit
-
 M.config = function()
-  -- you can also use the native vim way directly to remap keys
-
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
-  -- vim.api.nvim_set_keymap("n", "¬", "<A-l>", { noremap = false, silent = true, expr = true })
-  -- vim.api.nvim_set_keymap("n", "˙", "<A-h>", { noremap = false, silent = true, expr = true })
-  -- vim.api.nvim_set_keymap("n", "…", "<A-;>", { noremap = false, silent = true, expr = true })
+
   -- vim.api.nvim_set_keymap("n", "∆", "<A-j>", { noremap = false, silent = true, expr = true })
-  -- vim.api.nvim_set_keymap("n", "˚", "<A-k>", { noremap = false, silent = true, expr = true })
+
+  -- "∆", "<A-j>"
+  -- "˚", "<A-k>"
+  -- "¬", "<A-l>"
+  -- "…", "<A-;>"
+  -- "˙", "<A-h>"
+
+  -- "¡", "<A-1>"
+  -- "â¢", "<A-2>"
+  -- "£", "<A-3>"
+  -- "¢", "<A-4>"
+  --
+  -- "å", "<A-a>"
+  -- "ß", "<A-s>"
+  -- "∂", "<A-d>"
+  -- "ƒ", "<A-f>"
+  -- "©", "<A-g>"
 
   -- NOTE: Normal mode
   -- better movement keys
@@ -20,14 +30,21 @@ M.config = function()
   lvim.keys.normal_mode["Y"] = "y$"
   -- like the previous but ignores white space
   -- lvim.keys.normal_mode["Y"] = "yg_"
+  -- more ergonmic mapping for end of line and beginning of line
+  lvim.keys.normal_mode["<A-l>"] = "0"
+  lvim.keys.normal_mode["<A-;>"] = "$"
+  -- lvim.keys.normal_mode["¬"] = "0"
+  -- lvim.keys.normal_mode["…"] = "$"
   -- keep cursor centered when using n(next) and N(previous)
   lvim.keys.normal_mode["n"] = "nzzzv"
   lvim.keys.normal_mode["N"] = "Nzzzv"
   -- keep cursor centered and in-place when joining lines with J
   lvim.keys.normal_mode["J"] = "mzJ`z"
   -- move current line up/down
-  lvim.keys.normal_mode["∆"] = ":m .+1<cr>=="
-  lvim.keys.normal_mode["˚"] = ":m .-2<cr>=="
+  lvim.keys.normal_mode["<A-j>"] = ":m .+1<cr>=="
+  lvim.keys.normal_mode["<A-k>"] = ":m .-2<cr>=="
+  -- lvim.keys.normal_mode["∆"] = ":m .+1<cr>=="
+  -- lvim.keys.normal_mode["˚"] = ":m .-2<cr>=="
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
   -- more ergonomic matchup mapping with tab
@@ -37,26 +54,35 @@ M.config = function()
   lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<CR>"
   -- -- add new line when enter in normal mode (conflicts with wiki.vim)
   -- lvim.keys.normal_mode["<Enter>"] = "o<Esc>"
-  -- -- visual line mode on <A-v>
-  -- lvim.keys.normal_mode["â"] = "V"
-  -- -- V acts like D, C, and Y but for selecting lines
-  -- lvim.keys.normal_mode["V"] = "v$"
   -- degenerate emacs inside nvim just to use magit
   lvim.keys.normal_mode["<C-a>"] = "<cmd>lua require('user.toggleterm')._toggle_magit()<cr>"
   -- lvim.builtin.which_key.mappings["<space>"] = { ":term emacsclient -nw -e '(magit-status)' <cr>", "magit" }
+  -- Use h to quickly enter command mode (since I use ; to move right and l to move left, my h key is useless)
+  lvim.keys.normal_mode["h"] = ":"
+  -- quickly switch to harpoon marked files with <A-a>, <A-s>, <A-d>, <A-f>
+  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" -- <A-a>
+  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" -- <A-s>
+  lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" -- <A-d>
+  lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" -- <A-f>
+  -- lvim.keys.normal_mode["å"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" -- <A-a>
+  -- lvim.keys.normal_mode["ß"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" -- <A-s>
+  -- lvim.keys.normal_mode["∂"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" -- <A-d>
+  -- lvim.keys.normal_mode["ƒ"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" -- <A-f>
 
   -- NOTE: Visual mode
   -- better movement keys
   lvim.keys.visual_mode[";"] = "l"
   lvim.keys.visual_mode["l"] = "h"
   -- Move visual selection up/down
-  lvim.keys.visual_mode["∆"] = ":m '>+1<cr>gv=gv"
-  lvim.keys.visual_mode["˚"] = ":m '<-2<cr>gv=gv"
+  lvim.keys.visual_mode["<A-j"] = ":m '>+1<cr>gv=gv"
+  lvim.keys.visual_mode["<A-k"] = ":m '<-2<cr>gv=gv"
+  -- lvim.keys.visual_mode["∆"] = ":m '>+1<cr>gv=gv"
+  -- lvim.keys.visual_mode["˚"] = ":m '<-2<cr>gv=gv"
   lvim.keys.visual_mode["<C-M-j>"] = ":m '>+1<cr>gv=gv"
   lvim.keys.visual_mode["<C-M-k>"] = ":m '<-2<cr>gv=gv"
   -- better pasting in visual mode
   lvim.keys.visual_mode["p"] = [["_dP]]
-  -- TODO more ergonomic matchup mapping
+  -- more ergonomic matchup mapping
   -- lvim.keys.visual_mode[","] = "%"
   vim.api.nvim_set_keymap("x", ",", "<plug>(matchup-%)", { silent = true })
 
@@ -90,8 +116,6 @@ M.config = function()
   -- ["M"] = (make) -- autocommands based on filetype
   -- ["R"] = (run)  -- autocommands based on filetype
   -- ["T"] = (test) -- autocommands based on filetype
-  -- ["z"] = (zen)
-  -- ["t"] = (nvimtree)
 
   -- ["Tt"] (TSPlaygroundToggle)
 
@@ -99,15 +123,11 @@ M.config = function()
   -- =====================================
   -- (bibliography)
 
-  -- ["a"] = mark file in harpoon
   -- ["c"] =
   -- ["C"] =
-  -- ["h"] = harpoon quick toggle
-  -- ["i"] = spell
   -- ["j"] =
   -- ["k"] =
   -- ["o"] =
-  -- ["u"] =
   -- ["v"] =
   -- ["x"] =
   -- ["X"] =
@@ -147,11 +167,6 @@ M.config = function()
     "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
     "switch file",
   }
-  lvim.keys.normal_mode["¡"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" -- <A-1>
-  lvim.keys.normal_mode["â¢"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" -- <A-2>
-  lvim.keys.normal_mode["£"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" -- <A-3>
-  lvim.keys.normal_mode["¢"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" -- <A-4>
-
   -- toggle spell check
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
   lvim.builtin.which_key.mappings["i"] = { "<cmd>set spell!<cr>", "spellcheck" }

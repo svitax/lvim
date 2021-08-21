@@ -37,7 +37,8 @@ M.config = function()
     ---        Git         ---
     -----]]------------[[-----
     -- TODO find a comfier way to integrate magit into my config (toggleterm config)
-    -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", }, -- waiting for diff file history in diffview.nvim (there's an issue already put up)
+    -- waiting for diff file history in diffview.nvim (there's an issue already put up)
+    -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", },
     -- { "ThePrimeagen/git-worktree.nvim" },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
@@ -147,6 +148,13 @@ M.config = function()
         vim.cmd "let g:VM_custom_motions = {';': 'l', 'l': 'h', 'h': ';'}"
       end,
     },
+    -- {
+    --   "junegunn/vim-easy-align",
+    --   setup = function()
+    --     vim.api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", { noremap = false, silent = true })
+    --   end,
+    --   keys = "<Plug>(EasyAlign)",
+    -- },
     -----[[------------]]-----
     ---       Files        ---
     -----]]------------[[-----
@@ -214,12 +222,11 @@ M.config = function()
       end,
     },
     {
-      -- TODO: cmd on lightspeed activate? s/S/f/F keys?
       "ggandor/lightspeed.nvim",
-      event = "BufRead",
+      keys = { "s", "S", "f", "F" },
+      -- event = "BufRead",
     },
     {
-      -- TODO: use neoscroll more often
       -- TODO: zz center before doing neoscroll movement
       "karb94/neoscroll.nvim",
       event = "BufRead",
@@ -344,21 +351,6 @@ M.config = function()
     ---       Debug        ---
     -----]]------------[[-----
     {
-      "jubnzv/mdeval.nvim",
-      config = function()
-        vim.g.markdown_fenced_languages = { "python", "cpp" }
-        require("mdeval").setup {
-          eval_options = {
-            -- Set custom configuration for C++
-            cpp = {
-              command = { "clang++", "-std=c++20", "-O0" },
-            },
-          },
-        }
-      end,
-      ft = "markdown",
-    },
-    {
       "michaelb/sniprun",
       run = "bash ./install.sh",
       cmd = "SnipRun",
@@ -411,11 +403,15 @@ M.config = function()
     ---     Completion     ---
     -----]]------------[[-----
     -- { "tamago324/compe-zsh" },
+    {
+      "dsznajder/vscode-es7-javascript-react-snippets",
+      event = "InsertEnter",
+      -- ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    },
     -----[[------------]]-----
     ---      QuickFix      ---
     -----]]------------[[-----
     -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
-
     {
       "ianding1/leetcode.vim",
       config = function()
@@ -424,7 +420,7 @@ M.config = function()
         vim.g.leetcode_hide_topics = 1
         vim.g.leetcode_hide_companies = 1
       end,
-      -- cmd = "LeetCodeList",
+      cmd = { "LeetCodeList", "LeetCodeReset", "LeetCodeSignIn", "LeetCodeSubmit", "LeetCodeTest" },
     },
   }
 end

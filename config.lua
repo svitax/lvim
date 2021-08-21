@@ -108,7 +108,10 @@ lvim.lsp.diagnostics.virtual_text = false
 lvim.lang.markdown = {}
 lvim.builtin.lspinstall.on_config_done = function()
   require("user.tailwind").setup()
+  -- need to <C-space> to activate emmet snippets sometimes
+  require "user.emmet"
 end
+-- TODO: add setup to emmet and throw it up there with the tailwind ls
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 -- lvim.lsp.on_attach_callback = function(client, bufnr)
@@ -131,5 +134,3 @@ require("user.autocommands").config()
 -- Additional mappngs
 -- =========================================
 require("user.keymappings").config()
-
-require "user.emmet"
