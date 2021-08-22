@@ -1,3 +1,6 @@
+-- Require hotpot so I can start requiring fennel files
+require "hotpot"
+
 -- General
 -- =========================================
 lvim.format_on_save = true
@@ -109,7 +112,8 @@ lvim.lang.markdown = {}
 lvim.builtin.lspinstall.on_config_done = function()
   require("user.tailwind").setup()
   -- need to <C-space> to activate emmet snippets sometimes
-  require "user.emmet"
+  -- require "user.emmet"
+  require "emmet"
 end
 -- TODO: add setup to emmet and throw it up there with the tailwind ls
 -- you can set a custom on_attach function that will be used for all the language servers
