@@ -95,6 +95,11 @@ return function()
         color = "#a9b665",
         name = "LirFolderNode",
       },
+      lir = {
+        icon = "",
+        color = "#6d8086",
+        name = "lir",
+      },
     },
   }
 
