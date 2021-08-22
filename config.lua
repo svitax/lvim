@@ -44,11 +44,12 @@ require("user.nvimtree").config()
 
 -- Galaxyline (builtin)
 -- =========================================
-lvim.builtin.galaxyline.active = true
--- load fennec-eviline after the builtin galaxyline so we override it
-lvim.builtin.galaxyline.on_config_done = function(gl)
-  require("user.fennec-eviline").config(gl)
-end
+lvim.builtin.galaxyline.active = false
+require "user.fennec-lualine"
+-- -- load fennec-eviline after the builtin galaxyline so we override it
+-- lvim.builtin.galaxyline.on_config_done = function(gl)
+--   require("user.fennec-eviline").config(gl)
+-- end
 
 -- Bufferline (builtin)
 -- =========================================

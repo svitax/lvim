@@ -3,9 +3,25 @@ M = {}
 -- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
+    { "shadmansaleh/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
+    {
+      "SmiteshP/nvim-gps",
+      requires = { "nvim-treesitter/nvim-treesitter", "shadmansaleh/lualine.nvim" },
+      config = function()
+        require("nvim-gps").setup {
+          icons = {
+            ["class-name"] = " ", -- Classes and class-like objects
+            ["function-name"] = " ", -- Functions
+            -- Methods (functions inside class-like objects)
+            ["method-name"] = " ",
+          },
+          separator = " > ",
+        }
+      end,
+    },
     -- { "mfussenegger/nvim-jdtls" },
     -- { 'simrat39/symbols-outline.nvim' },
     {
