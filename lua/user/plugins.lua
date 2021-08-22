@@ -3,14 +3,6 @@ M = {}
 -- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
-    {
-      "rktjmp/hotpot.nvim",
-      -- packer says this is "code to run after this plugin is loaded."
-      -- but it seems to run before plugin/hotpot.vim (perhaps just barely)
-      config = function()
-        require "hotpot"
-      end,
-    },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----

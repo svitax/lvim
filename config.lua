@@ -1,6 +1,3 @@
--- Require hotpot so I can start requiring fennel files
-require "hotpot"
-
 -- General
 -- =========================================
 lvim.format_on_save = true
@@ -88,6 +85,12 @@ lvim.builtin.treesitter.indent.disable = { "python" }
 lvim.builtin.treesitter.matchup.enable = true
 lvim.builtin.treesitter.playground.enable = true
 lvim.builtin.treesitter.context_commentstring.enable = true
+lvim.builtin.treesitter.context_commentstring = {
+  enable = true,
+  config = {
+    fennel = ";; %s",
+  },
+}
 -- neorg treesitter syntax, maybe one day it will be builtin and we won't need this
 lvim.builtin.treesitter.on_config_done = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
@@ -112,10 +115,9 @@ lvim.lang.markdown = {}
 lvim.builtin.lspinstall.on_config_done = function()
   require("user.tailwind").setup()
   -- need to <C-space> to activate emmet snippets sometimes
-  -- require "user.emmet"
-  require "emmet"
+  -- add setup function to emmet file
+  require "user.emmet"
 end
--- TODO: add setup to emmet and throw it up there with the tailwind ls
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 -- lvim.lsp.on_attach_callback = function(client, bufnr)
