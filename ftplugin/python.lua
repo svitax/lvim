@@ -2,9 +2,14 @@ lvim.lang.python.formatters = {
   {
     -- @usage black or yapf
     exe = "black",
+    args = { "--fast" },
   },
   {
     exe = "isort",
+    args = {
+      "--profile",
+      "black",
+    },
   },
 }
 lvim.lang.python.linters = {
