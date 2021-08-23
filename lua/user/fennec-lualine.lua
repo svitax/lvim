@@ -35,6 +35,15 @@ local conditions = {
   gps_available = gps.is_available,
 }
 
+local function get_short_cwd()
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+end
+
+local function fugitive_branch()
+  local icon = " " --
+  return icon .. " " .. vim.fn.FugitiveHead()
+end
+
 -- Config
 local config = {
   options = {

@@ -39,6 +39,18 @@ M.config = function()
     {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
+      config = function()
+        require("trouble").setup {
+          signs = {
+            -- icons / text used for a diagnostic
+            error = "",
+            warning = "",
+            hint = "",
+            information = "",
+            other = "",
+          },
+        }
+      end,
     },
     -----[[------------]]-----
     ---       Syntax       ---
