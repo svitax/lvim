@@ -155,32 +155,6 @@ M.config = function(gl)
     },
   }
 
-  -- TODO custom icon for norg, lir, and maybe nvimtree
-  -- I can do this by overriding nvim-web-devicons or write some logic in here
-  -- the benefit of doing it in nvim-web-devicons is the easier way to define colors
-  -- ﱮ (maybe this should be the default if file_icon not found)
-  -- default color = "#6d8086",
-  -- some extra icons         
-  -- unforunately now I can't override in a different file
-  require("nvim-web-devicons").setup {
-    override = {
-      norg = {
-        icon = "",
-        color = "#558140",
-        name = "Norg",
-      },
-      org = {
-        icon = "",
-        color = "#d3869b",
-        name = "Org",
-      },
-      lir = {
-        icon = "",
-        color = "#6d8086",
-        name = "Lir",
-      },
-    },
-  }
   gls.left[3] = {
     FileIcon = {
       -- provider = "FileIcon",

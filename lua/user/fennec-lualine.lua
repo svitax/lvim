@@ -44,6 +44,32 @@ local function fugitive_branch()
   return icon .. " " .. vim.fn.FugitiveHead()
 end
 
+local extensions = {
+  -- my_extension = { sections = { lualine_c = { "mode" } }, filetypes = { "lua" } },
+  nerdtree = {
+    sections = {
+      lualine_b = {
+        "progress",
+      },
+      lualine_c = {
+        provider = function()
+          return "  " .. get_short_cwd()
+          -- פּ
+        end,
+      },
+    },
+    filetypes = { "NvimTree" },
+  },
+  fugitive = {
+    sections = {
+      lualine_c = {
+        fugitive_branch,
+      },
+      filetypes = { "fugitive" },
+    },
+  },
+}
+
 -- Config
 local config = {
   options = {
@@ -54,8 +80,22 @@ local config = {
       -- We are going to use lualine_c an lualine_x as left and
       -- right section. Both are highlighted by c theme .  So we
       -- are just setting default looks o statusline
-      normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg } },
+      normal = {
+        a = { fg = colors.fg, bg = colors.bg },
+        b = { fg = colors.fg, bg = colors.bg },
+        c = { fg = colors.fg, bg = colors.bg },
+        x = { fg = colors.fg, bg = colors.bg },
+        y = { fg = colors.fg, bg = colors.bg },
+        z = { fg = colors.fg, bg = colors.bg },
+      },
+      inactive = {
+        a = { fg = colors.fg2, bg = colors.bg },
+        b = { fg = colors.fg2, bg = colors.bg },
+        c = { fg = colors.fg2, bg = colors.bg },
+        x = { fg = colors.fg2, bg = colors.bg },
+        y = { fg = colors.fg2, bg = colors.bg },
+        z = { fg = colors.fg2, bg = colors.bg },
+      },
     },
   },
   sections = {
@@ -77,6 +117,7 @@ local config = {
     lualine_c = {},
     lualine_x = {},
   },
+  extensions = { extensions.nerdtree },
 }
 
 -- Inserts a component in lualine_c at left section
@@ -87,6 +128,16 @@ end
 -- Inserts a component in lualine_x ot right section
 local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
+end
+
+-- Inserts a component in lualine_c at left INACTIVE section
+local function ins_inactive_left(component)
+  table.insert(config.inactive_sections.lualine_c, component)
+end
+
+-- Inserts a component in lualine_x at right INACTIVE section
+local function ins_inactive_right(component)
+  table.insert(config.inactive_sections.lualine_x, component)
 end
 
 -- TODO custom icon for norg, lir, and maybe nvimtree
@@ -112,6 +163,11 @@ require("nvim-web-devicons").setup {
       icon = "",
       color = "#6d8086",
       name = "Lir",
+    },
+    dashboard = {
+      icon = "",
+      color = "#6d8086",
+      name = "Dashboard",
     },
   },
 }
@@ -152,6 +208,7 @@ ins_left {
       t = colors.red,
     }
     vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
+    -- return ""
     -- return ""
     return "▊"
   end,
@@ -192,6 +249,18 @@ ins_left {
   condition = conditions.hide_in_width,
 }
 
+-- ins_left {
+--   function()
+--     local filetype = vim.bo.filetype
+--     if filetype == "" then
+--       return ""
+--     end
+--     local filename, fileext = vim.fn.expand "%:t", vim.fn.expand "%:e"
+--     local icon = require("nvim-web-devicons").get_icon(filename, fileext, { default = true })
+--     return string.format("%s", icon)
+--   end,
+-- }
+
 ins_left {
   "filetype",
   colored = true,
@@ -203,13 +272,14 @@ ins_left {
   condition = conditions.buffer_not_empty,
   -- color = { fg = colors.magenta, gui = "bold" },
   color = { fg = colors.fg, gui = "bold" },
+  -- path = 1,
   left_padding = 0,
 }
 
 ins_left {
   gps.get_location,
   condition = conditions.gps_available,
-  color = { fg = colors.magenta },
+  color = { fg = colors.blue },
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
@@ -225,10 +295,11 @@ ins_left {
 ins_right {
   "diagnostics",
   sources = { "nvim_lsp" },
-  symbols = { error = " ", warn = " ", info = " " },
+  symbols = { error = " ", warn = " ", info = " ", hint = "" },
   color_error = { fg = colors.red },
   color_warn = { fg = colors.yellow },
   color_info = { fg = colors.cyan },
+  color_hint = { fg = colors.blue },
   condition = conditions.hide_in_width,
 }
 
@@ -247,9 +318,9 @@ ins_right {
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
-      -- return ""
+      return ""
       -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
-      return (vim.bo.filetype:gsub("^%l", string.upper))
+      -- return (vim.bo.filetype:gsub("^%l", string.upper))
     end
     local lsps = ""
     for _, client in ipairs(clients) do
@@ -283,7 +354,7 @@ ins_right {
     end
   end,
   icon = " ",
-  color = { fg = colors.blue, gui = "bold" },
+  color = { fg = colors.magenta, gui = "bold" },
 }
 
 ins_right {
@@ -306,6 +377,103 @@ ins_right {
 --   color = { fg = colors.bg, bg = colors.bg },
 --   right_padding = 0,
 -- }
+
+ins_inactive_left {
+  function()
+    -- return ""
+    return ""
+  end,
+  condition = conditions.check_git_workspace,
+  color = { fg = colors.fg2, gui = "bold" },
+  right_padding = 0,
+}
+
+ins_inactive_left {
+  "branch",
+  left_padding = 0,
+  icon = "",
+  -- icon = "",
+  -- icon = "",
+  -- icon = "",
+  condition = conditions.check_git_workspace,
+  -- color = { fg = colors.fg, gui = "bold" },
+  color = { fg = colors.fg2, gui = "bold" },
+}
+
+ins_inactive_left {
+  "filetype",
+  colored = false,
+  disable_text = true,
+}
+
+ins_inactive_left {
+  "filename",
+  condition = conditions.buffer_not_empty,
+  color = { fg = colors.fg2, gui = "bold" },
+  left_padding = 0,
+}
+
+-- ins_inactive_right {
+--   "filtype",
+-- }
+
+ins_inactive_right {
+  -- Lsp server name .
+  function()
+    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then
+      return ""
+      -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
+      -- return (vim.bo.filetype:gsub("^%l", string.upper))
+    end
+    local lsps = ""
+    for _, client in ipairs(clients) do
+      if client.name ~= "null-ls" then
+        local filetypes = client.config.filetypes
+        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+          -- print(client.name)
+          if lsps == "" then
+            -- print("first", lsps)
+            lsps = client.name
+          else
+            if not string.find(lsps, client.name) then
+              lsps = lsps .. ", " .. client.name
+            end
+            -- print("more", lsps)
+          end
+        end
+      end
+    end
+    if lsps == "" then
+      return ""
+      -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
+      -- return (vim.bo.filetype:gsub("^%l", string.upper))
+    else
+      -- return " " .. lsps
+      -- return " " .. lsps
+      -- return "異" .. lsps
+      -- return " " .. lsps
+      -- return "  " .. lsps
+      return lsps
+      -- return " "
+    end
+  end,
+  icon = " ",
+  color = { fg = colors.fg2, gui = "bold" },
+}
+
+ins_inactive_right {
+  "location",
+  icon = " ",
+  color = { fg = colors.fg2, gui = "bold" },
+}
+
+ins_inactive_right {
+  "progress",
+  color = { fg = colors.fg2, gui = "bold" },
+  left_padding = 0,
+}
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
