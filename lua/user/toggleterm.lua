@@ -51,7 +51,7 @@ M.magit = function()
 end
 
 M._toggle_magit = function()
-  magit = M.magit()
+  local magit = M.magit()
   magit:toggle()
 end
 

@@ -18,6 +18,16 @@ M.config = function()
             -- Methods (functions inside class-like objects)
             ["method-name"] = " ",
           },
+          languages = { -- You can disable any language individually here
+            ["c"] = true,
+            ["cpp"] = true,
+            ["go"] = true,
+            ["java"] = true,
+            ["javascript"] = true,
+            ["lua"] = true,
+            ["python"] = true,
+            ["rust"] = true,
+          },
           separator = " > ",
         }
       end,
