@@ -43,7 +43,11 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
-    -- { "nvim-treesitter/playground", after = "nvim-treesitter", cmd = "TSPlaygroundToggle" },
+    {
+      "nvim-treesitter/playground",
+      after = "nvim-treesitter",
+      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
+    },
     -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
