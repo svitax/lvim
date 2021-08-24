@@ -92,6 +92,20 @@ lvim.builtin.treesitter.context_commentstring = {
     fennel = ";; %s",
   },
 }
+lvim.builtin.treesitter.incremental_selection = {
+  enable = true,
+  keymaps = {
+    init_selection = "<A-n>",
+    node_incremental = "<A-n>",
+    scope_incremental = "<C-s>",
+    node_decremental = "<A-p>",
+  },
+}
+lvim.builtin.treesitter.query_linter = {
+  enable = true,
+  use_virtual_text = true,
+  lint_events = { "BufWrite", "CursorHold" },
+}
 -- neorg treesitter syntax, maybe one day it will be builtin and we won't need this
 lvim.builtin.treesitter.on_config_done = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
