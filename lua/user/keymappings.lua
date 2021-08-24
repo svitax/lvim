@@ -64,10 +64,6 @@ M.config = function()
   lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" -- <A-s>
   lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" -- <A-d>
   lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" -- <A-f>
-  -- lvim.keys.normal_mode["å"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" -- <A-a>
-  -- lvim.keys.normal_mode["ß"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" -- <A-s>
-  -- lvim.keys.normal_mode["∂"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" -- <A-d>
-  -- lvim.keys.normal_mode["ƒ"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" -- <A-f>
 
   -- NOTE: Visual mode
   -- better movement keys
@@ -147,8 +143,10 @@ M.config = function()
   -- format with prettier
   -- vim.api.nvim_set_keymap("n", "<F7>", ":!prettier --stdin-filepath % | e!<cr>", { noremap = true, silent = true })
 
-  -- Hitting escape also clears spelling and search highlights
-  -- vim.api.nvim_set_keymap("n", "<ESC>", ":nohls | :setlocal nospell<ESC>", { noremap = true, silent = true })
+  lvim.builtin.which_key.triggers_blacklist = {
+    i = { "y", "d", "c" },
+    v = { "y", "d", "c" },
+  }
 
   lvim.builtin.which_key.mappings["a"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "mark file" }
 
@@ -234,19 +232,6 @@ M.config = function()
   lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "toggle debug UI" }
   lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "eval" }
 
-  -- +Files
-  -- =========================================
-  -- lvim.builtin.which_key.mappings["f"] = {
-  --   name = "+Files",
-  --   -- b = { "<cmd>edit .<cr>", "File manager in this buffer" },
-  --   -- f = { "<cmd>lua require'lir.float'.toggle()<cr>", "Floating file manager" },
-  --   -- t = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "Tree explorer" },
-  --   -- n = {
-  --   --   "<cmd>lua require('lir.float').toggle('~/.config/lvim/lua/notes/obsidian-notes')<CR>",
-  --   --   "Notes dir",
-  --   -- },
-  -- }
-
   -- TODO override builtin git mappings
   -- +Git
   -- =========================================
@@ -295,6 +280,7 @@ M.config = function()
     t = { "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
     i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation" },
   }
+  lvim.builtin.which_key.mappings["l"][";"] = { "<cmd>ISwap<cr>", "swap arguments" }
 
   -- +Notes
   -- =========================================
