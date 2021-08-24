@@ -1,4 +1,5 @@
 M = {}
+
 -- Short configs are done inline,
 -- longer configs are in a separate file in lua/user
 M.config = function()
@@ -7,6 +8,8 @@ M.config = function()
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
+    -- { "mfussenegger/nvim-jdtls" },
+    -- { 'simrat39/symbols-outline.nvim' },
     {
       "SmiteshP/nvim-gps",
       requires = { "nvim-treesitter/nvim-treesitter", "shadmansaleh/lualine.nvim" },
@@ -18,22 +21,13 @@ M.config = function()
             -- Methods (functions inside class-like objects)
             ["method-name"] = " ",
           },
-          languages = { -- You can disable any language individually here
-            ["c"] = true,
-            ["cpp"] = true,
-            ["go"] = true,
-            ["java"] = true,
-            ["javascript"] = true,
-            ["lua"] = true,
-            ["python"] = true,
-            ["rust"] = true,
-          },
+          -- languages = { -- You can disable any language individually here
+          --   ["cpp"] = true,
+          -- },
           separator = " > ",
         }
       end,
     },
-    -- { "mfussenegger/nvim-jdtls" },
-    -- { 'simrat39/symbols-outline.nvim' },
     {
       "ray-x/lsp_signature.nvim",
       config = function()
@@ -65,12 +59,12 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
+    -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     {
       "nvim-treesitter/playground",
       after = "nvim-treesitter",
       cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
-    -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
       event = "BufRead",
@@ -170,6 +164,13 @@ M.config = function()
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
+    -- {
+    --   "junegunn/vim-easy-align",
+    --   setup = function()
+    --     vim.api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", { noremap = false, silent = true })
+    --   end,
+    --   keys = "<Plug>(EasyAlign)",
+    -- },
     {
       "mizlan/iswap.nvim",
       event = "BufRead",
@@ -198,13 +199,6 @@ M.config = function()
           -- hl_grey = "LineNr",
         }
       end,
-      -- lvim.keys.normal_mode["<A-w>"] { "<cmd>ISwap<cr>" }
-    },
-    {
-      "machakann/vim-sandwich",
-      config = function()
-        vim.cmd "runtime macros/sandwich/keymap/surround.vim"
-      end,
     },
     {
       "windwp/nvim-spectre",
@@ -215,17 +209,16 @@ M.config = function()
       "mg979/vim-visual-multi",
       event = "CursorMoved",
       config = function()
-        vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi
+        vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi theming
         vim.cmd "let g:VM_custom_motions = {';': 'l', 'l': 'h', 'h': ';'}"
       end,
     },
-    -- {
-    --   "junegunn/vim-easy-align",
-    --   setup = function()
-    --     vim.api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", { noremap = false, silent = true })
-    --   end,
-    --   keys = "<Plug>(EasyAlign)",
-    -- },
+    {
+      "machakann/vim-sandwich",
+      config = function()
+        vim.cmd "runtime macros/sandwich/keymap/surround.vim"
+      end,
+    },
     -----[[------------]]-----
     ---       Files        ---
     -----]]------------[[-----
@@ -260,6 +253,17 @@ M.config = function()
       requires = { "tamago324/lir.nvim" },
     },
     {
+      "ThePrimeagen/harpoon",
+      config = function()
+        require("harpoon").setup {
+          global_settings = {
+            save_on_toggle = true,
+            save_on_change = true,
+          },
+        }
+      end,
+    },
+    {
       "kazhala/close-buffers.nvim",
       event = "BufRead",
       -- cmd = { "BDelete", "BDelete!", "BWipeout", "BWipeout!" },
@@ -281,17 +285,6 @@ M.config = function()
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
-    {
-      "ThePrimeagen/harpoon",
-      config = function()
-        require("harpoon").setup {
-          global_settings = {
-            save_on_toggle = true,
-            save_on_change = true,
-          },
-        }
-      end,
-    },
     {
       "ggandor/lightspeed.nvim",
       keys = { "s", "S", "f", "F" },
@@ -325,7 +318,7 @@ M.config = function()
       end,
     },
     {
-      -- TODO: maybe disable tab completion for compe to prevent conflicts with tabout
+      -- TODO: maybe disable <tab> completion for compe to prevent conflicts with tabout
       "abecodes/tabout.nvim",
       config = function()
         require("user.tabout").config()

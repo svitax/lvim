@@ -98,7 +98,7 @@ return function()
       lir = {
         icon = "",
         color = "#6d8086",
-        name = "lir",
+        name = "Lir",
       },
     },
   }
