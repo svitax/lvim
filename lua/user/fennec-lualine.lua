@@ -39,18 +39,10 @@ local function get_short_cwd()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
 
-local function fugitive_branch()
-  local icon = " " --
-  return icon .. " " .. vim.fn.FugitiveHead()
-end
-
 local extensions = {
   -- my_extension = { sections = { lualine_c = { "mode" } }, filetypes = { "lua" } },
   nerdtree = {
     sections = {
-      lualine_b = {
-        "progress",
-      },
       lualine_c = {
         provider = function()
           return "  " .. get_short_cwd()
@@ -59,14 +51,6 @@ local extensions = {
       },
     },
     filetypes = { "NvimTree" },
-  },
-  fugitive = {
-    sections = {
-      lualine_c = {
-        fugitive_branch,
-      },
-      filetypes = { "fugitive" },
-    },
   },
 }
 
@@ -159,15 +143,10 @@ require("nvim-web-devicons").setup {
       color = "#d3869b",
       name = "Org",
     },
-    lir = {
+    sh = {
       icon = "",
-      color = "#6d8086",
-      name = "Lir",
-    },
-    dashboard = {
-      icon = "",
-      color = "#6d8086",
-      name = "Dashboard",
+      color = "#a9b665",
+      name = "Shell",
     },
   },
 }
@@ -217,23 +196,23 @@ ins_left {
   right_padding = 0,
 }
 
-ins_left {
-  function()
-    -- return ""
-    return ""
-  end,
-  condition = conditions.check_git_workspace,
-  color = { fg = colors.cyan, gui = "bold" },
-  right_padding = 0,
-}
+-- ins_left {
+--   function()
+--     -- return ""
+--     return ""
+--   end,
+--   condition = conditions.check_git_workspace,
+--   color = { fg = colors.cyan, gui = "bold" },
+--   right_padding = 0,
+-- }
 
 ins_left {
   "branch",
   left_padding = 0,
-  icon = "",
+  -- icon = "",
   -- icon = "",
   -- icon = "",
-  -- icon = "",
+  icon = "",
   condition = conditions.check_git_workspace,
   -- color = { fg = colors.fg, gui = "bold" },
   color = { fg = colors.cyan, gui = "bold" },
