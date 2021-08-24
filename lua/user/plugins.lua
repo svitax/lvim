@@ -170,7 +170,36 @@ M.config = function()
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
-    -- { 'mizlan/iswap.nvim' },
+    {
+      "mizlan/iswap.nvim",
+      event = "BufRead",
+      config = function()
+        require("iswap").setup {
+          -- The keys that will be used as a selection, in order
+          -- ('asdfghjklqwertyuiopzxcvbnm' by default)
+          -- keys = "qwertyuiop",
+          keys = "jkl;asdf",
+
+          -- Grey out the rest of the text when making a selection
+          -- (enabled by default)
+          -- grey = "disable",
+
+          -- Highlight group for the sniping value (asdf etc.)
+          -- default 'Search'
+          -- hl_snipe = "ErrorMsg",
+          hl_snipe = "LightspeedShortcut",
+
+          -- Highlight group for the visual selection of terms
+          -- default 'Visual'
+          -- hl_selection = "WarningMsg",
+
+          -- Highlight group for the greyed background
+          -- default 'Comment'
+          -- hl_grey = "LineNr",
+        }
+      end,
+      -- lvim.keys.normal_mode["<A-w>"] { "<cmd>ISwap<cr>" }
+    },
     {
       "machakann/vim-sandwich",
       config = function()
@@ -453,17 +482,17 @@ M.config = function()
     -----[[------------]]-----
     ---      QuickFix      ---
     -----]]------------[[-----
-    -- { "kevinhwang91/nvim-bqf", event = "BufRead" },
-    {
-      "ianding1/leetcode.vim",
-      config = function()
-        vim.g.leetcode_browser = "firefox"
-        vim.g.leetcode_solution_filetype = "python3"
-        vim.g.leetcode_hide_topics = 1
-        vim.g.leetcode_hide_companies = 1
-      end,
-      cmd = { "LeetCodeList", "LeetCodeReset", "LeetCodeSignIn", "LeetCodeSubmit", "LeetCodeTest" },
-    },
+    { "kevinhwang91/nvim-bqf", event = "BufRead" },
+    -- {
+    --   "ianding1/leetcode.vim",
+    --   config = function()
+    --     vim.g.leetcode_browser = "firefox"
+    --     vim.g.leetcode_solution_filetype = "python3"
+    --     vim.g.leetcode_hide_topics = 1
+    --     vim.g.leetcode_hide_companies = 1
+    --   end,
+    --   cmd = { "LeetCodeList", "LeetCodeReset", "LeetCodeSignIn", "LeetCodeSubmit", "LeetCodeTest" },
+    -- },
   }
 end
 
