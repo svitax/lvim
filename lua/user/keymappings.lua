@@ -48,8 +48,10 @@ M.config = function()
   lvim.keys.normal_mode["<C-M-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<C-M-k>"] = ":m .-2<cr>=="
   -- more ergonomic matchup mapping with tab
-  vim.cmd "nnoremap <silent> <Tab> :normal %<CR>"
-  lvim.keys.visual_mode["<Tab>"] = "%"
+  vim.cmd "noremap <silent> <Tab> :<C-u>normal %<CR>"
+  -- vim.cmd "onoremap <silent> <Tab> :<C-u>normal %x<CR>"
+  -- vim.cmd "noremap <silent> <Tab> :normal %<CR>" -- works
+  -- vim.cmd "noremap <silent> <Tab> %"
   -- no highlight on esc
   lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<CR>"
   -- -- add new line when enter in normal mode (conflicts with wiki.vim)
@@ -78,9 +80,6 @@ M.config = function()
   lvim.keys.visual_mode["<C-M-k>"] = ":m '<-2<cr>gv=gv"
   -- better pasting in visual mode
   lvim.keys.visual_mode["p"] = [["_dP]]
-  -- more ergonomic matchup mapping
-  -- lvim.keys.visual_mode[","] = "%"
-  vim.api.nvim_set_keymap("x", ",", "<plug>(matchup-%)", { silent = true })
 
   -- NOTE: Insert mode
   -- Move current line up/down
