@@ -57,8 +57,8 @@ lvim.builtin.bufferline.active = false
 
 -- Compe (builtin)
 -- =========================================
--- lvim.builtin.compe.source.tabnine = { kind = " ", priority = 150, max_reslts = 6 }
 lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+-- lvim.builtin.compe.source.tabnine = { kind = " ", priority = 150, max_reslts = 6 }
 -- lvim.builtin.compe.preselect = "always"
 
 -- Projects (builtin)
@@ -136,10 +136,10 @@ lvim.builtin.dap.on_config_done = require("user.dap").config()
 lvim.lsp.diagnostics.virtual_text = false
 lvim.lang.markdown = {}
 lvim.builtin.lspinstall.on_config_done = function()
-  require("user.tailwind").setup()
+  require("user.lsp.tailwind").setup()
   -- need to <C-space> to activate emmet snippets sometimes
   -- add setup function to emmet file
-  require "user.emmet"
+  require("user.lsp.emmet").setup()
 end
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>

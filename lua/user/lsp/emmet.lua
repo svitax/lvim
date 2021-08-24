@@ -1,33 +1,46 @@
-local lspconfig = require "lspconfig"
-local configs = require "lspconfig/configs"
+local M = {}
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.setup = function()
+  local lspconfig = require "lspconfig"
+  local configs = require "lspconfig/configs"
 
-if not lspconfig.emmet_ls then
-  configs.emmet_ls = {
-    default_config = {
-      cmd = { "emmet-ls", "--stdio" },
-      filetypes = {
-        "html",
-        "css",
-        "svelte",
-        "javascript",
-        "typescript",
-        "typescriptreact",
-        "javascriptreact",
-        "vue",
-      },
-      root_dir = function(_)
-        return vim.loop.cwd()
-      end,
-      settings = {},
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+      "documentation",
+      "detail",
+      "additionalTextEdits",
     },
   }
+
+  if not lspconfig.emmet_ls then
+    configs.emmet_ls = {
+      default_config = {
+        cmd = { "emmet-ls", "--stdio" },
+        filetypes = {
+          "html",
+          "css",
+          "javascript",
+          "typescript",
+          "typescriptreact",
+          "javascriptreact",
+          "svelte",
+          "vue",
+          "eruby",
+        },
+        root_dir = function(_)
+          return vim.loop.cwd()
+        end,
+        settings = {},
+      },
+    }
+  end
+
+  lspconfig.emmet_ls.setup { capabilities = capabilities }
 end
 
-lspconfig.emmet_ls.setup { capabilities = capabilities }
-
+return M
 --     {
 --       "aca/emmet-ls",
 --       config = function()
