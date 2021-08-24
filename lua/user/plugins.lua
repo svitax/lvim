@@ -345,15 +345,22 @@ M.config = function()
         vim.api.nvim_set_keymap("n", "<C-h>", "<cmd>lua require('Navigator').right()<CR>", { silent = true })
       end,
     },
+    -----[[------------]]-----
+    ---    Text Objects    ---
+    -----]]------------[[-----
     {
-      -- TODO: find better mappings for matchup, and learn how to do matchup surround
       "andymass/vim-matchup",
       event = "CursorMoved",
       config = function()
         vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
         -- vim.g.matchup_matchparen_enabled = 0
         vim.g.matchup_surround_enabled = 1
+        vim.g.matchup_matchparen_deferred = 1
       end,
+    },
+    {
+      "RRethy/nvim-treesitter-textsubjects",
+      event = "CursorMoved",
     },
     -----[[------------]]-----
     ---      Sessions      ---

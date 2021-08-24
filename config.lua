@@ -106,6 +106,14 @@ lvim.builtin.treesitter.query_linter = {
   use_virtual_text = true,
   lint_events = { "BufWrite", "CursorHold" },
 }
+lvim.builtin.treesitter.textsubjects = {
+  enable = true,
+  keymaps = {
+    ["<Tab>"] = "textsubjects-smart",
+    ["<cr>"] = "textsubjects-container-outer",
+  },
+}
+
 -- neorg treesitter syntax, maybe one day it will be builtin and we won't need this
 lvim.builtin.treesitter.on_config_done = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
