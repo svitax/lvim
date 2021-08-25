@@ -35,6 +35,14 @@ local conditions = {
   gps_available = gps.is_available,
 }
 
+local function harpoon()
+  local status = require("harpoon.mark").status()
+  if status == "" then
+    return ""
+  end
+  return string.format("%s", status)
+end
+
 local function get_short_cwd()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
@@ -187,6 +195,7 @@ ins_left {
       t = colors.red,
     }
     vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
+    -- \2644
     -- return ""
     -- return ""
     return "▊"
@@ -208,7 +217,7 @@ ins_left {
 
 ins_left {
   "branch",
-  left_padding = 0,
+  -- left_padding = 0,
   -- icon = "",
   -- icon = "",
   -- icon = "",
@@ -346,6 +355,20 @@ ins_right {
   "progress",
   color = { gui = "bold" },
   left_padding = 0,
+}
+
+ins_right {
+  harpoon,
+  -- 
+  -- ﯀
+  -- ﰳ
+  -- 
+  -- 
+  -- 
+  -- ﴱ
+  -- \E943
+  icon = " ",
+  color = { fg = colors.blue },
 }
 
 -- ins_right {
