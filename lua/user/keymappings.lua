@@ -69,6 +69,12 @@ M.config = function()
   lvim.keys.visual_mode["<A-k>"] = ":m '<-2<cr>gv=gv"
   -- better pasting in visual mode
   lvim.keys.visual_mode["p"] = [["_dP]]
+  -- ergonmic mappings for end of line and beginning of line
+  lvim.keys.visual_mode["<Left>"] = "_"
+  lvim.keys.visual_mode["<Right>"] = "$"
+  -- ergonmic mappings for end of file and beginning of file
+  lvim.keys.visual_mode["<Up>"] = "gg"
+  lvim.keys.visual_mode["<Down>"] = "G"
 
   -- NOTE: Insert mode
   -- Move current line up/down

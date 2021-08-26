@@ -1,3 +1,4 @@
+-- C-p for previous jump list?
 -- General
 -- =========================================
 lvim.format_on_save = true
