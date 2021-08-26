@@ -52,7 +52,7 @@ local extensions = {
   nerdtree = {
     sections = {
       lualine_c = {
-        provider = function()
+        function()
           return "  " .. get_short_cwd()
           -- פּ
         end,
@@ -70,8 +70,8 @@ local config = {
     section_separators = "",
     theme = {
       -- We are going to use lualine_c an lualine_x as left and
-      -- right section. Both are highlighted by c theme .  So we
-      -- are just setting default looks o statusline
+      -- right section. Both are highlighted by c theme.
+      -- So we are just setting default looks o statusline
       normal = {
         a = { fg = colors.fg, bg = colors.bg },
         b = { fg = colors.fg, bg = colors.bg },
@@ -132,13 +132,9 @@ local function ins_inactive_right(component)
   table.insert(config.inactive_sections.lualine_x, component)
 end
 
--- TODO custom icon for norg, lir, and maybe nvimtree
--- I can do this by overriding nvim-web-devicons or write some logic in here
--- the benefit of doing it in nvim-web-devicons is the easier way to define colors
 -- ﱮ (maybe this should be the default if file_icon not found)
 -- default color = "#6d8086",
 -- some extra icons         
--- unforunately now I can't override in a different file
 require("nvim-web-devicons").setup {
   override = {
     norg = {
@@ -158,15 +154,6 @@ require("nvim-web-devicons").setup {
     },
   },
 }
-
--- ins_left {
---   function()
---     return "▊"
---   end,
---   -- color = { fg = colors.blue }, -- Sets highlighting of component
---   color = { fg = colors.bg, bg = colors.bg },
---   left_padding = 0, -- We don't need space before this
--- }
 
 ins_left {
   -- mode component
@@ -195,9 +182,7 @@ ins_left {
       t = colors.red,
     }
     vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
-    -- \2644
-    -- return ""
-    -- return ""
+    -- \2644 return "" return ""
     return "▊"
   end,
   color = "LualineMode",
@@ -205,25 +190,11 @@ ins_left {
   right_padding = 0,
 }
 
--- ins_left {
---   function()
---     -- return ""
---     return ""
---   end,
---   condition = conditions.check_git_workspace,
---   color = { fg = colors.cyan, gui = "bold" },
---   right_padding = 0,
--- }
-
 ins_left {
   "branch",
-  -- left_padding = 0,
-  -- icon = "",
-  -- icon = "",
-  -- icon = "",
   icon = "",
+  -- icon = "", icon = "", icon = "",
   condition = conditions.check_git_workspace,
-  -- color = { fg = colors.fg, gui = "bold" },
   color = { fg = colors.cyan, gui = "bold" },
 }
 
@@ -260,7 +231,7 @@ ins_left {
   condition = conditions.buffer_not_empty,
   -- color = { fg = colors.magenta, gui = "bold" },
   color = { fg = colors.fg, gui = "bold" },
-  -- path = 1,
+  path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
   left_padding = 0,
 }
 
@@ -283,22 +254,13 @@ ins_left {
 ins_right {
   "diagnostics",
   sources = { "nvim_lsp" },
-  symbols = { error = " ", warn = " ", info = " ", hint = "" },
+  symbols = { error = " ", warn = " ", info = " ", hint = " " },
   color_error = { fg = colors.red },
   color_warn = { fg = colors.yellow },
   color_info = { fg = colors.cyan },
   color_hint = { fg = colors.blue },
   condition = conditions.hide_in_width,
 }
-
--- ins_right {
---   function()
---     -- return ""
---     return " "
---   end,
---   color = { fg = colors.blue, gui = "bold" },
---   right_padding = 0,
--- }
 
 ins_right {
   -- Lsp server name .
@@ -315,15 +277,12 @@ ins_right {
       if client.name ~= "null-ls" then
         local filetypes = client.config.filetypes
         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          -- print(client.name)
           if lsps == "" then
-            -- print("first", lsps)
             lsps = client.name
           else
             if not string.find(lsps, client.name) then
               lsps = lsps .. ", " .. client.name
             end
-            -- print("more", lsps)
           end
         end
       end
@@ -333,15 +292,11 @@ ins_right {
       -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
       -- return (vim.bo.filetype:gsub("^%l", string.upper))
     else
-      -- return " " .. lsps
-      -- return " " .. lsps
-      -- return "異" .. lsps
-      -- return " " .. lsps
-      -- return "  " .. lsps
       return lsps
     end
   end,
   icon = " ",
+  --    s
   color = { fg = colors.magenta, gui = "bold" },
 }
 
@@ -359,46 +314,16 @@ ins_right {
 
 ins_right {
   harpoon,
-  -- 
-  -- ﯀
-  -- ﰳ
-  -- 
-  -- 
-  -- 
-  -- ﴱ
-  -- \E943
+  --  ﯀ ﰳ    ﴱ \E943
   icon = " ",
   color = { fg = colors.blue },
 }
 
--- ins_right {
---   function()
---     return "▊"
---   end,
---   -- color = { fg = colors.blue },
---   color = { fg = colors.bg, bg = colors.bg },
---   right_padding = 0,
--- }
-
-ins_inactive_left {
-  function()
-    -- return ""
-    return ""
-  end,
-  condition = conditions.check_git_workspace,
-  color = { fg = colors.fg2, gui = "bold" },
-  right_padding = 0,
-}
-
 ins_inactive_left {
   "branch",
-  left_padding = 0,
-  icon = "",
-  -- icon = "",
-  -- icon = "",
-  -- icon = "",
+  icon = "",
+  -- icon = "", icon = "", icon = "",
   condition = conditions.check_git_workspace,
-  -- color = { fg = colors.fg, gui = "bold" },
   color = { fg = colors.fg2, gui = "bold" },
 }
 
@@ -412,15 +337,12 @@ ins_inactive_left {
   "filename",
   condition = conditions.buffer_not_empty,
   color = { fg = colors.fg2, gui = "bold" },
+  path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
   left_padding = 0,
 }
 
--- ins_inactive_right {
---   "filtype",
--- }
-
 ins_inactive_right {
-  -- Lsp server name .
+  -- Lsp server name
   function()
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
     local clients = vim.lsp.get_active_clients()
@@ -434,15 +356,12 @@ ins_inactive_right {
       if client.name ~= "null-ls" then
         local filetypes = client.config.filetypes
         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          -- print(client.name)
           if lsps == "" then
-            -- print("first", lsps)
             lsps = client.name
           else
             if not string.find(lsps, client.name) then
               lsps = lsps .. ", " .. client.name
             end
-            -- print("more", lsps)
           end
         end
       end
@@ -452,16 +371,11 @@ ins_inactive_right {
       -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
       -- return (vim.bo.filetype:gsub("^%l", string.upper))
     else
-      -- return " " .. lsps
-      -- return " " .. lsps
-      -- return "異" .. lsps
-      -- return " " .. lsps
-      -- return "  " .. lsps
       return lsps
-      -- return " "
     end
   end,
   icon = " ",
+  --    s
   color = { fg = colors.fg2, gui = "bold" },
 }
 
