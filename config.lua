@@ -17,6 +17,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 20
 vim.opt.showtabline = 0
+vim.opt.relativenumber = true
 -- vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 -- vim.opt.pumblend = 10 -- Popup blend auto_open
 
