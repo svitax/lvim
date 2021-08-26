@@ -6,10 +6,14 @@ local gps = require "nvim-gps"
 
 -- Color table for highlights
 local colors = {
-  bg2 = "#433E3A",
-  bg = "#433E3A", -- default
-  fg2 = "#7c6f64",
+  bg = "#3c3836",
+  bg1 = "#433E3A",
+  bg2 = "#504945",
+
+  fg1 = "#928374",
+  fg2 = "#7c6f64", -- good with bg
   fg = "#d4be98",
+
   fg_alt = "#ddc7a1",
   yellow = "#d8a657",
   cyan = "#89b482",
@@ -20,6 +24,7 @@ local colors = {
   red = "#ea6962",
 }
 
+-- TODO: condition where component won't show if statusline too short
 local conditions = {
   buffer_not_empty = function()
     return vim.fn.empty(vim.fn.expand "%:t") ~= 1
@@ -35,13 +40,13 @@ local conditions = {
   gps_available = gps.is_available,
 }
 
-local function harpoon()
-  local status = require("harpoon.mark").status()
-  if status == "" then
-    return ""
-  end
-  return string.format("%s", status)
-end
+-- local function harpoon()
+--   local status = require("harpoon.mark").status()
+--   if status == "" then
+--     return ""
+--   end
+--   return string.format("%s", status)
+-- end
 
 local function get_short_cwd()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
@@ -160,52 +165,153 @@ ins_left {
   function()
     -- auto change color according to neovims mode
     local mode_color = {
-      n = colors.green,
-      i = colors.red,
-      v = colors.yellow,
-      [""] = colors.blue,
-      V = colors.blue,
-      c = colors.magenta,
-      no = colors.red,
-      s = colors.orange,
-      S = colors.orange,
-      [""] = colors.orange,
-      ic = colors.yellow,
-      R = colors.magenta,
-      Rv = colors.magenta,
-      cv = colors.red,
-      ce = colors.red,
-      r = colors.cyan,
-      rm = colors.cyan,
-      ["r?"] = colors.cyan,
-      ["!"] = colors.red,
-      t = colors.red,
+      n = colors.yellow,
+      i = colors.blue,
+      v = colors.orange,
+      [""] = colors.green,
+      V = colors.green,
+      c = colors.red,
+      no = colors.orange,
+      s = colors.red,
+      S = colors.red,
+      [""] = colors.red,
+      ic = colors.blue,
+      R = colors.orange,
+      Rv = colors.orange,
+      cv = colors.orange,
+      ce = colors.orange,
+      r = colors.blue,
+      rm = colors.blue,
+      ["r?"] = colors.blue,
+      ["!"] = colors.orange,
+      t = colors.orange,
     }
-    vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
+    vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg2)
+    vim.api.nvim_command("hi! LualineModeBg guifg=" .. colors.bg2 .. " guibg=" .. mode_color[vim.fn.mode()])
     -- \2644 return "" return ""
-    return "▊"
+    -- return "▊"
+    -- return ""
+    return " "
+  end,
+  color = "LualineModeBg",
+  left_padding = 1,
+  right_padding = 0,
+}
+
+ins_left {
+  function()
+    return " "
   end,
   color = "LualineMode",
   left_padding = 0,
   right_padding = 0,
 }
 
+-- ins_left {
+--   harpoon,
+--   --  ﯀ ﰳ    ﴱ \E943
+--   -- icon = " ",
+--   color = "LualineMode",
+--   condition = conditions.buffer_not_empty and conditions.hide_in_width,
+--   left_padding = 0,
+--   -- right_padding = 0,
+-- }
+
 ins_left {
-  "branch",
-  icon = "",
-  -- icon = "", icon = "", icon = "",
-  condition = conditions.check_git_workspace,
-  color = { fg = colors.cyan, gui = "bold" },
+  function()
+    local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    return " " .. dir_name .. "/"
+  end,
+  color = { fg = colors.fg1, bg = colors.bg2 },
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  left_padding = 0,
+  right_padding = 0,
 }
 
 ins_left {
-  "diff",
-  -- Is it me or the symbol for modified is really weird
-  symbols = { added = " ", modified = "柳", removed = " " },
-  color_added = { fg = colors.green },
-  color_modified = { fg = colors.orange },
-  color_removed = { fg = colors.red },
-  condition = conditions.hide_in_width,
+  -- "filename",
+  function()
+    local function count(base, pattern)
+      return select(2, string.gsub(base, pattern, ""))
+    end
+
+    local function shorten_path(path, sep)
+      -- ('([^/])[^/]+%/', '%1/', 1)
+      return path:gsub(string.format("([^%s])[^%s]+%%%s", sep, sep, sep), "%1" .. sep, 1)
+    end
+
+    local data = vim.fn.expand "%:~:.:h"
+
+    if data == "" then
+      data = "[No Name]"
+    elseif data == "." then
+      data = ""
+    else
+      data = data .. "/"
+    end
+
+    local windwidth = vim.fn.winwidth(0)
+    local estimated_space_available = 40
+    local path_separator = package.config:sub(1, 1)
+    for _ = 0, count(data, path_separator) do
+      if windwidth <= 84 or #data > estimated_space_available then
+        data = shorten_path(data, path_separator)
+      end
+    end
+
+    return data
+  end,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  color = { fg = colors.fg1, bg = colors.bg2 },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_left {
+  function()
+    return " "
+  end,
+  color = { fg = colors.bg2, bg = colors.bg1 },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_left {
+  "filetype",
+  colored = true,
+  disable_text = true,
+  color = { fg = colors.bg1, bg = colors.bg1 },
+  condition = conditions.buffer_not_empty,
+  left_padding = 0,
+}
+
+ins_left {
+  function()
+    local data = vim.fn.expand "%:t"
+
+    if data == "" then
+      data = "[No Name]"
+    end
+
+    if vim.bo.modified then
+      data = data .. " "
+    elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+      data = data .. " "
+    end
+    return data
+  end,
+  condition = conditions.buffer_not_empty,
+  color = { fg = colors.fg, bg = colors.bg1, gui = "bold" },
+  left_padding = 0,
+}
+
+ins_left {
+  function()
+    return " "
+  end,
+  color = { fg = colors.bg1 },
+  left_padding = 0,
+  right_padding = 0,
 }
 
 -- ins_left {
@@ -221,23 +327,9 @@ ins_left {
 -- }
 
 ins_left {
-  "filetype",
-  colored = true,
-  disable_text = true,
-}
-
-ins_left {
-  "filename",
-  condition = conditions.buffer_not_empty,
-  -- color = { fg = colors.magenta, gui = "bold" },
-  color = { fg = colors.fg, gui = "bold" },
-  path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-  left_padding = 0,
-}
-
-ins_left {
   gps.get_location,
-  condition = conditions.gps_available,
+  -- condition = conditions.gps_available,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
   color = { fg = colors.blue },
 }
 
@@ -260,6 +352,14 @@ ins_right {
   color_info = { fg = colors.cyan },
   color_hint = { fg = colors.blue },
   condition = conditions.hide_in_width,
+}
+
+ins_right {
+  function()
+    return " "
+  end,
+  color = { fg = colors.fg2 },
+  right_padding = 0,
 }
 
 ins_right {
@@ -295,101 +395,266 @@ ins_right {
       return lsps
     end
   end,
-  icon = " ",
-  --    s
-  color = { fg = colors.magenta, gui = "bold" },
+  -- icon = " ",
+  --    
+  color = { fg = colors.fg2, gui = "bold" },
+  right_padding = 0,
 }
 
 ins_right {
-  "location",
-  icon = " ",
-  color = { fg = colors.fg, gui = "bold" },
+  function()
+    return ""
+  end,
+  color = { fg = colors.bg2 },
+  condition = conditions.check_git_workspace,
+  left_padding = 0,
+  right_padding = 0,
 }
 
 ins_right {
-  "progress",
-  color = { gui = "bold" },
+  function()
+    return ""
+  end,
+  color = { fg = colors.cyan },
+  condition = conditions.check_git_workspace,
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_right {
+  function()
+    -- return ""
+    return ""
+    -- icon = "", icon = "",
+  end,
+  color = { fg = colors.bg, bg = colors.cyan },
+  condition = conditions.check_git_workspace,
   left_padding = 0,
 }
 
 ins_right {
-  harpoon,
-  --  ﯀ ﰳ    ﴱ \E943
-  icon = " ",
-  color = { fg = colors.blue },
+  "branch",
+  icon = "",
+  condition = conditions.check_git_workspace,
+  -- color = { fg = colors.cyan, bg = colors.bg2, gui = "bold" },
+  color = { fg = colors.cyan, bg = colors.bg2 },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_right {
+  function()
+    return ""
+  end,
+  color = { fg = colors.bg2, bg = colors.bg1 },
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_right {
+  function()
+    return ""
+  end,
+  color = { fg = colors.magenta, bg = colors.bg2 },
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_right {
+  function()
+    return ""
+  end,
+  color = { fg = colors.bg, bg = colors.magenta },
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  left_padding = 0,
+}
+
+ins_right {
+  "location",
+  -- icon = " ",
+  -- color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
+  color = { fg = colors.magenta, bg = colors.bg2 },
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+}
+
+-- TODO: add a scrollbar plugin
+-- ins_right {
+--   "progress",
+--   color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
+--   condition = conditions.buffer_not_empty and conditions.hide_in_width,
+-- }
+
+-- Inactive statusline
+-- ========================================================================================================================
+-- ========================================================================================================================
+
+ins_inactive_left {
+  -- mode component
+  function()
+    return " "
+  end,
+  color = { fg = colors.bg, bg = colors.fg2 },
+  left_padding = 1,
+  right_padding = 0,
 }
 
 ins_inactive_left {
-  "branch",
-  icon = "",
-  -- icon = "", icon = "", icon = "",
-  condition = conditions.check_git_workspace,
-  color = { fg = colors.fg2, gui = "bold" },
+  function()
+    return " "
+  end,
+  color = { fg = colors.fg2, bg = colors.bg1 },
+  left_padding = 0,
+  right_padding = 0,
 }
+--
+-- ins_inactive_left {
+--   function()
+--     local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+--     return " " .. dir_name .. "/"
+--   end,
+--   color = { fg = colors.fg2, bg = colors.bg2 },
+--   condition = conditions.buffer_not_empty and conditions.hide_in_width,
+--   -- left_padding = 0,
+--   right_padding = 0,
+-- }
+--
+-- ins_inactive_left {
+--   -- "filename",
+--   function()
+--     local function count(base, pattern)
+--       return select(2, string.gsub(base, pattern, ""))
+--     end
+--
+--     local function shorten_path(path, sep)
+--       -- ('([^/])[^/]+%/', '%1/', 1)
+--       return path:gsub(string.format("([^%s])[^%s]+%%%s", sep, sep, sep), "%1" .. sep, 1)
+--     end
+--
+--     local data = vim.fn.expand "%:~:.:h"
+--
+--     if data == "" then
+--       data = "[No Name]"
+--     elseif data == "." then
+--       data = ""
+--     else
+--       data = data .. "/"
+--     end
+--
+--     local windwidth = vim.fn.winwidth(0)
+--     local estimated_space_available = 40
+--     local path_separator = package.config:sub(1, 1)
+--     for _ = 0, count(data, path_separator) do
+--       if windwidth <= 84 or #data > estimated_space_available then
+--         data = shorten_path(data, path_separator)
+--       end
+--     end
+--
+--     return data
+--   end,
+--   condition = conditions.buffer_not_empty and conditions.hide_in_width,
+--   color = { fg = colors.fg2, bg = colors.bg2 },
+--   left_padding = 0,
+--   right_padding = 0,
+-- }
+--
+-- ins_inactive_left {
+--   function()
+--     return " "
+--   end,
+--   color = { fg = colors.bg2, bg = colors.bg1 },
+--   left_padding = 0,
+--   right_padding = 0,
+-- }
 
 ins_inactive_left {
   "filetype",
   colored = false,
   disable_text = true,
+  color = { fg = colors.fg2, bg = colors.bg1 },
+  condition = conditions.buffer_not_empty,
+  left_padding = 0,
 }
 
 ins_inactive_left {
-  "filename",
-  condition = conditions.buffer_not_empty,
-  color = { fg = colors.fg2, gui = "bold" },
-  path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-  left_padding = 0,
-}
-
-ins_inactive_right {
-  -- Lsp server name
   function()
-    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-      return ""
-      -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
-      -- return (vim.bo.filetype:gsub("^%l", string.upper))
+    local data = vim.fn.expand "%:t"
+
+    if data == "" then
+      data = "[No Name]"
     end
-    local lsps = ""
-    for _, client in ipairs(clients) do
-      if client.name ~= "null-ls" then
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          if lsps == "" then
-            lsps = client.name
-          else
-            if not string.find(lsps, client.name) then
-              lsps = lsps .. ", " .. client.name
-            end
-          end
-        end
-      end
+
+    if vim.bo.modified then
+      data = data .. " "
+    elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+      data = data .. " "
     end
-    if lsps == "" then
-      return ""
-      -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
-      -- return (vim.bo.filetype:gsub("^%l", string.upper))
-    else
-      return lsps
-    end
+    return data
   end,
-  icon = " ",
-  --    s
-  color = { fg = colors.fg2, gui = "bold" },
-}
-
-ins_inactive_right {
-  "location",
-  icon = " ",
-  color = { fg = colors.fg2, gui = "bold" },
-}
-
-ins_inactive_right {
-  "progress",
-  color = { fg = colors.fg2, gui = "bold" },
+  condition = conditions.buffer_not_empty,
+  color = { fg = colors.fg2, bg = colors.bg1 },
   left_padding = 0,
+}
+
+ins_inactive_left {
+  function()
+    return " "
+  end,
+  color = { fg = colors.bg1 },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_inactive_right {
+  function()
+    return ""
+  end,
+  condition = conditions.check_git_workspace,
+  color = { fg = colors.bg1 },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_inactive_right {
+  function()
+    return ""
+  end,
+  condition = conditions.check_git_workspace,
+  color = { fg = colors.fg2 },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+ins_inactive_right {
+  function()
+    -- return ""
+    return ""
+    -- icon = "", icon = "",
+  end,
+  condition = conditions.check_git_workspace,
+  color = { fg = colors.bg, bg = colors.fg2 },
+  left_padding = 0,
+}
+
+ins_inactive_right {
+  "branch",
+  icon = "",
+  condition = conditions.check_git_workspace,
+  color = { fg = colors.fg2, bg = colors.bg1 },
+  left_padding = 0,
+  right_padding = 0,
 }
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
+
+-- ins_left {
+--   "diff",
+--   -- Is it me or the symbol for modified is really weird
+--   symbols = { added = " ", modified = "柳", removed = " " },
+--   color_added = { fg = colors.green },
+--   color_modified = { fg = colors.orange },
+--   color_removed = { fg = colors.red },
+--   condition = conditions.hide_in_width,
+-- }
