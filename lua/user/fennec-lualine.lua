@@ -247,7 +247,7 @@ ins_left {
     elseif data == "." then
       data = ""
     else
-      data = data .. "/"
+      data = data .. "/ "
     end
 
     local windwidth = vim.fn.winwidth(0)
@@ -415,7 +415,7 @@ ins_right {
   function()
     return ""
   end,
-  color = { fg = colors.cyan },
+  color = { fg = colors.cyan, bg = colors.bg2 },
   condition = conditions.check_git_workspace,
   left_padding = 0,
   right_padding = 0,
@@ -446,7 +446,7 @@ ins_right {
   function()
     return ""
   end,
-  color = { fg = colors.bg2, bg = colors.bg1 },
+  color = { fg = colors.bg2, bg = colors.bg2 },
   condition = conditions.buffer_not_empty and conditions.hide_in_width,
   left_padding = 0,
   right_padding = 0,

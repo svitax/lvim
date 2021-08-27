@@ -464,7 +464,6 @@ M.config = function()
     -----[[------------]]-----
     ---      QuickFix      ---
     -----]]------------[[-----
-    { "kevinhwang91/nvim-bqf", event = "BufRead" },
     -- {
     --   "ianding1/leetcode.vim",
     --   config = function()
@@ -475,6 +474,7 @@ M.config = function()
     --   end,
     --   cmd = { "LeetCodeList", "LeetCodeReset", "LeetCodeSignIn", "LeetCodeSubmit", "LeetCodeTest" },
     -- },
+    { "kevinhwang91/nvim-bqf", event = "BufRead" },
   }
 end
 
