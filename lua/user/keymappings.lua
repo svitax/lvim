@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 M.config = function()
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
@@ -325,8 +325,8 @@ M.config = function()
     R = { "registers" },
     s = { "<cmd>SearchSession<cr>", "sessions" },
     -- fuzzy grep? change layout
-    g = { "<cmd>Telescope live_grep<cr>", "grep in project" },
-    G = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
+    g = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
+    G = { "<cmd>Telescope live_grep<cr>", "grep in project" },
     T = { "<cmd>TodoTrouble<cr>", "todos" },
   }
 
