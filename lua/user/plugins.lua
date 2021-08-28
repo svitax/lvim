@@ -167,6 +167,7 @@ M.config = function()
       "Mathijs-Bakker/zoom-vim",
       event = "BufRead",
     },
+    { "dstein64/nvim-scrollview", event = "WinEnter" },
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
