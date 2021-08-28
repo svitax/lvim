@@ -32,7 +32,7 @@ M.config = function()
   -- lvim.keys.normal_mode["<A-l>"] = ""
   -- lvim.keys.normal_mode["<A-;>"] = ""
   -- swap function arguments
-  lvim.keys.normal_mode["<A-h>"] = "<cmd>ISwap<cr>"
+  lvim.keys.normal_mode["<A-;>"] = "<cmd>ISwap<cr>"
   -- ergonmic mappings for end of line and beginning of line
   lvim.keys.normal_mode["<Left>"] = "_"
   lvim.keys.normal_mode["<Right>"] = "$"
@@ -46,12 +46,18 @@ M.config = function()
 
   -- save
   lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
+  -- quickly toggle terminals
+  lvim.keys.normal_mode["<A-2>"] = "<cmd>lua require('user.toggleterm').toggle_term2()<cr>"
+  lvim.keys.normal_mode["<A-3>"] = "<cmd>lua require('user.toggleterm').toggle_term3()<CR>"
+  -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>"
+  -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>"
+  -- lvim.keys.normal_mode["<A-y>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>"
   -- quickly switch to harpoon marked files
-  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>"
-  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>"
-  lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>"
-  lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>"
-  lvim.keys.normal_mode["<A-g>"] = "<cmd>lua require('harpoon.ui').nav_file(5)<CR>"
+  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>"
+  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>"
+  lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>"
+  lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>"
+
   -- more ergonomic matchup mapping with tab
   vim.cmd "noremap <silent> <Tab> :<C-u>normal %<CR>"
   -- no highlight on esc

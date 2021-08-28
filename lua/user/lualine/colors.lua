@@ -4,10 +4,10 @@ return {
   bg1 = "#433E3A",
   bg2 = "#504945",
 
-  fg1 = "#928374",
+  fg1 = "#8e837c",
+  -- fg1 = "#928374",
   fg2 = "#7c6f64", -- good with bg
   fg = "#d4be98",
-
   fg_alt = "#ddc7a1",
   yellow = "#d8a657",
   cyan = "#89b482",

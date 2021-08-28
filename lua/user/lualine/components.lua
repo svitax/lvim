@@ -32,9 +32,11 @@ utils.ins_left {
       rm = colors.blue,
       ["r?"] = colors.blue,
       ["!"] = colors.orange,
-      t = colors.orange,
+      t = colors.yellow,
     }
-    vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg2)
+    vim.api.nvim_command(
+      "hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg2 .. " gui=bold"
+    )
     vim.api.nvim_command("hi! LualineModeBg guifg=" .. colors.bg2 .. " guibg=" .. mode_color[vim.fn.mode()])
     -- \2644 return "" return ""
     -- return "▊"
@@ -55,65 +57,68 @@ utils.ins_left {
   right_padding = 0,
 }
 
+utils.ins_left {
+  utils.harpoon,
+  -- utils.harpoon,
+  --  ﯀ ﰳ    ﴱ \E943
+  icon = " ",
+  color = "LualineMode",
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  left_padding = 0,
+  -- right_padding = 0,
+}
+
+utils.ins_left {
+  function()
+    local filename = vim.fn.expand "%:t"
+    local term_number = filename:sub(-1)
+
+    return "  " .. term_number
+  end,
+  color = "LualineMode",
+  condition = conditions.is_toggleterm,
+  left_padding = 0,
+}
+
+-- -- relative path
 -- utils.ins_left {
---   harpoon,
---   --  ﯀ ﰳ    ﴱ \E943
---   -- icon = " ",
---   color = "LualineMode",
+--   function()
+--     local function count(base, pattern)
+--       return select(2, string.gsub(base, pattern, ""))
+--     end
+--
+--     local function shorten_path(path, sep)
+--       -- ('([^/])[^/]+%/', '%1/', 1)
+--       return path:gsub(string.format("([^%s])[^%s]+%%%s", sep, sep, sep), "%1" .. sep, 1)
+--     end
+--
+--     local data = vim.fn.expand "%:~:.:h"
+--
+--     if data == "" then
+--       -- data = "[No Name]"
+--       data = ""
+--     elseif data == "." then
+--       data = ""
+--     else
+--       data = data .. "/"
+--     end
+--
+--     local windwidth = vim.fn.winwidth(0)
+--     local estimated_space_available = 40
+--     local path_separator = package.config:sub(1, 1)
+--     for _ = 0, count(data, path_separator) do
+--       if windwidth <= 84 or #data > estimated_space_available then
+--         data = shorten_path(data, path_separator)
+--       end
+--     end
+--
+--     return data
+--   end,
 --   condition = conditions.buffer_not_empty and conditions.hide_in_width,
+--   color = { fg = colors.fg1, bg = colors.bg2 },
 --   left_padding = 0,
---   -- right_padding = 0,
+--   right_padding = 0,
 -- }
-
-utils.ins_left {
-  function()
-    local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    return " " .. dir_name .. "/"
-  end,
-  color = { fg = colors.fg1, bg = colors.bg2 },
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
-  left_padding = 0,
-  right_padding = 0,
-}
-
-utils.ins_left {
-  -- "filename",
-  function()
-    local function count(base, pattern)
-      return select(2, string.gsub(base, pattern, ""))
-    end
-
-    local function shorten_path(path, sep)
-      -- ('([^/])[^/]+%/', '%1/', 1)
-      return path:gsub(string.format("([^%s])[^%s]+%%%s", sep, sep, sep), "%1" .. sep, 1)
-    end
-
-    local data = vim.fn.expand "%:~:.:h"
-
-    if data == "" then
-      data = "[No Name]"
-    elseif data == "." then
-      data = ""
-    else
-      data = data .. "/"
-    end
-
-    local windwidth = vim.fn.winwidth(0)
-    local estimated_space_available = 40
-    local path_separator = package.config:sub(1, 1)
-    for _ = 0, count(data, path_separator) do
-      if windwidth <= 84 or #data > estimated_space_available then
-        data = shorten_path(data, path_separator)
-      end
-    end
-
-    return data
-  end,
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
-  color = { fg = colors.fg1, bg = colors.bg2 },
-  left_padding = 0,
-  right_padding = 0,
-}
 
 utils.ins_left {
   function()
@@ -124,33 +129,17 @@ utils.ins_left {
   right_padding = 0,
 }
 
-utils.ins_left {
-  "filetype",
-  colored = true,
-  disable_text = true,
-  color = { fg = colors.bg1, bg = colors.bg1 },
-  condition = conditions.buffer_not_empty,
-  -- left_padding = 0,
-}
-
+-- root directory
 utils.ins_left {
   function()
-    local data = vim.fn.expand "%:t"
-
-    if data == "" then
-      data = "[No Name]"
-    end
-
-    if vim.bo.modified then
-      data = data .. " "
-    elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-      data = data .. " "
-    end
-    return data
+    local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    -- return " " .. dir_name .. "/"
+    return " " .. dir_name
   end,
-  condition = conditions.buffer_not_empty,
-  color = { fg = colors.fg, bg = colors.bg1, gui = "bold" },
-  left_padding = 0,
+  color = { fg = colors.fg2, bg = colors.bg1 },
+  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  -- left_padding = 0,
+  -- right_padding = 0,
 }
 
 utils.ins_left {
@@ -160,6 +149,46 @@ utils.ins_left {
   color = { fg = colors.bg1 },
   left_padding = 0,
   right_padding = 0,
+}
+
+utils.ins_left {
+  "filetype",
+  colored = true,
+  disable_text = true,
+  color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
+  condition = conditions.buffer_not_empty,
+  left_padding = 0,
+}
+
+-- utils.ins_left {
+--   -- Toggleterm filetype
+--   function()
+--     return " "
+--   end,
+--   color = { fg = colors.fg, bg = colors.bg },
+--   condition = conditions.is_toggleterm,
+--   left_padding = 0,
+-- }
+
+-- filename
+utils.ins_left {
+  function()
+    local data = vim.fn.expand "%:t"
+
+    -- if data == "" then
+    --   data = "[No Name]"
+    -- end
+
+    if vim.bo.modified then
+      data = data .. " "
+    elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+      data = data .. " "
+    end
+    return data
+  end,
+  condition = conditions.buffer_not_empty and conditions.is_not_blacklisted_filetype,
+  color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
+  left_padding = 0,
 }
 
 -- utils.ins_left {
@@ -376,9 +405,9 @@ utils.ins_inactive_left {
   function()
     local data = vim.fn.expand "%:t"
 
-    if data == "" then
-      data = "[No Name]"
-    end
+    -- if data == "" then
+    --   data = "[No Name]"
+    -- end
 
     if vim.bo.modified then
       data = data .. " "

@@ -2,7 +2,11 @@ local M = {}
 
 M.config = function()
   -- lvim.builtin.terminal.open_mapping = [[…]] -- alt+; in macos
-  lvim.builtin.terminal.open_mapping = [[<C-t>]]
+  -- lvim.builtin.terminal.open_mapping = [[<C-t>]]
+  lvim.builtin.terminal.open_mapping = [[<A-1>]]
+
+  -- vim.cmd [[nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>]]
+
   lvim.builtin.terminal.execs = {
     { "lazygit", "gg", "LazyGit" },
     -- { "cobib", "ob", "Bibliography (Cobib)" },
@@ -13,6 +17,61 @@ M.config = function()
   lvim.builtin.terminal.float_opts.winblend = lvim.winblend
   lvim.builtin.terminal.float_opts.highlights.border = "Comment"
   lvim.builtin.terminal.shade_terminals = false
+  -- lvim.builtin.terminal.direction = "window"
+end
+
+M.toggle_term2 = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    count = 2,
+    size = 100,
+    close_on_exit = false,
+    hidden = true,
+    -- when the dissapearing linenumber bug is fixed, switch to window
+    direction = "horizontal",
+    on_open = function(term)
+      vim.cmd "startinsert!"
+      vim.api.nvim_buf_set_keymap(
+        term.bufnr,
+        "t",
+        "<A-2>",
+        "<cmd>lua require('user.toggleterm').toggle_term2()<cr>",
+        { noremap = true, silent = true }
+      )
+      -- quit with esc
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+      -- this is how you make it so that in a custom terminal you can quit with q
+      vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      -- vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+    end,
+  }
+  terminal:toggle()
+end
+
+M.toggle_term3 = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    count = 3,
+    size = 100,
+    close_on_exit = false,
+    hidden = true,
+    -- when the dissapearing linenumber bug is fixed, switch to window
+    direction = "horizontal",
+    on_open = function(term)
+      vim.cmd "startinsert!"
+      vim.api.nvim_buf_set_keymap(
+        term.bufnr,
+        "t",
+        "<A-3>",
+        "<cmd>lua require('user.toggleterm').toggle_term3()<cr>",
+        { noremap = true, silent = true }
+      )
+      -- quit with esc
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+      -- this is how you make it so that in a custom terminal you can quit with q
+      vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      -- vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+    end,
+  }
+  terminal:toggle()
 end
 
 M.restore_files = function()

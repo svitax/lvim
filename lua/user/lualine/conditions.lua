@@ -28,4 +28,18 @@ end
 
 M.gps_available = gps.is_available
 
+M.is_not_blacklisted_filetype = function()
+  local filetype = vim.bo.filetype
+  if filetype ~= "toggleterm" then
+    return true
+  end
+end
+
+M.is_toggleterm = function()
+  local filetype = vim.bo.filetype
+  if filetype == "toggleterm" then
+    return true
+  end
+end
+
 return M

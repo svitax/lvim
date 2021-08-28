@@ -31,7 +31,18 @@ M.harpoon = function()
   if status == "" then
     return ""
   end
-  return string.format("%s", status)
+  -- return just the terminal number, cause the status method returns M1, M2, etc.
+  local number = (string.format("%s", status)):sub(-1)
+  if number == "1" then
+    number = "F"
+  elseif number == "2" then
+    number = "D"
+  elseif number == "3" then
+    number = "S"
+  elseif number == "4" then
+    number = "A"
+  end
+  return number
 end
 
 return M

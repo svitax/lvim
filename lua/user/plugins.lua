@@ -267,6 +267,16 @@ M.config = function()
             save_on_toggle = true,
             save_on_change = true,
           },
+          -- projects = {
+          --   -- Yes $HOME works
+          --   ["$HOME/personal/vim-with-me/server"] = {
+          --     term = {
+          --       cmds = {
+          --         "./env && npx ts-node src/index.ts",
+          --       },
+          --     },
+          --   },
+          -- },
         }
       end,
     },

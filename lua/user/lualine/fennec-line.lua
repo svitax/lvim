@@ -17,11 +17,11 @@ require("nvim-web-devicons").setup {
       color = "#d3869b",
       name = "Org",
     },
-    sh = {
-      icon = "",
-      color = "#a9b665",
-      name = "Shell",
-    },
+    -- sh = {
+    --   icon = "",
+    --   color = "#a9b665",
+    --   name = "Shell",
+    -- },
   },
 }
 
