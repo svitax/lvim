@@ -1,10 +1,16 @@
-M = {}
+local M = {}
 
 -- Short configs are done inline,
 -- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
-    { "shadmansaleh/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } },
+    {
+      "shadmansaleh/lualine.nvim",
+      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      config = function()
+        require "user.lualine.fennec-line"
+      end,
+    },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----

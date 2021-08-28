@@ -1,166 +1,14 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
-local lualine = require "lualine"
+local conditions = require "user.lualine.conditions"
+local colors = require "user.lualine.colors"
+local utils = require "user.lualine.utils"
+
 local gps = require "nvim-gps"
 
--- Color table for highlights
-local colors = {
-  bg = "#3c3836",
-  bg1 = "#433E3A",
-  bg2 = "#504945",
+-- ========================================================================================================================
+-- Active statusline
+-- ========================================================================================================================
 
-  fg1 = "#928374",
-  fg2 = "#7c6f64", -- good with bg
-  fg = "#d4be98",
-
-  fg_alt = "#ddc7a1",
-  yellow = "#d8a657",
-  cyan = "#89b482",
-  green = "#a9b665",
-  orange = "#e78a4e",
-  magenta = "#d3869b",
-  blue = "#7daea3",
-  red = "#ea6962",
-}
-
--- TODO: condition where component won't show if statusline too short
-local conditions = {
-  buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand "%:t") ~= 1
-  end,
-  hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
-  end,
-  check_git_workspace = function()
-    local filepath = vim.fn.expand "%:p:h"
-    local gitdir = vim.fn.finddir(".git", filepath .. ";")
-    return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end,
-  gps_available = gps.is_available,
-}
-
--- local function harpoon()
---   local status = require("harpoon.mark").status()
---   if status == "" then
---     return ""
---   end
---   return string.format("%s", status)
--- end
-
-local function get_short_cwd()
-  return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
-end
-
-local extensions = {
-  -- my_extension = { sections = { lualine_c = { "mode" } }, filetypes = { "lua" } },
-  nerdtree = {
-    sections = {
-      lualine_c = {
-        function()
-          return "  " .. get_short_cwd()
-          -- פּ
-        end,
-      },
-    },
-    filetypes = { "NvimTree" },
-  },
-}
-
--- Config
-local config = {
-  options = {
-    -- Disable sections and component separators
-    component_separators = "",
-    section_separators = "",
-    theme = {
-      -- We are going to use lualine_c an lualine_x as left and
-      -- right section. Both are highlighted by c theme.
-      -- So we are just setting default looks o statusline
-      normal = {
-        a = { fg = colors.fg, bg = colors.bg },
-        b = { fg = colors.fg, bg = colors.bg },
-        c = { fg = colors.fg, bg = colors.bg },
-        x = { fg = colors.fg, bg = colors.bg },
-        y = { fg = colors.fg, bg = colors.bg },
-        z = { fg = colors.fg, bg = colors.bg },
-      },
-      inactive = {
-        a = { fg = colors.fg2, bg = colors.bg },
-        b = { fg = colors.fg2, bg = colors.bg },
-        c = { fg = colors.fg2, bg = colors.bg },
-        x = { fg = colors.fg2, bg = colors.bg },
-        y = { fg = colors.fg2, bg = colors.bg },
-        z = { fg = colors.fg2, bg = colors.bg },
-      },
-    },
-  },
-  sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    -- These will be filled later
-    lualine_c = {},
-    lualine_x = {},
-  },
-  inactive_sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_v = {},
-    lualine_y = {},
-    lualine_z = {},
-    lualine_c = {},
-    lualine_x = {},
-  },
-  extensions = { extensions.nerdtree },
-}
-
--- Inserts a component in lualine_c at left section
-local function ins_left(component)
-  table.insert(config.sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_x ot right section
-local function ins_right(component)
-  table.insert(config.sections.lualine_x, component)
-end
-
--- Inserts a component in lualine_c at left INACTIVE section
-local function ins_inactive_left(component)
-  table.insert(config.inactive_sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_x at right INACTIVE section
-local function ins_inactive_right(component)
-  table.insert(config.inactive_sections.lualine_x, component)
-end
-
--- ﱮ (maybe this should be the default if file_icon not found)
--- default color = "#6d8086",
--- some extra icons         
-require("nvim-web-devicons").setup {
-  override = {
-    norg = {
-      icon = "",
-      color = "#558140",
-      name = "Norg",
-    },
-    org = {
-      icon = "",
-      color = "#d3869b",
-      name = "Org",
-    },
-    sh = {
-      icon = "",
-      color = "#a9b665",
-      name = "Shell",
-    },
-  },
-}
-
-ins_left {
+utils.ins_left {
   -- mode component
   function()
     -- auto change color according to neovims mode
@@ -170,11 +18,11 @@ ins_left {
       v = colors.orange,
       [""] = colors.green,
       V = colors.green,
-      c = colors.red,
+      c = colors.magenta,
       no = colors.orange,
-      s = colors.red,
-      S = colors.red,
-      [""] = colors.red,
+      s = colors.magenta,
+      S = colors.magenta,
+      [""] = colors.magenta,
       ic = colors.blue,
       R = colors.orange,
       Rv = colors.orange,
@@ -198,7 +46,7 @@ ins_left {
   right_padding = 0,
 }
 
-ins_left {
+utils.ins_left {
   function()
     return " "
   end,
@@ -207,7 +55,7 @@ ins_left {
   right_padding = 0,
 }
 
--- ins_left {
+-- utils.ins_left {
 --   harpoon,
 --   --  ﯀ ﰳ    ﴱ \E943
 --   -- icon = " ",
@@ -217,7 +65,7 @@ ins_left {
 --   -- right_padding = 0,
 -- }
 
-ins_left {
+utils.ins_left {
   function()
     local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
     return " " .. dir_name .. "/"
@@ -228,7 +76,7 @@ ins_left {
   right_padding = 0,
 }
 
-ins_left {
+utils.ins_left {
   -- "filename",
   function()
     local function count(base, pattern)
@@ -247,7 +95,7 @@ ins_left {
     elseif data == "." then
       data = ""
     else
-      data = data .. "/ "
+      data = data .. "/"
     end
 
     local windwidth = vim.fn.winwidth(0)
@@ -267,25 +115,25 @@ ins_left {
   right_padding = 0,
 }
 
-ins_left {
+utils.ins_left {
   function()
-    return " "
+    return ""
   end,
   color = { fg = colors.bg2, bg = colors.bg1 },
   left_padding = 0,
   right_padding = 0,
 }
 
-ins_left {
+utils.ins_left {
   "filetype",
   colored = true,
   disable_text = true,
   color = { fg = colors.bg1, bg = colors.bg1 },
   condition = conditions.buffer_not_empty,
-  left_padding = 0,
+  -- left_padding = 0,
 }
 
-ins_left {
+utils.ins_left {
   function()
     local data = vim.fn.expand "%:t"
 
@@ -305,7 +153,7 @@ ins_left {
   left_padding = 0,
 }
 
-ins_left {
+utils.ins_left {
   function()
     return " "
   end,
@@ -314,7 +162,7 @@ ins_left {
   right_padding = 0,
 }
 
--- ins_left {
+-- utils.ins_left {
 --   function()
 --     local filetype = vim.bo.filetype
 --     if filetype == "" then
@@ -326,24 +174,27 @@ ins_left {
 --   end,
 -- }
 
-ins_left {
+utils.ins_left {
   gps.get_location,
   -- condition = conditions.gps_available,
   condition = conditions.buffer_not_empty and conditions.hide_in_width,
-  color = { fg = colors.blue },
+  -- color = { fg = colors.blue },
+  color = { fg = colors.fg2 },
+  icon = ">",
+  left_padding = 0,
+  right_padding = 0,
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
--- ins_left {
+-- utils.ins_left {
 --   function()
 --     return "%="
 --   end,
 -- }
 
 -- Add components to right sections
-
-ins_right {
+utils.ins_right {
   "diagnostics",
   sources = { "nvim_lsp" },
   symbols = { error = " ", warn = " ", info = " ", hint = " " },
@@ -354,15 +205,17 @@ ins_right {
   condition = conditions.hide_in_width,
 }
 
-ins_right {
+utils.ins_right {
   function()
     return " "
   end,
-  color = { fg = colors.fg2 },
+  -- color = { fg = colors.fg2 },
+  color = { fg = colors.blue },
   right_padding = 0,
+  condition = conditions.active_lsp,
 }
 
-ins_right {
+utils.ins_right {
   -- Lsp server name .
   function()
     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -399,29 +252,30 @@ ins_right {
   --    
   color = { fg = colors.fg2, gui = "bold" },
   right_padding = 0,
+  condition = conditions.active_lsp,
 }
 
-ins_right {
+utils.ins_right {
   function()
     return ""
   end,
-  color = { fg = colors.bg2 },
+  color = { fg = colors.bg1 },
   condition = conditions.check_git_workspace,
   left_padding = 0,
   right_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   function()
     return ""
   end,
-  color = { fg = colors.cyan, bg = colors.bg2 },
+  color = { fg = colors.cyan, bg = colors.bg1 },
   condition = conditions.check_git_workspace,
   left_padding = 0,
   right_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   function()
     -- return ""
     return ""
@@ -432,27 +286,27 @@ ins_right {
   left_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   "branch",
   icon = "",
   condition = conditions.check_git_workspace,
   -- color = { fg = colors.cyan, bg = colors.bg2, gui = "bold" },
-  color = { fg = colors.cyan, bg = colors.bg2 },
+  color = { fg = colors.cyan, bg = colors.bg1 },
   left_padding = 0,
   right_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   function()
     return ""
   end,
-  color = { fg = colors.bg2, bg = colors.bg2 },
+  color = { fg = colors.bg2, bg = colors.bg1 },
   condition = conditions.buffer_not_empty and conditions.hide_in_width,
   left_padding = 0,
   right_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   function()
     return ""
   end,
@@ -462,7 +316,7 @@ ins_right {
   right_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   function()
     return ""
   end,
@@ -471,7 +325,7 @@ ins_right {
   left_padding = 0,
 }
 
-ins_right {
+utils.ins_right {
   "location",
   -- icon = " ",
   -- color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
@@ -480,17 +334,17 @@ ins_right {
 }
 
 -- TODO: add a scrollbar plugin
--- ins_right {
+-- utils.ins_right {
 --   "progress",
 --   color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
 --   condition = conditions.buffer_not_empty and conditions.hide_in_width,
 -- }
 
+-- ========================================================================================================================
 -- Inactive statusline
 -- ========================================================================================================================
--- ========================================================================================================================
 
-ins_inactive_left {
+utils.ins_inactive_left {
   -- mode component
   function()
     return " "
@@ -500,7 +354,7 @@ ins_inactive_left {
   right_padding = 0,
 }
 
-ins_inactive_left {
+utils.ins_inactive_left {
   function()
     return " "
   end,
@@ -508,67 +362,8 @@ ins_inactive_left {
   left_padding = 0,
   right_padding = 0,
 }
---
--- ins_inactive_left {
---   function()
---     local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
---     return " " .. dir_name .. "/"
---   end,
---   color = { fg = colors.fg2, bg = colors.bg2 },
---   condition = conditions.buffer_not_empty and conditions.hide_in_width,
---   -- left_padding = 0,
---   right_padding = 0,
--- }
---
--- ins_inactive_left {
---   -- "filename",
---   function()
---     local function count(base, pattern)
---       return select(2, string.gsub(base, pattern, ""))
---     end
---
---     local function shorten_path(path, sep)
---       -- ('([^/])[^/]+%/', '%1/', 1)
---       return path:gsub(string.format("([^%s])[^%s]+%%%s", sep, sep, sep), "%1" .. sep, 1)
---     end
---
---     local data = vim.fn.expand "%:~:.:h"
---
---     if data == "" then
---       data = "[No Name]"
---     elseif data == "." then
---       data = ""
---     else
---       data = data .. "/"
---     end
---
---     local windwidth = vim.fn.winwidth(0)
---     local estimated_space_available = 40
---     local path_separator = package.config:sub(1, 1)
---     for _ = 0, count(data, path_separator) do
---       if windwidth <= 84 or #data > estimated_space_available then
---         data = shorten_path(data, path_separator)
---       end
---     end
---
---     return data
---   end,
---   condition = conditions.buffer_not_empty and conditions.hide_in_width,
---   color = { fg = colors.fg2, bg = colors.bg2 },
---   left_padding = 0,
---   right_padding = 0,
--- }
---
--- ins_inactive_left {
---   function()
---     return " "
---   end,
---   color = { fg = colors.bg2, bg = colors.bg1 },
---   left_padding = 0,
---   right_padding = 0,
--- }
 
-ins_inactive_left {
+utils.ins_inactive_left {
   "filetype",
   colored = false,
   disable_text = true,
@@ -577,7 +372,7 @@ ins_inactive_left {
   left_padding = 0,
 }
 
-ins_inactive_left {
+utils.ins_inactive_left {
   function()
     local data = vim.fn.expand "%:t"
 
@@ -597,7 +392,7 @@ ins_inactive_left {
   left_padding = 0,
 }
 
-ins_inactive_left {
+utils.ins_inactive_left {
   function()
     return " "
   end,
@@ -606,7 +401,7 @@ ins_inactive_left {
   right_padding = 0,
 }
 
-ins_inactive_right {
+utils.ins_inactive_right {
   function()
     return ""
   end,
@@ -616,7 +411,7 @@ ins_inactive_right {
   right_padding = 0,
 }
 
-ins_inactive_right {
+utils.ins_inactive_right {
   function()
     return ""
   end,
@@ -626,7 +421,7 @@ ins_inactive_right {
   right_padding = 0,
 }
 
-ins_inactive_right {
+utils.ins_inactive_right {
   function()
     -- return ""
     return ""
@@ -637,7 +432,7 @@ ins_inactive_right {
   left_padding = 0,
 }
 
-ins_inactive_right {
+utils.ins_inactive_right {
   "branch",
   icon = "",
   condition = conditions.check_git_workspace,
@@ -646,10 +441,7 @@ ins_inactive_right {
   right_padding = 0,
 }
 
--- Now don't forget to initialize lualine
-lualine.setup(config)
-
--- ins_left {
+-- utils.ins_left {
 --   "diff",
 --   -- Is it me or the symbol for modified is really weird
 --   symbols = { added = " ", modified = "柳", removed = " " },

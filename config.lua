@@ -1,4 +1,4 @@
--- C-p for previous jump list?
+-- TODO: C-p for previous jump list?
 -- General
 -- =========================================
 lvim.format_on_save = true
@@ -47,8 +47,7 @@ require("user.nvimtree").config()
 -- Galaxyline (builtin)
 -- =========================================
 lvim.builtin.galaxyline.active = false
-require "user.fennec-lualine"
--- -- load fennec-eviline after the builtin galaxyline so we override it
+-- load fennec-eviline after the builtin galaxyline so we override it
 -- lvim.builtin.galaxyline.on_config_done = function(gl)
 --   require("user.fennec-eviline").config(gl)
 -- end
