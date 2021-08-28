@@ -1,4 +1,6 @@
 -- TODO: C-p for previous jump list?
+-- TODO: C-n for next jump list?
+-- TODO: C-m for vim-visual-multi?
 -- General
 -- =========================================
 lvim.format_on_save = true

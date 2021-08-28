@@ -1,4 +1,3 @@
--- TODO q to close spectre buffer (maybe an autocommand?)
 local M = {}
 
 M.config = function()
