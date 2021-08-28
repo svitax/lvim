@@ -35,8 +35,64 @@ M.config = function()
       { open = "`", close = "`" },
       { open = "(", close = ")" },
       { open = "[", close = "]" },
+      { open = "+", close = ")" },
       { open = "{", close = "}" },
       { open = "<", close = ">" },
+
+      { open = "", close = "]" },
+      { open = " ", close = "]" },
+      { open = "a", close = "]" },
+      { open = "b", close = "]" },
+      { open = "c", close = "]" },
+      { open = "d", close = "]" },
+      { open = "e", close = "]" },
+      { open = "f", close = "]" },
+      { open = "g", close = "]" },
+      { open = "h", close = "]" },
+      { open = "i", close = "]" },
+      { open = "j", close = "]" },
+      { open = "k", close = "]" },
+      { open = "l", close = "]" },
+      { open = "m", close = "]" },
+      { open = "n", close = "]" },
+      { open = "o", close = "]" },
+      { open = "p", close = "]" },
+      { open = "q", close = "]" },
+      { open = "r", close = "]" },
+      { open = "s", close = "]" },
+      { open = "t", close = "]" },
+      { open = "u", close = "]" },
+      { open = "v", close = "]" },
+      { open = "w", close = "]" },
+      { open = "x", close = "]" },
+      { open = "y", close = "]" },
+      { open = "z", close = "]" },
+      { open = "A", close = "]" },
+      { open = "B", close = "]" },
+      { open = "C", close = "]" },
+      { open = "D", close = "]" },
+      { open = "E", close = "]" },
+      { open = "F", close = "]" },
+      { open = "G", close = "]" },
+      { open = "H", close = "]" },
+      { open = "I", close = "]" },
+      { open = "J", close = "]" },
+      { open = "K", close = "]" },
+      { open = "L", close = "]" },
+      { open = "M", close = "]" },
+      { open = "N", close = "]" },
+      { open = "O", close = "]" },
+      { open = "P", close = "]" },
+      { open = "Q", close = "]" },
+      { open = "R", close = "]" },
+      { open = "S", close = "]" },
+      { open = "T", close = "]" },
+      { open = "U", close = "]" },
+      { open = "V", close = "]" },
+      { open = "W", close = "]" },
+      { open = "X", close = "]" },
+      { open = "Y", close = "]" },
+      { open = "Z", close = "]" },
     },
     ignore_beginning = false, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
     exclude = {}, -- tabout will ignore these filetypes
@@ -54,8 +110,8 @@ M.config = function()
     else
       -- return vim.fn["compe#complete"]() -- < use this if you want <tab> to always offer completion
       -- return replace_keycodes "<Tab>"
-      -- return utils.replace_keycodes "<Plug>(Tabout)"
-      return utils.replace_keycodes "<Plug>(TaboutMulti)"
+      return utils.replace_keycodes "<Plug>(Tabout)"
+      -- return utils.replace_keycodes "<Plug>(TaboutMulti)"
     end
   end
 
@@ -63,8 +119,8 @@ M.config = function()
     if vim.fn.call("vsnip#jumpable", { -1 }) == 1 then
       return utils.replace_keycodes "<Plug>(vsnip-jump-prev)"
     else
-      -- return utils.replace_keycodes "<Plug>(TaboutBack)"
-      return utils.replace_keycodes "<Plug>(TaboutBackMulti)"
+      return utils.replace_keycodes "<Plug>(TaboutBack)"
+      -- return utils.replace_keycodes "<Plug>(TaboutBackMulti)"
     end
   end
 
