@@ -1,3 +1,5 @@
+-- TODO: (lualine) rename this file to config
+
 local lualine = require "lualine"
 local config = require "user.lualine.init"
 

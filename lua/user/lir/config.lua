@@ -1,5 +1,5 @@
--- make a command :Chmod: Change the permissions of the current file.
--- make a filter/search command
+-- TODO: (lir) make a command :Chmod: Change the permissions of the current file.
+-- TODO: (lir) make a filter/search command
 
 -- lir can't handle opening paths with ~ the first time round
 -- once I close the buffer and redo the command, it works once then it stops working again
@@ -118,9 +118,12 @@ return function()
       ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
       { noremap = true, silent = true }
     )
-
     -- echo cwd
     -- api.nvim_echo({ { vim.fn.expand "%:p", "Normal" } }, false, {})
+    -- vim.api.nvim_echo({
+    --   { vim.fn.expand "%:p:h:h" .. "/", "Normal" },
+    --   { vim.fn.expand "%:p:h:t", "TSTitle" },
+    -- }, false, {})
   end
 
   vim.cmd [[augroup lir-settings]]

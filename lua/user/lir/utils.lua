@@ -25,4 +25,9 @@ M.construct_win_opts = function()
   }
 end
 
+M.toggle_lir = function()
+  local cmd = vim.fn.expand("%:p:h" .. "/")
+  vim.cmd("e " .. cmd)
+end
+
 return M

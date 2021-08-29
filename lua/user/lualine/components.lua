@@ -4,6 +4,14 @@ local utils = require "user.lualine.utils"
 
 local gps = require "nvim-gps"
 
+-- TODO: (lualine) toggleterm extension
+
+-- TODO: (lualine) spectre_panel extension that shows cwd of file or project
+
+-- TODO: (lualine) lir extension that shows cwd and how many items/lines there are
+-- if starts with /Users/svitax, change to ~/ (is there a function that does automatically?)
+-- how do I get it to show for floating windows?
+
 -- ========================================================================================================================
 -- Active statusline
 -- ========================================================================================================================
@@ -129,6 +137,16 @@ utils.ins_left {
   right_padding = 0,
 }
 
+-- lir filetype
+utils.ins_left {
+  function()
+    return " lir"
+  end,
+  color = { fg = colors.fg2, bg = colors.bg1 },
+  condition = conditions.is_lir,
+  -- left_padding = 0,
+}
+
 -- root directory
 utils.ins_left {
   function()
@@ -137,7 +155,7 @@ utils.ins_left {
     return " " .. dir_name
   end,
   color = { fg = colors.fg2, bg = colors.bg1 },
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
   -- left_padding = 0,
   -- right_padding = 0,
 }
@@ -147,6 +165,7 @@ utils.ins_left {
     return " "
   end,
   color = { fg = colors.bg1 },
+  -- condition = conditions.is_not_blacklisted_filetype,
   left_padding = 0,
   right_padding = 0,
 }
@@ -156,7 +175,7 @@ utils.ins_left {
   colored = true,
   disable_text = true,
   color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
-  condition = conditions.buffer_not_empty,
+  condition = conditions.buffer_not_empty and conditions.is_not_blacklisted_filetype,
   left_padding = 0,
 }
 
@@ -191,6 +210,49 @@ utils.ins_left {
   left_padding = 0,
 }
 
+-- lir current directory root
+utils.ins_left {
+  function()
+    local data = vim.fn.expand "%:~:h"
+    --
+    if data == "" then
+      -- data = "[No Name]"
+      data = ""
+    elseif data == "." then
+      data = ""
+    else
+      data = data .. "/"
+    end
+
+    return data
+  end,
+  condition = conditions.buffer_not_empty and conditions.is_lir,
+  color = { fg = colors.fg2, bg = colors.bg, gui = "bold" },
+  left_padding = 0,
+  right_padding = 0,
+}
+
+-- lir current directory tail
+utils.ins_left {
+  function()
+    local tail = vim.fn.expand "%:~:t"
+    --
+    if tail == "" then
+      -- data = "[No Name]"
+      tail = ""
+    elseif tail == "." then
+      tail = ""
+    else
+      tail = tail .. "/"
+    end
+
+    return tail
+  end,
+  condition = conditions.buffer_not_empty and conditions.is_lir,
+  color = { fg = colors.yellow, bg = colors.bg1, gui = "bold" },
+  left_padding = 0,
+}
+
 -- utils.ins_left {
 --   function()
 --     local filetype = vim.bo.filetype
@@ -206,7 +268,7 @@ utils.ins_left {
 utils.ins_left {
   gps.get_location,
   -- condition = conditions.gps_available,
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
   -- color = { fg = colors.blue },
   color = { fg = colors.fg2 },
   icon = ">",
@@ -340,7 +402,7 @@ utils.ins_right {
     return ""
   end,
   color = { fg = colors.magenta, bg = colors.bg2 },
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
   left_padding = 0,
   right_padding = 0,
 }
@@ -350,7 +412,7 @@ utils.ins_right {
     return ""
   end,
   color = { fg = colors.bg, bg = colors.magenta },
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
   left_padding = 0,
 }
 
@@ -359,10 +421,9 @@ utils.ins_right {
   -- icon = " ",
   -- color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
   color = { fg = colors.magenta, bg = colors.bg2 },
-  condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
 }
 
--- TODO: add a scrollbar plugin
 -- utils.ins_right {
 --   "progress",
 --   color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
