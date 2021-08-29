@@ -19,9 +19,9 @@ M.config = function()
       name = "Launch file",
       program = "${file}", -- This configuration will launch the current file if used.
       pythonPath = "/usr/local/bin/python3",
-      -- TODO: fix python debugging resolving to conda environment
+      -- TODO: (dap) fix python debugging resolving to conda environment
       -- pythonPath = function()
-      -- 	-- TODO: the problem is my VIRTUAL_ENV variable is never set
+      -- 	-- TODO: (dap) the problem is my VIRTUAL_ENV variable is never set
       -- 	local cwd = vim.fn.getenv("VIRTUAL_ENV")
       -- 	if vim.fn.executable(cwd .. "/bin/python") == 1 then
       -- 		return cwd .. "/bin/python"

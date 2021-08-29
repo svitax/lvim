@@ -239,6 +239,7 @@ M.config = function()
     -- },
     {
       "tamago324/lir.nvim",
+      -- branch = "show-cwd-top",
       config = require "user.lir.config",
     },
     {
@@ -317,7 +318,6 @@ M.config = function()
       end,
     },
     {
-      -- TODO: maybe disable <tab> completion for compe to prevent conflicts with tabout
       "abecodes/tabout.nvim",
       config = function()
         require("user.tabout").config()

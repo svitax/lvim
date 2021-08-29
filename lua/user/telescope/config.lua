@@ -63,7 +63,7 @@ end
 --     -- TOOD: support custom mappings?
 --     attach_mappings = function(_, map)
 --       actions.select_default:replace(source_session)
---       -- TODO: add delete session
+--       -- TODO add delete session
 --       -- map("i", "<c-d>", SessionLensActions.delete_session)
 --       return true
 --     end,

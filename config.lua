@@ -3,7 +3,7 @@
 -- TODO: C-m for vim-visual-multi?
 -- General
 -- =========================================
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.lint_on_save = true
 lvim.leader = "space"
 lvim.colorscheme = "fennec-gruvbox"
@@ -42,9 +42,9 @@ require "user.telescope.config"()
 
 -- Nvimtree (builtin)
 -- =========================================
--- lvim.builtin.nvimtree.active = true
-lvim.builtin.nvimtree.auto_open = 0
-require("user.nvimtree").config()
+lvim.builtin.nvimtree.active = false
+-- lvim.builtin.nvimtree.auto_open = 0
+-- require("user.nvimtree").config()
 
 -- Galaxyline (builtin)
 -- =========================================
