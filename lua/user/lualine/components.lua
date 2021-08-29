@@ -4,11 +4,10 @@ local utils = require "user.lualine.utils"
 
 local gps = require "nvim-gps"
 
--- TODO: (lualine) toggleterm extension
-
 -- TODO: (lualine) spectre_panel extension that shows cwd of file or project
+-- just change filetypea and filename, don't forget to put spectre_panel as blacklisted filetype
 
--- TODO: (lualine) lir extension that shows cwd and how many items/lines there are
+-- TODO: (lualine) lir filetype how many items/lines there are
 -- if starts with /Users/svitax, change to ~/ (is there a function that does automatically?)
 -- how do I get it to show for floating windows?
 
@@ -80,6 +79,12 @@ utils.ins_left {
   function()
     local filename = vim.fn.expand "%:t"
     local term_number = filename:sub(-1)
+    print(term_number)
+    if term_number == "2" then
+      term_number = "F"
+    elseif term_number == "3" then
+      term_number = "D"
+    end
 
     return "  " .. term_number
   end,
@@ -249,7 +254,7 @@ utils.ins_left {
     return tail
   end,
   condition = conditions.buffer_not_empty and conditions.is_lir,
-  color = { fg = colors.yellow, bg = colors.bg1, gui = "bold" },
+  color = { fg = colors.yellow, bg = colors.bg, gui = "bold" },
   left_padding = 0,
 }
 
@@ -301,7 +306,7 @@ utils.ins_right {
     return " "
   end,
   -- color = { fg = colors.fg2 },
-  color = { fg = colors.blue },
+  color = { fg = colors.orange },
   right_padding = 0,
   condition = conditions.active_lsp,
 }

@@ -8,7 +8,7 @@ M.config = function()
       "shadmansaleh/lualine.nvim",
       requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = function()
-        require "user.lualine.fennec-line"
+        require "user.lualine.config"
       end,
     },
     -----[[------------]]-----

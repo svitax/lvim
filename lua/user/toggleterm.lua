@@ -3,7 +3,7 @@ local M = {}
 M.config = function()
   -- lvim.builtin.terminal.open_mapping = [[…]] -- alt+; in macos
   -- lvim.builtin.terminal.open_mapping = [[<C-t>]]
-  lvim.builtin.terminal.open_mapping = [[<A-1>]]
+  lvim.builtin.terminal.open_mapping = [[<A-g>]]
 
   -- vim.cmd [[nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>]]
 
@@ -33,7 +33,7 @@ M.toggle_term2 = function()
       vim.api.nvim_buf_set_keymap(
         term.bufnr,
         "t",
-        "<A-2>",
+        "<A-f>",
         "<cmd>lua require('user.toggleterm').toggle_term2()<cr>",
         { noremap = true, silent = true }
       )
@@ -60,7 +60,7 @@ M.toggle_term3 = function()
       vim.api.nvim_buf_set_keymap(
         term.bufnr,
         "t",
-        "<A-3>",
+        "<A-d>",
         "<cmd>lua require('user.toggleterm').toggle_term3()<cr>",
         { noremap = true, silent = true }
       )
