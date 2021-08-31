@@ -32,13 +32,10 @@ M.config = function()
   -- lvim.keys.normal_mode["<A-l>"] = ""
   -- lvim.keys.normal_mode["<A-;>"] = ""
   -- swap function arguments
-  lvim.keys.normal_mode["<A-;>"] = "<cmd>ISwap<cr>"
+  lvim.keys.normal_mode["<A-h>"] = "<cmd>ISwap<cr>"
   -- ergonmic mappings for end of line and beginning of line
-  lvim.keys.normal_mode["<Left>"] = "_"
-  lvim.keys.normal_mode["<Right>"] = "$"
-  -- ergonmic mappings for end of file and beginning of file
-  lvim.keys.normal_mode["<Up>"] = "gg"
-  lvim.keys.normal_mode["<Down>"] = "G"
+  lvim.keys.normal_mode["<A-l>"] = "_"
+  lvim.keys.normal_mode["<A-;>"] = "$"
   -- make Y act like D and C but for yanking (this is going to get merged into neovim core)
   lvim.keys.normal_mode["Y"] = "y$"
   -- like the previous but ignores white space
@@ -77,11 +74,8 @@ M.config = function()
   -- better pasting in visual mode
   lvim.keys.visual_mode["p"] = [["_dP]]
   -- ergonmic mappings for end of line and beginning of line
-  lvim.keys.visual_mode["<Left>"] = "_"
-  lvim.keys.visual_mode["<Right>"] = "$"
-  -- ergonmic mappings for end of file and beginning of file
-  lvim.keys.visual_mode["<Up>"] = "gg"
-  lvim.keys.visual_mode["<Down>"] = "G"
+  lvim.keys.visual_mode["<A-l>"] = "_"
+  lvim.keys.visual_mode["<A-;>"] = "$"
 
   -- NOTE: Insert mode
   -- Move current line up/down
@@ -94,6 +88,7 @@ M.config = function()
   lvim.keys.insert_mode["!"] = "!<c-g>u"
   lvim.keys.insert_mode["?"] = "?<c-g>u"
   lvim.keys.insert_mode["<cr>"] = "<cr><c-g>u"
+  lvim.keys.insert_mode["<space>"] = "<space><c-g>u"
   -- Fix previous spelling mistake
   lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
   -- A-del is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
@@ -150,9 +145,9 @@ M.config = function()
   -- The operator mapping allows you to combine movements with sniprun:
   -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
 
-  lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
   lvim.builtin.which_key.mappings["f"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
+  lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
 
   lvim.builtin.which_key.mappings["h"] = {
     "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",

@@ -79,7 +79,6 @@ utils.ins_left {
   function()
     local filename = vim.fn.expand "%:t"
     local term_number = filename:sub(-1)
-    print(term_number)
     if term_number == "2" then
       term_number = "F"
     elseif term_number == "3" then

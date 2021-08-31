@@ -392,14 +392,14 @@ M.config = function()
         }
       end,
     },
-    -- {
-    --   -- FIX: when I save and press j/k, it jumps me through the jumplist
-    --   "ethanholz/nvim-lastplace",
-    --   event = "BufWinEnter",
-    --   config = function()
-    --     require("nvim-lastplace").setup {}
-    --   end,
-    -- },
+    {
+      -- FIX: when I save and press j/k, it jumps me through the jumplist
+      "ethanholz/nvim-lastplace",
+      event = "BufWinEnter",
+      config = function()
+        require("nvim-lastplace").setup {}
+      end,
+    },
     -----[[------------]]-----
     ---        Web         ---
     -----]]------------[[-----

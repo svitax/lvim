@@ -1,6 +1,8 @@
 -- TODO: C-p for previous jump list?
 -- TODO: C-n for next jump list?
 -- TODO: C-m for vim-visual-multi?
+
+-- TODO: CursorHold autcmd for show lsp line diagnostics?
 -- General
 -- =========================================
 lvim.format_on_save = false
