@@ -1,6 +1,6 @@
 local colors = require "user.lualine.colors"
 
-local config = {
+local init_config = {
   options = {
     -- Disable sections and component separators
     component_separators = "",
@@ -50,4 +50,4 @@ local config = {
   extensions = {},
 }
 
-return config
+return init_config

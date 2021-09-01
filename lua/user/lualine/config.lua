@@ -1,7 +1,7 @@
 -- TODO: (lualine) rename this file to config
 
 local lualine = require "lualine"
-local config = require "user.lualine.init"
+local init_config = require "user.lualine.init"
 
 -- some web-devicon overrides (I need a better place for this)
 -- ﱮ (maybe this should be the default if file_icon not found)
@@ -31,4 +31,4 @@ require("nvim-web-devicons").setup {
 require "user.lualine.components"
 
 -- Now don't forget to initialize lualine
-lualine.setup(config)
+lualine.setup(init_config)

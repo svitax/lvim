@@ -20,6 +20,7 @@ M.setup = function()
         cmd = { "emmet-ls", "--stdio" },
         filetypes = {
           "html",
+          "django-html",
           "css",
           "javascript",
           "typescript",

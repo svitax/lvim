@@ -29,7 +29,7 @@ vim.opt.relativenumber = true
 -- Dashboard (builtin)
 -- =========================================
 lvim.builtin.dashboard.active = true
-require("user.dashboard").config()
+-- require("user.dashboard").config()
 
 -- Toggleterm (builtin)
 -- =========================================
@@ -50,10 +50,10 @@ lvim.builtin.nvimtree.active = false
 
 -- Galaxyline (builtin)
 -- =========================================
-lvim.builtin.galaxyline.active = false
--- load fennec-eviline after the builtin galaxyline so we override it
--- lvim.builtin.galaxyline.on_config_done = function(gl)
---   require("user.fennec-eviline").config(gl)
+lvim.builtin.lualine.active = true
+require("user.fennec-line.config").config()
+-- lvim.builtin.lualine.on_config_done = function()
+--   require "user.lualine"
 -- end
 
 -- Bufferline (builtin)
@@ -63,7 +63,6 @@ lvim.builtin.bufferline.active = false
 -- Compe (builtin)
 -- =========================================
 lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
--- lvim.builtin.compe.source.tabnine = { kind = " ", priority = 150, max_reslts = 6 }
 -- lvim.builtin.compe.preselect = "always"
 
 -- Projects (builtin)
@@ -95,9 +94,8 @@ lvim.builtin.dap.on_config_done = require("user.dap").config()
 lvim.lsp.diagnostics.virtual_text = false
 lvim.lang.markdown = {}
 lvim.builtin.lspinstall.on_config_done = function()
-  require("user.lsp.tailwind").setup()
+  require"user.lsp.tailwind".setup()
   -- need to <C-space> to activate emmet snippets sometimes
-  -- add setup function to emmet file
   require("user.lsp.emmet").setup()
 end
 -- you can set a custom on_attach function that will be used for all the language servers

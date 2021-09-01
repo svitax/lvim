@@ -4,13 +4,13 @@ local M = {}
 -- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
-    {
-      "shadmansaleh/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
-      config = function()
-        require "user.lualine.config"
-      end,
-    },
+    -- {
+    --   "shadmansaleh/lualine.nvim",
+    --   requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    --   config = function()
+    --     require "user.lualine.config"
+    --   end,
+    -- },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
@@ -18,7 +18,7 @@ M.config = function()
     -- { 'simrat39/symbols-outline.nvim' },
     {
       "SmiteshP/nvim-gps",
-      requires = { "nvim-treesitter/nvim-treesitter", "shadmansaleh/lualine.nvim" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("nvim-gps").setup {
           icons = {
@@ -295,7 +295,7 @@ M.config = function()
         }
       end,
     },
-    { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
+    -- { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
@@ -409,14 +409,14 @@ M.config = function()
       ft = { "html", "javascript", "css" },
       run = "npm install --prefix server",
     },
-    {
-      "windwp/nvim-ts-autotag",
-      config = function()
-        require("nvim-ts-autotag").setup()
-      end,
-      ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
-      -- event = "InsertEnter",
-    },
+    -- {
+    --   "windwp/nvim-ts-autotag",
+    --   config = function()
+    --     require("nvim-ts-autotag").setup()
+    --   end,
+    --   ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+    --   -- event = "InsertEnter",
+    -- },
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----

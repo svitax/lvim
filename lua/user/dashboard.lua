@@ -36,7 +36,7 @@ M.config = function()
     },
     f = {
       description = { "  Settings           " },
-      command = ":e " .. USER_CONFIG_PATH,
+      command = ":e " .. "~/.config/lvim/config.lua",
     },
   }
 end
