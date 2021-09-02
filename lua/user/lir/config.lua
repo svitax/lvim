@@ -31,6 +31,8 @@ return function()
     show_hidden_files = false,
     devicons_enable = true,
     mappings = {
+      ["H"] = actions.toggle_show_details,
+
       ["@"] = actions.cd,
       [";"] = edit_nosplit,
       ["."] = actions.toggle_show_hidden,
@@ -84,7 +86,8 @@ return function()
       winblend = lvim.winblend,
       win_opts = require("user.lir.utils").construct_win_opts,
     },
-    hide_cursor = false,
+    -- hide_cursor = false,
+    hide_cursor = true,
   }
 
   -- custom folder icon
