@@ -238,14 +238,16 @@ M.config = function()
     --   end,
     -- },
     {
-      "tamago324/lir.nvim",
-      -- branch = "show-cwd-top",
+      -- "tamago324/lir.nvim",
+      "svitax/lir.nvim",
+      branch = "detail_mode",
       config = require "user.lir.config",
     },
     {
       "tamago324/lir-bookmark.nvim",
       config = require "user.lir.extensions.bookmark",
-      requires = { "tamago324/lir.nvim" },
+      -- requires = { "tamago324/lir.nvim" },
+      -- requires = { "svitax/lir.nvim" },
     },
     {
       -- TODO find a way to get custom git icons with lir-git-status
@@ -258,7 +260,8 @@ M.config = function()
       -- https://github.com/mhinz/neovim-remote
       -- https://github.com/itchyny/mmv
       "tamago324/lir-mmv.nvim",
-      requires = { "tamago324/lir.nvim" },
+      -- requires = { "svitax/lir.nvim" },
+      -- requires = { "tamago324/lir.nvim" },
     },
     {
       "ThePrimeagen/harpoon",

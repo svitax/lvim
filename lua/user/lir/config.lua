@@ -88,6 +88,7 @@ return function()
     },
     -- hide_cursor = false,
     hide_cursor = true,
+    show_file_details = false,
   }
 
   -- custom folder icon
