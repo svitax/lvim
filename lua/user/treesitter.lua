@@ -38,14 +38,14 @@ M.config = function()
   }
   -- neorg treesitter syntax, maybe one day it will be builtin and we won't need this
   lvim.builtin.treesitter.on_config_done = function()
-    local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-    parser_configs.norg = {
-      install_info = {
-        url = "https://github.com/vhyrro/tree-sitter-norg",
-        files = { "src/parser.c" },
-        branch = "main",
-      },
-    }
+    -- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+    -- parser_configs.norg = {
+    --   install_info = {
+    --     url = "https://github.com/vhyrro/tree-sitter-norg",
+    --     files = { "src/parser.c" },
+    --     branch = "main",
+    --   },
+    -- }
   end
 end
 

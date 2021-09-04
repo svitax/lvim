@@ -134,13 +134,13 @@ M.config = function()
         -- unless we load compe first (InsertEnter)
       end,
     },
-    {
-      -- BUG compe gets unloaded once I open a .norg file?
-      "vhyrro/neorg",
-      branch = "unstable",
-      config = require("user.neorg").config,
-      requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
-    },
+    -- {
+    --   -- BUG compe gets unloaded once I open a .norg file?
+    --   "vhyrro/neorg",
+    --   branch = "unstable",
+    --   config = require("user.neorg").config,
+    --   requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
+    -- },
     {
       "iamcco/markdown-preview.nvim",
       run = "cd app && npm install",
