@@ -480,6 +480,19 @@ M.config = function()
       "dsznajder/vscode-es7-javascript-react-snippets",
       event = "InsertEnter",
       -- ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    {
+      "aca/emmet-ls",
+      ft = { "html", "css" },
+    },
+    -- use this until emmet-ls supports jsx and tsx
+    {
+      "mattn/emmet-vim",
+      ft = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      config = function()
+        vim.g.user_emmet_leader_key = "<C-A>"
+        vim.g.emmet_html5 = 0
+        vim.cmd [[let g:user_emmet_leader_key='<C-A>']]
+      end,
     },
     -----[[------------]]-----
     ---      QuickFix      ---
