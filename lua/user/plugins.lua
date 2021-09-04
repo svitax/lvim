@@ -34,18 +34,19 @@ M.config = function()
         }
       end,
     },
-    {
-      "ray-x/lsp_signature.nvim",
-      config = function()
-        require("lsp_signature").on_attach {
-          hint_enable = false,
-          handler_opts = {
-            border = "single", -- double, single, shadow, none
-          },
-        }
-      end,
-      event = "InsertEnter",
-    },
+    -- {
+    --   "ray-x/lsp_signature.nvim",
+    --   config = function()
+    --     require("lsp_signature").on_attach {
+    --       fix_pos = false, -- set to true, the floating window will not auto-close until finish all parameters
+    --       hint_enable = false,
+    --       handler_opts = {
+    --         border = "single", -- double, single, shadow, none
+    --       },
+    --     }
+    --   end,
+    --   event = "InsertEnter",
+    -- },
     {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
