@@ -300,6 +300,7 @@ M.config = function()
       end,
     },
     -- { "ahmedkhalf/lsp-rooter.nvim", event = "BufRead" },
+    -- TODO: for some reason not working
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
@@ -413,14 +414,14 @@ M.config = function()
       ft = { "html", "javascript", "css" },
       run = "npm install --prefix server",
     },
-    -- {
-    --   "windwp/nvim-ts-autotag",
-    --   config = function()
-    --     require("nvim-ts-autotag").setup()
-    --   end,
-    --   ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue" },
-    --   -- event = "InsertEnter",
-    -- },
+    {
+      "windwp/nvim-ts-autotag",
+      config = function()
+        require("nvim-ts-autotag").setup()
+      end,
+      ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue", "css" },
+      -- event = "InsertEnter",
+    },
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
@@ -480,7 +481,8 @@ M.config = function()
     {
       "dsznajder/vscode-es7-javascript-react-snippets",
       event = "InsertEnter",
-      -- ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    },
     {
       "aca/emmet-ls",
       ft = { "html", "css" },
