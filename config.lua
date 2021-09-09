@@ -44,9 +44,9 @@ require "user.telescope.config"()
 
 -- Nvimtree (builtin)
 -- =========================================
-lvim.builtin.nvimtree.active = false
+lvim.builtin.nvimtree.active = true
 -- lvim.builtin.nvimtree.auto_open = 0
--- require("user.nvimtree").config()
+require("user.nvimtree").config()
 
 -- Galaxyline (builtin)
 -- =========================================
@@ -62,7 +62,7 @@ lvim.builtin.bufferline.active = false
 
 -- Compe (builtin)
 -- =========================================
-lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+-- lvim.builtin.compe.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 -- lvim.builtin.compe.preselect = "always"
 
 -- Projects (builtin)
@@ -94,7 +94,7 @@ lvim.builtin.dap.on_config_done = require("user.dap").config()
 lvim.lsp.diagnostics.virtual_text = false
 lvim.lang.markdown = {}
 lvim.builtin.lspinstall.on_config_done = function()
-  require"user.lsp.tailwind".setup()
+  require("user.lsp.tailwind").setup()
   -- need to <C-space> to activate emmet snippets sometimes
   require("user.lsp.emmet").config()
 end

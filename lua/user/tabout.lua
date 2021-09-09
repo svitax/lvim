@@ -98,36 +98,36 @@ M.config = function()
     exclude = {}, -- tabout will ignore these filetypes
   }
 
-  -- Use (s-)tab to:
-  --- jump to prev/next snippet's placeholder
-  --- tabout of pair
-  function _G.tab_binding()
-    if vim.fn.call("vsnip#jumpable", { 1 }) == 1 then
-      return utils.replace_keycodes "<Plug>(vsnip-jump-next)"
-      -- elseif check_back_space() then
-      --   return replace_keycodes "<Tab>"
-      --   -- return replace_keycodes "<Plug>(Tabout)"
-    else
-      -- return vim.fn["compe#complete"]() -- < use this if you want <tab> to always offer completion
-      -- return replace_keycodes "<Tab>"
-      return utils.replace_keycodes "<Plug>(Tabout)"
-      -- return utils.replace_keycodes "<Plug>(TaboutMulti)"
-    end
-  end
+  --   -- Use (s-)tab to:
+  --   --- jump to prev/next snippet's placeholder
+  --   --- tabout of pair
+  --   function _G.tab_binding()
+  --     if vim.fn.call("vsnip#jumpable", { 1 }) == 1 then
+  --       return utils.replace_keycodes "<Plug>(vsnip-jump-next)"
+  --       -- elseif check_back_space() then
+  --       --   return replace_keycodes "<Tab>"
+  --       --   -- return replace_keycodes "<Plug>(Tabout)"
+  --     else
+  --       -- return vim.fn["compe#complete"]() -- < use this if you want <tab> to always offer completion
+  --       -- return replace_keycodes "<Tab>"
+  --       return utils.replace_keycodes "<Plug>(Tabout)"
+  --       -- return utils.replace_keycodes "<Plug>(TaboutMulti)"
+  --     end
+  --   end
 
-  function _G.s_tab_binding()
-    if vim.fn.call("vsnip#jumpable", { -1 }) == 1 then
-      return utils.replace_keycodes "<Plug>(vsnip-jump-prev)"
-    else
-      return utils.replace_keycodes "<Plug>(TaboutBack)"
-      -- return utils.replace_keycodes "<Plug>(TaboutBackMulti)"
-    end
-  end
+  --   function _G.s_tab_binding()
+  --     if vim.fn.call("vsnip#jumpable", { -1 }) == 1 then
+  --       return utils.replace_keycodes "<Plug>(vsnip-jump-prev)"
+  --     else
+  --       return utils.replace_keycodes "<Plug>(TaboutBack)"
+  --       -- return utils.replace_keycodes "<Plug>(TaboutBackMulti)"
+  --     end
+  --   end
 
-  vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_binding()", { expr = true })
-  vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_binding()", { expr = true })
-  vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_binding()", { expr = true })
-  vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_binding()", { expr = true })
+  --   vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_binding()", { expr = true })
+  --   vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_binding()", { expr = true })
+  --   vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_binding()", { expr = true })
+  --   vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_binding()", { expr = true })
 end
 
 return M

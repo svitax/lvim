@@ -34,7 +34,7 @@ return function()
     preview_height = 0.5,
   }
 
-  lvim.builtin.telescope.extensions.fzy = {
+  lvim.builtin.telescope.extensions.fzf = {
     fuzzy = true, -- false will only do exact matching
     override_generic_sorter = false, -- override the generic sorter
     override_file_sorter = true, -- override the file sorter

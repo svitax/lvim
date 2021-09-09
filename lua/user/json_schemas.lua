@@ -49,7 +49,6 @@ M.setup = function()
       url = "http://json.schemastore.org/stylelintrc",
     },
   }
-
   local function extend(tab1, tab2)
     for _, value in ipairs(tab2) do
       table.insert(tab1, value)

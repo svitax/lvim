@@ -4,18 +4,21 @@ local M = {}
 -- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
-    -- {
-    --   "shadmansaleh/lualine.nvim",
-    --   requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    --   config = function()
-    --     require "user.lualine.config"
-    --   end,
-    -- },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
     -- { "mfussenegger/nvim-jdtls" },
     -- { 'simrat39/symbols-outline.nvim' },
+    {
+      "folke/lua-dev.nvim",
+      config = function()
+        local luadev = require("lua-dev").setup {
+          lspconfig = lvim.lang.lua.lsp.setup,
+        }
+        lvim.lang.lua.lsp.setup = luadev
+      end,
+      ft = "lua",
+    },
     {
       "SmiteshP/nvim-gps",
       requires = { "nvim-treesitter/nvim-treesitter" },
@@ -34,19 +37,26 @@ M.config = function()
         }
       end,
     },
-    -- {
-    --   "ray-x/lsp_signature.nvim",
-    --   config = function()
-    --     require("lsp_signature").on_attach {
-    --       fix_pos = false, -- set to true, the floating window will not auto-close until finish all parameters
-    --       hint_enable = false,
-    --       handler_opts = {
-    --         border = "single", -- double, single, shadow, none
-    --       },
-    --     }
-    --   end,
-    --   event = "InsertEnter",
-    -- },
+    {
+      "ray-x/lsp_signature.nvim",
+      config = function()
+        require("lsp_signature").on_attach {
+          bind = true,
+          doc_lines = 10,
+          floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+          floating_window_above_cur_line = true,
+          fix_pos = false, -- set to true, the floating window will not auto-close until finish all parameters
+          hint_enable = false, -- virtual hint enable
+          max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
+          -- to view the hiding contents
+          max_width = 40, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+          handler_opts = {
+            border = "single", -- double, single, shadow, none
+          },
+        }
+      end,
+      event = "InsertEnter",
+    },
     {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
@@ -230,6 +240,17 @@ M.config = function()
     -----[[------------]]-----
     ---       Files        ---
     -----]]------------[[-----
+    {
+      "kevinhwang91/rnvimr",
+      config = function()
+        -- Make Ranger replace Netrw and be the file explorer
+        vim.g.rnvimr_enable_ex = 1
+        -- Make Ranger to be hidden after picking a file
+        vim.g.rnvimr_enable_picker = 1
+        -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
+        vim.g.rnvimr_enable_bw = 1
+      end,
+    },
     -- {
     --   "nvim-telescope/telescope-project.nvim",
     --   branch = "feat/workspaces",
@@ -238,32 +259,32 @@ M.config = function()
     --     require("telescope").load_extension "project"
     --   end,
     -- },
-    {
-      -- "tamago324/lir.nvim",
-      "svitax/lir.nvim",
-      branch = "detail_mode",
-      config = require "user.lir.config",
-    },
-    {
-      "tamago324/lir-bookmark.nvim",
-      config = require "user.lir.extensions.bookmark",
-      -- requires = { "tamago324/lir.nvim" },
-      -- requires = { "svitax/lir.nvim" },
-    },
-    {
-      -- TODO find a way to get custom git icons with lir-git-status
-      "tamago324/lir-git-status.nvim",
-      wants = "lir",
-      config = require "user.lir.extensions.git_status",
-    },
-    {
-      -- TODO get lir.mmv to work (i think something is wrong with nvr)
-      -- https://github.com/mhinz/neovim-remote
-      -- https://github.com/itchyny/mmv
-      "tamago324/lir-mmv.nvim",
-      -- requires = { "svitax/lir.nvim" },
-      -- requires = { "tamago324/lir.nvim" },
-    },
+    -- {
+    --   "tamago324/lir.nvim",
+    --   -- "svitax/lir.nvim",
+    --   -- branch = "detail_mode",
+    --   config = require "user.lir.config",
+    -- },
+    -- {
+    --   "tamago324/lir-bookmark.nvim",
+    --   config = require "user.lir.extensions.bookmark",
+    --   requires = { "tamago324/lir.nvim" },
+    --   -- requires = { "svitax/lir.nvim" },
+    -- },
+    -- {
+    --   -- TODO find a way to get custom git icons with lir-git-status
+    --   "tamago324/lir-git-status.nvim",
+    --   wants = "lir",
+    --   config = require "user.lir.extensions.git_status",
+    -- },
+    -- {
+    --   -- TODO get lir.mmv to work (i think something is wrong with nvr)
+    --   -- https://github.com/mhinz/neovim-remote
+    --   -- https://github.com/itchyny/mmv
+    --   "tamago324/lir-mmv.nvim",
+    --   requires = { "tamago324/lir.nvim" },
+    --   -- requires = { "svitax/lir.nvim" },
+    -- },
     {
       "ThePrimeagen/harpoon",
       config = function()
@@ -322,14 +343,15 @@ M.config = function()
         }
       end,
     },
-    {
-      "abecodes/tabout.nvim",
-      config = function()
-        require("user.tabout").config()
-      end,
-      wants = { "nvim-treesitter" }, -- or require if not used so far
-      after = { "nvim-compe", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
-    },
+    -- {
+    --   "abecodes/tabout.nvim",
+    --   config = function()
+    --     require("user.tabout").config()
+    --   end,
+    --   wants = { "nvim-treesitter" }, -- or require if not used so far
+    --   -- after = { "nvim-cmp", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
+    --   after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
+    -- },
     {
       -- I need this to make winndow movement work with my prefered movement keys (jkl;)
       "numToStr/Navigator.nvim",
@@ -362,41 +384,41 @@ M.config = function()
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
-    {
-      "rmagatti/auto-session",
-      config = function()
-        require("auto-session").setup {
-          log_level = "info",
-          auto_session_enable_last_session = false,
-          auto_session_root_dir = vim.fn.stdpath "data" .. "/sessions/",
-          auto_session_enabled = false,
-          auto_save_enabled = false,
-          auto_restore_enabled = false,
-          auto_session_suppress_dirs = nil,
-        }
-      end,
-    },
-    {
-      "rmagatti/session-lens",
-      requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-      config = function()
-        require("telescope").load_extension "session-lens"
-        require("session-lens").setup {
-          -- session-lens lets us pass in telescope opts through its setup func, pretty neat
-          path_display = { "shorten" },
-          previewer = false,
-          -- unfortunately attaching a new mapping wipes out the defaults, so we have to put those back in
-          attach_mappings = function(_, map)
-            require("telescope.actions").select_default:replace(
-              require("telescope._extensions.session-lens.session-lens-actions").source_session
-            )
-            map("n", "<c-d>", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
-            map("n", "d", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
-            return true
-          end,
-        }
-      end,
-    },
+    -- {
+    --   "rmagatti/auto-session",
+    --   config = function()
+    --     require("auto-session").setup {
+    --       log_level = "info",
+    --       auto_session_enable_last_session = false,
+    --       auto_session_root_dir = vim.fn.stdpath "data" .. "/sessions/",
+    --       auto_session_enabled = false,
+    --       auto_save_enabled = false,
+    --       auto_restore_enabled = false,
+    --       auto_session_suppress_dirs = nil,
+    --     }
+    --   end,
+    -- },
+    -- {
+    --   "rmagatti/session-lens",
+    --   requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
+    --   config = function()
+    --     require("telescope").load_extension "session-lens"
+    --     require("session-lens").setup {
+    --       -- session-lens lets us pass in telescope opts through its setup func, pretty neat
+    --       path_display = { "shorten" },
+    --       previewer = false,
+    --       -- unfortunately attaching a new mapping wipes out the defaults, so we have to put those back in
+    --       attach_mappings = function(_, map)
+    --         require("telescope.actions").select_default:replace(
+    --           require("telescope._extensions.session-lens.session-lens-actions").source_session
+    --         )
+    --         map("n", "<c-d>", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
+    --         map("n", "d", require("telescope._extensions.session-lens.session-lens-actions").delete_session)
+    --         return true
+    --       end,
+    --     }
+    --   end,
+    -- },
     {
       -- FIX: when I save and press j/k, it jumps me through the jumplist
       "ethanholz/nvim-lastplace",
@@ -480,7 +502,10 @@ M.config = function()
     -- { "tamago324/compe-zsh" },
     {
       "dsznajder/vscode-es7-javascript-react-snippets",
-      event = "InsertEnter",
+      config = function()
+        require("luasnip/loaders/from_vscode").lazy_load()
+      end,
+      -- event = "InsertEnter",
       ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
     },
     {
