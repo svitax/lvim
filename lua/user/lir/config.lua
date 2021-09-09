@@ -31,7 +31,7 @@ return function()
     show_hidden_files = false,
     devicons_enable = true,
     mappings = {
-      ["H"] = actions.toggle_show_details,
+      -- ["H"] = actions.toggle_show_details,
 
       ["@"] = actions.cd,
       [";"] = edit_nosplit,
@@ -40,6 +40,8 @@ return function()
       ["<esc>"] = actions.quit,
 
       ["a"] = input_newfile,
+      ["n"] = actions.newfile,
+      ["N"] = actions.mkdir,
       ["ba"] = bkm_actions.add,
       -- ["b"] = ""
       -- ["B"] = "",
@@ -88,7 +90,6 @@ return function()
     },
     -- hide_cursor = false,
     hide_cursor = true,
-    show_file_details = false,
   }
 
   -- custom folder icon
@@ -96,13 +97,8 @@ return function()
     override = {
       lir_folder_icon = {
         icon = "",
-        color = "#a9b665",
+        color = "#7ebae4",
         name = "LirFolderNode",
-      },
-      lir = {
-        icon = "",
-        color = "#6d8086",
-        name = "Lir",
       },
     },
   }

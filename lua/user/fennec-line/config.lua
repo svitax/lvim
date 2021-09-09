@@ -264,44 +264,103 @@ M.config = function()
   }
 
   utils.ins_right {
-    -- Lsp server name .
-    function()
-      local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-      local clients = vim.lsp.get_active_clients()
-      if next(clients) == nil then
-        return ""
-        -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
-        -- return (vim.bo.filetype:gsub("^%l", string.upper))
+    function(msg)
+      msg = msg or "LS Inactive"
+      local buf_clients = vim.lsp.buf_get_clients()
+      if next(buf_clients) == nil then
+        if #msg == 0 then
+          return "LS Inactive"
+        end
+        return msg
       end
-      local lsps = ""
-      for _, client in ipairs(clients) do
+      local buf_ft = vim.bo.filetype
+      local buf_client_names = {}
+      local trim = vim.fn.winwidth(0) < 120
+
+      -- add client
+      local lsp_utils = require "lsp.utils"
+      local active_client = lsp_utils.get_active_client_by_ft(buf_ft)
+      for _, client in pairs(buf_clients) do
         if client.name ~= "null-ls" then
-          local filetypes = client.config.filetypes
-          if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            if lsps == "" then
-              lsps = client.name
-            else
-              if not string.find(lsps, client.name) then
-                lsps = lsps .. ", " .. client.name
-              end
-            end
+          local _added_client = client.name
+          if trim then
+            _added_client = string.sub(client.name, 1, 4)
           end
+          table.insert(buf_client_names, _added_client)
         end
       end
-      if lsps == "" then
-        return ""
-        -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
-        -- return (vim.bo.filetype:gsub("^%l", string.upper))
-      else
-        return lsps
+      vim.list_extend(buf_client_names, active_client or {})
+
+      -- add formatter
+      local formatters = require "lsp.null-ls.formatters"
+      local supported_formatters = {}
+      for _, fmt in pairs(formatters.list_supported_names(buf_ft)) do
+        local _added_formatter = fmt
+        if trim then
+          _added_formatter = string.sub(fmt, 1, 4)
+        end
+        table.insert(supported_formatters, _added_formatter)
       end
+      vim.list_extend(buf_client_names, supported_formatters)
+
+      -- add linter
+      local linters = require "lsp.null-ls.linters"
+      local supported_linters = {}
+      for _, lnt in pairs(linters.list_supported_names(buf_ft)) do
+        local _added_linter = lnt
+        if trim then
+          _added_linter = string.sub(lnt, 1, 4)
+        end
+        table.insert(supported_linters, _added_linter)
+      end
+      vim.list_extend(buf_client_names, supported_linters)
+
+      return table.concat(buf_client_names, ", ")
     end,
     -- icon = " ",
-    --    
-    color = { fg = colors.fg2, gui = "bold" },
-    right_padding = 0,
-    condition = conditions.active_lsp,
+    color = { fg = colors.fg2 },
+    condition = conditions.hide_in_width and conditions.active_lsp,
   }
+
+  -- utils.ins_right {
+  --   -- Lsp server name .
+  --   function()
+  --     local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+  --     local clients = vim.lsp.get_active_clients()
+  --     if next(clients) == nil then
+  --       return ""
+  --       -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
+  --       -- return (vim.bo.filetype:gsub("^%l", string.upper))
+  --     end
+  --     local lsps = ""
+  --     for _, client in ipairs(clients) do
+  --       if client.name ~= "null-ls" then
+  --         local filetypes = client.config.filetypes
+  --         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+  --           if lsps == "" then
+  --             lsps = client.name
+  --           else
+  --             if not string.find(lsps, client.name) then
+  --               lsps = lsps .. ", " .. client.name
+  --             end
+  --           end
+  --         end
+  --       end
+  --     end
+  --     if lsps == "" then
+  --       return ""
+  --       -- return " " .. (vim.bo.filetype:gsub("^%l", string.upper))
+  --       -- return (vim.bo.filetype:gsub("^%l", string.upper))
+  --     else
+  --       return lsps
+  --     end
+  --   end,
+  --   -- icon = " ",
+  --   --    
+  --   color = { fg = colors.fg2, gui = "bold" },
+  --   right_padding = 0,
+  --   condition = conditions.active_lsp,
+  -- }
 
   utils.ins_right {
     function()
