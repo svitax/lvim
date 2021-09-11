@@ -1,6 +1,6 @@
 local M = {}
 
-local colors = require "user.lualine.colors"
+local colors = require "user.fennec-line.colors"
 local gps = require "nvim-gps"
 
 M.config = function()
@@ -228,7 +228,7 @@ M.config = function()
       and conditions.gps_available,
     -- color = { fg = colors.blue },
     color = { fg = colors.fg2 },
-    icon = ">",
+    icon = "",
     left_padding = 0,
     right_padding = 0,
   }

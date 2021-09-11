@@ -275,7 +275,7 @@ utils.ins_left {
   condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
   -- color = { fg = colors.blue },
   color = { fg = colors.fg2 },
-  icon = ">",
+  icon = "",
   left_padding = 0,
   right_padding = 0,
 }

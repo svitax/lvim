@@ -15,7 +15,7 @@ lvim.lang.python.formatters = {
 lvim.lang.python.linters = {
   {
     -- @usage pylint or flake8
-    exe = "pylint",
+    exe = "flake8",
   },
 }
 

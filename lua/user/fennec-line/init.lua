@@ -1,4 +1,4 @@
-local colors = require "user.lualine.colors"
+local colors = require "user.fennec-line.colors"
 
 local M = {}
 M.init = function()

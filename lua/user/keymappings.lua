@@ -146,7 +146,7 @@ M.config = function()
   -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
 
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<CR>", "file tree" }
-  lvim.builtin.which_key.mappings["f"] = { "<cmd>RnvimrToggle<cr>", "files" }
+  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr>", "files" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
