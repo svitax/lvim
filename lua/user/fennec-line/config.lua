@@ -51,8 +51,9 @@ M.config = function()
       return " "
     end,
     color = "LualineModeBg",
-    left_padding = 1,
-    right_padding = 0,
+    padding = { left = 1, right = 0 },
+    -- left_padding = 1,
+    -- right_padding = 0,
   }
 
   utils.ins_left {
@@ -60,18 +61,21 @@ M.config = function()
       return " "
     end,
     color = "LualineMode",
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_left {
+    -- TODO: add terminals for A and s
     utils.harpoon,
     -- utils.harpoon,
     --  ﯀ ﰳ    ﴱ \E943
     icon = " ",
     color = "LualineMode",
-    condition = conditions.buffer_not_empty and conditions.hide_in_width,
-    left_padding = 0,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width,
+    padding = { left = 0 },
+    -- left_padding = 0,
     -- right_padding = 0,
   }
 
@@ -83,13 +87,18 @@ M.config = function()
         term_number = "F"
       elseif term_number == "3" then
         term_number = "D"
+      elseif term_number == "4" then
+        term_number = "S"
+      elseif term_number == "5" then
+        term_number = "A"
       end
 
       return "  " .. term_number
     end,
     color = "LualineMode",
-    condition = conditions.is_toggleterm,
-    left_padding = 0,
+    cond = conditions.is_toggleterm,
+    padding = { left = 0 },
+    -- left_padding = 0,
   }
 
   utils.ins_left {
@@ -97,8 +106,9 @@ M.config = function()
       return ""
     end,
     color = { fg = colors.bg2, bg = colors.bg1 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   -- lir filetype
@@ -107,7 +117,7 @@ M.config = function()
       return " lir"
     end,
     color = { fg = colors.fg2, bg = colors.bg1 },
-    condition = conditions.is_lir,
+    cond = conditions.is_lir,
     -- left_padding = 0,
   }
 
@@ -119,7 +129,7 @@ M.config = function()
       return " " .. dir_name
     end,
     color = { fg = colors.fg2, bg = colors.bg1 },
-    condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
     -- left_padding = 0,
     -- right_padding = 0,
   }
@@ -129,18 +139,21 @@ M.config = function()
       return " "
     end,
     color = { fg = colors.bg1 },
-    -- condition = conditions.is_not_blacklisted_filetype,
-    left_padding = 0,
-    right_padding = 0,
+    -- cond = conditions.is_not_blacklisted_filetype,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_left {
     "filetype",
     colored = true,
-    disable_text = true,
+    -- disable_text = true,
+    icon_only = true,
     color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
-    condition = conditions.buffer_not_empty and conditions.is_not_blacklisted_filetype,
-    left_padding = 0,
+    cond = conditions.buffer_not_empty and conditions.is_not_blacklisted_filetype,
+    padding = { left = 0 },
+    -- left_padding = 0,
   }
 
   -- filename
@@ -159,9 +172,10 @@ M.config = function()
       end
       return data
     end,
-    condition = conditions.buffer_not_empty and conditions.is_not_blacklisted_filetype,
+    cond = conditions.buffer_not_empty and conditions.is_not_blacklisted_filetype,
     color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
-    left_padding = 0,
+    padding = { left = 1 },
+    -- left_padding = 0,
   }
 
   -- lir current directory root
@@ -180,10 +194,11 @@ M.config = function()
 
       return data
     end,
-    condition = conditions.buffer_not_empty and conditions.is_lir,
+    cond = conditions.buffer_not_empty and conditions.is_lir,
     color = { fg = colors.fg2, bg = colors.bg, gui = "bold" },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   -- lir current directory tail
@@ -202,9 +217,10 @@ M.config = function()
 
       return tail
     end,
-    condition = conditions.buffer_not_empty and conditions.is_lir,
+    cond = conditions.buffer_not_empty and conditions.is_lir,
     color = { fg = colors.yellow, bg = colors.bg, gui = "bold" },
-    left_padding = 0,
+    padding = { left = 0 },
+    -- left_padding = 0,
   }
 
   -- utils.ins_left {
@@ -219,19 +235,20 @@ M.config = function()
   --   end,
   -- }
 
-  utils.ins_left {
-    gps.get_location,
-    -- condition = conditions.gps_available,
-    condition = conditions.buffer_not_empty
-      and conditions.hide_in_width
-      and conditions.is_not_blacklisted_filetype
-      and conditions.gps_available,
-    -- color = { fg = colors.blue },
-    color = { fg = colors.fg2 },
-    icon = "",
-    left_padding = 0,
-    right_padding = 0,
-  }
+  -- utils.ins_left {
+  --   gps.get_location,
+  --   -- cond = conditions.gps_available,
+  --   cond = conditions.buffer_not_empty
+  --     and conditions.hide_in_width
+  --     and conditions.is_not_blacklisted_filetype
+  --     and conditions.gps_available,
+  --   -- color = { fg = colors.blue },
+  --   color = { fg = colors.fg2 },
+  --   icon = "",
+  --   padding = { left = 0, right = 0 },
+  --   -- left_padding = 0,
+  --   -- right_padding = 0,
+  -- }
 
   -- Insert mid section. You can make any number of sections in neovim :)
   -- for lualine it's any number greater then 2
@@ -246,11 +263,17 @@ M.config = function()
     "diagnostics",
     sources = { "nvim_lsp" },
     symbols = { error = " ", warn = " ", info = " ", hint = " " },
-    color_error = { fg = colors.red },
-    color_warn = { fg = colors.yellow },
-    color_info = { fg = colors.cyan },
-    color_hint = { fg = colors.blue },
-    condition = conditions.hide_in_width,
+    diagnostics = {
+      error = { fg = colors.red },
+      warning = { fg = colors.yellow },
+      info = { fg = colors.cyan },
+      hint = { fg = colors.blue },
+    },
+    -- color_error = { fg = colors.red },
+    -- color_warn = { fg = colors.yellow },
+    -- color_info = { fg = colors.cyan },
+    -- color_hint = { fg = colors.blue },
+    cond = conditions.hide_in_width,
   }
 
   utils.ins_right {
@@ -259,8 +282,9 @@ M.config = function()
     end,
     -- color = { fg = colors.fg2 },
     color = { fg = colors.orange },
-    right_padding = 0,
-    condition = conditions.active_lsp,
+    cond = conditions.active_lsp,
+    padding = { right = 0 },
+    -- right_padding = 0,
   }
 
   utils.ins_right {
@@ -319,7 +343,7 @@ M.config = function()
     end,
     -- icon = " ",
     color = { fg = colors.fg2 },
-    condition = conditions.hide_in_width and conditions.active_lsp,
+    cond = conditions.hide_in_width and conditions.active_lsp,
   }
 
   -- utils.ins_right {
@@ -359,7 +383,7 @@ M.config = function()
   --   --    
   --   color = { fg = colors.fg2, gui = "bold" },
   --   right_padding = 0,
-  --   condition = conditions.active_lsp,
+  --   cond = conditions.active_lsp,
   -- }
 
   utils.ins_right {
@@ -367,9 +391,10 @@ M.config = function()
       return ""
     end,
     color = { fg = colors.bg1 },
-    condition = conditions.check_git_workspace,
-    left_padding = 0,
-    right_padding = 0,
+    cond = conditions.check_git_workspace,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_right {
@@ -377,9 +402,10 @@ M.config = function()
       return ""
     end,
     color = { fg = colors.cyan, bg = colors.bg1 },
-    condition = conditions.check_git_workspace,
-    left_padding = 0,
-    right_padding = 0,
+    cond = conditions.check_git_workspace,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_right {
@@ -389,18 +415,20 @@ M.config = function()
       -- icon = "", icon = "",
     end,
     color = { fg = colors.bg, bg = colors.cyan },
-    condition = conditions.check_git_workspace,
-    left_padding = 0,
+    cond = conditions.check_git_workspace,
+    padding = { left = 0, right = 1 },
+    -- left_padding = 0,
   }
 
   utils.ins_right {
     "branch",
     icon = "",
-    condition = conditions.check_git_workspace,
+    cond = conditions.check_git_workspace,
     -- color = { fg = colors.cyan, bg = colors.bg2, gui = "bold" },
     color = { fg = colors.cyan, bg = colors.bg1 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 1 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_right {
@@ -408,9 +436,10 @@ M.config = function()
       return ""
     end,
     color = { fg = colors.bg2, bg = colors.bg1 },
-    condition = conditions.buffer_not_empty and conditions.hide_in_width,
-    left_padding = 0,
-    right_padding = 0,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_right {
@@ -418,9 +447,10 @@ M.config = function()
       return ""
     end,
     color = { fg = colors.magenta, bg = colors.bg2 },
-    condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
-    left_padding = 0,
-    right_padding = 0,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_right {
@@ -428,8 +458,9 @@ M.config = function()
       return ""
     end,
     color = { fg = colors.bg, bg = colors.magenta },
-    condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
-    left_padding = 0,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+    padding = { left = 0, right = 1 },
+    -- left_padding = 0,
   }
 
   utils.ins_right {
@@ -437,13 +468,13 @@ M.config = function()
     -- icon = " ",
     -- color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
     color = { fg = colors.magenta, bg = colors.bg2 },
-    condition = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
   }
 
   -- utils.ins_right {
   --   "progress",
   --   color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
-  --   condition = conditions.buffer_not_empty and conditions.hide_in_width,
+  --   cond = conditions.buffer_not_empty and conditions.hide_in_width,
   -- }
 
   -- ========================================================================================================================
@@ -456,8 +487,9 @@ M.config = function()
       return " "
     end,
     color = { fg = colors.bg, bg = colors.fg2 },
-    left_padding = 1,
-    right_padding = 0,
+    padding = { left = 1, right = 0 },
+    -- left_padding = 1,
+    -- right_padding = 0,
   }
 
   utils.ins_inactive_left {
@@ -465,17 +497,20 @@ M.config = function()
       return " "
     end,
     color = { fg = colors.fg2, bg = colors.bg1 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_inactive_left {
     "filetype",
     colored = false,
-    disable_text = true,
+    -- disable_text = true,
+    icon_only = true,
     color = { fg = colors.fg2, bg = colors.bg1 },
-    condition = conditions.buffer_not_empty,
-    left_padding = 0,
+    cond = conditions.buffer_not_empty,
+    padding = { left = 0 },
+    -- left_padding = 0,
   }
 
   utils.ins_inactive_left {
@@ -493,9 +528,10 @@ M.config = function()
       end
       return data
     end,
-    condition = conditions.buffer_not_empty,
+    cond = conditions.buffer_not_empty,
     color = { fg = colors.fg2, bg = colors.bg1 },
-    left_padding = 0,
+    padding = { left = 1 },
+    -- left_padding = 0,
   }
 
   utils.ins_inactive_left {
@@ -503,28 +539,31 @@ M.config = function()
       return " "
     end,
     color = { fg = colors.bg1 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_inactive_right {
     function()
       return ""
     end,
-    condition = conditions.check_git_workspace,
+    cond = conditions.check_git_workspace,
     color = { fg = colors.bg1 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_inactive_right {
     function()
       return ""
     end,
-    condition = conditions.check_git_workspace,
+    cond = conditions.check_git_workspace,
     color = { fg = colors.fg2 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   utils.ins_inactive_right {
@@ -533,18 +572,20 @@ M.config = function()
       return ""
       -- icon = "", icon = "",
     end,
-    condition = conditions.check_git_workspace,
+    cond = conditions.check_git_workspace,
     color = { fg = colors.bg, bg = colors.fg2 },
-    left_padding = 0,
+    padding = { left = 0, right = 1 },
+    -- left_padding = 0,
   }
 
   utils.ins_inactive_right {
     "branch",
     icon = "",
-    condition = conditions.check_git_workspace,
+    cond = conditions.check_git_workspace,
     color = { fg = colors.fg2, bg = colors.bg1 },
-    left_padding = 0,
-    right_padding = 0,
+    padding = { left = 0, right = 0 },
+    -- left_padding = 0,
+    -- right_padding = 0,
   }
 
   -- utils.ins_left {
@@ -554,7 +595,7 @@ M.config = function()
   --   color_added = { fg = colors.green },
   --   color_modified = { fg = colors.orange },
   --   color_removed = { fg = colors.red },
-  --   condition = conditions.hide_in_width,
+  --   cond = conditions.hide_in_width,
   -- }
 end
 
