@@ -1,7 +1,7 @@
 lvim.lang.javascriptreact.formatters = {
-  -- {
-  --   exe = "prettier",
-  -- },
+  {
+    exe = "prettierd",
+  },
   {
     exe = "eslint_d",
   },

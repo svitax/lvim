@@ -1,7 +1,7 @@
 -- Needed tailwind server to connect to markdown in order for all of this to work
 lvim.lang.markdown.formatters = {
   {
-    exe = "prettier",
+    exe = "prettierd",
   },
 }
 lvim.lang.markdown.linters = {

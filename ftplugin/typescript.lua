@@ -1,7 +1,7 @@
 lvim.lang.typescript.formatters = {
-  -- {
-  --   exe = "prettier",
-  -- },
+  {
+    exe = "prettier",
+  },
   {
     exe = "eslint_d",
   },

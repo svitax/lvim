@@ -1,6 +1,6 @@
 lvim.lang.yaml.formatters = {
   {
-    exe = "prettier",
+    exe = "prettierd",
   },
 }
 lvim.lang.yaml.linters = {

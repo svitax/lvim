@@ -1,7 +1,7 @@
 lvim.lang.javascript.formatters = {
-  -- {
-  --   exe = "prettier",
-  -- },
+  {
+    exe = "prettierd",
+  },
   {
     exe = "eslint_d",
   },

@@ -1,6 +1,6 @@
 lvim.lang.html.formatters = {
   {
-    exe = "prettier",
+    exe = "prettierd",
   },
 }
 lvim.lang.html.linters = {
