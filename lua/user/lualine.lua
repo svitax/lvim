@@ -521,7 +521,6 @@ M.config = function()
     cond = conditions.buffer_not_empty and conditions.is_lir,
     color = { fg = colors.yellow, bg = colors.bg, gui = "bold" },
     padding = { left = 0 },
-    -- left_padding = 0,
   }
 
   -- ins_left {
@@ -532,12 +531,14 @@ M.config = function()
   --   cond = conditions.buffer_not_empty,
   --   color = { fg = get_file_icon_color(), gui = "bold" },
   -- }
+
   -- ins_left {
   --   "filename",
   --   cond = conditions.buffer_not_empty,
   --   padding = { left = 1, right = 1 },
   --   color = { fg = colors.fg, gui = "bold" },
   -- }
+
   -- ins_left {
   --   "diff",
   --   source = diff_source,
@@ -549,6 +550,19 @@ M.config = function()
   --   },
   --   color = {},
   --   cond = nil,
+  -- }
+
+  -- ins_left {
+  --   gps.get_location,
+  --   -- cond = conditions.gps_available,
+  --   cond = conditions.buffer_not_empty
+  --     and conditions.hide_in_width
+  --     and conditions.is_not_blacklisted_filetype
+  --     and conditions.gps_available,
+  --   -- color = { fg = colors.blue },
+  --   color = { fg = colors.fg2 },
+  --   icon = "",
+  --   padding = { left = 0, right = 0 },
   -- }
 
   ins_left {

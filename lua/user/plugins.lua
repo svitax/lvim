@@ -10,33 +10,37 @@ M.config = function()
     -- { "mfussenegger/nvim-jdtls" },
     -- { 'simrat39/symbols-outline.nvim' },
     {
-      "folke/lua-dev.nvim",
+      "jose-elias-alvarez/nvim-lsp-ts-utils",
       config = function()
-        local luadev = require("lua-dev").setup {
-          lspconfig = lvim.lang.lua.lsp.setup,
-        }
-        lvim.lang.lua.lsp.setup = luadev
+        require("user.lsp.ts_utils").config()
       end,
-      ft = "lua",
+      ft = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
     },
-    {
-      "SmiteshP/nvim-gps",
-      requires = { "nvim-treesitter/nvim-treesitter" },
-      config = function()
-        require("nvim-gps").setup {
-          icons = {
-            ["class-name"] = " ", -- Classes and class-like objects
-            ["function-name"] = " ", -- Functions
-            -- Methods (functions inside class-like objects)
-            ["method-name"] = " ",
-          },
-          -- languages = { -- You can disable any language individually here
-          --   ["cpp"] = true,
-          -- },
-          separator = " > ",
-        }
-      end,
-    },
+    -- {
+    --   "SmiteshP/nvim-gps",
+    --   requires = { "nvim-treesitter/nvim-treesitter" },
+    --   config = function()
+    --     require("nvim-gps").setup {
+    --       icons = {
+    --         ["class-name"] = " ", -- Classes and class-like objects
+    --         ["function-name"] = " ", -- Functions
+    --         -- Methods (functions inside class-like objects)
+    --         ["method-name"] = " ",
+    --       },
+    --       -- languages = { -- You can disable any language individually here
+    --       --   ["cpp"] = true,
+    --       -- },
+    --       separator = " > ",
+    --     }
+    --   end,
+    -- },
     {
       "ray-x/lsp_signature.nvim",
       config = function()
@@ -95,13 +99,13 @@ M.config = function()
     -- { "ThePrimeagen/git-worktree.nvim" },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
-    {
-      "pwntester/octo.nvim",
-      cmd = "Octo",
-      config = function()
-        require("octo").setup()
-      end,
-    },
+    -- {
+    --   "pwntester/octo.nvim",
+    --   cmd = "Octo",
+    --   config = function()
+    --     require("octo").setup()
+    --   end,
+    -- },
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
@@ -152,11 +156,11 @@ M.config = function()
     --   config = require("user.neorg").config,
     --   requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
     -- },
-    {
-      "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
-      ft = "markdown",
-    },
+    -- {
+    --   "iamcco/markdown-preview.nvim",
+    --   run = "cd app && npm install",
+    --   ft = "markdown",
+    -- },
     -----[[------------]]-----
     ---         UI         ---
     -----]]------------[[-----
@@ -174,10 +178,10 @@ M.config = function()
       end,
       event = "BufRead",
     },
-    {
-      "Mathijs-Bakker/zoom-vim",
-      event = "BufRead",
-    },
+    -- {
+    --   "Mathijs-Bakker/zoom-vim",
+    --   event = "BufRead",
+    -- },
     { "dstein64/nvim-scrollview", event = "WinEnter" },
     -----[[------------]]-----
     ---       Editing      ---
@@ -241,14 +245,21 @@ M.config = function()
     ---       Files        ---
     -----]]------------[[-----
     {
-      "kevinhwang91/rnvimr",
+      "voldikss/vim-floaterm",
       config = function()
-        -- Make Ranger replace Netrw and be the file explorer
-        vim.g.rnvimr_enable_ex = 1
-        -- Make Ranger to be hidden after picking a file
-        vim.g.rnvimr_enable_picker = 1
-        -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
-        vim.g.rnvimr_enable_bw = 1
+        vim.g.floaterm_opener = "drop"
+      end,
+    },
+    {
+      "ptzz/lf.vim",
+      config = function()
+        local winwidth = vim.api.nvim_win_get_width(0)
+        local winheight = vim.api.nvim_win_get_height(0)
+        local width = math.min(130, winwidth - 14)
+        local height = winheight - 2
+
+        vim.g.lf_width = width
+        vim.g.lf_height = height
       end,
     },
     -- {
@@ -329,11 +340,11 @@ M.config = function()
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
-    {
-      "ggandor/lightspeed.nvim",
-      keys = { "s", "S", "f", "F" },
-      -- event = "BufRead",
-    },
+    -- {
+    --   "ggandor/lightspeed.nvim",
+    --   -- keys = { "s", "S", "f", "F" },
+    --   -- event = "BufRead",
+    -- },
     {
       "karb94/neoscroll.nvim",
       event = "BufRead",
@@ -346,10 +357,16 @@ M.config = function()
     -- {
     --   "abecodes/tabout.nvim",
     --   config = function()
-    --     require("user.tabout").config()
+    --     require("tabout").setup {
+    --       tabkey = "<Tab>",
+    --       backwards_tabkey = "<S-Tab>",
+    --       act_as_tab = true, -- shift content if tab out is not possible
+    --       act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+    --       enable_backwards = false, -- well ...
+    --       completion = true, -- if the tabkey is used in a completion pum
+    --     }
     --   end,
     --   wants = { "nvim-treesitter" }, -- or require if not used so far
-    --   -- after = { "nvim-cmp", "vim-vsnip" }, -- if a completion plugin is using tabs load it before
     --   after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
     -- },
     {
@@ -430,12 +447,12 @@ M.config = function()
     -----[[------------]]-----
     ---        Web         ---
     -----]]------------[[-----
-    {
-      "turbio/bracey.vim",
-      event = "BufRead",
-      ft = { "html", "javascript", "css" },
-      run = "npm install --prefix server",
-    },
+    -- {
+    --   "turbio/bracey.vim",
+    --   event = "BufRead",
+    --   ft = { "html", "javascript", "css" },
+    --   run = "npm install --prefix server",
+    -- },
     {
       "windwp/nvim-ts-autotag",
       config = function()
@@ -447,16 +464,16 @@ M.config = function()
     -----[[------------]]-----
     ---       Debug        ---
     -----]]------------[[-----
-    {
-      "michaelb/sniprun",
-      run = "bash ./install.sh",
-      cmd = "SnipRun",
-      config = function()
-        require("sniprun").setup {
-          repl_enable = { "Python3_original", "R_original" }, --" enable REPL-like behavior for the given interpreters
-        }
-      end,
-    },
+    -- {
+    --   "michaelb/sniprun",
+    --   run = "bash ./install.sh",
+    --   cmd = "SnipRun",
+    --   config = function()
+    --     require("sniprun").setup {
+    --       repl_enable = { "Python3_original", "R_original" }, --" enable REPL-like behavior for the given interpreters
+    --     }
+    --   end,
+    -- },
     {
       "rcarriga/nvim-dap-ui",
       config = function()
@@ -510,16 +527,16 @@ M.config = function()
     },
     {
       "aca/emmet-ls",
-      ft = { "html", "css" },
+      ft = { "html", "css", "javascript" },
     },
     -- use this until emmet-ls supports jsx and tsx
     {
       "mattn/emmet-vim",
       ft = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
       config = function()
-        vim.g.user_emmet_leader_key = "<C-A>"
+        vim.g.user_emmet_leader_key = "<C-a>"
         vim.g.emmet_html5 = 0
-        vim.cmd [[let g:user_emmet_leader_key='<C-A>']]
+        vim.cmd [[let g:user_emmet_leader_key='<C-a>']]
       end,
     },
     -----[[------------]]-----

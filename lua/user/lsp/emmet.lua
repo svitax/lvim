@@ -3,6 +3,7 @@ local M = {}
 M.config = function()
   local lspconfig = require "lspconfig"
   local configs = require "lspconfig/configs"
+  local util = require "lspconfig/util"
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -17,15 +18,21 @@ M.config = function()
   if not lspconfig.emmet_ls then
     configs.emmet_ls = {
       default_config = {
-        cmd = { "emmet-ls", "--stdio" },
+        cmd = { "emmet-language-server", "--stdio" },
         filetypes = {
           "html",
           "css",
-          "javascript"
+          "sass",
+          "scss",
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
         },
-        root_dir = function(fname)
-          return vim.loop.cwd()
-        end,
+
+        root_dir = util.root_pattern("package.json", ".git"),
         settings = {},
       },
     }

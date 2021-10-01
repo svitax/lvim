@@ -1,5 +1,4 @@
 local M = {}
-
 M.config = function()
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
 
@@ -21,6 +20,7 @@ M.config = function()
   -- easy align
   -- lvim.keys.normal_mode["L"] = "vimeasyalign"
   -- navigate windows/splits
+
   lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require('Navigator').left()<CR>"
   lvim.keys.normal_mode["<C-j>"] = "<cmd>lua require('Navigator').down()<CR>"
   lvim.keys.normal_mode["<C-k>"] = "<cmd>lua require('Navigator').up()<CR>"
@@ -33,19 +33,24 @@ M.config = function()
   -- lvim.keys.normal_mode["<A-;>"] = ""
   -- swap function arguments
   lvim.keys.normal_mode["<A-h>"] = "<cmd>ISwap<cr>"
-  -- ergonmic mappings for end of line and beginning of line
-  lvim.keys.normal_mode["<A-l>"] = "_"
-  lvim.keys.normal_mode["<A-;>"] = "$"
+  -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
+  -- vim.api.nvim_set_keymap("n", "S591", "_", { noremap = true })
+  vim.api.nvim_set_keymap("n", "Q949", "_", { noremap = true })
+  -- vim.api.nvim_set_keymap("n", "S4", "_", { noremap = true })
+  vim.api.nvim_set_keymap("n", "12", "$", { noremap = true })
+
   -- make Y act like D and C but for yanking (this is going to get merged into neovim core)
   lvim.keys.normal_mode["Y"] = "y$"
   -- like the previous but ignores white space
   -- lvim.keys.normal_mode["Y"] = "yg_"
 
   -- save
-  lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
+  -- lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
   -- quickly toggle terminals
   lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('user.toggleterm').toggle_term2()<cr>"
   lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('user.toggleterm').toggle_term3()<CR>"
+  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.toggleterm').toggle_term4()<cr>"
+  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.toggleterm').toggle_term5()<CR>"
   -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>"
   -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>"
   -- lvim.keys.normal_mode["<A-y>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>"
@@ -73,14 +78,28 @@ M.config = function()
   lvim.keys.visual_mode["<A-k>"] = ":m '<-2<cr>gv=gv"
   -- better pasting in visual mode
   lvim.keys.visual_mode["p"] = [["_dP]]
-  -- ergonmic mappings for end of line and beginning of line
-  lvim.keys.visual_mode["<A-l>"] = "_"
-  lvim.keys.visual_mode["<A-;>"] = "$"
+  -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
+  -- vim.api.nvim_set_keymap("v", "S4", "_", { noremap = true })
+  vim.api.nvim_set_keymap("v", "Q949", "_", { noremap = true })
+  vim.api.nvim_set_keymap("v", "12", "$", { noremap = true })
 
   -- NOTE: Insert mode
   -- Move current line up/down
-  lvim.keys.insert_mode["<C-M-j>"] = "<Esc>:m .+1<CR>==gi"
-  lvim.keys.insert_mode["<C-M-k>"] = "<Esc>:m .-2<CR>==gi"
+  lvim.keys.insert_mode["<A-h>"] = nil
+  lvim.keys.insert_mode["<A-j>"] = nil
+  lvim.keys.insert_mode["<A-k>"] = nil
+  lvim.keys.insert_mode["<A-l>"] = nil
+  lvim.keys.insert_mode["<A-;>"] = nil
+  lvim.keys.insert_mode["<A-g>"] = nil
+  lvim.keys.insert_mode["<A-f>"] = nil
+  lvim.keys.insert_mode["<A-d>"] = nil
+  lvim.keys.insert_mode["<A-s>"] = nil
+  lvim.keys.insert_mode["<A-a>"] = nil
+  -- ergonmic mappings for end of line and beginning of line my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12
+  -- vim.api.nvim_set_keymap("i", "S4", "<Esc>_i", { noremap = true })
+  vim.api.nvim_set_keymap("i", "Q949", "<Esc>_i", { noremap = true })
+  vim.api.nvim_set_keymap("i", "12", "<Esc>$a", { silent = true, noremap = true })
+
   -- Undo break points (for a finer-grained undo command)
   -- should I add space to this list?
   lvim.keys.insert_mode[","] = ",<c-g>u"
@@ -92,6 +111,7 @@ M.config = function()
   -- Fix previous spelling mistake
   lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
   -- A-del is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
+  -- vim.api.nvim_set_keymap("i", "<A-bs>", "<Esc>dbxi", {})
   lvim.keys.insert_mode["<A-bs>"] = "<c-w>"
 
   -- NOTE: Terminal mode
@@ -149,7 +169,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr>", "files" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
-  -- lvim.builtin.which_key.mappings["f"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
+  lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
 
   lvim.builtin.which_key.mappings["h"] = {
     "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
@@ -299,17 +319,22 @@ M.config = function()
   lvim.builtin.which_key.mappings["s"] = {
     name = "+Search",
     -- Telescope commands
-    -- b = {},
+    -- b = {
+    --   "<cmd>lua require'user.telescope.pickers.current_buffer_search'()<cr>",
+    --   "grep in buffer",
+    -- },
+    -- fuzzy grep? change layout
+    b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
     c = {
       "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim'})<CR>",
       "config",
     },
-    C = { "", "grep config" },
+    C = { "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config/lvim'})<CR>", "grep in config" },
     d = {
       "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config'})<CR>",
       "dotfiles",
     },
-    D = { "", "grep dotfiles" },
+    D = { "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config'})<CR>", "grep in dotfiles" },
     f = { ":Telescope find_files<cr>", "files in project" },
     h = { ":Telescope help_tags<cr>", "help tags" },
     k = { "keymaps" },
@@ -317,7 +342,7 @@ M.config = function()
       "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.local/share/lunarvim/lvim'})<CR>",
       "LunarVim",
     },
-    m = { "man pages" },
+    -- m = { "man pages" },
     n = {
       "<cmd>lua require('telescope.builtin').find_files({cwd = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
       "notes",
@@ -326,11 +351,9 @@ M.config = function()
     -- p = { "<cmd>lua require'user.telescope.pickers.projects'()<cr>", "workspaces" },
     p = { "<cmd>Telescope projects<cr>", "projects" },
     r = { "<cmd>Telescope oldfiles<cr>", "recent files" },
-    R = { "registers" },
+    -- R = { "registers" },
     s = { "<cmd>SearchSession<cr>", "sessions" },
-    -- fuzzy grep? change layout
-    g = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
-    G = { "<cmd>Telescope live_grep<cr>", "grep in project" },
+    g = { "<cmd>Telescope live_grep<cr>", "grep in project" },
     T = { "<cmd>TodoTrouble<cr>", "todos" },
   }
 

@@ -1,6 +1,6 @@
 lvim.lang.typescriptreact.formatters = {
   {
-    exe = "prettier",
+    exe = "prettierd",
   },
   {
     exe = "eslint_d",
