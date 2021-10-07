@@ -376,6 +376,16 @@ M.config = function()
     ---     Navigation     ---
     -----]]------------[[-----
     {
+      "kwkarlwang/bufjump.nvim",
+      config = function()
+        require("bufjump").setup {
+          on_success = function()
+            vim.cmd [[execute "normal! g`\"zz"]]
+          end,
+        }
+      end,
+    },
+    {
       "ggandor/lightspeed.nvim",
       -- keys = { "s", "S", "f", "F" },
       -- event = "BufRead",

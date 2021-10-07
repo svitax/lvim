@@ -28,9 +28,9 @@ M.config = function()
   -- move current line up/down
   lvim.keys.normal_mode["<A-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<A-k>"] = ":m .-2<cr>=="
-  -- indent
-  -- lvim.keys.normal_mode["<A-l>"] = ""
-  -- lvim.keys.normal_mode["<A-;>"] = ""
+  -- jump back and forth between buffers (mirror C-o/C-i for moving in the jumplist)
+  lvim.keys.normal_mode["<A-o>"] = ":lua require('bufjump').backward()<cr>"
+  lvim.keys.normal_mode["<A-i>"] = ":lua require('bufjump').forward()<cr>"
   -- swap function arguments
   lvim.keys.normal_mode["<A-h>"] = "<cmd>ISwap<cr>"
   -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
@@ -61,8 +61,9 @@ M.config = function()
   lvim.keys.normal_mode["<A-2>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>"
   lvim.keys.normal_mode["<A-1>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>"
 
-  -- more ergonomic matchup mapping with tab
-  vim.cmd "noremap <silent> <Tab> :<C-u>normal %<CR>"
+  -- more ergonomic matchup mapping with alt-tab (since just tab conflicts with C-i for jumplist navigation)
+  -- vim.cmd "noremap <silent> <Tab> :<C-u>normal %<CR>"
+  vim.cmd "noremap <silent> <A-Tab> :<C-u>normal %<CR>"
   -- no highlight on esc
   lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<CR>"
   -- degenerate emacs inside nvim just to use magit
