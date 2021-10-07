@@ -4,7 +4,21 @@ local M = {}
 
 -- TODO: pcall this
 local gps = require "nvim-gps"
-local fennec_utils = require("user.fennec-line.utils").utils
+-- TODO: refactor fennec_utils
+local fennec_utils = {
+  get_short_cwd = function()
+    return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+  end,
+  harpoon = function()
+    local status = require("harpoon.mark").status()
+    if status == "" then
+      return ""
+    end
+    -- return just the terminal number, cause the status method returns M1, M2, etc.
+    local number = (string.format("%s", status)):sub(-1)
+    return number
+  end,
+}
 
 -- local function clock()
 --   return " " .. os.date "%H:%M"
@@ -611,7 +625,7 @@ M.config = function()
     end,
     -- color = { fg = colors.fg2 },
     color = { fg = colors.orange },
-    cond = conditions.active_lsp,
+    cond = conditions.hide_in_width and conditions.active_lsp,
     padding = { right = 0 },
     -- right_padding = 0,
   }
@@ -621,7 +635,7 @@ M.config = function()
       msg = msg or "LS Inactive"
       local buf_clients = vim.lsp.buf_get_clients()
       if next(buf_clients) == nil then
-        if #msg == 0 then
+        if type(msg) == "boolean" or #msg == 0 then
           return "LS Inactive"
         end
         return msg
@@ -631,8 +645,8 @@ M.config = function()
       local trim = vim.fn.winwidth(0) < 120
 
       -- add client
-      local lsp_utils = require "lsp.utils"
-      local active_client = lsp_utils.get_active_client_by_ft(buf_ft)
+      -- local utils = require "lsp.utils"
+      -- local active_client = utils.get_active_client_by_ft(buf_ft)
       for _, client in pairs(buf_clients) do
         if client.name ~= "null-ls" then
           local _added_client = client.name
@@ -642,7 +656,7 @@ M.config = function()
           table.insert(buf_client_names, _added_client)
         end
       end
-      vim.list_extend(buf_client_names, active_client or {})
+      -- vim.list_extend(buf_client_names, active_client or {})
 
       -- add formatter
       local formatters = require "lsp.null-ls.formatters"

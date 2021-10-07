@@ -47,10 +47,10 @@ M.config = function()
   -- save
   -- lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
   -- quickly toggle terminals
-  lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('user.toggleterm').toggle_term2()<cr>"
-  lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('user.toggleterm').toggle_term3()<CR>"
-  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.toggleterm').toggle_term4()<cr>"
-  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.toggleterm').toggle_term5()<CR>"
+  lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>"
+  lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term3()<CR>"
+  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term4()<cr>"
+  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term5()<CR>"
   -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>"
   -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>"
   -- lvim.keys.normal_mode["<A-y>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>"
@@ -160,13 +160,15 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["c"] = nil
 
-  lvim.builtin.which_key.mappings["e"] = { "<cmd>SnipRun<cr>", "eval" }
-  lvim.builtin.which_key.vmappings["e"] = { "<cmd>SnipRun<cr>", "eval bloc" }
+  lvim.builtin.which_key.mappings["e"] = nil
+  lvim.builtin.which_key.mappings.e = nil
+  -- lvim.builtin.which_key.mappings["e"] = { "<cmd>SnipRun<cr>", "eval" }
+  -- lvim.builtin.which_key.vmappings["e"] = { "<cmd>SnipRun<cr>", "eval bloc" }
   -- The operator mapping allows you to combine movements with sniprun:
   -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
 
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<CR>", "file tree" }
-  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr>", "files" }
+  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr><cmd>FloatermUpdate --height=0.90 --width=0.90<cr>", "files" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
   lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
@@ -188,7 +190,7 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["q"] = { "<cmd>SaveSession<cr> <cmd>w<cr> <cmd>qa<cr>", "save and quit" }
 
   lvim.builtin.which_key.mappings["u"] = {
-    "<cmd>lua require('user.toggleterm').restore_files()<cr>",
+    "<cmd>lua require('user.builtins.toggleterm').restore_files()<cr>",
     "restore files",
   }
 
@@ -222,13 +224,13 @@ M.config = function()
       "<cmd>BDelete this<CR>",
       "close this buffer",
     },
-    D = {
-      "<cmd>BDelete! other<CR>",
-      "close other buffers",
-    },
     h = {
       "<cmd>BDelete! hidden<cr>",
       "close hidden buffers",
+    },
+    o = {
+      "<cmd>BDelete! other<CR>",
+      "close other buffers",
     },
   }
 
@@ -246,23 +248,31 @@ M.config = function()
   lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
   lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message" }
   lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub prs" }
+  lvim.builtin.which_key.mappings["g"]["g"] = {
+    "<cmd>lua require('user.builtins.toggleterm').lazy_git()<CR>",
+    "LazyGit",
+  }
   -- lvim.builtin.which_key.mappings["g"]["c"] = {
-  --   "<cmd>lua require('user.telescope.pickers').delta_git_commits()<CR>",
-  --   "Project's commits",
+  --   "<cmd>lua require('user.telescope.pickers.delta')._git_commits()<CR>",
+  --   "project's commits",
   -- }
   -- lvim.builtin.which_key.mappings["g"]["C"] = {
-  --   "<cmd>lua require('user.telescope.pickers').delta_git_bcommits()<CR>",
-  --   "Buffer's commits",
+  --   "<cmd>lua require('user.telescope.pickers.delta').git_bcommits()<CR>",
+  --   "buffer's commits",
   -- }
   -- lvim.builtin.which_key.mappings["gS"] = {
-  --   "<cmd>lua require('user.telescope.pickers').delta_git_status()<CR>",
-  --   "Git status",
+  --   "<cmd>lua require('user.telescope.pickers.delta').git_status()<CR>",
+  --   "git status",
   -- }
 
   -- TODO override builtin LSP mappings
   -- +LSP
   -- =========================================
   -- ["lo"] symbol outline
+  lvim.builtin.which_key.mappings["la"] = {
+    "<cmd>CodeActionMenu<cr>",
+    "code actions",
+  }
   lvim.builtin.which_key.mappings["l"]["d"] = {
     "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
     "document diagnostics",
@@ -286,6 +296,16 @@ M.config = function()
     i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation" },
   }
 
+  lvim.builtin.which_key.on_config_done = function(wk)
+    local keys = {
+      ["ga"] = { "<cmd>CodeActionMenu<CR>", "code actions" },
+      ["gR"] = { "<cmd>Trouble lsp_references<CR>", "references" },
+      -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
+    }
+
+    wk.register(keys, { mode = "n" })
+  end
+
   -- +Notes
   -- =========================================
   lvim.builtin.which_key.mappings["n"] = {
@@ -296,7 +316,7 @@ M.config = function()
       "run tangle",
     },
     R = {
-      [[<cmd>lua require('user.toggleterm').algo_runner()<cr>]],
+      [[<cmd>lua require('user.builtins.toggleterm').algo_runner()<cr>]],
       "algo runner",
     },
     -- <cmd>lua require('toggleterm.terminal').Terminal:new({cmd='lazygit', direction='horizontal', size=10}):toggle()
@@ -319,17 +339,21 @@ M.config = function()
   lvim.builtin.which_key.mappings["s"] = {
     name = "+Search",
     -- Telescope commands
-    -- b = {
-    --   "<cmd>lua require'user.telescope.pickers.current_buffer_search'()<cr>",
-    --   "grep in buffer",
-    -- },
+    b = {
+      "<cmd>lua require'user.telescope.pickers.current_buffer_search'()<cr>",
+      "grep in buffer",
+    },
     -- fuzzy grep? change layout
-    b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
+    -- b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
     c = {
       "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim'})<CR>",
       "config",
     },
-    C = { "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config/lvim'})<CR>", "grep in config" },
+    C = {
+      "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config/lvim', only_sort_text = true})<CR>",
+      "grep in config",
+    },
+    -- C = { "<cmd>lua require('user.telescope.pickers.live_grep')('~/.config/lvim')<CR>", "grep in config" },
     d = {
       "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config'})<CR>",
       "dotfiles",
@@ -362,7 +386,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["w"] = {
     name = "+Windows",
     d = { "<cmd>close<CR>", "delete window" },
-    D = { "<cmd>only<CR>", "delete all windows" },
+    o = { "<cmd>only<CR>", "delete other windows" },
     s = { "<cmd>split<CR>", "split" },
     v = { "<cmd>vsplit<CR>", "vsplit" },
     z = { "<Plug>Zoom", "toggle zoom window" },

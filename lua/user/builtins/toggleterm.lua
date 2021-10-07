@@ -8,9 +8,10 @@ M.config = function()
   -- vim.cmd [[nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>]]
 
   lvim.builtin.terminal.execs = {
-    { "lazygit", "gg", "LazyGit" },
+    -- { "lazygit", "gg", "LazyGit" },
     -- { "cobib", "ob", "Bibliography (Cobib)" },
   }
+  lvim.builtin.terminal.size = vim.fn.float2nr(vim.o.lines * 0.33)
   -- lvim.builtin.terminal.float_opts.width = vim.fn.float2nr(vim.o.columns * 0.99)
   -- lvim.builtin.terminal.float_opts.height = vim.fn.float2nr(vim.o.lines * 0.87)
   -- lvim.builtin.terminal.float_opts.winblend = 10
@@ -20,10 +21,22 @@ M.config = function()
   -- lvim.builtin.terminal.direction = "window"
 end
 
+M.lazy_git = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    cmd = "lazygit",
+    close_on_exit = true,
+    hidden = true,
+    -- when the dissapearing linenumber bug is fixed, switch to window
+    direction = "tab",
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_terminals = false,
+  }
+  terminal:toggle()
+end
+
 M.toggle_term2 = function()
   local terminal = require("toggleterm.terminal").Terminal:new {
     count = 2,
-    size = 100,
     close_on_exit = false,
     hidden = true,
     -- when the dissapearing linenumber bug is fixed, switch to window
@@ -34,7 +47,7 @@ M.toggle_term2 = function()
         term.bufnr,
         "t",
         "<A-f>",
-        "<cmd>lua require('user.toggleterm').toggle_term2()<cr>",
+        "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>",
         { noremap = true, silent = true }
       )
       -- esc for normal mode inside terminal
@@ -51,7 +64,6 @@ end
 M.toggle_term3 = function()
   local terminal = require("toggleterm.terminal").Terminal:new {
     count = 3,
-    size = 100,
     close_on_exit = false,
     hidden = true,
     -- when the dissapearing linenumber bug is fixed, switch to window
@@ -62,7 +74,7 @@ M.toggle_term3 = function()
         term.bufnr,
         "t",
         "<A-d>",
-        "<cmd>lua require('user.toggleterm').toggle_term3()<cr>",
+        "<cmd>lua require('user.builtins.toggleterm').toggle_term3()<cr>",
         { noremap = true, silent = true }
       )
       -- esc for normal mode inside terminal
@@ -79,7 +91,6 @@ end
 M.toggle_term4 = function()
   local terminal = require("toggleterm.terminal").Terminal:new {
     count = 4,
-    size = 100,
     close_on_exit = false,
     hidden = true,
     -- when the dissapearing linenumber bug is fixed, switch to window
@@ -90,7 +101,7 @@ M.toggle_term4 = function()
         term.bufnr,
         "t",
         "<A-s>",
-        "<cmd>lua require('user.toggleterm').toggle_term4()<cr>",
+        "<cmd>lua require('user.builtins.toggleterm').toggle_term4()<cr>",
         { noremap = true, silent = true }
       )
       -- esc for normal mode inside terminal
@@ -107,7 +118,6 @@ end
 M.toggle_term5 = function()
   local terminal = require("toggleterm.terminal").Terminal:new {
     count = 5,
-    size = 100,
     close_on_exit = false,
     hidden = true,
     -- when the dissapearing linenumber bug is fixed, switch to window
@@ -118,7 +128,7 @@ M.toggle_term5 = function()
         term.bufnr,
         "t",
         "<A-a>",
-        "<cmd>lua require('user.toggleterm').toggle_term5()<cr>",
+        "<cmd>lua require('user.builtins.toggleterm').toggle_term5()<cr>",
         { noremap = true, silent = true }
       )
       -- esc for normal mode inside terminal

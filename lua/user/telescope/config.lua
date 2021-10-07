@@ -24,11 +24,15 @@ return function()
   lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
   lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
   lvim.builtin.telescope.defaults.layout_config.horizontal = {
+    width = 0.9,
+    height = 0.9,
     width_padding = 0.04,
     height_padding = 0.1,
     preview_width = 0.6,
   }
   lvim.builtin.telescope.defaults.layout_config.vertical = {
+    width = 0.9,
+    height = 0.9,
     width_padding = 0.05,
     height_padding = 1,
     preview_height = 0.5,

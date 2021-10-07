@@ -1,6 +1,9 @@
 local M = {}
 
 M.config = function()
+  lvim.builtin.nvimtree.on_config_done = function()
+    lvim.builtin.which_key.mappings["e"] = nil
+  end
   -- lvim.builtin.nvimtree.disable_netrw = 0
   -- lvim.builtin.nvimtree.hijack_netrw = 0
   -- vim.g.nvim_tree_disable_netrw = 0 -- 1 by default, disables netrw

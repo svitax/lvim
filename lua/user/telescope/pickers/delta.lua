@@ -33,7 +33,7 @@ M._git_commits = function(opts)
   opts = opts or {}
   -- make the layout big so I can read everything with my large font and side-by-side preview
   opts.layout_config = {
-    preview_width = 0.8,
+    preview_width = 0.7,
     width = 0.96,
     height = 0.99,
   }
@@ -46,7 +46,7 @@ M.git_bcommits = function(opts)
   opts = opts or {}
   -- make the layout big so I can read everything with my large font and side-by-side preview
   opts.layout_config = {
-    preview_width = 0.8,
+    preview_width = 0.7,
     width = 0.96,
     height = 0.99,
   }
@@ -58,7 +58,7 @@ M.git_status = function(opts)
   opts = opts or {}
   -- make the layout big so I can read everything with my large font and side-by-side preview
   opts.layout_config = {
-    preview_width = 0.8,
+    preview_width = 0.7,
     width = 0.96,
     height = 0.99,
   }
