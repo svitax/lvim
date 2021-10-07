@@ -66,28 +66,14 @@ M.config = function()
         }
       end,
     },
-    -- {
-    --   "ray-x/lsp_signature.nvim",
-    --   config = function()
-    --     require("lsp_signature").on_attach {
-    --       bind = true,
-    --       doc_lines = 10,
-    --       floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
-    --       floating_window_above_cur_line = true,
-    --       fix_pos = false, -- set to true, the floating window will not auto-close until finish all parameters
-    --       hint_enable = false, -- virtual hint enable
-    --       max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
-    --       -- hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
-    --       hi_parameter = "Search", -- how your parameter will be highlight
-    --       -- to view the hiding contents
-    --       max_width = 40, -- max_width of signature floating_window, line will be wrapped if exceed max_width
-    --       handler_opts = {
-    --         border = "single", -- double, single, shadow, none
-    --       },
-    --     }
-    --   end,
-    --   event = "InsertEnter",
-    -- },
+
+    {
+      "ray-x/lsp_signature.nvim",
+      config = function()
+        require("user.lsp_signature").config()
+      end,
+      event = "BufRead",
+    },
     {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
