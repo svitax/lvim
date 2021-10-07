@@ -351,6 +351,13 @@ M.config = function()
       config = require("user.spectre").config,
     },
     {
+      "AckslD/nvim-neoclip.lua",
+      requires = { "tami5/sqlite.lua", module = "sqlite" },
+      config = function()
+        require("user.neoclip").config()
+      end,
+    },
+    {
       "mg979/vim-visual-multi",
       event = "CursorMoved",
       config = function()
