@@ -8,8 +8,10 @@ M.config = function()
   -- lvim.builtin.nvimtree.hijack_netrw = 0
   -- vim.g.nvim_tree_disable_netrw = 0 -- 1 by default, disables netrw
   -- vim.g.nvim_tree_hijack_netrw = 0 -- 1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
-  lvim.builtin.nvimtree.setup.auto_open = 1
+  -- lvim.builtin.nvimtree.setup.auto_open = true
+  lvim.builtin.nvimtree.setup.auto_close = true
   lvim.builtin.nvimtree.setup.view.side = "right"
+  lvim.builtin.nvimtree.setup.view.width = 35
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
   lvim.builtin.nvimtree.setup.view.mappings.list = {
     { key = { ";", "<CR>", "o" }, cb = tree_cb "edit" },
