@@ -270,6 +270,13 @@ M.config = function()
     --   "Mathijs-Bakker/zoom-vim",
     --   event = "BufRead",
     -- },
+    -- {
+    --   "lukas-reineke/indent-blankline.nvim",
+    --   setup = function()
+    --     require("user.indent_blankline").setup()
+    --   end,
+    --   event = "BufRead",
+    -- },
     { "dstein64/nvim-scrollview", event = "WinEnter" },
     {
       "karb94/neoscroll.nvim",
