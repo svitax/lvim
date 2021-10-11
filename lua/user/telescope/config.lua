@@ -21,6 +21,10 @@ return function()
     local tail = require("telescope.utils").path_tail(path)
     return string.format("%s (%s)", tail, path)
   end
+
+  lvim.builtin.telescope.defaults.sort_lastused = true
+  lvim.builtin.telescope.defaults.sort_mru = true
+
   lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
   lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
   lvim.builtin.telescope.defaults.layout_config.horizontal = {

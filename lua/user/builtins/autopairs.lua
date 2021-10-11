@@ -27,7 +27,9 @@ M.config = function()
     module.remove_rule "`"
     module.remove_rule "%"
     module.remove_rule "$"
-    module.add_rule(Rule("`", "`", { "lua", "ruby", "javascript", "javascriptreact", "typescript", "typescriptreact" }))
+    module.add_rule(
+      Rule("`", "`", { "markdown", "lua", "ruby", "javascript", "javascriptreact", "typescript", "typescriptreact" })
+    )
 
     -- Javascript rules
     module.add_rule(Rule("<label ", "htmlFor=''></label>", "javascript"))

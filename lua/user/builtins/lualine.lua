@@ -682,7 +682,17 @@ M.config = function()
       end
       vim.list_extend(buf_client_names, supported_linters)
 
-      return table.concat(buf_client_names, ", ")
+      -- remove any duplicate client names before returning them
+      local hash = {}
+      local unique_buf_client_names = {}
+      for _, v in ipairs(buf_client_names) do
+        if not hash[v] then
+          unique_buf_client_names[#unique_buf_client_names + 1] = v
+          hash[v] = true
+        end
+      end
+
+      return table.concat(unique_buf_client_names, ", ")
     end,
     -- icon = " ",
     color = { fg = colors.fg2 },

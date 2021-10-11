@@ -13,40 +13,45 @@ M.config = function()
         require("dapui").setup()
       end,
       requires = { "mfussenegger/nvim-dap" },
-      ft = "python",
+      ft = { "python", "go", "rust" },
     },
+    -----[[------------]]-----
+    ---       Tests        ---
+    -----]]------------[[-----
+    -- https://github.com/vim-test/vim-test
+    -- {
+    --   "vim-test/vim-test",
+    --   cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
+    --   keys = { "<localleader>tf", "<localleader>tn", "<localleader>ts" },
+    --   config = function()
+    --     require("user.vim_test").config()
+    --   end,
+    -- },
+    -- https://github.com/rcarriga/vim-ultest
+    -- {
+    --   "rcarriga/vim-ultest",
+    --   cmd = { "Ultest", "UltestSummary", "UltestNearest" },
+    --   wants = "vim-test",
+    --   requires = { "vim-test/vim-test" },
+    --   run = ":UpdateRemotePlugins",
+    -- },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
-    -- { "mfussenegger/nvim-jdtls" },
-    -- { 'simrat39/symbols-outline.nvim' },
+    {
+      "simrat39/symbols-outline.nvim",
+      config = function()
+        vim.g.symbols_outline.auto_preview = false
+      end,
+      cmd = "SymbolsOutline",
+    },
     {
       "weilbith/nvim-code-action-menu",
+      event = "BufRead",
       -- cmd = "CodeActionMenu"
     },
     { "kosayoda/nvim-lightbulb" },
     -- TODO: get TSLspOrganize and TSPLspImportAll to go off when formatting javascript files
-    {
-      "jose-elias-alvarez/nvim-lsp-ts-utils",
-      ft = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-      },
-      before = "williamboman/nvim-lsp-installer",
-      config = function()
-        require("user.lsp.providers.ts_utils").config()
-      end,
-    },
-    {
-      "folke/lua-dev.nvim",
-      ft = "lua",
-      before = "williamboman/nvim-lsp-installer",
-      -- disable = not lvim.builtin.lua_dev.active,
-    },
     {
       "SmiteshP/nvim-gps",
       requires = { "nvim-treesitter/nvim-treesitter" },
@@ -90,6 +95,49 @@ M.config = function()
         }
       end,
     },
+    -----[[------------]]-----
+    ---        Java        ---
+    -----]]------------[[-----
+    -- { "mfussenegger/nvim-jdtls" },
+    -----[[------------]]-----
+    ---     TypeScript     ---
+    -----]]------------[[-----
+    -- https://github.com/kozer/emmet-language-server
+    {
+      "jose-elias-alvarez/nvim-lsp-ts-utils",
+      ft = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      before = "williamboman/nvim-lsp-installer",
+      config = function()
+        require("user.lsp.providers.ts_utils").config()
+      end,
+    },
+    -----[[------------]]-----
+    ---        Lua         ---
+    -----]]------------[[-----
+    {
+      "folke/lua-dev.nvim",
+      ft = "lua",
+      before = "williamboman/nvim-lsp-installer",
+    },
+    -----[[------------]]-----
+    ---       Golang       ---
+    -----]]------------[[-----
+    -- https://github.com/Snyssfx/goerr-nvim
+    -- https://github.com/ray-x/go.nvim
+    -- https://github.com/codetalks-new/vscode-go-snippets
+    -- https://github.com/Ja7ad/vscode-go-power
+    -- https://github.com/honnamkuan/vscode-golang-snippets
+    -----[[------------]]-----
+    ---        Rust        ---
+    -----]]------------[[-----
+    -- https://github.com/simrat39/rust-tools.nvim
     -----[[------------]]-----
     ---       Files        ---
     -----]]------------[[-----
@@ -157,6 +205,7 @@ M.config = function()
     ---       Syntax       ---
     -----]]------------[[-----
     -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
+    -- { "ChristianChiarulli/vim-solidity" },
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
       event = "BufRead",
@@ -166,7 +215,6 @@ M.config = function()
       after = "nvim-treesitter",
       cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
-    -- { "ChristianChiarulli/vim-solidity" },
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
@@ -284,6 +332,7 @@ M.config = function()
       config = function()
         require("neoscroll").setup {
           easing_function = "quadratic", -- Default easing function
+          -- mappings = { "<C-u>", "<C-d>", "zt", "zz", "zb" },
         }
       end,
     },
@@ -324,6 +373,8 @@ M.config = function()
     --   end,
     --   keys = "<Plug>(EasyAlign)",
     -- },
+    -- TODO: look into neogen
+    -- https://github.com/danymat/neogen
     {
       "mizlan/iswap.nvim",
       event = "BufRead",
@@ -466,6 +517,14 @@ M.config = function()
     --   "golang/vscode-go",
     --   ft = { "go" },
     -- },
+    {
+      "RishabhRD/nvim-cheat.sh",
+      requires = "RishabhRD/popfix",
+      config = function()
+        vim.g.cheat_default_window_layout = "vertical_split"
+      end,
+      cmd = { "Cheat", "CheatWithoutComments", "CheatList", "CheatListWithoutComments" },
+    },
     -----[[------------]]-----
     ---     Completion     ---
     -----]]------------[[-----
@@ -496,6 +555,7 @@ M.config = function()
     -----[[------------]]-----
     ---      QuickFix      ---
     -----]]------------[[-----
+    -- https://gitlab.com/yorickpeterse/nvim-pqf
     { "kevinhwang91/nvim-bqf", event = "BufRead" },
   }
 end

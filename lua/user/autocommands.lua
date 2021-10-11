@@ -23,6 +23,11 @@ M.config = function()
     { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
     -- * lua require'nvim-lightbulb'.update_lightbulb()]]
 
+    { "bufwritepost", ".tmux.conf", "execute ':!tmux source-file %'" },
+    { "bufwritepost", ".tmux.local.conf", "execute ':!tmux source-file %'" },
+    -- # autocmd bufwritepost .tmux.conf execute ':!tmux source-file %'
+    -- # autocmd bufwritepost .tmux.local.conf execute ':!tmux source-file %'
+
     -- python
     --     {
     --       "Filetype",

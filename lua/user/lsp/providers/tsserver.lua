@@ -1,5 +1,3 @@
---TODO: not really working
-
 local status_ok, ts_utils = pcall(require, "nvim-lsp-ts-utils")
 if not status_ok then
   vim.cmd [[ packadd jose-elias-alvarez/nvim-lsp-ts-utils ]]
@@ -14,15 +12,16 @@ ts_utils.setup {
   import_all_timeout = 5000, -- ms
 
   -- eslint
-  eslint_enable_code_actions = false,
+  eslint_enable_code_actions = true,
   eslint_enable_disable_comments = true,
   eslint_bin = "eslint_d",
   eslint_config_fallback = nil,
-  eslint_enable_diagnostics = false,
+  eslint_enable_diagnostics = true,
+  eslint_opts = {},
 
   -- formatting
   enable_formatting = false,
-  -- formatter = "prettierd",
+  formatter = "prettierd",
   formatter_config_fallback = nil,
 
   -- parentheses completion
@@ -34,13 +33,6 @@ ts_utils.setup {
   require_confirmation_on_move = false,
   watch_dir = nil,
 }
-
--- local opts = {
---   on_attach = function(client, _)
---     ts_utils.setup_client(client)
---   end,
--- }
-
 local opts = {
   on_attach = function(client, bufnr)
     ts_utils.setup_client(client)

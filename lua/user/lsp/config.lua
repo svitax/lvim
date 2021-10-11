@@ -1,10 +1,5 @@
 return function()
-  lvim.lsp.diagnostics.virtual_text = false
-  lvim.lsp.document_highlight = true
-  lvim.lsp.code_lens_refresh = true
-  lvim.lsp.automatic_servers_installation = false
-
-  lvim.lsp.override = { "sumneko_lua", "tsserver" }
+  lvim.lsp.override = { "sumneko_lua", "tsserver", "tailwindcss" }
   for _, server_name in pairs(lvim.lsp.override) do
     local lsp_installer_servers = require "nvim-lsp-installer.servers"
     local server_available, requested_server = lsp_installer_servers.get_server(server_name)
