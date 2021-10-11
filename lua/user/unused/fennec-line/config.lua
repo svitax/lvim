@@ -302,7 +302,7 @@ M.config = function()
       local trim = vim.fn.winwidth(0) < 120
 
       -- add client
-      local lsp_utils = require "lsp.utils"
+      local lsp_utils = require "lvim.lsp.utils"
       local active_client = lsp_utils.get_active_client_by_ft(buf_ft)
       for _, client in pairs(buf_clients) do
         if client.name ~= "null-ls" then
@@ -316,7 +316,7 @@ M.config = function()
       vim.list_extend(buf_client_names, active_client or {})
 
       -- add formatter
-      local formatters = require "lsp.null-ls.formatters"
+      local formatters = require "lvim.lsp.null-ls.formatters"
       local supported_formatters = {}
       for _, fmt in pairs(formatters.list_supported_names(buf_ft)) do
         local _added_formatter = fmt
@@ -328,7 +328,7 @@ M.config = function()
       vim.list_extend(buf_client_names, supported_formatters)
 
       -- add linter
-      local linters = require "lsp.null-ls.linters"
+      local linters = require "lvim.lsp.null-ls.linters"
       local supported_linters = {}
       for _, lnt in pairs(linters.list_supported_names(buf_ft)) do
         local _added_linter = lnt

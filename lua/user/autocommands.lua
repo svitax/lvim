@@ -32,12 +32,12 @@ M.config = function()
     --     {
     --       "Filetype",
     --       "python",
-    --       "nnoremap <leader>R <cmd>lua require('core.terminal')._exec_toggle('python " .. vim.fn.expand "%" .. ";read')<CR>",
+    --       "nnoremap <leader>R <cmd>lua require('lvim.lvim.core.terminal')._exec_toggle('python " .. vim.fn.expand "%" .. ";read')<CR>",
     --     },
     --     {
     --       "Filetype",
     --       "python",
-    --       "nnoremap <leader>M <cmd>lua require('core.terminal')._exec_toggle('echo \"compile :pepelaugh:\";read')<CR>",
+    --       "nnoremap <leader>M <cmd>lua require('lvim.lvim.core.terminal')._exec_toggle('echo \"compile :pepelaugh:\";read')<CR>",
     --     },
   }
 end

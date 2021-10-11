@@ -105,18 +105,15 @@ M.config = function()
     -- https://github.com/kozer/emmet-language-server
     {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
-      ft = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-      },
+      -- ft = {
+      --   "javascript",
+      --   "javascriptreact",
+      --   "javascript.jsx",
+      --   "typescript",
+      --   "typescriptreact",
+      --   "typescript.tsx",
+      -- },
       before = "williamboman/nvim-lsp-installer",
-      config = function()
-        require("user.lsp.providers.ts_utils").config()
-      end,
     },
     -----[[------------]]-----
     ---        Lua         ---
@@ -192,6 +189,7 @@ M.config = function()
     {
       "ptzz/lf.vim",
       config = function()
+        vim.cmd [[let g:lf_replace_netrw = 1 ]] --" Open lf when vim opens a directory
         --       local winwidth = vim.api.nvim_win_get_width(0)
         --       local winheight = vim.api.nvim_win_get_height(0)
         --       local width = math.min(130, winwidth - 14)
@@ -200,12 +198,15 @@ M.config = function()
         --       vim.g.lf_height = height
         --       vim.g.lf_width = width
       end,
+      -- after = { "kyazdani42/nvim-tree.lua" },
     },
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
     -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     -- { "ChristianChiarulli/vim-solidity" },
+    -- https://github.com/VebbNix/lf-vim
+    { "VebbNix/lf-vim" },
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
       event = "BufRead",
@@ -231,9 +232,7 @@ M.config = function()
     --     require("octo").setup()
     --   end,
     -- },
-    {
-      "tpope/vim-fugitive",
-    },
+    { "tpope/vim-fugitive" },
     -- {
     --   "TimUntersberger/neogit",
     --   requires = "nvim-lua/plenary.nvim",
@@ -332,7 +331,7 @@ M.config = function()
       config = function()
         require("neoscroll").setup {
           easing_function = "quadratic", -- Default easing function
-          -- mappings = { "<C-u>", "<C-d>", "zt", "zz", "zb" },
+          mappings = { "<C-u>", "<C-d>", "zt", "zz", "zb" },
         }
       end,
     },
@@ -366,6 +365,8 @@ M.config = function()
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
+    -- TODO: look into neogen
+    -- https://github.com/danymat/neogen
     -- {
     --   "junegunn/vim-easy-align",
     --   setup = function()
@@ -373,8 +374,6 @@ M.config = function()
     --   end,
     --   keys = "<Plug>(EasyAlign)",
     -- },
-    -- TODO: look into neogen
-    -- https://github.com/danymat/neogen
     {
       "mizlan/iswap.nvim",
       event = "BufRead",
@@ -407,6 +406,13 @@ M.config = function()
       config = function()
         vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi theming
         vim.cmd "let g:VM_custom_motions = {';': 'l', 'l': 'h', 'h': ';'}"
+        vim.cmd "let g:VM_maps = {}"
+        vim.cmd "let g:VM_maps['Find Under'] = '<C-m>'" -- replace C-n
+        vim.cmd "let g:VM_maps['Find Subword Under'] = '<C-m>'" -- replace visual C-n
+        -- vim.cmd "let g:VM_maps['Select Cursor Down'] = '<C-m>'"
+        -- vim.cmd "let g:VM_maps['Select Cursor Down'] = '<C-Down>'"
+        -- vim.cmd "let g:VM_maps['Select Cursor Up']   = '<C-Up>'"
+        -- vim.cmd "let g:VM_maps['Add Cursor At Pos']  = '<C-m>'"
       end,
     },
     {
@@ -415,7 +421,7 @@ M.config = function()
         vim.cmd "runtime macros/sandwich/keymap/surround.vim"
       end,
     },
-    { "chaoren/vim-wordmotion" },
+    { "chaoren/vim-wordmotion", event = "BufRead" },
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
@@ -434,6 +440,39 @@ M.config = function()
       -- keys = { "s", "S", "f", "F" },
       -- event = "BufRead",
     },
+    {
+      "jvgrootveld/telescope-zoxide",
+      requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+      config = function()
+        local z_utils = require "telescope._extensions.zoxide.utils"
+        require("telescope._extensions.zoxide.config").setup {
+          mappings = {
+            default = {
+              -- FIX: fix this zoxide-lf integration
+              action = function(selection)
+                vim.cmd("cd " .. selection.path)
+                vim.cmd "LfWorkingDirectory"
+                vim.fn.feedkeys("a", "")
+                -- vim.cmd("edit .")
+                -- vim.cmd("edit " .. selection.path)
+                -- vim.cmd[[execute "normal ajkjk\<Esc>"]]
+                -- vim.cmd[[execute "normal a"]]
+              end,
+              after_action = function(selection)
+                print("Opened " .. selection.path)
+              end,
+            },
+          },
+          ["<C-s>"] = { action = z_utils.create_basic_command "split" },
+          ["<C-v>"] = { action = z_utils.create_basic_command "vsplit" },
+          ["<C-e>"] = { action = z_utils.create_basic_command "edit" },
+        }
+        require("telescope").load_extension "zoxide"
+      end,
+    },
+
+    -- TODO: try using this for resize mappings and copy sync
+    -- https://github.com/aserowy/tmux.nvim
     {
       -- I need this to make winndow movement work with my prefered movement keys (jkl;)
       "numToStr/Navigator.nvim",
@@ -535,6 +574,17 @@ M.config = function()
       end,
       ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue", "css" },
       -- event = "InsertEnter",
+    },
+    {
+      "abecodes/tabout.nvim",
+      config = function()
+        require("tabout").setup {
+          tabkey = "",
+          backwards_tabkey = "",
+        }
+      end,
+      wants = { "nvim-treesitter" }, -- or require if not used so far
+      after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
     },
     -- {
     -- using this https://github.com/kozer/emmet-language-server
