@@ -3,6 +3,41 @@ local M = {}
 M.config = function()
   -- custom folder icon
   require("nvim-web-devicons").set_icon {
+    deb = {
+      icon = "",
+      color = "#9A1E33",
+      name = "deb",
+    },
+    Dockerfile = {
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    ["Cargo.lock"] = {
+      icon = "",
+      color = "#FFD54F",
+      name = "lock",
+    },
+    ["robots.txt"] = {
+      icon = "ﮧ",
+      color = "#FF5252",
+      name = "Robots",
+    },
+    rb = {
+      icon = "",
+      color = "#F44336",
+      name = "rb",
+    },
+    xz = {
+      icon = "",
+      color = "#AFB42B",
+      name = "xz",
+    },
+    zip = {
+      icon = "",
+      color = "#AFB42B",
+      name = "zip",
+    },
     yml = {
       icon = "",
       color = "#FF5252",
@@ -47,11 +82,13 @@ M.config = function()
     js = {
       icon = "",
       -- icon = "",
+      -- icon = "",
       color = "#FABD2F",
       name = "JavaScript",
     },
     ts = {
       icon = "",
+      -- icon = "ﯤ",
       -- icon = "ﯤ",
       color = "#3A87CB",
       name = "TypeScript",
