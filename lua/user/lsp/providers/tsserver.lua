@@ -64,6 +64,8 @@ local opts = {
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lO", ":TSLspOrganize<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lF", ":TSLspRenameFile<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lA", ":TSLspImportAll<CR>", opts)
+    -- TODO: might be better as an autocommand after <leader>lf?
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lf", ":lua vim.lsp.buf.formatting()<cr>:TSLspOrganize<CR>", opts)
   end,
 }
 
