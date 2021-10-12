@@ -218,6 +218,20 @@ lvim.plugins = {
       }
     end,
   },
+  -- TODO: needs to open in correct working directory and must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
+  -- {
+  --   "is0n/fm-nvim",
+  --   config = function()
+  --     require("fm-nvim").setup {
+  --       config = {
+  --         edit_cmd = "edit",
+  --         border = "rounded",
+  --         height = 0.85,
+  --         width = 0.85,
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     "voldikss/vim-floaterm",
     config = function()
