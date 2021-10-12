@@ -2,6 +2,16 @@ local M = {}
 
 M.config = function()
   vim.g.dashboard_disable_statusline = 1
+  lvim.builtin.dashboard.custom_section["a"] = {
+    description = { "  Find File          " },
+    -- command = "lua require('telescope.builtin').find_files({hidden = true, ignored = false})",
+    command = "lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, prompt_title = 'find files'})",
+  }
+
+  -- lvim.builtin.dashboard.custom_section["m"] = {
+  --   description = { "  Marks              " },
+  --   command = "Telescope marks",
+  -- }
 
   -- TODO lunarvim's footer isn't exposed for user config, but here's how I want the footer to look
   -- this needs to be in init.lua
