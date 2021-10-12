@@ -27,6 +27,10 @@ M.config = function()
           "markdown",
         },
       },
+      nls.builtins.formatting.eslint_d.with {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
+      },
+
       nls.builtins.formatting.stylelint.with {
         filetypes = { "scss", "less", "css", "sass" },
       },
