@@ -122,6 +122,7 @@ M.config = function()
   -- ergonmic mappings for end of line and beginning of line my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12
   -- vim.api.nvim_set_keymap("i", "S4", "<Esc>_i", { noremap = true })
   vim.api.nvim_set_keymap("i", "Q949", "<Esc>_i", { noremap = true })
+  -- make sure tmux doesn't bind anything to C-s
   vim.api.nvim_set_keymap("i", "12", "<Esc>$a", { silent = true, noremap = true })
 
   -- Undo break points (for a finer-grained undo command)
@@ -234,7 +235,8 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["p"] = "workspaces"
   -- lvim.builtin.which_key.mappings["P"] = "Packer"
 
-  lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
+  -- lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
+  lvim.builtin.which_key.mappings["/"] = { "<cmd>lua require('Comment').toggle()<CR>", "comment" }
 
   -- +Buffers
   -- =========================================
