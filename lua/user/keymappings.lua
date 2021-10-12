@@ -203,6 +203,7 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<CR>", "file tree" }
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr><cmd>FloatermUpdate --height=0.90 --width=0.90<cr>", "files" }
+  -- lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr>", "files" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }

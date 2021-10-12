@@ -221,14 +221,6 @@ lvim.plugins = {
   {
     "voldikss/vim-floaterm",
     config = function()
-      -- local winwidth = vim.api.nvim_win_get_width(0)
-      -- local winheight = vim.api.nvim_win_get_height(0)
-      -- local width = math.min(130, winwidth - 14)
-      -- local width = winwidth - 20
-      -- local height = winheight - 2
-      -- vim.g.floaterm_height = height
-      -- vim.g.floaterm_width = width
-
       vim.g.floaterm_height = 0.90
       vim.g.floaterm_width = 0.90
       vim.g.floaterm_opener = "drop"
@@ -241,13 +233,6 @@ lvim.plugins = {
     "ptzz/lf.vim",
     config = function()
       vim.cmd [[let g:lf_replace_netrw = 1 ]] --" Open lf when vim opens a directory
-      --       local winwidth = vim.api.nvim_win_get_width(0)
-      --       local winheight = vim.api.nvim_win_get_height(0)
-      --       local width = math.min(130, winwidth - 14)
-      --       local height = winheight - 2
-
-      --       vim.g.lf_height = height
-      --       vim.g.lf_width = width
     end,
     -- after = { "kyazdani42/nvim-tree.lua" },
   },
