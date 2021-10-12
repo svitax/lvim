@@ -102,7 +102,6 @@ lvim.plugins = {
     -- cmd = "CodeActionMenu"
   },
   { "kosayoda/nvim-lightbulb" },
-  -- TODO: get TSLspOrganize and TSPLspImportAll to go off when formatting javascript files
   {
     "SmiteshP/nvim-gps",
     requires = { "nvim-treesitter/nvim-treesitter" },
@@ -155,15 +154,16 @@ lvim.plugins = {
   -----]]------------[[-----
   -- https://github.com/kozer/emmet-language-server
   {
+    -- TODO: get TSLspOrganize and TSPLspImportAll to go off when formatting javascript files
     "jose-elias-alvarez/nvim-lsp-ts-utils",
-    -- ft = {
-    --   "javascript",
-    --   "javascriptreact",
-    --   "javascript.jsx",
-    --   "typescript",
-    --   "typescriptreact",
-    --   "typescript.tsx",
-    -- },
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+    },
     before = "williamboman/nvim-lsp-installer",
   },
   -----[[------------]]-----
@@ -498,7 +498,6 @@ lvim.plugins = {
       require("telescope._extensions.zoxide.config").setup {
         mappings = {
           default = {
-            -- FIX: fix this zoxide-lf integration
             action = function(selection)
               -- -- Lf from fm-nvim
               -- vim.cmd("cd " .. selection.path)
