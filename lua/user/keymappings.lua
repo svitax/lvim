@@ -387,7 +387,7 @@ M.config = function()
     -- fuzzy grep? change layout
     -- b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
     c = {
-      "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim', prompt_title = 'LunarVim config'})<CR>",
+      "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim', prompt_title = 'files in LunarVim config'})<CR>",
       "config",
     },
     C = {
@@ -396,7 +396,7 @@ M.config = function()
     },
     -- C = { "<cmd>lua require('user.telescope.pickers.live_grep')('~/.config/lvim')<CR>", "grep in config" },
     d = {
-      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'dotfiles'})<CR>",
+      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'search dotfiles'})<CR>",
       "dotfiles",
     },
     D = {
@@ -404,7 +404,12 @@ M.config = function()
       "grep in dotfiles",
     },
     -- f = { ":Telescope find_files<cr>", "files in project" },
-    f = { ":Telescope git_files find_command=rg,--ignore,--hidden,--files<cr>", "files in project" },
+
+    f = {
+      -- ":Telescope git_files find_command=rg,--ignore,--hidden,--files<cr>",
+      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, prompt_title = 'files in project'})<CR>",
+      "files in project",
+    },
 
     h = { ":Telescope help_tags<cr>", "help tags" },
     k = { "keymaps" },
