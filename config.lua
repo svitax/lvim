@@ -500,13 +500,15 @@ lvim.plugins = {
           default = {
             -- FIX: fix this zoxide-lf integration
             action = function(selection)
+              -- -- Lf from fm-nvim
+              -- vim.cmd("cd " .. selection.path)
+              -- vim.cmd "Lf"
+              -- vim.fn.feedkeys("a", "")
+
+              -- Lf from lf.vim
               vim.cmd("cd " .. selection.path)
-              vim.cmd("LfWorkingDirectory")
+              vim.cmd "LfWorkingDirectory"
               vim.fn.feedkeys("a", "")
-              -- vim.cmd("edit .")
-              -- vim.cmd("edit " .. selection.path)
-              -- vim.cmd[[execute "normal ajkjk\<Esc>"]]
-              -- vim.cmd[[execute "normal a"]]
             end,
             after_action = function(selection)
               print("Opened " .. selection.path)
