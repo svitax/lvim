@@ -418,7 +418,8 @@ M.config = function()
       local utils = require "lvim.core.lualine.utils"
       if vim.bo.filetype == "python" then
         local venv = os.getenv "CONDA_DEFAULT_ENV"
-        print("lol this is the ", venv)
+        -- TODO: conda environment not showing
+        -- print("lol this is the ", venv)
         if venv ~= nil then
           return string.format(" (%s)", utils.env_cleanup(venv))
         end
