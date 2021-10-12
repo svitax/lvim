@@ -99,11 +99,12 @@ M.config = function()
       lvim.builtin.cmp.confirm_opts.select = true
     end
     if not cmp.confirm(lvim.builtin.cmp.confirm_opts) then
-      if luasnip.jumpable() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-next", true, true, true), "")
-      else
-        fallback()
-      end
+      -- if luasnip.jumpable() then
+      --   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-next", true, true, true), "")
+      -- else
+      --   fallback()
+      -- end
+      fallback()
     end
   end
 
