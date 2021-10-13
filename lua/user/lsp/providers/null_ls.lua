@@ -11,6 +11,18 @@ M.config = function()
     debounce = 150,
     save_after_format = false,
     sources = {
+      -----[[------------]]-----
+      ---     Formatting     ---
+      -----]]------------[[-----
+      -- nls.builtins.formatting.black, -- args = { "--fast" }
+      -- nls.builtins.formatting.cmake_format,
+      nls.builtins.formatting.eslint_d.with {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
+      },
+      nls.builtins.formatting.gofumpt,
+      -- nls.builtins.formatting.goimports,
+      nls.builtins.formatting.golines,
+      -- nls.builtins.formatting.isort, -- args = {"--profile"}, {"black"}
       nls.builtins.formatting.prettierd.with {
         filetypes = {
           "javascript",
@@ -27,35 +39,32 @@ M.config = function()
           "markdown",
         },
       },
-      nls.builtins.formatting.eslint_d.with {
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
-      },
-
+      -- nls.builtins.formatting.rustywind,
+      -- nls.builtins.formatting.scalafmt,
+      -- nls.builtins.formatting.shfmt.with { extra_args = { "-i", "2", "-ci" } },
+      -- nls.builtins.formatting.shellharden,
       nls.builtins.formatting.stylelint.with {
         filetypes = { "scss", "less", "css", "sass" },
       },
-      -- nls.builtins.formatting.rustywind,
       nls.builtins.formatting.stylua,
-      nls.builtins.formatting.gofumpt,
-      nls.builtins.formatting.golines,
-      -- nls.builtins.formatting.eslint_d,
-      -- nls.builtins.formatting.goimports,
-      -- nls.builtins.formatting.cmake_format,
-      -- nls.builtins.formatting.scalafmt,
       -- nls.builtins.formatting.sqlformat,
       -- nls.builtins.formatting.terraform_fmt,
-      -- nls.builtins.formatting.shfmt.with { extra_args = { "-i", "2", "-ci" } },
-      -- nls.builtins.diagnostics.hadolint,
-      nls.builtins.diagnostics.stylelint.with {
-        filetypes = { "scss", "less", "css", "sass" },
-      },
+      -----[[------------]]-----
+      ---     Diagnostics    ---
+      -----]]------------[[-----
       nls.builtins.diagnostics.eslint_d.with {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
       },
-      -- nls.builtins.diagnostics.shellcheck,
-      nls.builtins.diagnostics.luacheck,
-      -- nls.builtins.diagnostics.vint,
       -- nls.builtins.diagnostics.chktex,
+      -- nls.builtins.diagnostics.flake8,
+      -- nls.builtins.diagnostics.hadolint,
+      nls.builtins.diagnostics.luacheck,
+      -- nls.builtins.diagnostics.markdownlint,
+      nls.builtins.diagnostics.shellcheck,
+      nls.builtins.diagnostics.stylelint.with {
+        filetypes = { "scss", "less", "css", "sass" },
+      },
+      -- nls.builtins.diagnostics.vint,
     },
   }
 
@@ -63,6 +72,20 @@ M.config = function()
 
   -- Formatters
   -- ==================================================================
+  lvim.lang.sh.formatters = {
+    { exe = "shfmt", args = { "-i", "2", "-ci" } },
+    { exe = "shellharden" },
+  }
+  lvim.lang.python.formatters = {
+    { exe = "black", args = { "--fast" } },
+    { exe = "isort", args = { "--profile", "black" } },
+  }
+  lvim.lang.python.linters = { { exe = "flake8" } }
+  lvim.lang.markdown.linters = {
+    { exe = "markdownlint" },
+    -- { exe = "vale", },
+  }
+  -- lvim.lang.sh.linters = { { exe = "shellcheck" } }
   -- -- lvim.lang.asm.formatters = { { exe = "asmfmt" } }
   -- -- lvim.lang.cmake.formatters = { { exe = "cmake_format" } }
   -- lvim.lang.css.formatters = { { exe = "prettierd" } }
@@ -82,15 +105,7 @@ M.config = function()
   -- lvim.lang.less.formatters = { { exe = "prettierd" } }
   -- lvim.lang.lua.formatters = { { exe = "stylua" } }
   -- lvim.lang.markdown.formatters = { { exe = "prettierd" } }
-  -- lvim.lang.python.formatters = {
-  --   { exe = "black", args = { "--fast" } },
-  --   { exe = "isort", args = { "--profile", "black" } },
-  -- }
   -- -- -- lvim.lang.scala.formatters = { { exe = "scalafmt" } }
-  lvim.lang.sh.formatters = {
-    { exe = "shfmt", args = { "-i", "2", "-ci" } },
-    { exe = "shellharden" },
-  }
   -- lvim.lang.solidity.formatters = { { exe = "prettierd" } }
   -- -- lvim.lang.sql.formatters = { { exe = "sqlformat" } }
   -- -- lvim.lang.terraform.formatters = { { exe = "terraform_fmt" } }
@@ -98,6 +113,9 @@ M.config = function()
   -- lvim.lang.typescriptreact.formatters = { { exe = "prettierd" } }
   -- -- lvim.lang.vue.formatters = { { exe = "prettierd" } }
   -- lvim.lang.yaml.formatters = { { exe = "prettierd" } }
+  -- lvim.lang.nginx.formatters = { { exe = "nginx_beautifier" } }
+  -- lvim.lang.perl.formatters = { { exe = "perltidy" } }
+  -- lvim.lang.php.formatters = { { exe = "phpcbf" } }
 
   -- Linters
   -- ==================================================================
@@ -106,21 +124,10 @@ M.config = function()
   -- lvim.lang.javascriptreact.linters = { { exe = "eslint_d" } }
   -- lvim.lang.json.linters = { { exe = "eslint_d" } }
   -- lvim.lang.lua.linters = { { exe = "luacheck" } }
-  lvim.lang.markdown.linters = {
-    { exe = "markdownlint" },
-    -- { exe = "vale", },
-  }
-  lvim.lang.python.linters = { { exe = "flake8" } }
-  lvim.lang.sh.linters = { { exe = "shellcheck" } }
   -- lvim.lang.typescript.linters = { { exe = "eslint_d" } }
   -- lvim.lang.typescriptreact.linters = { { exe = "eslint_d" } }
+  -- lvim.lang.tex.linters = { { exe = "chktex" } }
+  -- lvim.lang.vim.linters = { { exe = "vint" } }
 end
 
 return M
-
--- lvim.lang.nginx.formatters = { { exe = "nginx_beautifier" } }
--- lvim.lang.perl.formatters = { { exe = "perltidy" } }
--- lvim.lang.php.formatters = { { exe = "phpcbf" } }
-
--- lvim.lang.tex.linters = { { exe = "chktex" } }
--- lvim.lang.vim.linters = { { exe = "vint" } }
