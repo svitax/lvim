@@ -15,7 +15,7 @@ M.config = function()
     },
   }
 
-  if not lspconfig.emmet_ls then
+  -- if not lspconfig.emmet_ls then
     configs.emmet_ls = {
       default_config = {
         cmd = { "emmet-language-server", "--stdio" },
@@ -35,7 +35,7 @@ M.config = function()
         settings = {},
       },
     }
-  end
+  -- end
   lspconfig.emmet_ls.setup { capabilities = capabilities }
 end
 
