@@ -3,8 +3,9 @@ local lspkind = {}
 local kind_symbols = {
   Class = " ",
   Color = " ",
-  Constant = "ﲀ ",
+  Constant = "",
   Constructor = " ",
+  Default = " ",
   Enum = "練",
   EnumMember = " ",
   Event = " ",
@@ -20,13 +21,12 @@ local kind_symbols = {
   Property = " ",
   Reference = " ",
   Snippet = " ",
+  Struct = " ",
   Text = " ",
+  TypeParameter = "  ",
   Unit = "塞",
   Value = " ",
   Variable = " ",
-  Struct = " ",
-  TypeParameter = "  ",
-  Default = " ",
 }
 
 function lspkind.cmp_kind(kind)
