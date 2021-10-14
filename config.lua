@@ -44,10 +44,14 @@ lvim.lsp.automatic_servers_installation = false
 
 -- LSP
 -- =========================================
--- require("user.lsp.external_helpers").formatters()
--- require("user.lsp.external_helpers").linters()
+-- NOTE: By default, all null-ls providers are checked on startup.
+-- If you want to avoid that or want to only set up the provider
+-- when you opening the associated file-type,
+-- then you can use filetype plugins for this purpose.
+-- https://www.lunarvim.org/languages/#lazy-loading-the-formatter-setup
 require("user.lsp.providers.null_ls").config()
 require("user.lsp.providers.emmet_ls").config()
+require("user.lsp.providers.jsonls").config()
 
 require "user.lsp.config"()
 
