@@ -55,17 +55,25 @@ local opts = {
     -- required to fix code action ranges and filter diagnostics
     ts_utils.setup_client(client)
 
-    -- no default maps, so you may want to define some here
     require("lvim.lsp").common_on_attach(client, bufnr)
+
+    -- no default maps, so you may want to define some here
     local opts = { silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "go", ":TSLspOrganize<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "go", ":TSLspOrganizeSync<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gF", ":TSLspRenameFile<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gA", ":TSLspImportAll<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lO", ":TSLspOrganize<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lO", ":TSLspOrganizeSync<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lF", ":TSLspRenameFile<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lA", ":TSLspImportAll<CR>", opts)
     -- TODO: might be better as an autocommand after <leader>lf?
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lf", ":lua vim.lsp.buf.formatting()<cr>:TSLspOrganize<CR>", opts)
+    -- vim.api.nvim_buf_set_keymap(
+    --   bufnr,
+    --   "n",
+    --   "<Leader>lf",
+    --   -- ":lua vim.lsp.buf.formatting()<cr>:TSLspOrganizeSync<CR>",
+    --   ":lua vim.lsp.buf.formatting_seq_sync()<cr>:TSLspOrganizeSync<CR>:up<cr>",
+    --   opts
+    -- )
   end,
 }
 
