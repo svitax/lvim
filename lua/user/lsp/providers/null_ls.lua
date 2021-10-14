@@ -5,8 +5,37 @@ M.config = function()
   if not status_ok then
     return
   end
+  -- local formatters = require "lvim.lsp.null-ls.formatters"
+  -- formatters.setup {
+  --   {
+  --     exe = "prettier",
+  --     filetypes = {
+  --       "javascriptreact",
+  --       "javascript",
+  --       "typescriptreact",
+  --       "typescript",
+  --       "json",
+  --       "markdown",
+  --     },
+  --   },
+  --   {
 
-  -- you can either config null-ls itself
+  --   }
+  -- }
+  -- local linters = require "lvim.lsp.null-ls.linters"
+  -- linters.setup {
+  --   {
+  --     exe = "eslint",
+  --     filetypes = {
+  --       "javascriptreact",
+  --       "javascript",
+  --       "typescriptreact",
+  --       "typescript",
+  --       "vue",
+  --     },
+  --   },
+  -- }
+
   nls.config {
     debounce = 150,
     save_after_format = false,
@@ -14,7 +43,7 @@ M.config = function()
       -----[[------------]]-----
       ---     Formatting     ---
       -----]]------------[[-----
-      -- nls.builtins.formatting.black, -- args = { "--fast" }
+      nls.builtins.formatting.black.with { extra_args = { "--fast" } }, -- args = { "--fast" }
       -- nls.builtins.formatting.cmake_format,
       nls.builtins.formatting.eslint_d.with {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
@@ -22,7 +51,7 @@ M.config = function()
       nls.builtins.formatting.gofumpt,
       -- nls.builtins.formatting.goimports,
       nls.builtins.formatting.golines,
-      -- nls.builtins.formatting.isort, -- args = {"--profile"}, {"black"}
+      nls.builtins.formatting.isort.with { extra_args = { "--profile", "black" } }, -- args = {"--profile"}, {"black"}
       nls.builtins.formatting.prettierd.with {
         filetypes = {
           "javascript",
@@ -57,18 +86,20 @@ M.config = function()
       },
       -- nls.builtins.diagnostics.chktex,
       -- nls.builtins.diagnostics.flake8,
-      -- nls.builtins.diagnostics.hadolint,
+      nls.builtins.diagnostics.hadolint,
       nls.builtins.diagnostics.luacheck,
-      -- nls.builtins.diagnostics.markdownlint,
+      nls.builtins.diagnostics.markdownlint,
       nls.builtins.diagnostics.shellcheck,
       nls.builtins.diagnostics.stylelint.with {
         filetypes = { "scss", "less", "css", "sass" },
       },
+      -- nls.builtins.diagnostics.vale,
       -- nls.builtins.diagnostics.vint,
     },
   }
 
-  -- or use the lunarvim syntax
+  -- WARN: do not redfine or reuse formatter/linters in this format
+  -- or use the lang specific format
 
   -- Formatters
   -- ==================================================================
@@ -76,15 +107,15 @@ M.config = function()
     { exe = "shfmt", args = { "-i", "2", "-ci" } },
     { exe = "shellharden" },
   }
-  lvim.lang.python.formatters = {
-    { exe = "black", args = { "--fast" } },
-    { exe = "isort", args = { "--profile", "black" } },
-  }
   lvim.lang.python.linters = { { exe = "flake8" } }
-  lvim.lang.markdown.linters = {
-    { exe = "markdownlint" },
-    -- { exe = "vale", },
-  }
+  -- lvim.lang.markdown.linters = {
+  --   { exe = "markdownlint" },
+  --   -- { exe = "vale", },
+  -- }
+  -- lvim.lang.python.formatters = {
+  --   { exe = "black", args = { "--fast" } },
+  --   { exe = "isort", args = { "--profile", "black" } },
+  -- }
   -- lvim.lang.sh.linters = { { exe = "shellcheck" } }
   -- -- lvim.lang.asm.formatters = { { exe = "asmfmt" } }
   -- -- lvim.lang.cmake.formatters = { { exe = "cmake_format" } }
