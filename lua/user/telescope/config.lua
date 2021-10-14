@@ -49,9 +49,9 @@ return function()
     case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     -- the default case_mode is "smart_case"
   }
-  -- lvim.builtin.telescope.on_config_done = function()
-  --   require("telescope").load_extension "fzf"
-  -- end
+  lvim.builtin.telescope.on_config_done = function()
+    require("telescope").load_extension "fzf"
+  end
 end
 
 -- -- If I ever wanna make my own sessions telescope picker

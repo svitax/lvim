@@ -204,9 +204,9 @@ lvim.plugins = {
     "nvim-telescope/telescope-fzf-native.nvim",
     run = "make",
     -- TODO: this only gets loaded when I save config.lua. i wonder if lunarvim is loading stuff out of order since the last few updates
-    config = function()
-      require("telescope").load_extension "fzf"
-    end,
+    -- config = function()
+    --   require("telescope").load_extension "fzf"
+    -- end,
   },
   {
     "kazhala/close-buffers.nvim",
