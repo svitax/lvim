@@ -153,6 +153,7 @@ lvim.plugins = {
   ---        Java        ---
   -----]]------------[[-----
   -- { "mfussenegger/nvim-jdtls" },
+  { "mfussenegger/nvim-jdtls", ft = "java" },
   -----[[------------]]-----
   ---     TypeScript     ---
   -----]]------------[[-----
@@ -567,9 +568,19 @@ lvim.plugins = {
   {
     -- FIX: when I save and press j/k, it jumps me through the jumplist
     "ethanholz/nvim-lastplace",
-    event = "BufWinEnter",
+    -- event = "BufWinEnter",
+    event = "BufRead",
     config = function()
-      require("nvim-lastplace").setup {}
+      require("nvim-lastplace").setup {
+        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+        lastplace_ignore_filetype = {
+          "gitcommit",
+          "gitrebase",
+          "svn",
+          "hgcommit",
+        },
+        lastplace_open_folds = true,
+      }
     end,
   },
   -----[[------------]]-----
@@ -607,14 +618,15 @@ lvim.plugins = {
   ---      Snippets      ---
   -----]]------------[[-----
   -- { "anburocky3/bootstrap5-snippets" },
-  -- {
-  --   "dsznajder/vscode-es7-javascript-react-snippets",
-  --   -- ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-  -- },
+  {
+    "dsznajder/vscode-es7-javascript-react-snippets",
+    -- ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  },
   -- {
   --   "golang/vscode-go",
   --   ft = { "go" },
   -- },
+  { "RishabhRD/popfix" },
   {
     "RishabhRD/nvim-cheat.sh",
     requires = "RishabhRD/popfix",
