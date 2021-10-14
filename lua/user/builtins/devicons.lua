@@ -3,12 +3,103 @@ local M = {}
 M.config = function()
   -- custom folder icon
   require("nvim-web-devicons").set_icon {
+    [".luacheckrc"] = {
+      icon = "",
+      color = "#51a0cf",
+      name = "LuaCheckrc",
+    },
+    gql = {
+      icon = "",
+      color = "#D74E78",
+      name = "GraphQL",
+    },
+    graphql = {
+      icon = "",
+      color = "#D74E78",
+      name = "GraphQL",
+    },
+    hy = {
+      icon = "",
+      color = "#D9B06F",
+      name = "Hy",
+    },
+    -- TODO: a lot more of these for webpack
+    ["webpack"] = {
+      icon = "",
+      color = "#9FD3F3",
+      name = "Webpack",
+    },
+    ["webpack.js"] = {
+      icon = "",
+      color = "#9FD3F3",
+      name = "Webpack",
+    },
+    ["webpack.config"] = {
+      icon = "",
+      color = "#9FD3F3",
+      name = "Webpack",
+    },
+    [".tmux.conf"] = {
+      icon = "",
+      color = "#57B53E",
+      name = "Tmux",
+    },
+    ["truffle-config.js"] = {
+      icon = "",
+      color = "#73DDC6",
+      name = "Truffle",
+    },
+    vy = {
+      icon = "",
+      color = "#0288D1",
+      name = "Vyper",
+    },
+    md = {
+      icon = "",
+      color = "#42A5F5",
+      name = "Markdown",
+    },
+    [".markdownlint.json"] = {
+      icon = "",
+      color = "#42A5F5",
+      name = "MarkdownLint",
+    },
+    [".firebaserc"] = {
+      icon = "",
+      color = "#FBC02D",
+      name = "Firebaserc",
+    },
+    ["firebase.json"] = {
+      icon = "",
+      color = "#FBC02D",
+      name = "FirebaseJson",
+    },
     deb = {
       icon = "",
       color = "#9A1E33",
       name = "deb",
     },
+    ["docker-compose.yaml"] = {
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    ["docker-compose.yml"] = {
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
     Dockerfile = {
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    dockerfile = {
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    dockerignore = {
       icon = "",
       color = "#0187C9",
       name = "Dockerfile",
@@ -53,6 +144,20 @@ M.config = function()
       color = "#FF5252",
       name = "Toml",
     },
+    bash = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#FF7043",
+      name = "Zsh",
+    },
+    sh = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#FF7043",
+      name = "Sh",
+    },
     zsh = {
       -- icon = "",
       icon = "",
@@ -66,6 +171,20 @@ M.config = function()
       -- icon = "",
       color = "#FF7043",
       name = "ZshConfig",
+    },
+    [".zshenv"] = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#FF7043",
+      name = "ZshEnv",
+    },
+    [".zprofile"] = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#FF7043",
+      name = "ZshProfile",
     },
     sol = {
       icon = "",
@@ -213,7 +332,11 @@ M.config = function()
       color = "#DA4F7A",
       name = "GoMod",
     },
-
+    ["go.sum"] = {
+      icon = "",
+      color = "#DA4F7A",
+      name = "GoMod",
+    },
     -- TODO: maybe someday devicon will have support for regexes in filename
     -- ["*.test.js"] = {
     --   icon = "ﭧ",
