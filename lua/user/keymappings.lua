@@ -189,7 +189,7 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["?"] = { "<cmd>Cheat<CR>", "cheat.sh" }
 
-  lvim.builtin.which_key.mappings["a"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "harpoon mark" }
+  lvim.builtin.which_key.mappings["a"] = { "<cmd>up<CR>", "write buffer" }
 
   lvim.builtin.which_key.mappings["c"] = nil
   -- show up only on html files (maybe css/js too)
@@ -209,10 +209,6 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
 
-  lvim.builtin.which_key.mappings["h"] = {
-    "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
-    "harpoon",
-  }
   -- toggle spell check
   -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
   lvim.builtin.which_key.mappings["i"] = { "<cmd>set spell!<cr>", "spellcheck" }
@@ -295,6 +291,40 @@ M.config = function()
   --   "git status",
   -- }
 
+  -- +Harpoon
+  -- =========================================
+  lvim.builtin.which_key.mappings["h"] = {
+    name = "+Harpoon",
+    a = {
+      "<cmd>lua require('harpoon.mark').add_file()<CR>",
+      "mark buffer",
+    },
+    h = {
+      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
+      "show marks",
+    },
+    ["1"] = {
+      "<cmd>lua require('harpoon.ui').nav_file(1)<CR>",
+      "switch to mark 1",
+    },
+    ["2"] = {
+      "<cmd>lua require('harpoon.ui').nav_file(2)<CR>",
+      "switch to mark 2",
+    },
+    ["3"] = {
+      "<cmd>lua require('harpoon.ui').nav_file(3)<CR>",
+      "switch to mark 3",
+    },
+    ["4"] = {
+      "<cmd>lua require('harpoon.ui').nav_file(4)<CR>",
+      "switch to mark 4",
+    },
+    ["5"] = {
+      "<cmd>lua require('harpoon.ui').nav_file(5)<CR>",
+      "switch to mark 5",
+    },
+  }
+
   -- TODO override builtin LSP mappings
   -- +LSP
   -- =========================================
@@ -337,6 +367,7 @@ M.config = function()
   lvim.builtin.which_key.on_config_done = function(wk)
     local keys = {
       ["ga"] = { "<cmd>CodeActionMenu<CR>", "code actions" },
+      ["gl"] = { "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "show line diagnostics" },
       ["gR"] = { "<cmd>Trouble lsp_references<CR>", "references" },
       -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
       ["<leader>la"] = { "<cmd>CodeActionMenu<cr>", "code actions" },
