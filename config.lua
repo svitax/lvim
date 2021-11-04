@@ -25,6 +25,7 @@ lvim.builtin.nvimtree.active = true
 lvim.builtin.lualine.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.telescope.active = true
+lvim.builtin.notify.active = true
 
 require("user.builtins.autopairs").config()
 require("user.builtins.comment").config()

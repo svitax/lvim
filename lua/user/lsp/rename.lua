@@ -5,6 +5,7 @@ local M = {}
 local api = vim.api
 local lsp = vim.lsp
 local buf, win
+vim.notify = require("notify")
 
 M.highlight = function(group, bg, fg, gui)
   if gui ~= nil and gui ~= "" then
