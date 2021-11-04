@@ -1,12 +1,37 @@
 local M = {}
 
 M.config = function()
+  lvim.builtin.dashboard.active = true
   vim.g.dashboard_disable_statusline = 1
-  lvim.builtin.dashboard.custom_section["a"] = {
-    description = { "  Find File          " },
-    -- command = "lua require('telescope.builtin').find_files({hidden = true, ignored = false})",
-    command = "lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, prompt_title = 'find files'})",
+  -- vim.g.dashboard_enable_session = 0
+  lvim.builtin.dashboard.custom_section.a = {
+    description = { "  Recently Used Files" },
+    command = "Telescope oldfiles",
   }
+  lvim.builtin.dashboard.custom_section.b = {
+    description = { "  Find File          " },
+    command = "lua require('user.telescope.custom_pickers').find_files()",
+  }
+  lvim.builtin.dashboard.custom_section.c = {
+    description = { "  Recent Projects    " },
+    command = "Telescope projects",
+  }
+  lvim.builtin.dashboard.custom_section.d = nil
+  lvim.builtin.dashboard.custom_section.e = nil
+  -- lvim.builtin.dashboard.custom_section = {
+  --   a = { description = { "  Recently Used Files" }, command = "Telescope oldfiles" },
+  --   b = {
+  --     description = { "  Find File          " },
+  --     command = "lua require('user.telescope.custom_pickers').find_files()",
+  --   },
+  --   c = { description = { "  Plugins            " }, command = ":edit ~/.config/lvim/lua/plugins.lua" },
+  -- }
+
+  -- lvim.builtin.dashboard.custom_section["a"] = {
+  --   description = { "  Find File          " },
+  --   -- command = "lua require('telescope.builtin').find_files({hidden = true, ignored = false})",
+  --   command = "lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, prompt_title = 'find files'})",
+  -- }
 
   -- lvim.builtin.dashboard.custom_section["m"] = {
   --   description = { "  Marks              " },

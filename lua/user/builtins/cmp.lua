@@ -1,10 +1,11 @@
 local M = {}
 
+-- TODO: cmp is just kinda broken on 0.6
 M.config = function()
   lvim.builtin.cmp.sources = {
     { name = "nvim_lsp" },
     -- { name = "cmp_tabnine", max_item_count = 3 },
-    { name = "buffer", max_item_count = 5 },
+    { name = "buffer", max_item_count = 5, keyword_length = 5 },
     { name = "path", max_item_count = 5 },
     { name = "luasnip", max_item_count = 10 },
     { name = "nvim_lua" },
@@ -12,6 +13,9 @@ M.config = function()
     { name = "emoji" },
     { name = "treesitter" },
     -- { name = "crates" },
+    -- { name = "npm", keyword_length = 4 },
+    -- { name = "rg" },
+    -- { name = "fzy_buffer" },
   }
   lvim.builtin.cmp.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
   lvim.builtin.cmp.experimental = {
@@ -30,8 +34,12 @@ M.config = function()
     emoji = "  ",
     path = "  ",
     calc = "  ",
-    -- cmp_tabnine = "  ",
+    -- npm = "(NPM)",
+    -- cmp_tabnine = "(T9)",
+    -- rg = "(RG)",
+    -- fzy_buffer = "(FZF)",
   }
+
   -- lvim.builtin.cmp.formatting.duplicates = {
   --   buffer = 1,
   --   path = 1,
@@ -69,6 +77,7 @@ M.config = function()
     local col = vim.fn.col "." - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
   end
+
   lvim.builtin.cmp.mapping["<Tab>"] = function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
@@ -107,6 +116,13 @@ M.config = function()
       fallback()
     end
   end
+  -- lvim.builtin.cmp.mapping["<Esc>"] = function(fallback)
+  --   if cmp.visible() then
+  --     cmp.close() -- cmp.mapping.close()
+  --   else
+  --     fallback()
+  --   end
+  -- end
 
   -- ["<C-Space>"] = cmp.mapping.complete(),
   --   ["<C-e>"] = cmp.mapping.close(),

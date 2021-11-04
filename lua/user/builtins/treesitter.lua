@@ -11,7 +11,7 @@ M.config = function()
     enable = true,
     keymaps = {
       ["<Tab>"] = "textsubjects-smart",
-      ["<cr>"] = "textsubjects-container-outer",
+      -- ["<cr>"] = "textsubjects-container-outer",
     },
   }
   lvim.builtin.treesitter.playground.enable = true
@@ -26,8 +26,9 @@ M.config = function()
     enable = true,
     keymaps = {
       init_selection = "<A-n>",
+      -- scope_incremental = "<A-.>",
+      -- scope_decremental = "<A-,>",
       node_incremental = "<A-n>",
-      scope_incremental = "<C-s>",
       node_decremental = "<A-p>",
     },
   }
@@ -64,6 +65,14 @@ M.config = function()
         files = { "src/parser.c", "src/scanner.cc" },
       },
     }
+    -- TODO: get rest.nvim to work someday
+    -- parser_config.http = {
+    --   install_info = {
+    --     url = "https://github.com/NTBBloodbath/tree-sitter-http",
+    --     files = { "src/parser.c" },
+    --     branch = "main",
+    --   },
+    -- }
   end
 end
 

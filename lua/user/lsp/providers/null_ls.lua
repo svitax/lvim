@@ -40,6 +40,8 @@ M.config = function()
     debounce = 150,
     save_after_format = false,
     sources = {
+      -- nls.builtins.code_actions.gitsigns,
+      -- nls.builtins.hover.dictionary,
       -----[[------------]]-----
       ---     Formatting     ---
       -----]]------------[[-----
@@ -48,10 +50,12 @@ M.config = function()
       nls.builtins.formatting.eslint_d.with {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
       },
+      nls.builtins.formatting.fixjson,
       nls.builtins.formatting.gofumpt,
       -- nls.builtins.formatting.goimports,
       nls.builtins.formatting.golines,
       nls.builtins.formatting.isort.with { extra_args = { "--profile", "black" } }, -- args = {"--profile"}, {"black"}
+      -- nls.builtins.formatting.json_tool,
       nls.builtins.formatting.prettierd.with {
         filetypes = {
           "javascript",
@@ -60,10 +64,10 @@ M.config = function()
           "typescriptreact",
           "vue",
           "svelte",
-          -- "css",
-          -- "scss",
+          "css",
+          "scss",
           "html",
-          "json",
+          -- "json",
           "yaml",
           "markdown",
         },

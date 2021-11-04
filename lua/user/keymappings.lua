@@ -1,5 +1,7 @@
 local M = {}
 M.config = function()
+  -- TODO: S in visual mode should be lightspeed_S, so what should I use for visual sandwich surround?
+
   -- Allow using alt in macOS without enabling “Use Option as Meta key”
 
   -- vim.api.nvim_set_keymap("n", "∆", "<A-j>", { noremap = false, silent = true, expr = true })
@@ -23,6 +25,16 @@ M.config = function()
   lvim.keys.insert_mode["kj"] = nil
   lvim.keys.insert_mode["jj"] = nil
   -- lvim.keys.normal_mode["<C-t>"] = nil
+  -- vim-visual-multi keeps hijacking my <cr>
+  -- lvim.keys.normal_mode["<CR>"] = nil
+  -- vim.api.nvim_set_keymap("n", "<cr>", "", { noremap = false })
+  -- vim.api.nvim_set_
+
+  vim.api.nvim_set_keymap("i", "<S-Left>", "<C-\\><C-O><Plug>WordMotion_b", { noremap = false })
+  vim.api.nvim_set_keymap("i", "<S-Right>", "<C-\\><C-O><Plug>WordMotion_w", { noremap = false })
+  -- NOTE: not sure if i want this mapping (visually laggy)
+  -- vim.api.nvim_set_keymap("i", "<C-w>", "<space><C-\\><C-O>d<Plug>WordMotion_b<C-O>x", { noremap = false })
+  vim.api.nvim_set_keymap("i", "<C-w>", "<c-\\><c-O>b<c-\\><c-O>d<S-Right>", { noremap = false })
 
   -- TODO: clean control keybindings so I can use them with tmux
   vim.api.nvim_set_keymap("n", "<C-b>", "", { noremap = true })
@@ -30,7 +42,8 @@ M.config = function()
   vim.api.nvim_set_keymap("n", "<C-f>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-g>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-h>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-m>", "<Plug>(VM-Find-Under)", { noremap = false })
+  vim.api.nvim_set_keymap("n", "<C-m>", "", { noremap = true })
+  -- vim.api.nvim_set_keymap("n", "<C-m>", "<Plug>(VM-Find-Under)", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-n>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-p>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-s>", "", { noremap = true })
@@ -38,9 +51,6 @@ M.config = function()
   vim.api.nvim_set_keymap("n", "<C-y>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-z>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-/>", "", { noremap = true })
-
-  -- TODO: change multicursor to A-n, and change incremental ts selection to A-l/A-;
-  -- vim.api.nvim_set_keymap("n", "<C-n>", "", { noremap = true })
 
   -- navigate windows/splits
   lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require('Navigator').left()<CR>"
@@ -53,8 +63,6 @@ M.config = function()
   -- jump back and forth between buffers (mirror C-o/C-i for moving in the jumplist)
   lvim.keys.normal_mode["<A-o>"] = ":lua require('bufjump').backward()<cr>"
   lvim.keys.normal_mode["<A-i>"] = ":lua require('bufjump').forward()<cr>"
-  -- swap function arguments
-  lvim.keys.normal_mode["<A-h>"] = "<cmd>ISwap<cr>"
   -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
   -- vim.api.nvim_set_keymap("n", "S591", "_", { noremap = true })
   vim.api.nvim_set_keymap("n", "Q949", "_", { noremap = true })
@@ -191,7 +199,8 @@ M.config = function()
 
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up<CR>", "write buffer" }
 
-  lvim.builtin.which_key.mappings["c"] = nil
+  -- lvim.builtin.which_key.mappings["c"] = nil
+  lvim.builtin.which_key.mappings["c"] = { "<Plug>RestNvim", "rest" }
   -- show up only on html files (maybe css/js too)
   -- lvim.builtin.which_key.mappings["c"] = { "<cmd>Bracey<cr>", "live server" }
 
@@ -231,6 +240,8 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["p"] = "workspaces"
   -- lvim.builtin.which_key.mappings["P"] = "Packer"
 
+  lvim.builtin.which_key.mappings["y"] = { "<cmd>Telescope neoclip<cr>", "yank history" }
+
   -- lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
   lvim.builtin.which_key.mappings["/"] = { "<cmd>lua require('Comment').toggle()<CR>", "comment" }
 
@@ -243,7 +254,7 @@ M.config = function()
       "delete all buffers",
     },
     b = {
-      "<cmd>lua require'user.telescope.pickers.buffers'()<cr>",
+      "<cmd>lua require'user.telescope.custom_pickers'.switch_buffers()<cr>",
       "switch buffer",
     },
     d = {
@@ -254,9 +265,17 @@ M.config = function()
       "<cmd>BDelete! hidden<cr>",
       "close hidden buffers",
     },
+    n = {
+      "<cmd>bnext<cr>",
+      "next buffer",
+    },
     o = {
       "<cmd>BDelete! other<CR>",
       "close other buffers",
+    },
+    p = {
+      "<cmd>bprevious<cr>",
+      "previous buffer",
     },
   }
 
@@ -325,29 +344,55 @@ M.config = function()
     },
   }
 
-  -- TODO override builtin LSP mappings
   -- +LSP
   -- =========================================
+  -- TODO: override builtin LSP mappings
+  -- ["b"] =
+  -- ["c"] =
+  -- ["g"] =
+  -- ["h"] =
+  -- ["m"] =
+  -- ["n"] =
+  -- ["u"] =
+  -- ["v"] =
+  -- ["x"] =
+  -- ["y"] =
+
   lvim.builtin.which_key.mappings["la"] = {
     "<cmd>CodeActionMenu<cr>",
     "code actions",
   }
-  -- lvim.builtin.which_key.mappings["lA"] = {
-  --   "<cmd>lua require('user.telescope.pickers.codelens_actions')()<cr>",
-  --   "codelens actions",
-  -- }
+  lvim.builtin.which_key.mappings["lA"] = {
+    -- "<cmd>lua require('user.telescope.pickers.codelens_actions')()<cr>",
+    "<cmd>lua vim.lsp.codelens.run()<cr>",
+    "codelens actions",
+  }
+  lvim.builtin.which_key.mappings["lb"] = {
+    "<cmd>lua require'nvim-biscuits'.toggle_biscuits()<cr>",
+    "toggle biscuits",
+  }
+  lvim.builtin.which_key.mappings["lc"] = {
+    "<cmd>TSContextToggle<cr>",
+    "toggle context",
+  }
   lvim.builtin.which_key.mappings["l"]["d"] = {
     "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
     "document diagnostics",
   }
-  lvim.builtin.which_key.mappings["lD"] = {
-    "<cmd>TroubleToggle lsp_definitions<cr>",
-    "definitions",
+  lvim.builtin.which_key.mappings["le"] = {
+    "<cmd>TroubleToggle lsp_references<cr>",
+    "references",
   }
   lvim.builtin.which_key.mappings["l"]["f"] = {
-    "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
+    -- "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
+    "<cmd>lua vim.lsp.buf.formatting()<cr>",
     "format",
   }
+  lvim.builtin.which_key.mappings["l"]["l"] = {
+    "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>",
+    "line diagnostics",
+  }
+
   lvim.builtin.which_key.mappings["lo"] = { "<cmd>SymbolsOutline<cr>", "symbol outline" }
   lvim.builtin.which_key.mappings["l"]["p"] = {
     name = "+Peek",
@@ -355,25 +400,62 @@ M.config = function()
     t = { "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
     i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation" },
   }
-  lvim.builtin.which_key.mappings["lR"] = {
-    "<cmd>TroubleToggle lsp_references<cr>",
-    "references",
+  lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("user.lsp.rename").rename()<cr>', "rename" }
+  lvim.builtin.which_key.mappings["lt"] = {
+    "<cmd>TroubleToggle lsp_definitions<cr>",
+    "definitions",
   }
   lvim.builtin.which_key.mappings["l"]["w"] = {
     "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
     "workspace diagnostics",
   }
+  -- lvim.builtin.which_key.mappings["lz"] = {
+  --   "<cmd>ISwap<cr>",
+  --   "swap parameters",
+  -- }
 
   lvim.builtin.which_key.on_config_done = function(wk)
     local keys = {
       ["ga"] = { "<cmd>CodeActionMenu<CR>", "code actions" },
       ["gl"] = { "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "show line diagnostics" },
-      ["gR"] = { "<cmd>Trouble lsp_references<CR>", "references" },
+      ["ge"] = { "<cmd>Trouble lsp_references<CR>", "references" },
       -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
       ["<leader>la"] = { "<cmd>CodeActionMenu<cr>", "code actions" },
     }
 
     wk.register(keys, { mode = "n" })
+  end
+
+  -- +M (Localleader)
+  -- TODO: do this without using a global variable later
+  -- TODO: should these only work on a package.json file?
+  vim.cmd [[
+autocmd FileType json lua whichkeyJson()
+]]
+  _G.whichkeyJson = function()
+    local wk = require "which-key"
+    local buf = vim.api.nvim_get_current_buf()
+    wk.register {
+      ["<leader>m"] = {
+        name = "+NPM",
+        -- Hide package versions
+        ["c"] = { ":lua require('package-info').hide()<CR>", "hide package versions", buffer = buf },
+        -- Delete package on line
+        ["d"] = { ":lua require('package-info').delete()<CR>", "delete package", buffer = buf },
+        -- Install a new package
+        ["i"] = { ":lua require('package-info').install()<CR>", "install new package", buffer = buf },
+        -- Install a different package version
+        ["p"] = { ":lua require('package-info').change_version()<CR>", "change package version", buffer = buf },
+        -- Reinstall dependencies
+        ["r"] = { ":lua require('package-info').reinstall()<CR>", "reinstall dependencies", buffer = buf },
+        -- Show package versions
+        ["s"] = { ":lua require('package-info').show()<CR>", "show package versions", buffer = buf },
+        -- Update package on line
+        ["u"] = { ":lua require('package-info').update()<CR>", "update package", buffer = buf },
+        -- Install a different package version
+        ["b"] = { ":Telescope npm scripts<CR>", "run scripts", buffer = buf },
+      },
+    }
   end
 
   -- +Notes
@@ -414,60 +496,66 @@ M.config = function()
     name = "+Search",
     -- Telescope commands
     b = {
-      "<cmd>lua require'user.telescope.pickers.current_buffer_search'()<cr>",
+      -- "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer",
+      "<cmd>lua require'user.telescope.custom_pickers'.grep_current_buffer()<cr>",
       "grep in buffer",
     },
-    -- fuzzy grep? change layout
-    -- b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer" },
     c = {
-      "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim', prompt_title = 'files in LunarVim config'})<CR>",
+      -- "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim', prompt_title = 'files in LunarVim config'})<CR>",
+      "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_config_files()<CR>",
       "config",
     },
     C = {
-      "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config/lvim', only_sort_text = true, prompt_title = 'grep LunarVim config})<CR>",
+      -- "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config/lvim', only_sort_text = true, prompt_title = 'grep LunarVim config'})<CR>",
+      "<cmd>lua require'user.telescope.custom_pickers'.grep_config_files()<cr>",
       "grep in config",
     },
-    -- C = { "<cmd>lua require('user.telescope.pickers.live_grep')('~/.config/lvim')<CR>", "grep in config" },
     d = {
-      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'search dotfiles'})<CR>",
+      -- "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'search dotfiles'})<CR>",
+      "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<CR>",
       "dotfiles",
     },
     D = {
-      "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config', prompt_title = 'grep dotfiles' })<CR>",
+      -- "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config', prompt_title = 'grep dotfiles' })<CR>",
+      "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>",
       "grep in dotfiles",
     },
-    -- f = { ":Telescope find_files<cr>", "files in project" },
-
     f = {
-      -- ":Telescope git_files find_command=rg,--ignore,--hidden,--files<cr>",
-      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, prompt_title = 'files in project'})<CR>",
+      "<cmd>lua require('user.telescope.custom_pickers').find_files()<CR>",
       "files in project",
     },
-
     h = { ":Telescope help_tags<cr>", "help tags" },
-    k = { "keymaps" },
+    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     l = {
-      "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.local/share/lunarvim/lvim', prompt_title = 'Core LunarVim files'})<CR>",
-      "LunarVim",
+      -- "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.local/share/lunarvim/lvim', prompt_title = 'Core LunarVim files'})<CR>",
+      "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>",
+      "LunarVim files",
     },
     -- m = { "man pages" },
     n = {
-      "<cmd>lua require('telescope.builtin').find_files({cwd = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
+      -- "<cmd>lua require('telescope.builtin').find_files({cwd = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
+      "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>",
       "notes",
     },
-    -- p = {},
     -- p = { "<cmd>lua require'user.telescope.pickers.projects'()<cr>", "workspaces" },
     p = { "<cmd>Telescope projects<cr>", "projects" },
     r = { "<cmd>Telescope oldfiles<cr>", "recent files" },
+    R = { "<cmd>Telescope frecency<cr>", "frecency" },
     -- R = { "registers" },
     s = { "<cmd>SearchSession<cr>", "sessions" },
-    g = { "<cmd>Telescope live_grep<cr>", "grep in project" },
+    g = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
     T = { "<cmd>TodoTrouble<cr>", "todos" },
     z = { ":Telescope zoxide list<cr>", "zoxide" },
+    Z = { "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search" },
   }
 
+  -- +Treesitter
+  -- ==================================================================================
+  lvim.builtin.which_key.mappings["Tc"] = { "<cmd>TSContextToggle<cr>", "context" }
+  lvim.builtin.which_key.mappings["Tp"] = { "<cmd>TSPlagroundToggle<cr>", "playground" }
+
   -- +Windows
-  -- =========================================
+  -- ==================================================================================
   lvim.builtin.which_key.mappings["w"] = {
     name = "+Windows",
     d = { "<cmd>close<CR>", "delete window" },
@@ -481,6 +569,123 @@ M.config = function()
     l = { "", "switch window left" },
     [";"] = { "", "switch window right" },
   }
+
+  lvim.builtin.which_key.on_config_done = function(wk)
+    local keys = {
+      -- ["ga"] = { "<cmd>lua require('user.telescope').code_actions()<CR>", "Code Action" },
+      -- ["gR"] = { "<cmd>Trouble lsp_references<CR>", "Goto References" },
+      -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
+      -- add labels to vim-sandwich
+      d = {
+        s = { name = "sandwich delete query", s = "auto", i = "instant" }, -- just a labeel
+      },
+      y = {
+        ["<C-g>"] = "which_key_ignore",
+        S = { name = "end of line", i = "instant", f = "func", t = "tag" },
+        s = {
+          name = "sandwich add query",
+          s = { name = "line", f = "func", t = "tag", i = "instant" },
+          i = {
+            name = "inner",
+            p = "paragraph",
+            s = "sentence",
+            t = "tag",
+            w = "word",
+            [")"] = "parentheses",
+            ["]"] = "brackets",
+            ["}"] = "braces",
+            ["'"] = "'",
+            ['"'] = '"',
+            [">"] = ">",
+            ["`"] = "`",
+          },
+          a = {
+            name = "outer",
+            p = "paragraph",
+            s = "sentence",
+            t = "tag",
+            w = "word",
+            [")"] = "parentheses",
+            ["]"] = "brackets",
+            ["}"] = "braces",
+            ["'"] = "'",
+            ['"'] = '"',
+            [">"] = ">",
+            ["`"] = "`",
+          },
+          w = "next word",
+          e = "end of word",
+          f = "find",
+          t = "until",
+          ["/"] = "search",
+        },
+      },
+      c = {
+        s = {
+          name = "sandwich replace query",
+          s = { name = "auto", t = "tag", f = "func" },
+          i = "instant",
+        },
+      },
+    }
+
+    wk.register(keys, { mode = "n" })
+  end
+
+  -- local wk = require "which-key"
+  -- wk.register {
+  --   d = {
+  --     s = { name = "sandwich delete query", s = "auto", i = "instant" }, -- just a labeel
+  --   },
+  --   y = {
+  --     ["<C-g>"] = "which_key_ignore",
+  --     S = { name = "end of line", i = "instant", f = "func", t = "tag" },
+  --     s = {
+  --       name = "sandwich add query",
+  --       s = { name = "auto", f = "func", t = "tag", i = "instant" },
+  --       i = {
+  --         name = "inner",
+  --         p = "paragraph",
+  --         s = "sentence",
+  --         t = "tag",
+  --         w = "word",
+  --         [")"] = "parentheses",
+  --         ["]"] = "brackets",
+  --         ["}"] = "braces",
+  --         ["'"] = "'",
+  --         ['"'] = '"',
+  --         [">"] = ">",
+  --         ["`"] = "`",
+  --       },
+  --       a = {
+  --         name = "outer",
+  --         p = "paragraph",
+  --         s = "sentence",
+  --         t = "tag",
+  --         w = "word",
+  --         [")"] = "parentheses",
+  --         ["]"] = "brackets",
+  --         ["}"] = "braces",
+  --         ["'"] = "'",
+  --         ['"'] = '"',
+  --         [">"] = ">",
+  --         ["`"] = "`",
+  --       },
+  --       w = "next word",
+  --       e = "end of word",
+  --       f = "find",
+  --       t = "until",
+  --       ["/"] = "search",
+  --     },
+  --   },
+  --   c = {
+  --     s = {
+  --       name = "sandwich replace query",
+  --       s = { name = "auto", t = "tag", f = "func" },
+  --       i = "instant",
+  --     },
+  --   },
+  -- }
 end
 
 return M

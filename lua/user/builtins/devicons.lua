@@ -3,10 +3,25 @@ local M = {}
 M.config = function()
   -- custom folder icon
   require("nvim-web-devicons").set_icon {
+    ["tailwind.config.js"] = {
+      icon = "",
+      color = "#6AB4AC",
+      name = "Tailwindcss",
+    },
     [".luacheckrc"] = {
       icon = "",
       color = "#51a0cf",
       name = "LuaCheckrc",
+    },
+    svg = {
+      icon = "",
+      color = "#F4B53F",
+      name = "Svg",
+    },
+    svgz = {
+      icon = "",
+      color = "#F4B53F",
+      name = "Svg",
     },
     gql = {
       icon = "",
@@ -170,21 +185,21 @@ M.config = function()
       icon = "",
       -- icon = "",
       color = "#FF7043",
-      name = "ZshConfig",
+      name = "Zsh",
     },
     [".zshenv"] = {
       -- icon = "",
       icon = "",
       -- icon = "",
       color = "#FF7043",
-      name = "ZshEnv",
+      name = "Zsh",
     },
     [".zprofile"] = {
       -- icon = "",
       icon = "",
       -- icon = "",
       color = "#FF7043",
-      name = "ZshProfile",
+      name = "Zsh",
     },
     sol = {
       icon = "",

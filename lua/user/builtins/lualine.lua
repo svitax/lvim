@@ -3,7 +3,8 @@ local M = {}
 -- TODO: inactive lualine
 
 -- TODO: pcall this
-local gps = require "nvim-gps"
+-- NOTE: nvim-gps
+-- local gps = require "nvim-gps"
 -- TODO: refactor fennec_utils
 local fennec_utils = {
   get_short_cwd = function()
@@ -221,7 +222,8 @@ M.config = function()
       local gitdir = vim.fn.finddir(".git", filepath .. ";")
       return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
-    gps_available = gps.is_available,
+    -- NOTE: nvim-gps
+    -- gps_available = gps.is_available,
     is_not_blacklisted_filetype = function()
       local blacklisted_ft = { "toggleterm", "lir" }
       local filetype = vim.bo.filetype
@@ -567,6 +569,7 @@ M.config = function()
   --   cond = nil,
   -- }
 
+  -- NOTE: nvim-gps
   -- ins_left {
   --   gps.get_location,
   --   -- cond = conditions.gps_available,
@@ -583,6 +586,15 @@ M.config = function()
   ins_left {
     lsp_progress,
     cond = conditions.hide_small,
+    color = { fg = colors.fg2 },
+  }
+
+  ins_left {
+    function()
+      return require("package-info").get_status()
+    end,
+    cond = conditions.hide_small,
+    color = { fg = colors.fg2 },
   }
 
   -- Insert mid section. You can make any number of sections in neovim :)
@@ -662,7 +674,8 @@ M.config = function()
       -- add formatter
       local formatters = require "lvim.lsp.null-ls.formatters"
       local supported_formatters = {}
-      for _, fmt in pairs(formatters.list_supported_names(buf_ft)) do
+      for _, fmt in pairs(formatters.list_registered_providers(buf_ft)) do
+      -- for _, fmt in pairs(formatters.list_supported_names(buf_ft)) do
         local _added_formatter = fmt
         if trim then
           _added_formatter = string.sub(fmt, 1, 4)
@@ -674,7 +687,8 @@ M.config = function()
       -- add linter
       local linters = require "lvim.lsp.null-ls.linters"
       local supported_linters = {}
-      for _, lnt in pairs(linters.list_supported_names(buf_ft)) do
+      for _, lnt in pairs(linters.list_registered_providers(buf_ft)) do
+      -- for _, lnt in pairs(linters.list_supported_names(buf_ft)) do
         local _added_linter = lnt
         if trim then
           _added_linter = string.sub(lnt, 1, 4)
@@ -1004,7 +1018,7 @@ M.config = function()
     end,
     -- color = { fg = colors.fg2 },
     color = { fg = colors.fg1 },
-    cond = conditions.active_lsp,
+    cond = conditions.hide_in_width and conditions.active_lsp,
     padding = { right = 0 },
     -- right_padding = 0,
   }

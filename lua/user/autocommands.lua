@@ -6,10 +6,15 @@ M.config = function()
   --   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
   -- ]]
   -- NOTE Autocommands (https://neovim.io/doc/user/autocmd.html)
+  -- BufEnter *.tex :lua require('texwhichkey')]], false
   lvim.autocommands.custom_groups = {
+    -- { "BufEnter", "*.json", ":lua require('user.autocommands').json_package_mappings()" },
     { "BufWinEnter", ".sol", "setlocal filetype=solidity" },
     { "BufRead", "*.sol", "setlocal filetype=solidity" },
     { "BufEnter", "*.md", "setlocal conceallevel=2" },
+    { "BufEnter", "*.md", "nnoremap <silent> <buffer> <cr> :WikiLinkFollow<CR>" },
+    -- vim.api.nvim_buf_set_keymap("n", "<cr>", "", { noremap = false })
+
     -- { "BufEnter", "*.norg", "setlocal conceallevel=2" },
     { "FileType", "spectre_panel", "nnoremap <silent> <buffer> q :q<CR>" },
     { "FileType", "harpoon", "nnoremap <silent> <buffer> q :q<CR>" },
@@ -19,8 +24,9 @@ M.config = function()
     -- { "BufEnter", "*.norg", "setlocal spellcapcheck=" },
     -- { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
     -- { "CursorHold", "*", "lua vim.lsp.diagnostic.show_line_diagnostics()" },
-    { "CursorHold", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
-    { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
+
+    -- { "CursorHold", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
+    -- { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
     -- * lua require'nvim-lightbulb'.update_lightbulb()]]
 
     { "BufWritePost", ".tmux.conf", "execute ':!tmux source-file %'" },

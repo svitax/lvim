@@ -11,7 +11,8 @@ M.config = function()
     -- { "lazygit", "gg", "LazyGit" },
     -- { "cobib", "ob", "Bibliography (Cobib)" },
   }
-  lvim.builtin.terminal.size = vim.fn.float2nr(vim.o.lines * 0.33)
+  -- lvim.builtin.terminal.size = vim.fn.float2nr(vim.o.lines * 0.33)
+  lvim.builtin.terminal.size = 15
   -- lvim.builtin.terminal.float_opts.width = vim.fn.float2nr(vim.o.columns * 0.99)
   -- lvim.builtin.terminal.float_opts.height = vim.fn.float2nr(vim.o.lines * 0.87)
   -- lvim.builtin.terminal.float_opts.winblend = 10
