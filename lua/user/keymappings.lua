@@ -297,6 +297,11 @@ M.config = function()
     "<cmd>lua require('user.builtins.toggleterm').lazy_git()<CR>",
     "LazyGit",
   }
+  lvim.builtin.which_key.mappings["g"]["m"] = {
+    "<cmd>Neogit<CR>",
+    "Neogit",
+  }
+
   -- lvim.builtin.which_key.mappings["g"]["c"] = {
   --   "<cmd>lua require('user.telescope.pickers.delta')._git_commits()<CR>",
   --   "project's commits",

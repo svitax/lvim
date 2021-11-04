@@ -339,7 +339,11 @@ M.config = function()
       requires = "nvim-lua/plenary.nvim",
       config = function()
         local neogit = require "neogit"
-        neogit.setup {}
+        neogit.setup {
+          disable_context_highlighting = true,
+          disable_commit_confirmation = true,
+        }
+        -- neogit.config.use_magit_keybindings()
       end,
     },
     -- NOTE: using this for merge conflict resolution from lazygit
