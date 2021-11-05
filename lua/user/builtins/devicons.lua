@@ -11,18 +11,18 @@ M.config = function()
     [".luacheckrc"] = {
       icon = "",
       color = "#51a0cf",
-      name = "LuaCheckrc",
+      name = "Lua",
     },
     svg = {
       icon = "",
       color = "#F4B53F",
       name = "Svg",
     },
-    svgz = {
-      icon = "",
-      color = "#F4B53F",
-      name = "Svg",
-    },
+    -- svgz = {
+    --   icon = "",
+    --   color = "#F4B53F",
+    --   name = "Svg",
+    -- },
     gql = {
       icon = "",
       color = "#D74E78",
@@ -33,11 +33,11 @@ M.config = function()
       color = "#D74E78",
       name = "GraphQL",
     },
-    hy = {
-      icon = "",
-      color = "#D9B06F",
-      name = "Hy",
-    },
+    -- hy = {
+    --   icon = "",
+    --   color = "#D9B06F",
+    --   name = "Hy",
+    -- },
     -- TODO: a lot more of these for webpack
     ["webpack"] = {
       icon = "",
@@ -64,11 +64,11 @@ M.config = function()
       color = "#73DDC6",
       name = "Truffle",
     },
-    vy = {
-      icon = "",
-      color = "#0288D1",
-      name = "Vyper",
-    },
+    -- vy = {
+    --   icon = "",
+    --   color = "#0288D1",
+    --   name = "Vyper",
+    -- },
     md = {
       icon = "",
       color = "#42A5F5",
@@ -82,18 +82,18 @@ M.config = function()
     [".firebaserc"] = {
       icon = "",
       color = "#FBC02D",
-      name = "Firebaserc",
+      name = "Firebase",
     },
     ["firebase.json"] = {
       icon = "",
       color = "#FBC02D",
-      name = "FirebaseJson",
+      name = "Firebase",
     },
-    deb = {
-      icon = "",
-      color = "#9A1E33",
-      name = "deb",
-    },
+    -- deb = {
+    --   icon = "",
+    --   color = "#9A1E33",
+    --   name = "deb",
+    -- },
     ["docker-compose.yaml"] = {
       icon = "",
       color = "#0187C9",
@@ -122,7 +122,7 @@ M.config = function()
     ["Cargo.lock"] = {
       icon = "",
       color = "#FFD54F",
-      name = "lock",
+      name = "Lock",
     },
     ["robots.txt"] = {
       icon = "ﮧ",
@@ -137,7 +137,7 @@ M.config = function()
     xz = {
       icon = "",
       color = "#AFB42B",
-      name = "xz",
+      name = "zip",
     },
     zip = {
       icon = "",
@@ -147,12 +147,12 @@ M.config = function()
     yml = {
       icon = "",
       color = "#FF5252",
-      name = "Yaml1",
+      name = "Yaml",
     },
     yaml = {
       icon = "",
       color = "#FF5252",
-      name = "Yaml2",
+      name = "Yaml",
     },
     toml = {
       icon = "",
@@ -324,18 +324,18 @@ M.config = function()
       -- icon = "",
       icon = "",
       color = "#7EAE44",
-      name = "NodePackage",
+      name = "Node",
     },
     ["package-lock.json"] = {
       -- icon = "",
       icon = "",
       color = "#7EAE44",
-      name = "NodePackageLock",
+      name = "Node",
     },
     ["yarn.lock"] = {
       icon = "",
       color = "#42A5F5",
-      name = "YarnLock",
+      name = "Yarn",
     },
     [".gitignore"] = {
       icon = "",
