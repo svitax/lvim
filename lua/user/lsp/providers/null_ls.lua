@@ -99,6 +99,7 @@ M.config = function()
       },
       -- nls.builtins.diagnostics.vale,
       -- nls.builtins.diagnostics.vint,
+      nls.builtins.diagnostics.yamllint,
     },
   }
 
