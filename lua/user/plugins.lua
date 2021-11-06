@@ -750,6 +750,22 @@ M.config = function()
       wants = { "nvim-treesitter" }, -- or require if not used so far
       after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
     },
+    {
+      "lukas-reineke/cmp-under-comparator",
+      requires = { "hrsh7th/nvim-cmp" },
+    },
+    {
+      "petertriho/cmp-git",
+      requires = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
+      config = function()
+        require("cmp_git").setup {
+          -- defaults
+          filetypes = { "gitcommit" },
+          remotes = { "upstream", "origin" }, -- in order of most to least prioritized
+        }
+      end,
+    },
+    { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
     -- {
     --   "lukas-reineke/cmp-rg",
     --   config = function()

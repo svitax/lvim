@@ -1,83 +1,69 @@
 local M = {}
 
--- TODO: cmp is just kinda broken on 0.6
 M.config = function()
-  lvim.builtin.cmp.sources = {
-    { name = "nvim_lsp" },
-    -- { name = "cmp_tabnine", max_item_count = 3 },
-    { name = "buffer", max_item_count = 5, keyword_length = 5 },
-    { name = "path", max_item_count = 5 },
-    { name = "luasnip", max_item_count = 10 },
-    { name = "nvim_lua" },
-    { name = "calc" },
-    { name = "emoji" },
-    { name = "treesitter" },
-    -- { name = "crates" },
-    -- { name = "npm", keyword_length = 4 },
-    -- { name = "rg" },
-    -- { name = "fzy_buffer" },
-  }
-  lvim.builtin.cmp.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-  lvim.builtin.cmp.experimental = {
-    ghost_text = false,
-    native_menu = false,
-    custom_menu = true,
-  }
-  lvim.builtin.cmp.formatting.kind_icons = require("user.builtins.lsp_kind").symbols()
-  lvim.builtin.cmp.formatting.source_names = {
-    buffer = "(Buffer)",
-    nvim_lsp = "(LSP)",
-    luasnip = "(Snip)",
-    treesitter = " ",
-    nvim_lua = "(NvLua)",
-    spell = " 暈",
-    emoji = "  ",
-    path = "  ",
-    calc = "  ",
-    -- npm = "(NPM)",
-    -- cmp_tabnine = "(T9)",
-    -- rg = "(RG)",
-    -- fzy_buffer = "(FZF)",
-  }
-
-  -- lvim.builtin.cmp.formatting.duplicates = {
-  --   buffer = 1,
-  --   path = 1,
-  --   nvim_lsp = 0,
-  -- }
-  -- lvim.builtin.cmp.formatting.duplicates_default = 0
-  -- lvim.builtin.cmp.formatting = {
-  --   format = function(entry, vim_item)
-  --     local cmp_kind = require("user.builtins.lsp_kind").cmp_kind
-  --     vim_item.kind = cmp_kind(vim_item.kind)
-  --     vim_item.menu = ({
-  --       buffer = "(Buffer)",
-  --       nvim_lsp = "(LSP)",
-  --       luasnip = "(Snip)",
-  --       treesitter = " ",
-  --       nvim_lua = "(NvLua)",
-  --       spell = " 暈",
-  --       emoji = "  ",
-  --       path = "  ",
-  --       calc = "  ",
-  --       -- cmp_tabnine = "  ",
-  --     })[entry.source.name]
-  --     vim_item.dup = ({
-  --       buffer = 1,
-  --       path = 1,
-  --       nvim_lsp = 0,
-  --     })[entry.source.name] or 0
-  --     return vim_item
-  --   end,
-  -- }
-
   local cmp = require "cmp"
   local luasnip = require "luasnip"
+
+  lvim.builtin.cmp.comparators = {
+    cmp.config.compare.offset,
+    cmp.config.compare.exact,
+    cmp.config.compare.score,
+    require("cmp-under-comparator").under,
+    cmp.config.compare.kind,
+    cmp.config.compare.sort_text,
+    cmp.config.compare.length,
+    cmp.config.compare.order,
+  }
+
+  lvim.builtin.cmp.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+
+  lvim.builtin.cmp.experimental = {
+    custom_menu = true,
+    ghost_text = true,
+    native_menu = false,
+  }
+
+  lvim.builtin.cmp.formatting.fields = { "abbr", "kind", "menu" }
+  lvim.builtin.cmp.formatting.kind_icons = require("user.builtins.lsp_kind").symbols()
+  lvim.builtin.cmp.formatting.source_names = {
+    -- buffer = "(Buffer)",
+    calc = "  ",
+    cmp_git = "  ",
+    -- cmp_tabnine = "(T9)",
+    emoji = "  ",
+    fuzzy_buffer = "(Buffer)",
+    luasnip = "(Snip)",
+    -- npm = "(NPM)",
+    nvim_lsp = "(LSP)",
+    nvim_lua = "(NvLua)",
+    path = "  ",
+    -- rg = "(RG)",
+    -- spell = " 暈",
+    treesitter = " ",
+  }
+
+  lvim.builtin.cmp.sources = {
+    -- { name = "buffer", max_item_count = 5, keyword_length = 5 },
+    { name = "calc" },
+    { name = "cmp_git" },
+    -- { name = "cmp_tabnine", max_item_count = 3 },
+    { name = "crates" },
+    { name = "emoji" },
+    { name = "fuzzy_buffer", max_item_count = 5, keyword_length = 5 },
+    { name = "luasnip", max_item_count = 10 },
+    -- { name = "npm", keyword_length = 4 },
+    { name = "nvim_lua" },
+    { name = "nvim_lsp" },
+    { name = "path", max_item_count = 10 },
+    -- { name = "rg" },
+    -- { name = "spell", max_item_count = 5 },
+    { name = "treesitter" },
+  }
+
   local check_backspace = function()
     local col = vim.fn.col "." - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
   end
-
   lvim.builtin.cmp.mapping["<Tab>"] = function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
@@ -116,6 +102,14 @@ M.config = function()
       fallback()
     end
   end
+
+  -- NOTE: I have it as Select because it lets me use ghost_text better.
+  -- NOTE: If I decide not to use ghost_text, I can change this back to Insert
+  lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }
+  lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }
+  -- lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }
+  -- lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }
+
   -- lvim.builtin.cmp.mapping["<Esc>"] = function(fallback)
   --   if cmp.visible() then
   --     cmp.close() -- cmp.mapping.close()
