@@ -11,6 +11,11 @@ M.config = function()
     { name = "DiagnosticSignHint", text = " " },
     { name = "DiagnosticSignInfo", text = " " },
   }
+  lvim.lsp.diagnostics.virtual_text = false
+  lvim.lsp.document_highlight = true
+  lvim.lsp.code_lens_refresh = true
+  lvim.lsp.automatic_servers_installation = false
+
 end
 
 return M

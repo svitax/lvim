@@ -419,18 +419,6 @@ M.config = function()
   --   "swap parameters",
   -- }
 
-  lvim.builtin.which_key.on_config_done = function(wk)
-    local keys = {
-      ["ga"] = { "<cmd>CodeActionMenu<CR>", "code actions" },
-      ["gl"] = { "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "show line diagnostics" },
-      ["ge"] = { "<cmd>Trouble lsp_references<CR>", "references" },
-      -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
-      ["<leader>la"] = { "<cmd>CodeActionMenu<cr>", "code actions" },
-    }
-
-    wk.register(keys, { mode = "n" })
-  end
-
   -- +M (Localleader)
   -- TODO: do this without using a global variable later
   -- TODO: should these only work on a package.json file?
@@ -471,16 +459,6 @@ autocmd FileType json lua whichkeyJson()
       "<cmd>cd ~/.config/lvim/lua/notes/obsidian-notes<cr><cmd>LfWorkingDirectory<CR>",
       "manage notes",
     },
-    -- t = { "<cmd>Neorg tangle<cr>", "tangle blocks" },
-    r = {
-      [[<cmd>!rm temp.py<cr> <cmd>Neorg tangle<cr> <cmd>TermExec direction='horizontal' size=7 cmd='clear && python3 "temp.py" && rm "temp.py"'<cr>]],
-      "run tangle",
-    },
-    R = {
-      [[<cmd>lua require('user.builtins.toggleterm').algo_runner()<cr>]],
-      "algo runner",
-    },
-    -- <cmd>lua require('toggleterm.terminal').Terminal:new({cmd='lazygit', direction='horizontal', size=10}):toggle()
     w = { "<plug>(wiki-index)", "wiki index" },
     -- d = { "<cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_cycle<cr>", "task cycle" },
     -- n = { "<cmd>Neorg keybind norg core.norg.dirman.new.note<cr>", "new note" },
@@ -547,11 +525,11 @@ autocmd FileType json lua whichkeyJson()
     r = { "<cmd>Telescope oldfiles<cr>", "recent files" },
     R = { "<cmd>Telescope frecency<cr>", "frecency" },
     -- R = { "registers" },
-    s = { "<cmd>SearchSession<cr>", "sessions" },
+    -- s = { "<cmd>SearchSession<cr>", "sessions" },
     g = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
     T = { "<cmd>TodoTrouble<cr>", "todos" },
-    z = { ":Telescope zoxide list<cr>", "zoxide" },
-    Z = { "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search" },
+    -- z = { ":Telescope zoxide list<cr>", "zoxide" },
+    z = { "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search" },
   }
 
   -- +Treesitter
@@ -577,6 +555,11 @@ autocmd FileType json lua whichkeyJson()
 
   lvim.builtin.which_key.on_config_done = function(wk)
     local keys = {
+      ["ga"] = { "<cmd>CodeActionMenu<CR>", "code actions" },
+      ["gl"] = { "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "show line diagnostics" },
+      ["ge"] = { "<cmd>Trouble lsp_references<CR>", "references" },
+      -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
+      ["<leader>la"] = { "<cmd>CodeActionMenu<cr>", "code actions" },
       -- ["ga"] = { "<cmd>lua require('user.telescope').code_actions()<CR>", "Code Action" },
       -- ["gR"] = { "<cmd>Trouble lsp_references<CR>", "Goto References" },
       -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },

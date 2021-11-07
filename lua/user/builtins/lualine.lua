@@ -675,7 +675,7 @@ M.config = function()
       local formatters = require "lvim.lsp.null-ls.formatters"
       local supported_formatters = {}
       for _, fmt in pairs(formatters.list_registered_providers(buf_ft)) do
-      -- for _, fmt in pairs(formatters.list_supported_names(buf_ft)) do
+        -- for _, fmt in pairs(formatters.list_supported_names(buf_ft)) do
         local _added_formatter = fmt
         if trim then
           _added_formatter = string.sub(fmt, 1, 4)
@@ -688,7 +688,7 @@ M.config = function()
       local linters = require "lvim.lsp.null-ls.linters"
       local supported_linters = {}
       for _, lnt in pairs(linters.list_registered_providers(buf_ft)) do
-      -- for _, lnt in pairs(linters.list_supported_names(buf_ft)) do
+        -- for _, lnt in pairs(linters.list_supported_names(buf_ft)) do
         local _added_linter = lnt
         if trim then
           _added_linter = string.sub(lnt, 1, 4)
@@ -833,21 +833,21 @@ M.config = function()
   --   color = { fg = colors.blue, bg = colors.bg },
   -- }
 
-  -- ins_right {
-  --   function()
-  --     local current_line = vim.fn.line "."
-  --     local total_lines = vim.fn.line "$"
-  --     local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
-  --     local line_ratio = current_line / total_lines
-  --     local index = math.ceil(line_ratio * #chars)
-  --     return chars[index]
-  --   end,
-  --   padding = 0,
-  --   -- left_padding = 0,
-  --   -- right_padding = 0,
-  --   color = { fg = colors.yellow, bg = colors.bg },
-  --   cond = nil,
-  -- }
+  ins_right {
+    function()
+      local current_line = vim.fn.line "."
+      local total_lines = vim.fn.line "$"
+      local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+      local line_ratio = current_line / total_lines
+      local index = math.ceil(line_ratio * #chars)
+      return "%3p%% " .. chars[index]
+    end,
+    padding = 0,
+    -- left_padding = 0,
+    -- right_padding = 0,
+    color = { fg = colors.yellow, bg = colors.bg },
+    cond = nil,
+  }
 
   -- ========================================================================================================================
   -- Inactive statusline

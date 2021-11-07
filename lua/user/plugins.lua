@@ -254,27 +254,44 @@ M.config = function()
     -----]]------------[[-----
     -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     -- { "ChristianChiarulli/vim-solidity" },
-    {
-      "code-biscuits/nvim-biscuits",
-      -- event = "BufRead",
-      config = function()
-        require("nvim-biscuits").setup {
-          cursor_line_only = true,
-          default_config = {
-            max_length = 50,
-            -- trim_by_words = true,
-            min_distance = 5,
-            prefix_string = " 🍪 ",
-          },
-          -- language_config = {
-          -- javascript = {
-          --   -- prefix_string = "  // ",
-          --   -- max_length = 80,
-          -- },
-          -- },
-        }
-      end,
-    },
+    -- {
+    -- TODO: nvim-biscuits stops working sometimes, figure that out
+    --   "code-biscuits/nvim-biscuits",
+    --   -- event = "BufRead",
+    --   config = function()
+    --     require("nvim-biscuits").setup {
+    --       cursor_line_only = true,
+    --       default_config = {
+    --         max_length = 50,
+    --         -- trim_by_words = true,
+    --         min_distance = 5,
+    --         prefix_string = " 🍪 ",
+    --       },
+    --       -- language_config = {
+    --       -- javascript = {
+    --       --   -- prefix_string = "  // ",
+    --       --   -- max_length = 80,
+    --       -- },
+    --       -- },
+    --     }
+    --   end,
+    -- },
+    -- {
+    --   "nathom/filetype.nvim",
+    --   config = function()
+    --     require("filetype").setup {
+    --       overrides = {
+    --         extensions = {
+    --           pn = "potion",
+    --         },
+    --         literal = {
+    --           -- ["kitty.conf"] = "kitty",
+    --           [".gitignore"] = "conf",
+    --         },
+    --       },
+    --     }
+    --   end,
+    -- },
     {
       "romgrk/nvim-treesitter-context",
       event = "BufRead",
@@ -309,10 +326,11 @@ M.config = function()
       end,
     },
     { "VebbNix/lf-vim", event = "BufRead" },
-    {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      event = "BufRead",
-    },
+    { "fladson/vim-kitty", event = "BufRead" },
+    -- {
+    --   "JoosepAlviste/nvim-ts-context-commentstring",
+    --   event = "BufRead",
+    -- },
     {
       "nvim-treesitter/playground",
       after = "nvim-treesitter",
@@ -323,7 +341,6 @@ M.config = function()
     -----]]------------[[-----
     -- TODO find a comfier way to integrate magit into my config (toggleterm config)
     -- waiting for diff file history in diffview.nvim (there's an issue already put up)
-    -- { "sindrets/diffview.nvim", cmd = "DiffviewOpen", },
     -- { "ThePrimeagen/git-worktree.nvim" },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
@@ -335,17 +352,44 @@ M.config = function()
     --   end,
     -- },
     {
-      "TimUntersberger/neogit",
-      requires = "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+      -- module = "diffview",
+      -- keys = "<leader>gd",
+      -- setup = function()
+      --   require("which-key").register { ["<leader>gd"] = "diffview: diff HEAD" }
+      -- end,
       config = function()
-        local neogit = require "neogit"
-        neogit.setup {
-          disable_context_highlighting = true,
-          disable_commit_confirmation = true,
+        require("diffview").setup {
+          enhanced_diff_hl = true,
+          file_panel = {
+            position = "right",
+          },
+          key_bindings = {
+            file_panel = { q = "<Cmd>DiffviewClose<CR>" },
+            view = { q = "<Cmd>DiffviewClose<CR>" },
+          },
         }
-        -- neogit.config.use_magit_keybindings()
       end,
     },
+    -- {
+    --   "TimUntersberger/neogit",
+    --   requires = {
+    --     "nvim-lua/plenary.nvim",
+    --     "sindrets/diffview.nvim",
+    --   },
+    --   config = function()
+    --     local neogit = require "neogit"
+    --     neogit.setup {
+    --       disable_context_highlighting = true,
+    --       disable_commit_confirmation = true,
+    --       integrations = {
+    --         diffview = true,
+    --       },
+    --     }
+    --     neogit.config.use_magit_keybindings()
+    --   end,
+    -- },
     -- NOTE: using this for merge conflict resolution from lazygit
     { "tpope/vim-fugitive", event = "WinEnter" },
     -----[[------------]]-----
@@ -418,7 +462,7 @@ M.config = function()
       end,
       run = ":UpdateRemotePlugins",
     },
-    { "dstein64/nvim-scrollview", event = "WinEnter" },
+    -- { "dstein64/nvim-scrollview", event = "WinEnter" },
     {
       "karb94/neoscroll.nvim",
       event = "BufRead",
@@ -426,41 +470,6 @@ M.config = function()
         require("neoscroll").setup {
           easing_function = "quadratic", -- Default easing function
           mappings = { "<C-u>", "<C-d>", "zt", "zz", "zb" },
-        }
-      end,
-    },
-    {
-      "filipdutescu/renamer.nvim",
-      branch = "master",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        -- local mappings_utils = require "renamer.mappings.utils"
-        require("renamer").setup {
-          -- The popup title, shown if `border` is true
-          title = "Rename",
-          -- The padding around the popup content
-          padding = { 0, 0, 0, 0 },
-          -- Whether or not to shown a border around the popup
-          border = true,
-          -- The characters which make up the border
-          -- border_chars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-          border_chars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-          -- Whether or not to highlight the current word references through LSP
-          show_refs = false,
-          -- The string to be used as a prompt prefix. It also sets the buffer to
-          -- be a prompt
-          prefix = "> ",
-          -- The keymaps available while in the `renamer` buffer. The example below
-          -- overrides the default values, but you can add others as well.
-          -- mappings = {
-          --   ["<c-i>"] = mappings_utils.set_cursor_to_start,
-          --   ["<c-a>"] = mappings_utils.set_cursor_to_end,
-          --   ["<c-e>"] = mappings_utils.set_cursor_to_word_end,
-          --   ["<c-b>"] = mappings_utils.set_cursor_to_word_start,
-          --   ["<c-c>"] = mappings_utils.clear_line,
-          --   ["<c-u>"] = mappings_utils.undo,
-          --   ["<c-r>"] = mappings_utils.redo,
-          -- },
         }
       end,
     },
@@ -718,6 +727,7 @@ M.config = function()
     -----[[------------]]-----
     ---      Snippets      ---
     -----]]------------[[-----
+    -- TODO: can probably write these snippets into luasnip myself
     { "dsznajder/vscode-es7-javascript-react-snippets" },
     {
       "RishabhRD/nvim-cheat.sh",
@@ -736,7 +746,7 @@ M.config = function()
       config = function()
         require("nvim-ts-autotag").setup()
       end,
-      ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue", "css" },
+      ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "css" },
       -- event = "InsertEnter",
     },
     {
@@ -787,22 +797,6 @@ M.config = function()
     --       max_num_results = 10,
     --       sort = true,
     --     }
-    --   end,
-    -- },
-    -- {
-    -- using this https://github.com/kozer/emmet-language-server
-    --   "aca/emmet-ls",
-    --   event = "BufRead",
-    --   -- ft = { "html", "css", "javascript" },
-    -- },
-    -- use this until emmet-ls supports jsx and tsx
-    -- {
-    --   "mattn/emmet-vim",
-    --   ft = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-    --   config = function()
-    --     vim.g.user_emmet_leader_key = "<C-y>"
-    --     vim.g.emmet_html5 = 0
-    --     vim.cmd [[let g:user_emmet_leader_key='<C-y>']]
     --   end,
     -- },
     -----[[------------]]-----

@@ -65,6 +65,13 @@ M.config = function()
         files = { "src/parser.c", "src/scanner.cc" },
       },
     }
+    -- parser_config.gomod = {
+    --   install_info = {
+    --     url = "https://github.com/camdencheek/tree-sitter-go-mod",
+    --     files = { "src/parser.c" },
+    --     branch = "main"
+    --   },
+    -- }
     -- TODO: get rest.nvim to work someday
     -- parser_config.http = {
     --   install_info = {

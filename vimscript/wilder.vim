@@ -1,6 +1,8 @@
 call wilder#enable_cmdline_enter()
 cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
 cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+cmap <expr> <C-j> wilder#in_context() ? wilder#next() : "\<Tab>"
+cmap <expr> <C-k> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
 call wilder#set_option('modes', ['/', '?', ':'])
 
 " This allows using the history menu without having the substitution pipeline
@@ -60,7 +62,8 @@ let s:wildmenu_renderer = wilder#wildmenu_renderer(#{
 " #f4468f
 let s:popupmenu_renderer = wilder#popupmenu_renderer(
     \ wilder#popupmenu_border_theme(#{
-    \   winblend: 8,
+    \   max_height: '33%',
+    \   winblend: 10,
     \   highlights: #{
     \    default: 'Normal',
     \    border: 'Comment',

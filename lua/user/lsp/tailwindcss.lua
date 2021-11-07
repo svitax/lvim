@@ -24,7 +24,7 @@ end
 
 M.config = function()
   if M.project_has_tailwindcss_dependency() == true then
-    require("lvim.lsp.manager").setup "tailwindcss"
+    -- require("lvim.lsp.manager").setup "tailwindcss"
   else
     vim.list_extend(lvim.lsp.override, { "tailwindcss" })
   end
