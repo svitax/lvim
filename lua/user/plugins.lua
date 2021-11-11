@@ -340,29 +340,14 @@ M.config = function()
       ft = "markdown",
     },
     {
-      -- I'm only using this for norg until it gets builtin link creation/following
-      -- remove norg and use only for markdown when that happens
-      -- find a way to disable local mappings but keep <cr> as link follow
       "lervag/wiki.vim",
       config = function()
         vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
-        -- vim.g.wiki_filetypes = { "norg" }
-        -- vim.g.wiki_filetypes = { "norg", "md" }
         vim.g.wiki_filetypes = { "md" }
-        -- vim.g.wiki_link_extension = ".norg"
         vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
         vim.g.wiki_mappings_use_defaults = "local" -- all, local, global, or none
-        -- BUG neorg needs compe to load first, so on init we can't jump to a .norg index with <plug>wiki-index
-        -- unless we load compe first (InsertEnter)
       end,
     },
-    -- {
-    --   -- BUG compe gets unloaded once I open a .norg file?
-    --   "vhyrro/neorg",
-    --   branch = "unstable",
-    --   config = require("user.neorg").config,
-    --   requires = { "nvim-lua/plenary.nvim", "vhyrro/neorg-telescope" },
-    -- },
     -- {
     --   "iamcco/markdown-preview.nvim",
     --   run = "cd app && npm install",
