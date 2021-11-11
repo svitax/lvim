@@ -454,11 +454,11 @@ M.config = function()
     },
     {
       "AckslD/nvim-neoclip.lua",
+      -- event = "WinEnter",
       requires = { "tami5/sqlite.lua", module = "sqlite" },
       config = function()
         require("user.neoclip").config()
       end,
-      -- event = "BufRead",
     },
     {
       "mg979/vim-visual-multi",
