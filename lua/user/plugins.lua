@@ -403,10 +403,13 @@ M.config = function()
     -- },
     -- {
     --   "lukas-reineke/indent-blankline.nvim",
-    --   setup = function()
-    --     require("user.indent_blankline").setup()
-    --   end,
     --   event = "BufRead",
+    --   config = function()
+    --     require("indent_blankline").setup {
+    --       show_current_context = true,
+    --       show_current_context_start = true,
+    --     }
+    --   end,
     -- },
     -----[[------------]]-----
     ---       Editing      ---
