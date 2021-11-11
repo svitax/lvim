@@ -145,6 +145,7 @@ M.config = function()
     -----]]------------[[-----
     {
       "ThePrimeagen/harpoon",
+      event = "WinEnter",
       config = function()
         require("harpoon").setup {
           global_settings = {
@@ -153,7 +154,6 @@ M.config = function()
           },
         }
       end,
-      event = "WinEnter",
     },
     {
       "kazhala/close-buffers.nvim",
