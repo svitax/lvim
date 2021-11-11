@@ -464,7 +464,7 @@ M.config = function()
     },
     {
       "mg979/vim-visual-multi",
-      -- event = "CursorMoved",
+      -- event = "WinEnter",
       config = function()
         vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi theming
         -- vim.g.VM_default_mappings = false
