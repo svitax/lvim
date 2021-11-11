@@ -416,7 +416,6 @@ M.config = function()
       end,
       run = ":UpdateRemotePlugins",
     },
-    -- { "dstein64/nvim-scrollview", event = "WinEnter" },
     {
       "karb94/neoscroll.nvim",
       event = "BufRead",
