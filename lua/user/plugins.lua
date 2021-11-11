@@ -44,7 +44,6 @@ M.config = function()
     {
       "weilbith/nvim-code-action-menu",
       event = "BufRead",
-      -- cmd = "CodeActionMenu"
     },
     {
       "kosayoda/nvim-lightbulb",
@@ -116,6 +115,7 @@ M.config = function()
       end,
       ft = { "json" },
     },
+    -- TODO: does this break when I do event = "WinEnter"?
     { "b0o/schemastore.nvim" },
     -----[[------------]]-----
     ---        Lua         ---
@@ -393,8 +393,8 @@ M.config = function()
     {
       "gelguy/wilder.nvim",
       event = { "CursorHold", "CmdlineEnter" },
-      -- rocks = { "luarocks-fetch-gitrec", "pcre2" },
-      rocks = { "luarocks-fetch-gitrec" },
+      rocks = { "luarocks-fetch-gitrec", "pcre2" },
+      -- rocks = { "luarocks-fetch-gitrec" },
       requires = { "romgrk/fzy-lua-native" },
       config = function()
         vim.cmd(string.format("source %s", "~/.config/lvim/vimscript/wilder.vim"))
