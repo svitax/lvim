@@ -47,6 +47,10 @@ M.config = function()
       -- cmd = "CodeActionMenu"
     },
     {
+      "kosayoda/nvim-lightbulb",
+      event = "CursorHold",
+    },
+    {
       "ray-x/lsp_signature.nvim",
       config = function()
         require("user.lsp_signature").config()
@@ -69,10 +73,6 @@ M.config = function()
         }
       end,
     },
-    -- {
-    --   "kosayoda/nvim-lightbulb",
-    --   -- event = "WinEnter",
-    -- },
     -- {
     --   "SmiteshP/nvim-gps",
     --   requires = { "nvim-treesitter/nvim-treesitter" },
