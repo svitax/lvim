@@ -602,7 +602,6 @@ M.config = function()
         })
       end,
     },
-    --NOTE:
     {
       "folke/todo-comments.nvim",
       event = "BufRead",
