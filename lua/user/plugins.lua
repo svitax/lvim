@@ -644,17 +644,6 @@ M.config = function()
       -- event = "InsertEnter",
     },
     {
-      "abecodes/tabout.nvim",
-      config = function()
-        require("tabout").setup {
-          tabkey = "",
-          backwards_tabkey = "",
-        }
-      end,
-      wants = { "nvim-treesitter" }, -- or require if not used so far
-      after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
-    },
-    {
       "lukas-reineke/cmp-under-comparator",
       requires = { "hrsh7th/nvim-cmp" },
     },
