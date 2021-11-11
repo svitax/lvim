@@ -519,6 +519,7 @@ M.config = function()
     },
     {
       "ggandor/lightspeed.nvim",
+      -- event = "WinEnter",
       config = function()
         require("lightspeed").setup {
           -- jump_to_first_match = true,
