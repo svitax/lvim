@@ -614,14 +614,23 @@ M.config = function()
     -----]]------------[[-----
     -- TODO: can probably write these snippets into luasnip myself
     { "dsznajder/vscode-es7-javascript-react-snippets" },
-    {
-      "RishabhRD/nvim-cheat.sh",
-      requires = "RishabhRD/popfix",
-      config = function()
-        vim.g.cheat_default_window_layout = "vertical_split"
-      end,
-      cmd = { "Cheat", "CheatWithoutComments", "CheatList", "CheatListWithoutComments" },
-    },
+    -- {
+    --   "mrjones2014/dash.nvim",
+    --   run = "make install",
+    --   -- event = "BufRead",
+    --   cmd = "Dash",
+    --   config = function()
+    --     require("dash").setup()
+    --   end,
+    -- },
+    -- {
+    --   "RishabhRD/nvim-cheat.sh",
+    --   requires = "RishabhRD/popfix",
+    --   config = function()
+    --     vim.g.cheat_default_window_layout = "vertical_split"
+    --   end,
+    --   cmd = { "Cheat", "CheatWithoutComments", "CheatList", "CheatListWithoutComments" },
+    -- },
     -- { "anburocky3/bootstrap5-snippets" },
     -----[[------------]]-----
     ---     Completion     ---
