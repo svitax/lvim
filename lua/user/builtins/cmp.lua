@@ -8,7 +8,6 @@ M.config = function()
     cmp.config.compare.offset,
     cmp.config.compare.exact,
     cmp.config.compare.score,
-    require("cmp-under-comparator").under,
     cmp.config.compare.kind,
     cmp.config.compare.sort_text,
     cmp.config.compare.length,
@@ -26,35 +25,36 @@ M.config = function()
   lvim.builtin.cmp.formatting.fields = { "abbr", "kind", "menu" }
   lvim.builtin.cmp.formatting.kind_icons = require("user.builtins.lsp_kind").symbols()
   lvim.builtin.cmp.formatting.source_names = {
-    -- buffer = "(Buffer)",
+    nvim_lsp = "(LSP)",
+    nvim_lua = "(NvLua)",
+    luasnip = "(Snip)",
+    path = "  ",
     calc = "  ",
     cmp_git = "  ",
     -- cmp_tabnine = "(T9)",
     emoji = "  ",
-    fuzzy_buffer = "(Buffer)",
-    luasnip = "(Snip)",
+    buffer = "(Buffer)",
+    -- fuzzy_buffer = "(Buffer)",
     -- npm = "(NPM)",
-    nvim_lsp = "(LSP)",
-    nvim_lua = "(NvLua)",
-    path = "  ",
     -- rg = "(RG)",
     -- spell = " 暈",
     treesitter = " ",
   }
 
+  -- sources haave to be in order of priority
   lvim.builtin.cmp.sources = {
-    -- { name = "buffer", max_item_count = 5, keyword_length = 5 },
+    { name = "nvim_lua" },
+    { name = "nvim_lsp" },
+    { name = "luasnip", max_item_count = 10 },
+    { name = "path", max_item_count = 10 },
     { name = "calc" },
     { name = "cmp_git" },
     -- { name = "cmp_tabnine", max_item_count = 3 },
     { name = "crates" },
     { name = "emoji" },
-    { name = "fuzzy_buffer", max_item_count = 5, keyword_length = 5 },
-    { name = "luasnip", max_item_count = 10 },
+    { name = "buffer", max_item_count = 5, keyword_length = 5 },
+    -- { name = "fuzzy_buffer", max_item_count = 5, keyword_length = 5 },
     -- { name = "npm", keyword_length = 4 },
-    { name = "nvim_lua" },
-    { name = "nvim_lsp" },
-    { name = "path", max_item_count = 10 },
     -- { name = "rg" },
     -- { name = "spell", max_item_count = 5 },
     { name = "treesitter" },
@@ -70,11 +70,12 @@ M.config = function()
     elseif luasnip.expand_or_jumpable() then
       vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
     elseif check_backspace() then
-      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(Tabout)", true, true, true), "")
-      -- vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+      -- vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(Tabout)", true, true, true), "")
+      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
     else
-      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(Tabout)", true, true, true), "")
-      -- fallback()
+      -- vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(Tabout)", true, true, true), "")
+      -- vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+      fallback()
     end
   end
   lvim.builtin.cmp.mapping["<S-Tab>"] = function(fallback)
@@ -83,8 +84,8 @@ M.config = function()
     elseif luasnip.jumpable(-1) then
       vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
     else
-      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(TaboutBack)", true, true, true), "")
-      -- fallback()
+      -- vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(TaboutBack)", true, true, true), "")
+      fallback()
     end
   end
   lvim.builtin.cmp.mapping["<CR>"] = function(fallback)
