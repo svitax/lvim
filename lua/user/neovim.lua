@@ -82,6 +82,7 @@ M.config = function()
   }
   vim.opt.listchars = {
     eol = nil,
+    -- eol = "",
     tab = "  ", -- less laggy version of indent line
     -- tab = "│ ", -- less laggy version of indent line
     extends = "›", -- Alternatives: … »

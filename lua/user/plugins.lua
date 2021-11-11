@@ -61,14 +61,11 @@ M.config = function()
       cmd = "TroubleToggle",
       config = function()
         require("trouble").setup {
-          signs = {
-            -- icons / text used for a diagnostic
-            error = "",
-            warning = "",
-            hint = "",
-            information = "",
-            other = "",
-          },
+          auto_open = true,
+          auto_close = true,
+          padding = false,
+          height = 10,
+          use_lsp_diagnostic_signs = true,
         }
       end,
     },

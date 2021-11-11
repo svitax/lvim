@@ -7,42 +7,21 @@ M.config = function()
   end
 
   neoclip.setup {
+    content_spec_column = true,
     enable_persistant_history = true,
     db_path = vim.fn.stdpath "data" .. "/neoclip.sqlite3",
     keys = {
       i = { select = "<a-p>", paste = "<CR>", paste_behind = "<c-P>" },
       n = { select = "p", paste = "<CR>", paste_behind = "P" },
     },
+    -- NOTE: I basically don't want single empty lines to appear neoclips history
+    filter = function(table)
+      if table.event.visual == false and table.event.regcontents[1] == "" then
+        return false
+      end
+      return true
+    end,
   }
-  -- local function clip()
-  --   local opts = {
-  --     winblend = lvim.winblend,
-  --     layout_strategy = "horizontal",
-  --     layout_config = {
-  --       prompt_position = "top",
-  --       width = 0.9,
-  --       height = 0.9,
-  --       -- horizontal = { height = { padding = 0.10 }, width = { padding = 0.04 } },
-  --       -- vertical = { preview_height = 0.90 },
-  --     },
-  --     borderchars = {
-  --       prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-  --       results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-  --       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-  --     },
-  --     border = {},
-  --     shorten_path = false,
-  --   }
-  --   local dropdown = require("telescope.themes").get_dropdown(opts)
-  --   require("telescope").extensions.neoclip.default(dropdown)
-  -- end
-  -- local whk_status, whk = pcall(require, "which-key")
-  -- if not whk_status then
-  --   return
-  -- end
-  -- whk.register {
-  --   ["<leader>y"] = { clip, "yank history" },
-  -- }
 end
 
 return M

@@ -44,27 +44,19 @@ require("user.builtins.treesitter").config()
 
 -- LSP
 -- =========================================
--- require("user.lsp.providers.null_ls").config()
+require("user.lsp.providers.null_ls").config()
 -- require("user.lsp.providers.tsserver").config()
 -- require("user.lsp.tailwindcss").config()
 -- require("user.lsp.emmet_ls").config()
 
--- local custom_servers = { "sumneko_lua", "jsonls", "gopls", "tsserver" }
--- vim.list_extend(lvim.lsp.override, custom_servers)
--- for _, server_name in ipairs(custom_servers) do
---   local status_ok, custom_config = pcall(require, "user.lsp.providers." .. server_name)
---   if status_ok then
---     require("lvim.lsp.manager").setup(server_name, custom_config)
---   end
--- end
-
--- local opts = require "user/providers/tsserver"
--- require("lvim.lsp.manager").setup("tsserver", opts)
-
--- require("user.lsp.lsp_install").install()
--- require "user.lsp.lsp_install"()
-
--- require("user.lsp.providers.jsonls").config()
+local custom_servers = { "sumneko_lua", "jsonls", "gopls", "tsserver" }
+vim.list_extend(lvim.lsp.override, custom_servers)
+for _, server_name in ipairs(custom_servers) do
+  local status_ok, custom_config = pcall(require, "user.lsp.providers." .. server_name)
+  if status_ok then
+    require("lvim.lsp.manager").setup(server_name, custom_config)
+  end
+end
 
 -- Plugins
 -- =========================================
