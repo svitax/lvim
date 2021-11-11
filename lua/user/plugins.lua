@@ -117,11 +117,6 @@ M.config = function()
       ft = { "json" },
     },
     { "b0o/schemastore.nvim" },
-    -- {
-    --   "elianiva/telescope-npm.nvim",
-    --   requires = { "nvim-telescope/telescope.nvim" },
-    --   -- ft = { "json" },
-    -- },
     -----[[------------]]-----
     ---        Lua         ---
     -----]]------------[[-----
