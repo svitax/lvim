@@ -256,10 +256,6 @@ M.config = function()
     },
     { "VebbNix/lf-vim", event = "BufRead" },
     { "fladson/vim-kitty", event = "BufRead" },
-    -- {
-    --   "JoosepAlviste/nvim-ts-context-commentstring",
-    --   event = "BufRead",
-    -- },
     {
       "nvim-treesitter/playground",
       after = "nvim-treesitter",
