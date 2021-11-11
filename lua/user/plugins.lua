@@ -348,11 +348,6 @@ M.config = function()
         vim.g.wiki_mappings_use_defaults = "local" -- all, local, global, or none
       end,
     },
-    -- {
-    --   "iamcco/markdown-preview.nvim",
-    --   run = "cd app && npm install",
-    --   ft = "markdown",
-    -- },
     -----[[------------]]-----
     ---         UI         ---
     -----]]------------[[-----
