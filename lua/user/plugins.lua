@@ -508,6 +508,7 @@ M.config = function()
     -----]]------------[[-----
     {
       "kwkarlwang/bufjump.nvim",
+      event = "BufRead",
       config = function()
         require("bufjump").setup {
           on_success = function()
@@ -515,7 +516,6 @@ M.config = function()
           end,
         }
       end,
-      event = "BufRead",
     },
     {
       "ggandor/lightspeed.nvim",
