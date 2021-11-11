@@ -191,7 +191,6 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
-    -- { "s1n7ax/nvim-comment-frame" }, -- (https://github.com/s1n7ax/nvim-comment-frame)
     -- { "ChristianChiarulli/vim-solidity" },
     -- {
     -- TODO: nvim-biscuits stops working sometimes, figure that out
