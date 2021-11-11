@@ -406,8 +406,6 @@ M.config = function()
     -----[[------------]]-----
     ---       Editing      ---
     -----]]------------[[-----
-    -- TODO: look into neogen
-    -- https://github.com/danymat/neogen
     -- TODO: look into vim-yoink as a replacement for nvim-neoclip
     -- { "svermeulen/vim-yoink", config = function() end, },
     {
