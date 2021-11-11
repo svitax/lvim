@@ -643,6 +643,15 @@ M.config = function()
       ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "css" },
       -- event = "InsertEnter",
     },
+    -- {
+    --   "kkoomen/vim-doge",
+    --   event = "BufRead",
+    --   run = { ":call doge#install()" },
+    --   config = function()
+    --     vim.cmd "let g:doge_comment_jump_modes = ['n', 'i', 's']"
+    --     vim.cmd "let g:doge_enable_mappings = 0"
+    --   end,
+    -- },
     {
       "petertriho/cmp-git",
       requires = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
