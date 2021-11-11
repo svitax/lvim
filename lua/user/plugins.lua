@@ -494,8 +494,9 @@ M.config = function()
       end,
     },
     { "chaoren/vim-wordmotion", event = "BufRead" },
-    -- Using vim-sandwich until surround.nvim highlights matches
     -- {
+    -- Using vim-sandwich until surround.nvim highlights matches
+    -- https://github.com/blackCauldron7/surround.nvim/issues/13
     --   "blackCauldron7/surround.nvim",
     --   config = function()
     --     require("surround").setup { mappings_style = "surround" }
