@@ -195,7 +195,7 @@ M.config = function()
   --   f = { "<cmd>lua require('neogen').generate({ type = 'func'})<CR>", "Function Documentation" },
   -- }
 
-  lvim.builtin.which_key.mappings["?"] = { "<cmd>Cheat<CR>", "cheat.sh" }
+  -- lvim.builtin.which_key.mappings["?"] = { "<cmd>Cheat<CR>", "cheat.sh" }
 
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up<CR>", "write buffer" }
 
@@ -212,8 +212,8 @@ M.config = function()
   -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
 
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<CR>", "file tree" }
-  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr><cmd>FloatermUpdate --height=0.90 --width=0.90<cr>", "files" }
-  -- lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr>", "files" }
+  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "files" }
+  -- lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr><cmd>FloatermUpdate --height=0.90 --width=0.90<cr>", "files" }
   -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
   -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
@@ -240,7 +240,11 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["p"] = "workspaces"
   -- lvim.builtin.which_key.mappings["P"] = "Packer"
 
-  lvim.builtin.which_key.mappings["y"] = { "<cmd>Telescope neoclip<cr>", "yank history" }
+  -- lvim.builtin.which_key.mappings["y"] = { "<cmd>Telescope neoclip plus<cr>", "yank history" }
+  lvim.builtin.which_key.mappings["y"] = {
+    "<cmd>lua require('telescope').extensions.neoclip.default({initial_mode = 'normal'})<cr>",
+    "yank history",
+  }
 
   -- lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
   lvim.builtin.which_key.mappings["/"] = { "<cmd>lua require('Comment').toggle()<CR>", "comment" }
@@ -363,6 +367,8 @@ M.config = function()
   -- ["x"] =
   -- ["y"] =
 
+  lvim.builtin.which_key.vmappings["lr"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
+
   lvim.builtin.which_key.mappings["la"] = {
     "<cmd>CodeActionMenu<cr>",
     "code actions",
@@ -405,7 +411,8 @@ M.config = function()
     t = { "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
     i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation" },
   }
-  lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("user.lsp.rename").rename()<cr>', "rename" }
+  -- lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("user.lsp.rename").rename()<cr>', "rename" }
+  lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
   lvim.builtin.which_key.mappings["lt"] = {
     "<cmd>TroubleToggle lsp_definitions<cr>",
     "definitions",
@@ -455,8 +462,12 @@ autocmd FileType json lua whichkeyJson()
   -- =========================================
   lvim.builtin.which_key.mappings["n"] = {
     name = "+Notes",
+    -- f = {
+    --   "<cmd>cd ~/.config/lvim/lua/notes/obsidian-notes<cr><cmd>LfWorkingDirectory<CR>",
+    --   "manage notes",
+    -- },
     f = {
-      "<cmd>cd ~/.config/lvim/lua/notes/obsidian-notes<cr><cmd>LfWorkingDirectory<CR>",
+      "<cmd>Lf ~/.config/lvim/lua/notes/obsidian-notes/<cr>",
       "manage notes",
     },
     w = { "<plug>(wiki-index)", "wiki index" },
@@ -494,11 +505,15 @@ autocmd FileType json lua whichkeyJson()
       "grep in config",
     },
     d = {
+      "<cmd>Dash<cr>",
+      "docs",
+    },
+    ["."] = {
       -- "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'search dotfiles'})<CR>",
       "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<CR>",
       "dotfiles",
     },
-    D = {
+    [">"] = {
       -- "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config', prompt_title = 'grep dotfiles' })<CR>",
       "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>",
       "grep in dotfiles",
@@ -508,7 +523,7 @@ autocmd FileType json lua whichkeyJson()
       "files in project",
     },
     h = { ":Telescope help_tags<cr>", "help tags" },
-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+    k = { "<cmd>Telescope keymaps<cr>", "keymaps" },
     l = {
       -- "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.local/share/lunarvim/lvim', prompt_title = 'Core LunarVim files'})<CR>",
       "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>",
@@ -527,7 +542,7 @@ autocmd FileType json lua whichkeyJson()
     -- R = { "registers" },
     -- s = { "<cmd>SearchSession<cr>", "sessions" },
     g = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
-    T = { "<cmd>TodoTrouble<cr>", "todos" },
+    t = { "<cmd>TodoTrouble<cr>", "todos" },
     -- z = { ":Telescope zoxide list<cr>", "zoxide" },
     z = { "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search" },
   }
