@@ -372,12 +372,20 @@ M.config = function()
         }
       end,
     },
-    -- {
-    --   "luukvbaal/stabilize.nvim",
-    --   config = function()
-    --     require("stabilize").setup()
-    --   end,
-    -- },
+    {
+      -- TODO: weird flickering when I use Trouble but otherwise it does stabilize
+      "luukvbaal/stabilize.nvim",
+      config = function()
+        require("stabilize").setup {
+          forcemark = "f",
+          ignore = { -- do not manage windows matching these file/buftypes
+            filetype = { "help", "list", "Trouble" },
+            buftype = { "terminal", "quickfix", "loclist" },
+          },
+          nested = "QuickFixCmdPost,User LspDiagnosticsChanged",
+        }
+      end,
+    },
     -- {
     --   "folke/zen-mode.nvim",
     --   config = function()
