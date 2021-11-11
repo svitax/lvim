@@ -169,39 +169,24 @@ M.config = function()
         }
       end,
     },
-    -- TODO: needs to open in correct working directory and must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
-    -- {
-    --   "is0n/fm-nvim",
-    --   config = function()
-    --     require("fm-nvim").setup {
-    --       config = {
-    --         edit_cmd = "edit",
-    --         border = "rounded",
-    --         height = 0.85,
-    --         width = 0.85,
-    --       },
-    --     }
-    --   end,
-    -- },
     {
-      "voldikss/vim-floaterm",
+      -- TODO: needs to open in correct working directory and must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
+      "is0n/fm-nvim",
+      cmd = { "Lf", "Nnn", "Ranger" },
       config = function()
-        vim.g.floaterm_height = 0.90
-        vim.g.floaterm_width = 0.90
-        vim.g.floaterm_opener = "drop"
-        vim.g.floaterm_title = ""
-        -- vim.g.floaterm_autoclose = 2
-        -- vim.cmd [[hi FloatermBorder guifg=gray]]
+        require("fm-nvim").setup {
+          border = "rounded",
+          edit_cmd = "edit",
+          height = 0.90,
+          width = 0.90,
+          -- mappings = {
+          --   vert_split = "<C-v>",
+          --   horz_split = "<C-s>",
+          --   tabedit = "<C-t>",
+          --   edit = "<C-e>",
+          -- },
+        }
       end,
-      event = "BufWinEnter",
-    },
-    {
-      "ptzz/lf.vim",
-      config = function()
-        vim.cmd [[let g:lf_replace_netrw = 1 ]] --" Open lf when vim opens a directory
-      end,
-      event = "BufWinEnter",
-      -- after = { "kyazdani42/nvim-tree.lua" },
     },
     -----[[------------]]-----
     ---       Syntax       ---
