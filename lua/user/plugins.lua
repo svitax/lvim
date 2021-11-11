@@ -542,14 +542,6 @@ M.config = function()
         vim.api.nvim_set_keymap("n", "<C-h>", "<cmd>lua require('Navigator').right()<CR>", { silent = true })
       end,
     },
-    -- {
-    --   "nvim-telescope/telescope-frecency.nvim",
-    --   config = function()
-    --     require("telescope").load_extension "frecency"
-    --   end,
-    --   requires = { "tami5/sqlite.lua" },
-    --   event = "BufRead",
-    -- },
     -----[[------------]]-----
     ---    Text Objects    ---
     -----]]------------[[-----
