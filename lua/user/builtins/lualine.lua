@@ -776,6 +776,7 @@ M.config = function()
 
   ins_right {
     function()
+      -- return ""
       return ""
     end,
     color = { fg = colors.bg, bg = colors.magenta },
@@ -785,12 +786,52 @@ M.config = function()
   }
 
   ins_right {
-    "location",
-    -- icon = " ",
-    -- color = { fg = colors.magenta, bg = colors.bg2, gui = "bold" },
+    function()
+      local current_line = vim.fn.line "."
+      local total_lines = vim.fn.line "$"
+      local line_ratio = current_line / total_lines
+      if line_ratio < 0.01 then
+        return " Top"
+      elseif line_ratio > 0.99 then
+        return " Bot"
+      else
+        return "%3p%%"
+      end
+    end,
     color = { fg = colors.magenta, bg = colors.bg2 },
     cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+    padding = { left = 0, right = 1 },
+    -- left_padding = 0,
   }
+
+  -- ins_right {
+  --   function()
+  --     return ""
+  --   end,
+  --   color = { fg = colors.yellow, bg = colors.bg2 },
+  --   cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+  --   padding = { left = 0, right = 0 },
+  --   -- left_padding = 0,
+  --   -- right_padding = 0,
+  -- }
+
+  -- ins_right {
+  --   function()
+  --     return ""
+  --   end,
+  --   color = { fg = colors.bg, bg = colors.yellow },
+  --   cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+  --   padding = { left = 0, right = 1 },
+  --   -- left_padding = 0,
+  -- }
+
+  -- ins_right {
+  --   "location",
+  --   -- icon = " ",
+  --   -- color = { fg = colors.yellow, bg = colors.bg2, gui = "bold" },
+  --   color = { fg = colors.yellow, bg = colors.bg2 },
+  --   cond = conditions.buffer_not_empty and conditions.hide_in_width and conditions.is_not_blacklisted_filetype,
+  -- }
 
   -- Add components to right sections
   -- ins_right {
@@ -833,21 +874,23 @@ M.config = function()
   --   color = { fg = colors.blue, bg = colors.bg },
   -- }
 
-  ins_right {
-    function()
-      local current_line = vim.fn.line "."
-      local total_lines = vim.fn.line "$"
-      local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
-      local line_ratio = current_line / total_lines
-      local index = math.ceil(line_ratio * #chars)
-      return "%3p%% " .. chars[index]
-    end,
-    padding = 0,
-    -- left_padding = 0,
-    -- right_padding = 0,
-    color = { fg = colors.yellow, bg = colors.bg },
-    cond = nil,
-  }
+  -- ins_right {
+  --   function()
+  --     local current_line = vim.fn.line "."
+  --     local total_lines = vim.fn.line "$"
+  --     -- local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+  --     local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁" }
+  --     local line_ratio = current_line / total_lines
+  --     local index = math.ceil(line_ratio * #chars)
+  --     return chars[index]
+  --   end,
+  --   --  ﭫ 
+  --   padding = 0,
+  --   -- left_padding = 0,
+  --   -- right_padding = 0,
+  --   color = { fg = colors.yellow, bg = colors.bg2 },
+  --   cond = nil,
+  -- }
 
   -- ========================================================================================================================
   -- Inactive statusline
