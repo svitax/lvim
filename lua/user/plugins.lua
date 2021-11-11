@@ -644,10 +644,6 @@ M.config = function()
       -- event = "InsertEnter",
     },
     {
-      "lukas-reineke/cmp-under-comparator",
-      requires = { "hrsh7th/nvim-cmp" },
-    },
-    {
       "petertriho/cmp-git",
       requires = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
       config = function()
