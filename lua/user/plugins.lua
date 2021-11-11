@@ -671,12 +671,6 @@ M.config = function()
     },
     { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
     -- {
-    --   "lukas-reineke/cmp-rg",
-    --   config = function()
-    --     require("cmp-rg").setup {}
-    --   end,
-    -- },
-    -- {
     --   "tzachar/cmp-tabnine",
     --   run = "./install.sh",
     --   requires = "hrsh7th/nvim-cmp",
