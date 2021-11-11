@@ -463,6 +463,15 @@ M.config = function()
       end,
     },
     {
+      "filipdutescu/renamer.nvim",
+      config = function()
+        require("renamer").setup {
+          title = "Rename",
+        }
+      end,
+      key = "<leader>lr",
+    },
+    {
       "mg979/vim-visual-multi",
       -- event = "WinEnter",
       config = function()
