@@ -16,6 +16,12 @@ M.config = function()
   lvim.lsp.code_lens_refresh = true
   lvim.lsp.automatic_servers_installation = false
 
+  vim.diagnostic.config {
+    underline = false,
+    virtual_text = false,
+    signs = true,
+    update_in_insert = false,
+  }
 end
 
 return M
