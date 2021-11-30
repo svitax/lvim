@@ -1,4 +1,164 @@
 local M = {}
+
+-- Go forward and backward in jumplist
+-- nnoremap [j <C-o>zz
+-- nnoremap ]j <C-i>zz
+
+-----[[------------]]-----
+---   Space Mappings   ---
+-----]]------------[[-----
+
+-- <Leader> a = write buffer
+-- <Leader> b = +Buffers
+-- <Leader> c =
+-- <Leader> d = +Debug
+-- <Leader> e =
+-- <Leader> f = files
+-- <Leader> g = +Git
+-- <Leader> h = +Harpoon
+-- <Leader> i =
+-- <Leader> j =
+-- <Leader> k =
+-- <Leader> l = +LSP
+-- <Leader> m = +local
+-- <Leader> n = +Notes
+-- <Leader> o =
+-- <Leader> p = +Packer
+-- <Leader> q = quit
+-- <Leader> r = +Replace (spectre)
+-- <Leader> s = +Search
+-- <Leader> t = filetree
+-- <Leader> u = restore files (gomi)
+-- <Leader> v =
+-- <Leader> w = +Windows
+-- <Leader> x =
+-- <Leader> y = yank history (neoclip)
+-- <Leader> z =
+-- <Leader> ; = dashboard
+-- <Leader> , =
+-- <Leader> . =
+-- <Leader> \ =
+-- <Leader> Tab
+-- <Leader> Enter
+-- <Leader> Esc
+-- <Leader> Space
+
+-----[[------------]]-----
+---    Ctrl Mappings   ---
+-----]]------------[[-----
+
+-- <C-a> = tmux prefix
+-- <C-b> = open buku bookmarks (tmux)
+-- <C-c> =
+-- <C-d> = scroll down
+-- <C-e> = close nvim completion
+-- <C-f> = session switcher (tmux)
+-- <C-g> = rotate panes (tmux)
+-- <C-h> = select right pane (tmux)
+-- <C-i> = forward in jumplist
+-- <C-j> = select bottom pane (tmux)
+-- <C-k> = select top pane (tmux)
+-- <C-l> = select left pane (tmux)
+-- <C-m> = (i think this is <cr>)
+-- <C-n> = next window (tmux)
+-- <C-o> = back in jumplist
+-- <C-p> = previous window (tmux)
+-- <C-q> = open quickfix
+-- <C-r> = redo
+-- <C-s> = rotate panes (tmux)
+-- <C-t> = project opener (tmux)
+-- <C-u> = scroll up
+-- <C-v> = block visual mode
+-- ? <C-w> = window keys
+-- <C-x> = session killer (tmux)
+-- <C-y> = multicursor
+-- <C-z> = zoom pane (tmux)
+-- <C-;> = (remapped to C-h)
+-- <C-,> =
+-- <C-.> =
+-- <C-\> =
+-- <C-Tab> =
+-- <C-Enter> =
+-- <C-Esc> =
+-- <C-Space> =
+
+-----[[------------]]-----
+---    Alt Mappings    ---
+-----]]------------[[-----
+-- <A-a> = "<ESC>ggVG<CR>" -- select all in insert
+-- <A-a> = "<C-a>" -- increment in normal
+-- <A-b> =
+-- <A-c> =
+-- <A-d> =
+-- <A-e> =
+-- <A-f> =
+-- <A-g> = toggleterm g
+-- <A-h> = toggleterm h
+-- <A-i> = bufjump forward
+-- <A-j> = move line down
+-- <A-k> = move line up
+-- <A-l> =
+-- <A-m> =
+-- <A-n> =
+-- <A-o> = bufjump backward
+-- <A-p> =
+-- <A-q> =
+-- <A-r> =
+-- <A-s> =
+-- <A-t> =
+-- <A-u> =
+-- <A-v> =
+-- <A-w> =
+-- ? <A-x> = "<C-x>" -- decrement in normal
+-- <A-y> =
+-- <A-z> =
+-- <A-;> =
+-- <A-,> =
+-- <A-.> =
+-- <A-\> =
+-- <A-Tab> =
+-- <A-Enter> =
+-- <A-Esc> =
+-- <A-Space> =
+
+-----[[------------]]-----
+---   Hyper Mappings   ---
+-----]]------------[[-----
+-- <Hyper-a> =
+-- <Hyper-b> =
+-- <Hyper-c> =
+-- <Hyper-d> =
+-- <Hyper-e> =
+-- <Hyper-f> =
+-- <Hyper-g> =
+-- <Hyper-h> =
+-- <Hyper-i> =
+-- <Hyper-j> =
+-- <Hyper-k> =
+-- <Hyper-l> =
+-- <Hyper-m> =
+-- <Hyper-n> =
+-- <Hyper-o> =
+-- <Hyper-p> =
+-- <Hyper-q> =
+-- <Hyper-r> =
+-- <Hyper-s> =
+-- <Hyper-t> =
+-- <Hyper-u> =
+-- <Hyper-v> =
+-- <Hyper-w> =
+-- <Hyper-x> =
+-- <Hyper-y> =
+-- <Hyper-z> =
+-- <Hyper-;> =
+-- <Hyper-,> =
+-- <Hyper-.> =
+-- <Hyper-\> =
+-- <Hyper-Tab> =
+-- <Hyper-Enter> =
+-- <Hyper-Esc> =
+-- <Hyper-Space> =
+
 M.config = function()
   -- TODO: S in visual mode should be lightspeed_S, so what should I use for visual sandwich surround?
 
@@ -6,7 +166,9 @@ M.config = function()
 
   -- vim.api.nvim_set_keymap("n", "∆", "<A-j>", { noremap = false, silent = true, expr = true })
 
-  -- NOTE: Normal mode
+  -----[[------------]]-----
+  ---       Normal       ---
+  -----]]------------[[-----
   -- better movement keys
   lvim.keys.normal_mode[";"] = "l"
   lvim.keys.normal_mode["l"] = "h"
@@ -21,22 +183,25 @@ M.config = function()
   -- lvim.keys.normal_mode["H"] = "revJ"
   -- easy align
   -- lvim.keys.normal_mode["L"] = "vimeasyalign"
-  lvim.keys.insert_mode["jk"] = nil
-  lvim.keys.insert_mode["kj"] = nil
-  lvim.keys.insert_mode["jj"] = nil
-  -- lvim.keys.normal_mode["<C-t>"] = nil
-  -- vim-visual-multi keeps hijacking my <cr>
-  -- lvim.keys.normal_mode["<CR>"] = nil
-  -- vim.api.nvim_set_keymap("n", "<cr>", "", { noremap = false })
-  -- vim.api.nvim_set_
+  -- make Y act like D and C but for yanking (this is going to get merged into neovim core)
+  lvim.keys.normal_mode["Y"] = "y$"
+  -- like the previous but ignores white space
+  -- lvim.keys.normal_mode["Y"] = "yg_"
+  -- save
+  -- lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
 
-  vim.api.nvim_set_keymap("i", "<S-Left>", "<C-\\><C-O><Plug>WordMotion_b", { noremap = false })
-  vim.api.nvim_set_keymap("i", "<S-Right>", "<C-\\><C-O><Plug>WordMotion_w", { noremap = false })
-  -- NOTE: not sure if i want this mapping (visually laggy)
-  -- vim.api.nvim_set_keymap("i", "<C-w>", "<space><C-\\><C-O>d<Plug>WordMotion_b<C-O>x", { noremap = false })
-  vim.api.nvim_set_keymap("i", "<C-w>", "<c-\\><c-O>b<c-\\><c-O>d<S-Right>", { noremap = false })
+  -- -- Don't yank on delete char?
+  -- vim.api.nvim_set_keymap("n", "x", '"_x', { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("n", "X", '"_X', { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("v", "x", '"_x', { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("v", "X", '"_X', { noremap = true, silent = true })
 
-  -- TODO: clean control keybindings so I can use them with tmux
+  -- navigate windows/splits
+  lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require('Navigator').left()<CR>"
+  lvim.keys.normal_mode["<C-j>"] = "<cmd>lua require('Navigator').down()<CR>"
+  lvim.keys.normal_mode["<C-k>"] = "<cmd>lua require('Navigator').up()<CR>"
+  lvim.keys.normal_mode["<C-h>"] = "<cmd>lua require('Navigator').right()<CR>" -- I have <C-;> happed to <C-h> on my keyboard since terminals don't recognize <C-;> as an actual thing
+  -- clean control keybindings so I can use them with tmux
   vim.api.nvim_set_keymap("n", "<C-b>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-e>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-f>", "", { noremap = true })
@@ -52,36 +217,19 @@ M.config = function()
   vim.api.nvim_set_keymap("n", "<C-z>", "", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-/>", "", { noremap = true })
 
-  -- navigate windows/splits
-  lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require('Navigator').left()<CR>"
-  lvim.keys.normal_mode["<C-j>"] = "<cmd>lua require('Navigator').down()<CR>"
-  lvim.keys.normal_mode["<C-k>"] = "<cmd>lua require('Navigator').up()<CR>"
-  lvim.keys.normal_mode["<C-h>"] = "<cmd>lua require('Navigator').right()<CR>" -- I have <C-;> happed to <C-h> on my keyboard since terminals don't recognize <C-;> as an actual thing
+  -- Increment
+  lvim.keys.normal_mode["<A-a>"] = "<C-a>"
   -- move current line up/down
   lvim.keys.normal_mode["<A-j>"] = ":m .+1<cr>=="
   lvim.keys.normal_mode["<A-k>"] = ":m .-2<cr>=="
   -- jump back and forth between buffers (mirror C-o/C-i for moving in the jumplist)
   lvim.keys.normal_mode["<A-o>"] = ":lua require('bufjump').backward()<cr>"
   lvim.keys.normal_mode["<A-i>"] = ":lua require('bufjump').forward()<cr>"
-  -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
-  -- vim.api.nvim_set_keymap("n", "S591", "_", { noremap = true })
-  vim.api.nvim_set_keymap("n", "Q949", "_", { noremap = true })
-  -- vim.api.nvim_set_keymap("n", "S4", "_", { noremap = true })
-  vim.api.nvim_set_keymap("n", "12", "$", { noremap = true })
-  -- vim.api.nvim_set_keymap("n", "S591", "b", { noremap = true })
-
-  -- make Y act like D and C but for yanking (this is going to get merged into neovim core)
-  lvim.keys.normal_mode["Y"] = "y$"
-  -- like the previous but ignores white space
-  -- lvim.keys.normal_mode["Y"] = "yg_"
-
-  -- save
-  -- lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
   -- quickly toggle terminals
-  lvim.keys.normal_mode["<A-f>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>"
-  lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term3()<CR>"
-  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term4()<cr>"
-  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term5()<CR>"
+  lvim.keys.normal_mode["<A-h>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>"
+  -- lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term3()<CR>"
+  -- lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term4()<cr>"
+  -- lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term5()<CR>"
   -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>"
   -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>"
   -- lvim.keys.normal_mode["<A-y>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>"
@@ -92,6 +240,13 @@ M.config = function()
   lvim.keys.normal_mode["<A-2>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>"
   lvim.keys.normal_mode["<A-1>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>"
 
+  -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
+  -- vim.api.nvim_set_keymap("n", "S591", "_", { noremap = true })
+  vim.api.nvim_set_keymap("n", "Q949", "_", { noremap = true })
+  -- vim.api.nvim_set_keymap("n", "S4", "_", { noremap = true })
+  vim.api.nvim_set_keymap("n", "12", "$", { noremap = true })
+  -- vim.api.nvim_set_keymap("n", "S591", "b", { noremap = true })
+
   -- more ergonomic matchup mapping with alt-tab (since just tab conflicts with C-i for jumplist navigation)
   -- vim.cmd "noremap <silent> <Tab> :<C-u>normal %<CR>"
   vim.cmd "noremap <silent> <A-Tab> :<C-u>normal %<CR>"
@@ -101,22 +256,37 @@ M.config = function()
   -- lvim.keys.normal_mode["<C-a>"] = "<cmd>lua require('user.toggleterm')._toggle_magit()<cr>"
   -- lvim.builtin.which_key.mappings["<space>"] = { ":term emacsclient -nw -e '(magit-status)' <cr>", "magit" }
 
-  -- NOTE: Visual mode
+  -----[[------------]]-----
+  ---       Visual       ---
+  -----]]------------[[-----
   -- better movement keys
   lvim.keys.visual_mode[";"] = "l"
   lvim.keys.visual_mode["l"] = "h"
+  -- better pasting in visual mode
+  lvim.keys.visual_mode["p"] = [["_dP]]
+
   -- Move visual selection up/down
   lvim.keys.visual_mode["<A-j>"] = ":m '>+1<cr>gv=gv"
   lvim.keys.visual_mode["<A-k>"] = ":m '<-2<cr>gv=gv"
-  -- better pasting in visual mode
-  lvim.keys.visual_mode["p"] = [["_dP]]
   -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
   -- vim.api.nvim_set_keymap("v", "S4", "_", { noremap = true })
   vim.api.nvim_set_keymap("v", "Q949", "_", { noremap = true })
   vim.api.nvim_set_keymap("v", "12", "$", { noremap = true })
 
-  -- NOTE: Insert mode
-  -- Move current line up/down
+  -----[[------------]]-----
+  ---       Insert       ---
+  -----]]------------[[-----
+  lvim.keys.insert_mode["jk"] = nil
+  lvim.keys.insert_mode["kj"] = nil
+  lvim.keys.insert_mode["jj"] = nil
+
+  -- lvim.keys.insert_mode["<C-a>"] = "<esc>I"
+  -- lvim.keys.insert_mode["<C-e>"] = "<esc>A"
+  -- lvim.keys.insert_mode["<C-f>"] = "<Right>"
+  -- lvim.keys.insert_mode["<C-b>"] = "<Left>"
+
+  -- select all
+  lvim.keys.insert_mode["<A-a>"] = "<ESC>ggVG<CR>"
   -- lvim.keys.insert_mode["<A-h>"] = nil
   -- lvim.keys.insert_mode["<A-j>"] = nil
   -- lvim.keys.insert_mode["<A-k>"] = nil
@@ -132,6 +302,11 @@ M.config = function()
   vim.api.nvim_set_keymap("i", "Q949", "<Esc>_i", { noremap = true })
   -- make sure tmux doesn't bind anything to C-s
   vim.api.nvim_set_keymap("i", "12", "<Esc>$a", { silent = true, noremap = true })
+  vim.api.nvim_set_keymap("i", "<S-Left>", "<C-\\><C-O><Plug>WordMotion_b", { noremap = false })
+  vim.api.nvim_set_keymap("i", "<S-Right>", "<C-\\><C-O><Plug>WordMotion_w", { noremap = false })
+  -- NOTE: not sure if i want this mapping (visually laggy)
+  -- vim.api.nvim_set_keymap("i", "<C-w>", "<space><C-\\><C-O>d<Plug>WordMotion_b<C-O>x", { noremap = false })
+  vim.api.nvim_set_keymap("i", "<C-w>", "<c-\\><c-O>b<c-\\><c-O>d<S-Right>", { noremap = false })
 
   -- Undo break points (for a finer-grained undo command)
   -- should I add space to this list?
@@ -148,11 +323,28 @@ M.config = function()
   -- vim.api.nvim_set_keymap("i", "<A-bs>", "<Esc>dbxi", {})
   lvim.keys.insert_mode["<A-bs>"] = "<c-w>"
 
-  -- NOTE: Terminal mode
+  -----[[------------]]-----
+  ---        Term        ---
+  -----]]------------[[-----
   -- this prevents lazygit from working properly
   -- lvim.keys.term_mode["<esc>"] = [[<C-\><C-n>]]
 
   -- NOTE: WhichKey
+
+  -- TODO: doom-emacs keys
+  --[[
+    <cr> = jump to bookmark
+    <space> = find file in project
+    <tab> = +workspace
+    ' = resume last search
+    * = search for symbol in project
+    , = switch workspace buffer
+    . = find file
+    / = search project
+    < = switch buffer
+    ` = switch to last buffer`
+
+  --]]
 
   -- Assigned, not implemented
   -- =====================================
@@ -200,7 +392,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up<CR>", "write buffer" }
 
   -- lvim.builtin.which_key.mappings["c"] = nil
-  lvim.builtin.which_key.mappings["c"] = { "<Plug>RestNvim", "rest" }
+  -- lvim.builtin.which_key.mappings["c"] = { "<Plug>RestNvim", "rest" }
   -- show up only on html files (maybe css/js too)
   -- lvim.builtin.which_key.mappings["c"] = { "<cmd>Bracey<cr>", "live server" }
 
@@ -283,29 +475,47 @@ M.config = function()
     },
   }
 
+  -- =========================================
   -- +Debugging
   -- =========================================
   lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "toggle debug UI" }
   lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "eval" }
 
   -- TODO override builtin git mappings
+  -- =========================================
   -- +Git
   -- =========================================
-  lvim.builtin.which_key.mappings["g"]["d"] = { "<cmd>DiffviewOpen<cr>", "diff open" }
+  lvim.builtin.which_key.mappings["gd"] = { "<cmd>DiffviewOpen<cr>", "diff open" }
   -- lvim.builtin.which_key.mappings["gd"] = { "<cmd>DiffviewOpen HEAD~1<cr>", "diff open" }
-  lvim.builtin.which_key.mappings["g"]["D"] = { "<cmd>DiffviewClose<cr>", "diff close" }
-  lvim.builtin.which_key.mappings["g"]["i"] = { "<cmd>Octo issue list<cr>", "GitHub issues" }
-  lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message" }
-  lvim.builtin.which_key.mappings["g"]["P"] = { "<cmd>Octo pr list<cr>", "GitHub prs" }
-  lvim.builtin.which_key.mappings["g"]["g"] = {
+  lvim.builtin.which_key.mappings["gD"] = { "<cmd>DiffviewClose<cr>", "diff close" }
+  lvim.builtin.which_key.mappings["gi"] = { "<cmd>Octo issue list<cr>", "list issues" }
+  lvim.builtin.which_key.mappings["gl"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message" }
+  lvim.builtin.which_key.mappings["gP"] = { "<cmd>Octo pr list<cr>", "list pull requests" }
+  lvim.builtin.which_key.mappings["gg"] = {
     "<cmd>lua require('user.builtins.toggleterm').lazy_git()<CR>",
     "LazyGit",
   }
-  lvim.builtin.which_key.mappings["g"]["m"] = {
+  lvim.builtin.which_key.mappings["gG"] = {
     "<cmd>Neogit<CR>",
     "Neogit",
   }
+  -- buffer log?
+  -- S to stage file
+  -- U to unstage file
+  -- list issues
+  -- list notfiicationns
+  -- list pull requests
+  -- list repositories
+  -- list submodules
 
+  lvim.builtin.which_key.mappings["g"]["c"] = {
+    "<cmd>lua require('user.telescope.custom_pickers').delta_git_commits()<CR>",
+    "project's commits",
+  }
+  lvim.builtin.which_key.mappings["g"]["C"] = {
+    "<cmd>lua require('user.telescope.custom_pickers').delta_git_bcommits()<CR>",
+    "buffer's commits",
+  }
   -- lvim.builtin.which_key.mappings["g"]["c"] = {
   --   "<cmd>lua require('user.telescope.pickers.delta')._git_commits()<CR>",
   --   "project's commits",
@@ -357,17 +567,15 @@ M.config = function()
   -- =========================================
   -- TODO: override builtin LSP mappings
   -- ["b"] =
-  -- ["c"] =
+  -- ["c"] = compile
   -- ["g"] =
   -- ["h"] =
   -- ["m"] =
   -- ["n"] =
+  -- ["s"] =
   -- ["u"] =
   -- ["v"] =
-  -- ["x"] =
   -- ["y"] =
-
-  lvim.builtin.which_key.vmappings["lr"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
 
   lvim.builtin.which_key.mappings["la"] = {
     "<cmd>CodeActionMenu<cr>",
@@ -386,9 +594,9 @@ M.config = function()
     "<cmd>TSContextToggle<cr>",
     "toggle context",
   }
-  lvim.builtin.which_key.mappings["l"]["d"] = {
-    "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
-    "document diagnostics",
+  lvim.builtin.which_key.mappings["ld"] = {
+    "<cmd>TroubleToggle lsp_definitions<cr>",
+    "definitions",
   }
   lvim.builtin.which_key.mappings["le"] = {
     "<cmd>TroubleToggle lsp_references<cr>",
@@ -413,11 +621,16 @@ M.config = function()
   }
   -- lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("user.lsp.rename").rename()<cr>', "rename" }
   lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
+  -- lvim.builtin.which_key.vmappings["l"]["r"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
   lvim.builtin.which_key.mappings["lt"] = {
     "<cmd>TroubleToggle lsp_definitions<cr>",
     "definitions",
   }
-  lvim.builtin.which_key.mappings["l"]["w"] = {
+  lvim.builtin.which_key.mappings["l"]["x"] = {
+    "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
+    "document diagnostics",
+  }
+  lvim.builtin.which_key.mappings["l"]["X"] = {
     "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
     "workspace diagnostics",
   }
@@ -471,8 +684,6 @@ autocmd FileType json lua whichkeyJson()
       "manage notes",
     },
     w = { "<plug>(wiki-index)", "wiki index" },
-    -- d = { "<cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_cycle<cr>", "task cycle" },
-    -- n = { "<cmd>Neorg keybind norg core.norg.dirman.new.note<cr>", "new note" },
   }
 
   -- +Replace
@@ -507,6 +718,10 @@ autocmd FileType json lua whichkeyJson()
     d = {
       "<cmd>Dash<cr>",
       "docs",
+    },
+    [";"] = {
+      "<cmd>Telescope commands<cr>",
+      "vim commands",
     },
     ["."] = {
       -- "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'search dotfiles'})<CR>",
@@ -570,66 +785,83 @@ autocmd FileType json lua whichkeyJson()
 
   lvim.builtin.which_key.on_config_done = function(wk)
     local keys = {
+      ["]f"] = "next start func",
+      ["]]"] = "next start class",
+      ["]F"] = "next end func",
+      ["]["] = "next end class",
+      ["[f"] = "previous start func",
+      ["[["] = "previous start class",
+      ["[F"] = "previous end func",
+      ["[]"] = "previous end class",
       ["ga"] = { "<cmd>CodeActionMenu<CR>", "code actions" },
       ["gl"] = { "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "show line diagnostics" },
       ["ge"] = { "<cmd>Trouble lsp_references<CR>", "references" },
       -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
       ["<leader>la"] = { "<cmd>CodeActionMenu<cr>", "code actions" },
+      ["<leader>lw"] = {
+        name = "+swap",
+        a = "next parameter",
+        A = "previous parameter",
+        f = "next function",
+        F = "previous functon",
+        e = "next element",
+        E = "prevous element",
+      },
       -- ["ga"] = { "<cmd>lua require('user.telescope').code_actions()<CR>", "Code Action" },
       -- ["gR"] = { "<cmd>Trouble lsp_references<CR>", "Goto References" },
       -- ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
       -- add labels to vim-sandwich
-      d = {
-        s = { name = "sandwich delete query", s = "auto", i = "instant" }, -- just a labeel
-      },
-      y = {
-        ["<C-g>"] = "which_key_ignore",
-        S = { name = "end of line", i = "instant", f = "func", t = "tag" },
-        s = {
-          name = "sandwich add query",
-          s = { name = "line", f = "func", t = "tag", i = "instant" },
-          i = {
-            name = "inner",
-            p = "paragraph",
-            s = "sentence",
-            t = "tag",
-            w = "word",
-            [")"] = "parentheses",
-            ["]"] = "brackets",
-            ["}"] = "braces",
-            ["'"] = "'",
-            ['"'] = '"',
-            [">"] = ">",
-            ["`"] = "`",
-          },
-          a = {
-            name = "outer",
-            p = "paragraph",
-            s = "sentence",
-            t = "tag",
-            w = "word",
-            [")"] = "parentheses",
-            ["]"] = "brackets",
-            ["}"] = "braces",
-            ["'"] = "'",
-            ['"'] = '"',
-            [">"] = ">",
-            ["`"] = "`",
-          },
-          w = "next word",
-          e = "end of word",
-          f = "find",
-          t = "until",
-          ["/"] = "search",
-        },
-      },
-      c = {
-        s = {
-          name = "sandwich replace query",
-          s = { name = "auto", t = "tag", f = "func" },
-          i = "instant",
-        },
-      },
+      -- d = {
+      --   s = { name = "sandwich delete query", s = "auto", i = "instant" }, -- just a labeel
+      -- },
+      -- y = {
+      --   ["<C-g>"] = "which_key_ignore",
+      --   S = { name = "end of line", i = "instant", f = "func", t = "tag" },
+      --   s = {
+      --     name = "sandwich add query",
+      --     s = { name = "line", f = "func", t = "tag", i = "instant" },
+      --     i = {
+      --       name = "inner",
+      --       p = "paragraph",
+      --       s = "sentence",
+      --       t = "tag",
+      --       w = "word",
+      --       [")"] = "parentheses",
+      --       ["]"] = "brackets",
+      --       ["}"] = "braces",
+      --       ["'"] = "'",
+      --       ['"'] = '"',
+      --       [">"] = ">",
+      --       ["`"] = "`",
+      --     },
+      --     a = {
+      --       name = "outer",
+      --       p = "paragraph",
+      --       s = "sentence",
+      --       t = "tag",
+      --       w = "word",
+      --       [")"] = "parentheses",
+      --       ["]"] = "brackets",
+      --       ["}"] = "braces",
+      --       ["'"] = "'",
+      --       ['"'] = '"',
+      --       [">"] = ">",
+      --       ["`"] = "`",
+      --     },
+      --     w = "next word",
+      --     e = "end of word",
+      --     f = "find",
+      --     t = "until",
+      --     ["/"] = "search",
+      --   },
+      -- },
+      -- c = {
+      --   s = {
+      --     name = "sandwich replace query",
+      --     s = { name = "auto", t = "tag", f = "func" },
+      --     i = "instant",
+      --   },
+      -- },
     }
 
     wk.register(keys, { mode = "n" })

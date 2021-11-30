@@ -22,6 +22,9 @@ M.config = function()
     -- { "BufEnter", "*.md", "setlocal spellcapcheck=" },
     -- { "BufEnter", "*.norg", "setlocal spell" },
     -- { "BufEnter", "*.norg", "setlocal spellcapcheck=" },
+
+    { "FileType", "org", "setlocal conceallevel=2" },
+
     -- { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
     -- { "CursorHold", "*", "lua vim.lsp.diagnostic.show_line_diagnostics()" },
 

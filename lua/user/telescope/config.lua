@@ -7,6 +7,9 @@
 -- =========================================
 return function()
   local actions = require "telescope.actions"
+  lvim.builtin.telescope.defaults.prompt_prefix = " "
+  lvim.builtin.telescope.defaults.selection_caret = "  "
+
   lvim.builtin.telescope.defaults.winblend = lvim.winblend
   lvim.builtin.telescope.defaults.mappings = {
     i = {
@@ -16,9 +19,13 @@ return function()
       ["<C-k>"] = actions.move_selection_previous,
     },
     n = {
+      ["<Space>"] = actions.toggle_selection,
+      -- ["<C-s>"] = actions.cycle_previewers_next,
+      -- ["<C-a>"] = actions.cycle_previewers_prev,
       [";"] = actions.select_default,
-      ["<esc>"] = actions.close,
       ["q"] = actions.close,
+      ["<esc>"] = actions.close,
+      ["?"] = actions.which_key,
     },
   }
   lvim.builtin.telescope.defaults.layout_strategy = "bottom_pane"

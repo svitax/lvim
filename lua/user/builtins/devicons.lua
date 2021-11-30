@@ -2,82 +2,165 @@ local M = {}
 
 M.config = function()
   -- custom folder icon
+  require("nvim-web-devicons").set_default_icon("", "#6d8086")
+
   require("nvim-web-devicons").set_icon {
-    ["tailwind.config.js"] = {
-      icon = "",
-      color = "#6AB4AC",
-      name = "Tailwindcss",
+    ["angular.json"] = {
+      icon = "",
+      color = "#D3483E",
+      name = "Angular",
     },
-    [".luacheckrc"] = {
-      icon = "",
-      color = "#51a0cf",
-      name = "Lua",
+    ["angular-cli.json"] = {
+      icon = "",
+      color = "#D3483E",
+      name = "Angular",
     },
-    svg = {
-      icon = "",
-      color = "#F4B53F",
-      name = "Svg",
+    [".angular-cli.json"] = {
+      icon = "",
+      color = "#D3483E",
+      name = "Angular",
     },
-    -- svgz = {
-    --   icon = "",
-    --   color = "#F4B53F",
-    --   name = "Svg",
-    -- },
-    gql = {
-      icon = "",
-      color = "#D74E78",
-      name = "GraphQL",
+    [".babelrc"] = {
+      icon = "",
+      color = "#FABD2F",
+      name = "Babel",
     },
-    graphql = {
-      icon = "",
-      color = "#D74E78",
-      name = "GraphQL",
+    [".babelrc.js"] = {
+      icon = "",
+      color = "#FABD2F",
+      name = "Babel",
     },
-    -- hy = {
-    --   icon = "",
-    --   color = "#D9B06F",
-    --   name = "Hy",
-    -- },
-    -- TODO: a lot more of these for webpack
-    ["webpack"] = {
-      icon = "",
-      color = "#9FD3F3",
-      name = "Webpack",
+    [".babelrc.json"] = {
+      icon = "",
+      color = "#FABD2F",
+      name = "Babel",
     },
-    ["webpack.js"] = {
-      icon = "",
-      color = "#9FD3F3",
-      name = "Webpack",
+    [".babel.config.js"] = {
+      icon = "",
+      color = "#FABD2F",
+      name = "Babel",
     },
-    ["webpack.config"] = {
-      icon = "",
-      color = "#9FD3F3",
-      name = "Webpack",
+    [".babel.config.json"] = {
+      icon = "",
+      color = "#FABD2F",
+      name = "Babel",
     },
-    [".tmux.conf"] = {
-      icon = "",
-      color = "#57B53E",
-      name = "Tmux",
+    c = {
+      icon = "",
+      color = "#3276B8",
+      name = "C",
     },
-    ["truffle-config.js"] = {
-      icon = "",
-      color = "#73DDC6",
-      name = "Truffle",
+    cc = {
+      -- icon = "",
+      icon = "",
+      color = "#3276B8",
+      name = "Cpp",
     },
-    -- vy = {
-    --   icon = "",
-    --   color = "#0288D1",
-    --   name = "Vyper",
-    -- },
-    md = {
-      icon = "",
+    cp = {
+      -- icon = "",
+      icon = "",
+      color = "#3276B8",
+      name = "Cpp",
+    },
+    cpp = {
+      -- icon = "",
+      icon = "",
+      color = "#3276B8",
+      name = "Cpp",
+    },
+    cs = {
+      -- icon = "",
+      icon = "",
+      color = "#3276B8",
+      name = "CSharp",
+    },
+    ["Cargo.lock"] = {
+      -- icon = "",
+      icon = "",
+      color = "#FFD54F",
+      name = "Lock",
+    },
+    clj = {
+      icon = "",
+      color = "#cbcb41",
+      name = "Clojure",
+    },
+    cljs = {
+      icon = "",
+      color = "#cbcb41",
+      name = "ClojureJS",
+    },
+    conf = {
+      icon = "",
+      color = "#6d8086",
+      name = "Conf",
+    },
+    css = {
+      -- turn off nonicons to use this
+      -- icon = "",
+      icon = "",
+      --   icon = "",
       color = "#42A5F5",
-      name = "Markdown",
+      --   color = "#D3869B",
+      name = "Css",
     },
-    [".markdownlint.json"] = {
-      icon = "",
-      color = "#42A5F5",
-      name = "MarkdownLint",
+    dart = {
+      icon = "",
+      color = "#03589C",
+      name = "Dart",
+    },
+    db = {
+      icon = "",
+      color = "#dad8d8",
+      name = "Db",
+    },
+    ["docker-compose.yaml"] = {
+      -- icon = "",
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    ["docker-compose.yml"] = {
+      -- icon = "",
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    Dockerfile = {
+      -- icon = "",
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    dockerfile = {
+      -- icon = "",
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    dockerignore = {
+      -- icon = "",
+      icon = "",
+      color = "#0187C9",
+      name = "Dockerfile",
+    },
+    [".eslintrc.json"] = {
+      -- icon = "",
+      icon = "",
+      color = "#7986CB",
+      name = "Eslint",
+    },
+    [".eslintrc.js"] = {
+      -- icon = "",
+      icon = "",
+      color = "#7986CB",
+      name = "Eslint",
+    },
+    [".eslintrc.yml"] = {
+      -- icon = "",
+      icon = "",
+      color = "#7986CB",
+      name = "Eslint",
     },
     [".firebaserc"] = {
       icon = "",
@@ -89,89 +172,483 @@ M.config = function()
       color = "#FBC02D",
       name = "Firebase",
     },
-    -- deb = {
-    --   icon = "",
-    --   color = "#9A1E33",
-    --   name = "deb",
+
+    -- [".gitignore"] = {
+    --   icon = "",
+    --   color = "#E64A19",
+    --   name = "GitIgnore",
     -- },
-    ["docker-compose.yaml"] = {
-      icon = "",
-      color = "#0187C9",
-      name = "Dockerfile",
+    ["git"] = {
+      icon = "",
+      color = "#F14C28",
+      name = "Git",
     },
-    ["docker-compose.yml"] = {
-      icon = "",
-      color = "#0187C9",
-      name = "Dockerfile",
+    [".gitattributes"] = {
+      icon = "",
+      color = "#41535b",
+      name = "GitGray",
     },
-    Dockerfile = {
-      icon = "",
-      color = "#0187C9",
-      name = "Dockerfile",
+    [".gitconfig"] = {
+      icon = "",
+      color = "#41535b",
+      name = "GitGray",
     },
-    dockerfile = {
-      icon = "",
-      color = "#0187C9",
-      name = "Dockerfile",
+    [".gitignore"] = {
+      icon = "",
+      color = "#41535b",
+      name = "GitGray",
     },
-    dockerignore = {
-      icon = "",
-      color = "#0187C9",
-      name = "Dockerfile",
+    go = {
+      -- icon = "",
+      icon = "",
+      color = "#4BA9BD",
+      name = "Go",
     },
-    ["Cargo.lock"] = {
-      icon = "",
-      color = "#FFD54F",
-      name = "Lock",
+    ["go.mod"] = {
+      -- icon = "",
+      icon = "",
+      color = "#DA4F7A",
+      name = "GoMod",
+    },
+    ["go.sum"] = {
+      -- icon = "",
+      icon = "",
+      color = "#DA4F7A",
+      name = "GoMod",
+    },
+    gql = {
+      -- icon = "",
+      icon = "",
+      color = "#D74E78",
+      name = "GraphQL",
+    },
+    graphql = {
+      -- icon = "",
+      icon = "",
+      color = "#D74E78",
+      name = "GraphQL",
+    },
+    htm = {
+      -- turn off nonicons to use this
+      -- icon = "",
+      icon = "",
+      color = "#E44D26",
+      name = "Html",
+    },
+    html = {
+      -- turn off nonicons to use this
+      -- icon = "",
+      icon = "",
+      color = "#E44D26",
+      name = "Html",
+    },
+    ico = {
+      icon = "",
+      color = "#cbcb41",
+      name = "Ico",
+    },
+    java = {
+      icon = "",
+      color = "#cc3e44",
+      name = "Java",
+    },
+    jpeg = {
+      icon = "",
+      color = "#a074c4",
+      name = "Jpeg",
+    },
+    jpg = {
+      icon = "",
+      color = "#a074c4",
+      name = "Jpg",
+    },
+    js = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      -- icon = "",
+      color = "#FABD2F",
+      name = "JavaScript",
+    },
+    jsx = {
+      icon = "",
+      color = "#519aba",
+      name = "React",
+    },
+    json = {
+      -- icon = "",
+      icon = "",
+      color = "#E1AD2D",
+      name = "Json",
+    },
+    kt = {
+      -- icon = "",
+      icon = "",
+      color = "#E08C3D",
+      name = "Kotlin",
+    },
+    license = {
+      icon = "",
+      color = "#cbcb41",
+      name = "License",
+    },
+    ["LICENSE"] = {
+      icon = "",
+      color = "#d0bf41",
+      name = "License",
+    },
+    lua = {
+      -- icon = "",
+      icon = "",
+      color = "#51a0cf",
+      name = "Lua",
+    },
+    [".luacheckrc"] = {
+      -- icon = "",
+      icon = "",
+      color = "#51a0cf",
+      name = "Lua",
+    },
+    md = {
+      icon = "",
+      color = "#42A5F5",
+      name = "Markdown",
+    },
+    mdx = {
+      icon = "",
+      color = "#42A5F5",
+      name = "Markdown",
+    },
+    markdown = {
+      icon = "",
+      color = "#42A5F5",
+      name = "Markdown",
+    },
+    [".markdownlint.json"] = {
+      icon = "",
+      color = "#42A5F5",
+      name = "MarkdownLint",
+    },
+    ["next.config.js"] = {
+      icon = "",
+      color = "#D0D8DB",
+      name = "Next",
+    },
+    ["next.config.ts"] = {
+      icon = "",
+      color = "#D0D8DB",
+      name = "Next",
+    },
+    ["node_modules"] = {
+      icon = "",
+      color = "#E8274B",
+      name = "NPM",
+    },
+    [".npmignore"] = {
+      icon = "",
+      color = "#E8274B",
+      name = "NPM",
+    },
+    org = {
+      icon = "",
+      color = "#7EAE44",
+      name = "Org",
+    },
+    ["package.json"] = {
+      -- icon = "",
+      icon = "",
+      color = "#7EAE44",
+      name = "Node",
+    },
+    ["package-lock.json"] = {
+      -- icon = "",
+      icon = "",
+      color = "#7EAE44",
+      name = "Node",
+    },
+    php = {
+      icon = "",
+      color = "#a074c4",
+      name = "Php",
+    },
+    pl = {
+      icon = "",
+      color = "#519aba",
+      name = "Pl",
+    },
+    png = {
+      icon = "",
+      color = "#a074c4",
+      name = "Jpg",
+    },
+    [".prettierrc.json"] = {
+      -- icon = "",
+      icon = "",
+      color = "#6EB1B3",
+      name = "Prettier",
+    },
+    [".prettierrc.js"] = {
+      -- icon = "",
+      icon = "",
+      color = "#6EB1B3",
+      name = "Prettier",
+    },
+    [".prettierrc.yml"] = {
+      -- icon = "",
+      icon = "",
+      color = "#6EB1B3",
+      name = "Prettier",
+    },
+    py = {
+      -- icon = "",
+      -- color = "#4B78A6",
+      icon = "",
+      color = "#3572A5",
+      name = "Python",
+    },
+    pyc = {
+      -- icon = "",
+      -- color = "#4B78A6",
+      icon = "",
+      color = "#519aba",
+      name = "Python",
+    },
+    pyd = {
+      -- icon = "",
+      -- color = "#4B78A6",
+      icon = "",
+      color = "#519aba",
+      name = "Python",
+    },
+    pyo = {
+      -- icon = "",
+      -- color = "#4B78A6",
+      icon = "",
+      color = "#519aba",
+      name = "Python",
+    },
+    ["requirements.txt"] = {
+      icon = "",
+      -- icon = "",
+      color = "#FABD2F",
+      name = "PyPi",
+    },
+    ["Pipfile"] = {
+      icon = "",
+      -- icon = "",
+      color = "#FABD2F",
+      name = "PyPi",
+    },
+    ["pylintrc"] = {
+      -- icon = "",
+      icon = "",
+      color = "#519aba",
+      name = "PythonConfig",
+    },
+    [".pylintrc"] = {
+      -- icon = "",
+      icon = "",
+      color = "#519aba",
+      name = "PythonConfig",
+    },
+    r = {
+      icon = "",
+      color = "#358a5b",
+      name = "R",
+    },
+    ["rake"] = {
+      icon = "",
+      color = "#701516",
+      name = "Rake",
+    },
+    ["rakefile"] = {
+      icon = "",
+      color = "#701516",
+      name = "Rakefile",
+    },
+    ["Gemfile$"] = {
+      icon = "",
+      color = "#701516",
+      name = "Gemfile",
+    },
+    rb = {
+      -- icon = "",
+      -- color = "#F44336",
+      icon = "",
+      color = "#701516",
+      name = "rb",
     },
     ["robots.txt"] = {
-      icon = "ﮧ",
+      -- icon = "ﮧ",
+      icon = "",
       color = "#FF5252",
       name = "Robots",
     },
-    rb = {
-      icon = "",
-      color = "#F44336",
-      name = "rb",
+    rs = {
+      -- icon = "",
+      icon = "",
+      color = "#d28445",
+      name = "Rust",
+    },
+    scala = {
+      icon = "",
+      color = "#cc3e44",
+      name = "Scala",
+    },
+    sol = {
+      icon = "",
+      -- color = "#458588",
+      -- color = "#A661AB",
+      color = "#0288D1",
+      name = "Solidity",
+    },
+    sql = {
+      icon = "",
+      color = "#dad8d8",
+      name = "Sql",
+    },
+    [".stylelintrc.json"] = {
+      icon = "",
+      color = "#ebdbb2",
+      name = "Stylelint",
+    },
+    [".stylelintrc.js"] = {
+      icon = "",
+      color = "#ebdbb2",
+      name = "Stylelint",
+    },
+    [".stylelintrc.yml"] = {
+      icon = "",
+      color = "#ebdbb2",
+      name = "Stylelint",
+    },
+    svelte = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#EC6237",
+      name = "Svelte",
+    },
+    svg = {
+      icon = "",
+      color = "#F4B53F",
+      name = "Svg",
+    },
+    -- svgz = {
+    --   icon = "",
+    --   color = "#F4B53F",
+    --   name = "Svg",
+    -- },
+    swift = {
+      -- icon = "",
+      icon = "",
+      color = "#FE5E2F",
+      name = "Swift",
+    },
+    ["tailwind.config.js"] = {
+      icon = "",
+      color = "#6AB4AC",
+      name = "Tailwindcss",
+    },
+    [".tmux.conf"] = {
+      -- icon = "",
+      icon = "",
+      color = "#57B53E",
+      name = "Tmux",
+    },
+    toml = {
+      -- icon = "",
+      icon = "",
+      color = "#FF5252",
+      name = "Toml",
+    },
+    ["truffle-config.js"] = {
+      icon = "",
+      color = "#73DDC6",
+      name = "Truffle",
+    },
+    ts = {
+      -- icon = "",
+      icon = "",
+      -- icon = "ﯤ",
+      -- icon = "ﯤ",
+      color = "#3A87CB",
+      name = "TypeScript",
+    },
+    tsx = {
+      icon = "",
+      -- color = "#3A87CB",
+      color = "#519aba",
+      name = "TypeScriptReact",
+    },
+    vim = {
+      icon = "",
+      color = "#7EAE44",
+      name = "Vim",
+    },
+    [".gvimrc"] = {
+      icon = "",
+      color = "#019833",
+      name = "Vim",
+    },
+    [".vimrc"] = {
+      icon = "",
+      color = "#019833",
+      name = "Vim",
+    },
+    vue = {
+      -- icon = "﵂",
+      icon = "",
+      color = "#64B587",
+      name = "Vue",
+    },
+    ["webpack"] = {
+      icon = "",
+      -- icon = "",
+      color = "#9FD3F3",
+      name = "Webpack",
+    },
+    ["webpack.js"] = {
+      icon = "",
+      -- icon = "",
+      color = "#9FD3F3",
+      name = "Webpack",
+    },
+    ["webpack.config"] = {
+      icon = "",
+      -- icon = "",
+      color = "#9FD3F3",
+      name = "Webpack",
     },
     xz = {
-      icon = "",
+      -- icon = "",
+      icon = "",
       color = "#AFB42B",
-      name = "zip",
+      name = "Zip",
     },
     zip = {
-      icon = "",
+      -- icon = "",
+      icon = "",
       color = "#AFB42B",
-      name = "zip",
+      name = "Zip",
+    },
+    ["yarn.lock"] = {
+      -- icon = "",
+      icon = "",
+      color = "#42A5F5",
+      name = "Yarn",
     },
     yml = {
-      icon = "",
+      -- icon = "",
+      icon = "",
       color = "#FF5252",
       name = "Yaml",
     },
     yaml = {
-      icon = "",
+      -- icon = "",
+      icon = "",
       color = "#FF5252",
       name = "Yaml",
-    },
-    toml = {
-      icon = "",
-      color = "#FF5252",
-      name = "Toml",
-    },
-    bash = {
-      -- icon = "",
-      icon = "",
-      -- icon = "",
-      color = "#FF7043",
-      name = "Zsh",
-    },
-    sh = {
-      -- icon = "",
-      icon = "",
-      -- icon = "",
-      color = "#FF7043",
-      name = "Sh",
     },
     zsh = {
       -- icon = "",
@@ -201,157 +678,37 @@ M.config = function()
       color = "#FF7043",
       name = "Zsh",
     },
-    sol = {
-      icon = "",
-      -- color = "#458588",
-      -- color = "#A661AB",
-      color = "#0288D1",
-      name = "Solidity",
+    bash = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#FF7043",
+      name = "Zsh",
     },
-    json = {
-      icon = "",
-      color = "#E1AD2D",
-      name = "Json",
+    sh = {
+      -- icon = "",
+      icon = "",
+      -- icon = "",
+      color = "#FF7043",
+      name = "Sh",
     },
-    js = {
-      icon = "",
-      -- icon = "",
-      -- icon = "",
-      color = "#FABD2F",
-      name = "JavaScript",
-    },
-    ts = {
-      icon = "",
-      -- icon = "ﯤ",
-      -- icon = "ﯤ",
-      color = "#3A87CB",
-      name = "TypeScript",
-    },
-    kt = {
-      icon = "",
-      color = "#E08C3D",
-      name = "Kotlin",
-    },
-    py = {
-      icon = "",
-      color = "#4B78A6",
-      name = "Python",
-    },
-    cs = {
-      icon = "",
-      color = "#3276B8",
-      name = "CSharp",
-    },
-    cpp = {
-      icon = "",
-      color = "#3276B8",
-      name = "Cpp",
-    },
-    css = {
-      icon = "",
-      --   icon = "",
-      color = "#42A5F5",
-      --   color = "#D3869B",
-      name = "Css",
-    },
-    html = {
-      icon = "",
-      color = "#E44D26",
-      name = "Html",
-    },
-    vue = {
-      icon = "﵂",
-      -- icon = "",
-      color = "#64B587",
-      name = "Vue",
-    },
-    svelte = {
-      icon = "",
-      color = "#EC6237",
-      name = "Svelte",
-    },
-    -- swift = {
-    --   icon = "",
-    --   color = "#FE5E2F",
-    --   name = "Swift",
+
+    -- hy = {
+    --   icon = "",
+    --   color = "#D9B06F",
+    --   name = "Hy",
     -- },
-    [".eslintrc.json"] = {
-      icon = "",
-      color = "#7986CB",
-      name = "Eslint",
-    },
-    [".eslintrc.js"] = {
-      icon = "",
-      color = "#7986CB",
-      name = "Eslint",
-    },
-    [".eslintrc.yml"] = {
-      icon = "",
-      color = "#7986CB",
-      name = "Eslint",
-    },
-    [".stylelintrc.json"] = {
-      icon = "",
-      color = "#ebdbb2",
-      name = "Stylelint",
-    },
-    [".stylelintrc.js"] = {
-      icon = "",
-      color = "#ebdbb2",
-      name = "Stylelint",
-    },
-    [".stylelintrc.yml"] = {
-      icon = "",
-      color = "#ebdbb2",
-      name = "Stylelint",
-    },
-    [".prettierrc.json"] = {
-      icon = "",
-      color = "#6EB1B3",
-      name = "Prettier",
-    },
-    [".prettierrc.js"] = {
-      icon = "",
-      color = "#6EB1B3",
-      name = "Prettier",
-    },
-    [".prettierrc.yml"] = {
-      icon = "",
-      color = "#6EB1B3",
-      name = "Prettier",
-    },
-    ["package.json"] = {
-      -- icon = "",
-      icon = "",
-      color = "#7EAE44",
-      name = "Node",
-    },
-    ["package-lock.json"] = {
-      -- icon = "",
-      icon = "",
-      color = "#7EAE44",
-      name = "Node",
-    },
-    ["yarn.lock"] = {
-      icon = "",
-      color = "#42A5F5",
-      name = "Yarn",
-    },
-    [".gitignore"] = {
-      icon = "",
-      color = "#E64A19",
-      name = "GitIgnore",
-    },
-    ["go.mod"] = {
-      icon = "",
-      color = "#DA4F7A",
-      name = "GoMod",
-    },
-    ["go.sum"] = {
-      icon = "",
-      color = "#DA4F7A",
-      name = "GoMod",
-    },
+    -- TODO: a lot more of these for webpack
+    -- vy = {
+    --   icon = "",
+    --   color = "#0288D1",
+    --   name = "Vyper",
+    -- },
+    -- deb = {
+    --   icon = "",
+    --   color = "#9A1E33",
+    --   name = "deb",
+    -- },
     -- TODO: maybe someday devicon will have support for regexes in filename
     -- ["*.test.js"] = {
     --   icon = "ﭧ",

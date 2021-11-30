@@ -4,16 +4,6 @@ M.config = function()
   local cmp = require "cmp"
   local luasnip = require "luasnip"
 
-  lvim.builtin.cmp.comparators = {
-    cmp.config.compare.offset,
-    cmp.config.compare.exact,
-    cmp.config.compare.score,
-    cmp.config.compare.kind,
-    cmp.config.compare.sort_text,
-    cmp.config.compare.length,
-    cmp.config.compare.order,
-  }
-
   lvim.builtin.cmp.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
   lvim.builtin.cmp.experimental = {
@@ -22,27 +12,42 @@ M.config = function()
     native_menu = false,
   }
 
+  lvim.builtin.cmp.formatting.duplicates = {
+    buffer = 0,
+    path = 0,
+    nvim_lsp = 0,
+    nvim_lua = 1,
+    luasnip = 1,
+  }
   lvim.builtin.cmp.formatting.fields = { "abbr", "kind", "menu" }
   lvim.builtin.cmp.formatting.kind_icons = require("user.builtins.lsp_kind").symbols()
+
   lvim.builtin.cmp.formatting.source_names = {
+    -- nvim_lsp_signature_help = "  ",
+    -- nvim_lsp_signature_help = "(Sig)",
     nvim_lsp = "(LSP)",
     nvim_lua = "(NvLua)",
     luasnip = "(Snip)",
-    path = "  ",
+    -- path = "  ",
+    path = "(Path)",
     calc = "  ",
-    cmp_git = "  ",
-    -- cmp_tabnine = "(T9)",
+    -- cmp_git = "  ",
+    cmp_git = "(Git)",
+    -- cmp_tabnine = ""ﮧ"",
     emoji = "  ",
     buffer = "(Buffer)",
     -- fuzzy_buffer = "(Buffer)",
     -- npm = "(NPM)",
     -- rg = "(RG)",
     -- spell = " 暈",
-    treesitter = " ",
+    treesitter = "  ",
+    -- ["vim-dadbod-completion"] = "  ",
+    orgmode = "(Org)", -- "  "
   }
 
   -- sources haave to be in order of priority
   lvim.builtin.cmp.sources = {
+    -- { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
     { name = "luasnip", max_item_count = 10 },
@@ -58,6 +63,7 @@ M.config = function()
     -- { name = "rg" },
     -- { name = "spell", max_item_count = 5 },
     { name = "treesitter" },
+    { name = "orgmode" },
   }
 
   local check_backspace = function()

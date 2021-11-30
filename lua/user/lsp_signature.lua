@@ -25,7 +25,8 @@ M.config = function()
     handler_opts = {
       border = "single", -- double, single, shadow, none
     },
-    -- transpancy = 80,
+    -- transparency = lvim.winblend,
+    transparency = 0,
     -- extra_trigger_chars = { "(", "," }, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
     zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
     debug = false, -- set to true to enable debug logging

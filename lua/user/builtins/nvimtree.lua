@@ -29,6 +29,28 @@ M.config = function()
       error = "",
     },
   }
+  lvim.builtin.nvimtree.icons = {
+    default = "",
+    symlink = "",
+    git = {
+      unstaged = "",
+      staged = "",
+      unmerged = "",
+      renamed = "➜",
+      deleted = "",
+      untracked = "",
+      ignored = "◌",
+    },
+    folder = {
+      arrow_closed = "",
+      arrow_open = "",
+      default = "",
+      open = "",
+      empty = "",
+      empty_open = "",
+      symlink = "",
+    },
+  }
   lvim.builtin.nvimtree.git_hl = 0
 end
 

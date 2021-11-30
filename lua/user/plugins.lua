@@ -1,43 +1,7 @@
 local M = {}
 
--- Short configs are done inline,
--- longer configs are in a separate file in lua/user
 M.config = function()
   lvim.plugins = {
-    -----[[------------]]-----
-    ---       Debug        ---
-    -----]]------------[[-----
-    -- { "jbyuki/one-small-step-for-vimkind" },
-    -- { "mfussenegger/nvim-dap-python" },
-    -- { "leoluz/nvim-dap-go" },
-    -- {
-    --   "rcarriga/nvim-dap-ui",
-    --   config = function()
-    --     require("dapui").setup()
-    --   end,
-    --   requires = { "mfussenegger/nvim-dap" },
-    --   ft = { "python", "go", "rust", "lua", "javascript" },
-    -- },
-    -----[[------------]]-----
-    ---       Tests        ---
-    -----]]------------[[-----
-    -- https://github.com/vim-test/vim-test
-    -- {
-    --   "vim-test/vim-test",
-    --   cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
-    --   keys = { "<localleader>tf", "<localleader>tn", "<localleader>ts" },
-    --   config = function()
-    --     require("user.vim_test").config()
-    --   end,
-    -- },
-    -- https://github.com/rcarriga/vim-ultest
-    -- {
-    --   "rcarriga/vim-ultest",
-    --   cmd = { "Ultest", "UltestSummary", "UltestNearest" },
-    --   wants = "vim-test",
-    --   requires = { "vim-test/vim-test" },
-    --   run = ":UpdateRemotePlugins",
-    -- },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
@@ -58,7 +22,6 @@ M.config = function()
     },
     {
       "folke/trouble.nvim",
-      cmd = "TroubleToggle",
       config = function()
         require("trouble").setup {
           auto_open = true,
@@ -69,11 +32,6 @@ M.config = function()
         }
       end,
     },
-    -----[[------------]]-----
-    ---        Java        ---
-    -----]]------------[[-----
-    -- { "mfussenegger/nvim-jdtls" },
-    -- { "mfussenegger/nvim-jdtls", ft = "java" },
     -----[[------------]]-----
     ---     TypeScript     ---
     -----]]------------[[-----
@@ -112,7 +70,6 @@ M.config = function()
       end,
       ft = { "json" },
     },
-    -- TODO: does this break when I do event = "WinEnter"?
     { "b0o/schemastore.nvim" },
     -----[[------------]]-----
     ---        Lua         ---
@@ -167,7 +124,7 @@ M.config = function()
       end,
     },
     {
-      -- TODO: needs to open in correct working directory and must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
+      -- TODO: must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
       "is0n/fm-nvim",
       cmd = { "Lf", "Nnn", "Ranger" },
       config = function()
@@ -188,45 +145,6 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
-    -- { "ChristianChiarulli/vim-solidity" },
-    -- {
-    -- TODO: nvim-biscuits stops working sometimes, figure that out
-    --   "code-biscuits/nvim-biscuits",
-    --   -- event = "BufRead",
-    --   config = function()
-    --     require("nvim-biscuits").setup {
-    --       cursor_line_only = true,
-    --       default_config = {
-    --         max_length = 50,
-    --         -- trim_by_words = true,
-    --         min_distance = 5,
-    --         prefix_string = " 🍪 ",
-    --       },
-    --       -- language_config = {
-    --       -- javascript = {
-    --       --   -- prefix_string = "  // ",
-    --       --   -- max_length = 80,
-    --       -- },
-    --       -- },
-    --     }
-    --   end,
-    -- },
-    -- {
-    --   "nathom/filetype.nvim",
-    --   config = function()
-    --     require("filetype").setup {
-    --       overrides = {
-    --         extensions = {
-    --           pn = "potion",
-    --         },
-    --         literal = {
-    --           -- ["kitty.conf"] = "kitty",
-    --           [".gitignore"] = "conf",
-    --         },
-    --       },
-    --     }
-    --   end,
-    -- },
     {
       "romgrk/nvim-treesitter-context",
       event = "BufRead",
@@ -266,13 +184,13 @@ M.config = function()
     -- { "ThePrimeagen/git-worktree.nvim" },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
-    -- {
-    --   "pwntester/octo.nvim",
-    --   cmd = "Octo",
-    --   config = function()
-    --     require("octo").setup()
-    --   end,
-    -- },
+    {
+      "pwntester/octo.nvim",
+      cmd = "Octo",
+      config = function()
+        require("octo").setup()
+      end,
+    },
     {
       "sindrets/diffview.nvim",
       cmd = { "DiffviewOpen", "DiffviewFileHistory" },
@@ -289,29 +207,49 @@ M.config = function()
         }
       end,
     },
-    -- {
-    --   "TimUntersberger/neogit",
-    --   requires = {
-    --     "nvim-lua/plenary.nvim",
-    --     "sindrets/diffview.nvim",
-    --   },
-    --   config = function()
-    --     local neogit = require "neogit"
-    --     neogit.setup {
-    --       disable_context_highlighting = true,
-    --       disable_commit_confirmation = true,
-    --       integrations = {
-    --         diffview = true,
-    --       },
-    --     }
-    --     neogit.config.use_magit_keybindings()
-    --   end,
-    -- },
+    {
+      "TimUntersberger/neogit",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "sindrets/diffview.nvim",
+      },
+      config = function()
+        local neogit = require "neogit"
+        neogit.setup {
+          disable_context_highlighting = true,
+          disable_commit_confirmation = true,
+          integrations = {
+            diffview = true,
+          },
+        }
+        neogit.config.use_magit_keybindings()
+      end,
+    },
     -- NOTE: using this for merge conflict resolution from lazygit
     { "tpope/vim-fugitive", event = "WinEnter" },
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
+    {
+      "kristijanhusak/orgmode.nvim",
+      -- keys = { "go", "gC" },
+      -- ft = { "org" },
+      config = function()
+        require("user.orgmode").orgmode_setup()
+      end,
+    },
+    {
+      "akinsho/org-bullets.nvim",
+      config = function()
+        require("user.orgmode").org_bullets_setup()
+      end,
+    },
+    {
+      "lukas-reineke/headlines.nvim",
+      config = function()
+        require("user.orgmode").headlines_setup()
+      end,
+    },
     -- {
     --   "dkarter/bullets.vim",
     --   config = function()
@@ -348,17 +286,17 @@ M.config = function()
     -----[[------------]]-----
     ---         UI         ---
     -----]]------------[[-----
-    {
-      "gelguy/wilder.nvim",
-      event = { "CursorHold", "CmdlineEnter" },
-      rocks = { "luarocks-fetch-gitrec", "pcre2" },
-      -- rocks = { "luarocks-fetch-gitrec" },
-      requires = { "romgrk/fzy-lua-native" },
-      config = function()
-        vim.cmd(string.format("source %s", "~/.config/lvim/vimscript/wilder.vim"))
-      end,
-      run = ":UpdateRemotePlugins",
-    },
+    -- {
+    --   "gelguy/wilder.nvim",
+    --   event = { "CursorHold", "CmdlineEnter" },
+    --   rocks = { "luarocks-fetch-gitrec", "pcre2" },
+    --   -- rocks = { "luarocks-fetch-gitrec" },
+    --   requires = { "romgrk/fzy-lua-native" },
+    --   config = function()
+    --     vim.cmd(string.format("source %s", "~/.config/lvim/vimscript/wilder.vim"))
+    --   end,
+    --   run = ":UpdateRemotePlugins",
+    -- },
     {
       "karb94/neoscroll.nvim",
       event = "BufRead",
@@ -369,47 +307,9 @@ M.config = function()
         }
       end,
     },
-    {
-      -- TODO: weird flickering when I use Trouble but otherwise it does stabilize
-      "luukvbaal/stabilize.nvim",
-      config = function()
-        require("stabilize").setup {
-          forcemark = "f",
-          ignore = { -- do not manage windows matching these file/buftypes
-            filetype = { "help", "list", "Trouble" },
-            buftype = { "terminal", "quickfix", "loclist" },
-          },
-          nested = "QuickFixCmdPost,User LspDiagnosticsChanged",
-        }
-      end,
-    },
-    -- {
-    --   "folke/zen-mode.nvim",
-    --   config = function()
-    --     require("user.zen").config()
-    --   end,
-    --   event = "BufRead",
-    -- },
-    -- {
-    --   "folke/twilight.nvim",
-    --   config = function()
-    --     require("user.twilight").config()
-    --   end,
-    --   event = "BufRead",
-    -- },
     -- {
     --   "Mathijs-Bakker/zoom-vim",
     --   event = "BufRead",
-    -- },
-    -- {
-    --   "lukas-reineke/indent-blankline.nvim",
-    --   event = "BufRead",
-    --   config = function()
-    --     require("indent_blankline").setup {
-    --       show_current_context = true,
-    --       show_current_context_start = true,
-    --     }
-    --   end,
     -- },
     -----[[------------]]-----
     ---       Editing      ---
@@ -461,7 +361,7 @@ M.config = function()
       end,
       -- event = "WinEnter"
     },
-    { "chaoren/vim-wordmotion", event = "BufRead" },
+    -- { "chaoren/vim-wordmotion", event = "BufRead" },
     -- {
     -- Using vim-sandwich until surround.nvim highlights matches
     -- https://github.com/blackCauldron7/surround.nvim/issues/13
@@ -516,8 +416,8 @@ M.config = function()
       "andymass/vim-matchup",
       event = "CursorMoved",
       config = function()
-        -- vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
-        vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+        vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
+        -- vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         -- vim.g.matchup_matchparen_enabled = 0
         vim.g.matchup_surround_enabled = 1
         vim.g.matchup_matchparen_deferred = 1
@@ -525,8 +425,10 @@ M.config = function()
     },
     {
       "RRethy/nvim-treesitter-textsubjects",
-      event = "CursorMoved",
+      -- event = "CursorMoved",
+      after = "nvim-treesitter",
     },
+    { "nvim-treesitter/nvim-treesitter-textobjects", branch = "0.5-compat" },
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
@@ -569,13 +471,13 @@ M.config = function()
         })
       end,
     },
-    {
-      "folke/todo-comments.nvim",
-      event = "BufRead",
-      config = function()
-        require("user.todo_comments").config()
-      end,
-    },
+    -- {
+    --   "folke/todo-comments.nvim",
+    --   event = "BufRead",
+    --   config = function()
+    --     require("user.todo_comments").config()
+    --   end,
+    -- },
     -----[[------------]]-----
     ---      Snippets      ---
     -----]]------------[[-----
@@ -625,12 +527,13 @@ M.config = function()
       config = function()
         require("cmp_git").setup {
           -- defaults
-          filetypes = { "gitcommit" },
+          filetypes = { "gitcommit", "NeogitCommitMessage" },
           remotes = { "upstream", "origin" }, -- in order of most to least prioritized
         }
       end,
     },
     { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
+    -- { "hrsh7th/cmp-nvim-lsp-signature-help", requires = { "ray-x/lsp_signature.nvim", "hrsh7th/nvim-cmp" } },
     -- {
     --   "tzachar/cmp-tabnine",
     --   run = "./install.sh",
@@ -686,3 +589,87 @@ M.config = function()
 end
 
 return M
+
+-----[[------------]]-----
+---       Debug        ---
+-----]]------------[[-----
+-- { "jbyuki/one-small-step-for-vimkind" },
+-- { "mfussenegger/nvim-dap-python" },
+-- { "leoluz/nvim-dap-go" },
+-- {
+--   "rcarriga/nvim-dap-ui",
+--   config = function()
+--     require("dapui").setup()
+--   end,
+--   requires = { "mfussenegger/nvim-dap" },
+--   ft = { "python", "go", "rust", "lua", "javascript" },
+-- },
+-----[[------------]]-----
+---       Tests        ---
+-----]]------------[[-----
+-- https://github.com/vim-test/vim-test
+-- {
+--   "vim-test/vim-test",
+--   cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
+--   keys = { "<localleader>tf", "<localleader>tn", "<localleader>ts" },
+--   config = function()
+--     require("user.vim_test").config()
+--   end,
+-- },
+-- https://github.com/rcarriga/vim-ultest
+-- {
+--   "rcarriga/vim-ultest",
+--   cmd = { "Ultest", "UltestSummary", "UltestNearest" },
+--   wants = "vim-test",
+--   requires = { "vim-test/vim-test" },
+--   run = ":UpdateRemotePlugins",
+-- },
+
+-----[[------------]]-----
+---        Java        ---
+-----]]------------[[-----
+-- { "mfussenegger/nvim-jdtls" },
+-- { "mfussenegger/nvim-jdtls", ft = "java" },
+
+-----[[------------]]-----
+---       Syntax       ---
+-----]]------------[[-----
+-- { "ChristianChiarulli/vim-solidity" },
+-- {
+-- TODO: nvim-biscuits stops working sometimes, figure that out
+--   "code-biscuits/nvim-biscuits",
+--   -- event = "BufRead",
+--   config = function()
+--     require("nvim-biscuits").setup {
+--       cursor_line_only = true,
+--       default_config = {
+--         max_length = 50,
+--         -- trim_by_words = true,
+--         min_distance = 5,
+--         prefix_string = " 🍪 ",
+--       },
+--       -- language_config = {
+--       -- javascript = {
+--       --   -- prefix_string = "  // ",
+--       --   -- max_length = 80,
+--       -- },
+--       -- },
+--     }
+--   end,
+-- },
+-- {
+--   "nathom/filetype.nvim",
+--   config = function()
+--     require("filetype").setup {
+--       overrides = {
+--         extensions = {
+--           pn = "potion",
+--         },
+--         literal = {
+--           -- ["kitty.conf"] = "kitty",
+--           [".gitignore"] = "conf",
+--         },
+--       },
+--     }
+--   end,
+-- },

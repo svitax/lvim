@@ -3,6 +3,7 @@ local M = {}
 local themes = require "telescope.themes"
 local actions = require "telescope.actions"
 local builtin = require "telescope.builtin"
+local previewers = require "telescope.previewers"
 
 -- Buffer switcher
 function M.switch_buffers(opts)
@@ -212,6 +213,35 @@ end
 --   opts = vim.tbl_deep_extend("force", theme_opts, opts)
 --   builtin.find_files(opts)
 -- end
+
+-- TODO: can't scroll down and up delta preview
+local delta = previewers.new_termopen_previewer {
+  get_command = function(entry)
+    return { "git", "-c", "core.pager=delta", "-c", "delta.side-by-side=false", "diff", entry.value .. "^!" }
+  end,
+}
+
+M.delta_git_commits = function(opts)
+  opts = opts or {}
+  opts.previewer = {
+    delta,
+    previewers.git_commit_message.new(opts),
+    previewers.git_commit_diff_as_was.new(opts),
+  }
+
+  builtin.git_commits(opts)
+end
+
+M.delta_git_bcommits = function(opts)
+  opts = opts or {}
+  opts.previewer = {
+    delta,
+    previewers.git_commit_message.new(opts),
+    previewers.git_commit_diff_as_was.new(opts),
+  }
+
+  builtin.git_bcommits(opts)
+end
 
 -- -- If I ever wanna make my own sessions telescope picker
 -- M.sessions = function()
