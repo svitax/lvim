@@ -28,8 +28,8 @@ M.config = function()
     -- { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
     -- { "CursorHold", "*", "lua vim.lsp.diagnostic.show_line_diagnostics()" },
 
-    { "CursorHold", "*", "lua require 'nvim-lightbulb'.update_lightbulb({sign={enabled=true}})" },
-    { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb({sign={enabled=true}})" },
+    -- { "CursorHold", "*", "lua require 'nvim-lightbulb'.update_lightbulb({sign={enabled=true}})" },
+    -- { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb({sign={enabled=true}})" },
     -- { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
     -- * lua require'nvim-lightbulb'.update_lightbulb()]]
 

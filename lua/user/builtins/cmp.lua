@@ -26,7 +26,7 @@ M.config = function()
     -- nvim_lsp_signature_help = "  ",
     -- nvim_lsp_signature_help = "(Sig)",
     nvim_lsp = "(LSP)",
-    nvim_lua = "(NvLua)",
+    nvim_lua = "(Lua)",
     luasnip = "(Snip)",
     -- path = "  ",
     path = "(Path)",
@@ -36,13 +36,16 @@ M.config = function()
     -- cmp_tabnine = ""ﮧ"",
     emoji = "  ",
     buffer = "(Buffer)",
-    -- fuzzy_buffer = "(Buffer)",
-    -- npm = "(NPM)",
-    -- rg = "(RG)",
+    fuzzy_buffer = "(Buffer)",
+    -- npm = "[NPM]",
+    rg = "(RG)",
     -- spell = " 暈",
-    treesitter = "  ",
+    -- treesitter = "  ",
+    treesitter = "(TS)",
     -- ["vim-dadbod-completion"] = "  ",
     orgmode = "(Org)", -- "  "
+    cmdline = "(Cmd)",
+    cmdline_history = "(Hist)",
   }
 
   -- sources haave to be in order of priority
@@ -60,11 +63,26 @@ M.config = function()
     { name = "buffer", max_item_count = 5, keyword_length = 5 },
     -- { name = "fuzzy_buffer", max_item_count = 5, keyword_length = 5 },
     -- { name = "npm", keyword_length = 4 },
-    -- { name = "rg" },
+    { name = "rg" },
     -- { name = "spell", max_item_count = 5 },
-    { name = "treesitter" },
     { name = "orgmode" },
+    -- { name = "treesitter" },
   }
+
+  -- require("cmp").setup.cmdline(":", {
+  --   sources = {
+  --     { name = "cmdline" },
+  --     -- { name = "cmdline_history" },
+  --     { name = "path" },
+  --   },
+  -- })
+  require("cmp").setup.cmdline("/", {
+    sources = {
+      { name = "nvim_lsp_document_symbol" },
+      -- { name = "buffer" },
+      -- { name = "cmdline_history" },
+    },
+  })
 
   local check_backspace = function()
     local col = vim.fn.col "." - 1
@@ -112,11 +130,31 @@ M.config = function()
 
   -- NOTE: I have it as Select because it lets me use ghost_text better.
   -- NOTE: If I decide not to use ghost_text, I can change this back to Insert
-  lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }
-  lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }
+  -- lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }
+  -- lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }
   -- lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }
   -- lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }
+  lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping {
+    i = cmp.mapping.select_next_item {
+      behavior = cmp.SelectBehavior.Select,
+    },
+    c = cmp.mapping.select_next_item {
+      behavior = cmp.SelectBehavior.Insert,
+    },
+  }
+  lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping {
+    i = cmp.mapping.select_prev_item {
+      behavior = cmp.SelectBehavior.Select,
+    },
+    c = cmp.mapping.select_prev_item {
+      behavior = cmp.SelectBehavior.Insert,
+    },
+  }
 
+  lvim.builtin.cmp.mapping["<C-e>"] = cmp.mapping {
+    i = cmp.mapping.abort(),
+    c = cmp.mapping.close(),
+  }
   -- lvim.builtin.cmp.mapping["<Esc>"] = function(fallback)
   --   if cmp.visible() then
   --     cmp.close() -- cmp.mapping.close()

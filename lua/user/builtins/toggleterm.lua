@@ -22,6 +22,63 @@ M.config = function()
   -- lvim.builtin.terminal.direction = "window"
 end
 
+M.forgit_diff = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    cmd = "git diff",
+    -- when the dissapearing linenumber bug is fixed, switch to window
+    direction = "tab",
+    close_on_exit = false,
+    on_open = function(term)
+      -- quit with esc in terminal mode
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+      -- quit with q in terminal mode
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    hidden = true,
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_terminals = false,
+  }
+  terminal:toggle()
+end
+
+M.forgit_add = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    cmd = "git add",
+    -- when the dissapearing linenumber bug is fixed, switch to window
+    direction = "tab",
+    close_on_exit = false,
+    on_open = function(term)
+      -- quit with esc in terminal mode
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+      -- quit with q in terminal mode
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    hidden = true,
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_terminals = false,
+  }
+  terminal:toggle()
+end
+
+M.forgit_log = function()
+  local terminal = require("toggleterm.terminal").Terminal:new {
+    cmd = "git log",
+    -- when the dissapearing linenumber bug is fixed, switch to window
+    direction = "tab",
+    close_on_exit = false,
+    on_open = function(term)
+      -- quit with esc in terminal mode
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+      -- quit with q in terminal mode
+      vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    hidden = true,
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_terminals = false,
+  }
+  terminal:toggle()
+end
+
 M.lazy_git = function()
   local terminal = require("toggleterm.terminal").Terminal:new {
     cmd = "lazygit",
@@ -47,7 +104,7 @@ M.toggle_term2 = function()
       vim.api.nvim_buf_set_keymap(
         term.bufnr,
         "t",
-        "<A-f>",
+        "<A-h>",
         "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>",
         { noremap = true, silent = true }
       )

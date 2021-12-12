@@ -33,11 +33,15 @@ M.config = function()
     },
   }
 
-  lvim.builtin.treesitter.indent.disable = { "python", "go" }
+  lvim.builtin.treesitter.indent.disable = { "python", "go", "yaml" }
 
   lvim.builtin.treesitter.matchup.enable = true
 
   lvim.builtin.treesitter.playground.enable = true
+  lvim.builtin.treesitter.pyfold = {
+    enable = true,
+    custom_foldtext = true, -- Sets provided foldtext on window where module is active
+  }
 
   lvim.builtin.treesitter.query_linter = {
     enable = true,

@@ -8,7 +8,7 @@
 return function()
   local actions = require "telescope.actions"
   lvim.builtin.telescope.defaults.prompt_prefix = " "
-  lvim.builtin.telescope.defaults.selection_caret = "  "
+  lvim.builtin.telescope.defaults.selection_caret = " "
 
   lvim.builtin.telescope.defaults.winblend = lvim.winblend
   lvim.builtin.telescope.defaults.mappings = {
@@ -20,8 +20,8 @@ return function()
     },
     n = {
       ["<Space>"] = actions.toggle_selection,
-      -- ["<C-s>"] = actions.cycle_previewers_next,
-      -- ["<C-a>"] = actions.cycle_previewers_prev,
+      ["<C-j>"] = actions.move_selection_next,
+      ["<C-k>"] = actions.move_selection_previous,
       [";"] = actions.select_default,
       ["q"] = actions.close,
       ["<esc>"] = actions.close,
@@ -56,7 +56,7 @@ return function()
 
   lvim.builtin.telescope.on_config_done = function()
     -- require("telescope").load_extension "fzf"
-    require("telescope").load_extension "neoclip"
+    -- require("telescope").load_extension "neoclip"
     -- require("telescope").load_extension "npm"
   end
 
@@ -67,15 +67,4 @@ return function()
   --   case_mode = "smart_case", -- or "ignore_case" or "respect_case"
   --   -- the default case_mode is "smart_case"
   -- }
-  lvim.builtin.telescope.extensions.frecency = {
-    show_scores = true,
-    show_unindexed = false,
-    workspaces = {
-      ["dot"] = "~/.config",
-      ["lvim"] = "~/.config/lvim",
-      ["web"] = "/home/svitax/Desktop/code/web",
-      ["code"] = "/home/svitax/Desktop/code",
-      -- ["wiki"] = "/home/my_username/wiki",
-    },
-  }
 end

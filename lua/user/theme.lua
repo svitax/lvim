@@ -1,5 +1,47 @@
 local M = {}
 
+M.icon_styles = {
+  default = {
+    left = "",
+    right = " ",
+    main_icon = "  ",
+    -- main_icon = "",
+    vi_mode_icon = " ",
+    position_icon = " ",
+  },
+  arrow = {
+    left = "",
+    right = "",
+    main_icon = "  ",
+    vi_mode_icon = " ",
+    position_icon = " ",
+  },
+
+  block = {
+    left = " ",
+    right = " ",
+    main_icon = "   ",
+    vi_mode_icon = "  ",
+    position_icon = "  ",
+  },
+
+  round = {
+    left = "",
+    right = "",
+    main_icon = "  ",
+    vi_mode_icon = " ",
+    position_icon = " ",
+  },
+
+  slant = {
+    left = " ",
+    right = " ",
+    main_icon = "  ",
+    vi_mode_icon = " ",
+    position_icon = " ",
+  },
+}
+
 M.gruvchad = function()
   local colors = {
     white = "#c7b89d",
@@ -37,108 +79,48 @@ M.gruvchad = function()
   return colors
 end
 
-M.tokyonight = function()
-  vim.g.tokyonight_dev = true
-  vim.g.tokyonight_style = "storm"
-  vim.g.tokyonight_sidebars = {
-    "qf",
-    "vista_kind",
-    "terminal",
-    "packer",
-    "spectre_panel",
-    "NeogitStatus",
-    "help",
-  }
-  vim.g.tokyonight_cterm_colors = false
-  vim.g.tokyonight_terminal_colors = true
-  vim.g.tokyonight_italic_comments = true
-  vim.g.tokyonight_italic_keywords = true
-  vim.g.tokyonight_italic_functions = false
-  vim.g.tokyonight_italic_variables = false
-  vim.g.tokyonight_transparent = false
-  vim.g.tokyonight_hide_inactive_statusline = true
-  vim.g.tokyonight_dark_sidebar = true
-  vim.g.tokyonight_dark_float = true
-  local _time = os.date "*t"
-  if _time.hour < 8 then
-    vim.g.tokyonight_style = "night"
-  end
-end
-
-M.catppuccino = function()
-  local catppuccino = require "catppuccino"
-  catppuccino.setup {
-    colorscheme = "dark_catppuccino",
-    transparency = false,
-    term_colors = false,
-    styles = {
-      comments = "italic",
-      functions = "NONE",
-      keywords = "italic",
-      strings = "NONE",
-      variables = "NONE",
-    },
-    integrations = {
-      treesitter = true,
-      native_lsp = {
-        enabled = true,
-        virtual_text = {
-          errors = "italic",
-          hints = "italic",
-          warnings = "italic",
-          information = "italic",
-        },
-        underlines = {
-          errors = "underline",
-          hints = "underline",
-          warnings = "underline",
-          information = "underline",
-        },
-      },
-      lsp_trouble = true,
-      lsp_saga = false,
-      gitgutter = false,
-      gitsigns = true,
-      telescope = true,
-      nvimtree = {
-        enabled = true,
-        show_root = true,
-      },
-      which_key = true,
-      indent_blankline = {
-        enabled = true,
-        colored_indent_levels = true,
-      },
-      dashboard = true,
-      neogit = false,
-      vim_sneak = false,
-      fern = false,
-      barbar = true,
-      bufferline = true,
-      markdown = true,
-      lightspeed = false,
-      ts_rainbow = false,
-      hop = true,
-    },
-  }
-  catppuccino.load()
-end
-
 M.colors = {
-  gruvchad_colors = {
-    bg = "#3c3836",
-    bg1 = "#433E3A",
-    bg2 = "#504945",
+  gruvbox = {
+    -- -- fg1 = "#928374",
+    lightfg = "#8e837c",
+    lightfg2 = "#7c6f64",
 
-    fg1 = "#8e837c",
-    -- fg1 = "#928374",
-    fg2 = "#7c6f64", -- good with bg
-    fg = "#d4be98",
-    fg_alt = "#ddc7a1",
-
+    white = "#ebdbb2",
+    darker_black = "#232323",
+    black = "#282828", --  nvim bg
+    black2 = "#2e2e2e",
+    one_bg = "#353535",
+    one_bg2 = "#3f3f3f",
+    one_bg3 = "#444444",
+    grey = "#464646",
+    grey_fg = "#4e4e4e",
+    grey_fg2 = "#505050",
+    light_grey = "#565656",
+    red = "#fb4934",
+    baby_pink = "#cc241d",
+    pink = "#ff75a0",
+    line = "#2c2f30", -- for lines like vertsplit
+    green = "#b8bb26",
+    vibrant_green = "#a9b665",
+    nord_blue = "#83a598",
+    blue = "#458588",
+    yellow = "#d79921",
+    sun = "#fabd2f",
+    purple = "#b4bbc8",
+    dark_purple = "#d3869b",
+    teal = "#749689",
+    orange = "#e78a4e",
+    cyan = "#82b3a8",
+    statusline_bg = "#2c2c2c",
+    lightbg = "#353535",
+    lightbg2 = "#303030",
+    pmenu_bg = "#83a598",
+    folder_bg = "#83a598",
+  },
+  gruvchad = {
     white = "#c7b89d",
     darker_black = "#1e2122",
-    black = "#222526", --  nvim bg
+    black = "#3c3836",
     black2 = "#282b2c",
     one_bg = "#2b2e2f",
     one_bg2 = "#3b3e3f",

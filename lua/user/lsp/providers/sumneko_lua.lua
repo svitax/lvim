@@ -19,7 +19,8 @@ local luadev = lua_dev.setup {
     settings = {
       Lua = {
         diagnostics = {
-          globals = { "vim", "lvim" },
+          -- enable = false,
+          globals = { "vim", "lvim", "nnoremap" },
         },
         workspace = {
           library = {

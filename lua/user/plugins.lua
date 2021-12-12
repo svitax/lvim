@@ -5,13 +5,13 @@ M.config = function()
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
+    -- {
+    --   "kosayoda/nvim-lightbulb",
+    --   event = "CursorHold",
+    -- },
     {
       "weilbith/nvim-code-action-menu",
       event = "BufRead",
-    },
-    {
-      "kosayoda/nvim-lightbulb",
-      event = "CursorHold",
     },
     {
       "ray-x/lsp_signature.nvim",
@@ -24,14 +24,18 @@ M.config = function()
       "folke/trouble.nvim",
       config = function()
         require("trouble").setup {
-          auto_open = true,
+          auto_open = false,
           auto_close = true,
           padding = false,
           height = 10,
-          use_lsp_diagnostic_signs = true,
+          use_diagnostic_signs = true,
         }
       end,
     },
+    -----[[------------]]-----
+    ---       Python       ---
+    -----]]------------[[-----
+    { "eddiebergman/nvim-treesitter-pyfold", ft = "py" },
     -----[[------------]]-----
     ---     TypeScript     ---
     -----]]------------[[-----
@@ -61,10 +65,6 @@ M.config = function()
           autostart = false, -- Whether to autostart when `package.json` is opened
           hide_up_to_date = true, -- It hides up to date versions when displaying virtual text
           hide_unstable_versions = false, -- It hides unstable versions from version list e.g next-11.1.3-canary3
-          -- Can be `npm` or `yarn`. Used for `delete`, `install` etc...
-          -- The plugin will try to auto-detect the package manager based on
-          -- `yarn.lock` or `package-lock.json`. If none are found it will use the
-          -- provided one, if nothing is provided it will use `yarn`
           package_manager = "yarn",
         }
       end,
@@ -74,11 +74,7 @@ M.config = function()
     -----[[------------]]-----
     ---        Lua         ---
     -----]]------------[[-----
-    {
-      "folke/lua-dev.nvim",
-      ft = "lua",
-      before = "williamboman/nvim-lsp-installer",
-    },
+    { "folke/lua-dev.nvim", before = "williamboman/nvim-lsp-installer" },
     -----[[------------]]-----
     ---       Golang       ---
     -----]]------------[[-----
@@ -207,24 +203,24 @@ M.config = function()
         }
       end,
     },
-    {
-      "TimUntersberger/neogit",
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "sindrets/diffview.nvim",
-      },
-      config = function()
-        local neogit = require "neogit"
-        neogit.setup {
-          disable_context_highlighting = true,
-          disable_commit_confirmation = true,
-          integrations = {
-            diffview = true,
-          },
-        }
-        neogit.config.use_magit_keybindings()
-      end,
-    },
+    -- {
+    --   "TimUntersberger/neogit",
+    --   requires = {
+    --     "nvim-lua/plenary.nvim",
+    --     "sindrets/diffview.nvim",
+    --   },
+    --   config = function()
+    --     local neogit = require "neogit"
+    --     neogit.setup {
+    --       disable_context_highlighting = true,
+    --       disable_commit_confirmation = true,
+    --       integrations = {
+    --         diffview = true,
+    --       },
+    --     }
+    --     neogit.config.use_magit_keybindings()
+    --   end,
+    -- },
     -- NOTE: using this for merge conflict resolution from lazygit
     { "tpope/vim-fugitive", event = "WinEnter" },
     -----[[------------]]-----
@@ -284,19 +280,40 @@ M.config = function()
       end,
     },
     -----[[------------]]-----
+    ---      Mappings      ---
+    -----]]------------[[-----
+    {
+      "lazytanuki/nvim-mapper",
+      before = "telescope.nvim",
+      config = function()
+        require("nvim-mapper").setup {
+          no_map = true,
+          search_path = os.getenv "HOME" .. "/.config/lvim/lua",
+          -- Available actions:
+          --   * "definition" - Go to keybind definition (default)
+          --   * "execute" - Execute the keybind command
+          action_on_enter = "definition",
+        }
+        require("telescope").load_extension "mapper"
+      end,
+    },
+    { "b0o/mapx.nvim" },
+    -----[[------------]]-----
     ---         UI         ---
     -----]]------------[[-----
-    -- {
-    --   "gelguy/wilder.nvim",
-    --   event = { "CursorHold", "CmdlineEnter" },
-    --   rocks = { "luarocks-fetch-gitrec", "pcre2" },
-    --   -- rocks = { "luarocks-fetch-gitrec" },
-    --   requires = { "romgrk/fzy-lua-native" },
-    --   config = function()
-    --     vim.cmd(string.format("source %s", "~/.config/lvim/vimscript/wilder.vim"))
-    --   end,
-    --   run = ":UpdateRemotePlugins",
-    -- },
+    { "nixprime/cpsm", run = "PY3=ON ./install.sh" },
+    {
+      "gelguy/wilder.nvim",
+      event = { "CursorHold", "CmdlineEnter" },
+      rocks = { "luarocks-fetch-gitrec", "pcre2" },
+      -- rocks = { "luarocks-fetch-gitrec" },
+      requires = { "romgrk/fzy-lua-native", "nixprime/cpsm" },
+      config = function()
+        vim.cmd(string.format("source %s", "~/.config/lvim/vimscript/wilder.vim"))
+      end,
+      run = ":UpdateRemotePlugins",
+      --   run = "./install.sh",
+    },
     {
       "karb94/neoscroll.nvim",
       event = "BufRead",
@@ -327,6 +344,7 @@ M.config = function()
       requires = { "tami5/sqlite.lua", module = "sqlite" },
       config = function()
         require("user.neoclip").config()
+        require("telescope").load_extension "neoclip"
       end,
     },
     {
@@ -409,6 +427,13 @@ M.config = function()
         vim.api.nvim_set_keymap("n", "<C-h>", "<cmd>lua require('Navigator').right()<CR>", { silent = true })
       end,
     },
+    {
+      "dhruvmanila/telescope-bookmarks.nvim",
+      after = "telescope.nvim",
+      config = function()
+        require("telescope").load_extension "bookmarks"
+      end,
+    },
     -----[[------------]]-----
     ---    Text Objects    ---
     -----]]------------[[-----
@@ -416,8 +441,8 @@ M.config = function()
       "andymass/vim-matchup",
       event = "CursorMoved",
       config = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
-        -- vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+        -- vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
+        vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         -- vim.g.matchup_matchparen_enabled = 0
         vim.g.matchup_surround_enabled = 1
         vim.g.matchup_matchparen_deferred = 1
@@ -532,7 +557,12 @@ M.config = function()
         }
       end,
     },
-    { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
+    { "hrsh7th/cmp-cmdline", requires = { "hrsh7th/nvim-cmp" } },
+    { "dmitmel/cmp-cmdline-history", requires = { "hrsh7th/nvim-cmp" } },
+    { "lukas-reineke/cmp-rg", requires = { "hrsh7th/nvim-cmp" } },
+    { "hrsh7th/cmp-nvim-lsp-document-symbol", requires = { "hrsh7th/nvim-cmp" } },
+    -- { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
+    -- { "ray-x/cmp-treesitter", requires = { "hrsh7th/nvim-cmp" } },
     -- { "hrsh7th/cmp-nvim-lsp-signature-help", requires = { "ray-x/lsp_signature.nvim", "hrsh7th/nvim-cmp" } },
     -- {
     --   "tzachar/cmp-tabnine",
@@ -634,9 +664,8 @@ return M
 -----[[------------]]-----
 ---       Syntax       ---
 -----]]------------[[-----
--- { "ChristianChiarulli/vim-solidity" },
 -- {
--- TODO: nvim-biscuits stops working sometimes, figure that out
+--   -- TODO: nvim-biscuits stops working sometimes, figure that out
 --   "code-biscuits/nvim-biscuits",
 --   -- event = "BufRead",
 --   config = function()
@@ -648,15 +677,11 @@ return M
 --         min_distance = 5,
 --         prefix_string = " 🍪 ",
 --       },
---       -- language_config = {
---       -- javascript = {
---       --   -- prefix_string = "  // ",
---       --   -- max_length = 80,
---       -- },
---       -- },
+--       on_events = { "InsertLeave", "CursorHoldI" },
 --     }
 --   end,
 -- },
+-- { "ChristianChiarulli/vim-solidity" },
 -- {
 --   "nathom/filetype.nvim",
 --   config = function()

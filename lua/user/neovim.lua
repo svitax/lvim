@@ -5,17 +5,16 @@ M.config = function()
   vim.wo.foldmethod = "expr"
   vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
   vim.wo.foldlevel = 4
-  vim.wo.foldtext =
-    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+  -- vim.wo.foldtext =
+  --   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
   vim.wo.foldnestmax = 3
   vim.wo.foldminlines = 1
-  vim.opt.fillchars = "fold: "
   -- vim.opt.foldnestmax = 3
   -- vim.opt.foldminlines = 1
   vim.opt.showtabline = 0
   vim.opt.relativenumber = true
   -- vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
-  vim.opt.pumblend = 10 -- Popup blend auto_open
+  vim.opt.pumblend = 0 -- Popup blend auto_open
   -- vim.opt.wrap = true
   vim.opt.wrapscan = true -- Searches wrap around the end of the file
   vim.opt.cmdheight = 2

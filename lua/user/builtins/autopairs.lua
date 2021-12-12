@@ -24,12 +24,10 @@ M.config = function()
     module.add_rule(Rule("```", "```", "markdown"))
     module.add_rule(Rule("<%= ", "%>"))
 
-    module.remove_rule "`"
+    -- module.remove_rule "`"
     module.remove_rule "%"
     module.remove_rule "$"
-    module.add_rule(
-      Rule("`", "`", { "markdown", "lua", "ruby", "javascript", "javascriptreact", "typescript", "typescriptreact", "org" })
-    )
+    -- module.add_rule(Rule("`", "`", { "markdown", "lua", "ruby", "javascript", "javascriptreact", "typescript", "typescriptreact", "org", "python" }))
 
     -- Javascript rules
     -- module.add_rule(Rule("<", ">", { "javascript", "javascriptreact", "typescript", "typescriptreact" }))

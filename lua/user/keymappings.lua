@@ -1,192 +1,62 @@
 local M = {}
 
--- Go forward and backward in jumplist
--- nnoremap [j <C-o>zz
--- nnoremap ]j <C-i>zz
+local mapx = require("mapx").setup { global = "force", whichkey = true }
+local mapper = require "nvim-mapper"
 
------[[------------]]-----
----   Space Mappings   ---
------]]------------[[-----
+M.nnoremap = function(lhs, rhs, category, id, desc)
+  mapx.nnoremap(lhs, rhs)
+  mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
+end
+M.vnoremap = function(lhs, rhs, category, id, desc)
+  mapx.vnoremap(lhs, rhs)
+  mapper.map_virtual("v", lhs, "", { noremap = true }, category, id, desc)
+end
+M.inoremap = function(lhs, rhs, category, id, desc)
+  mapx.inoremap(lhs, rhs)
+  mapper.map_virtual("i", lhs, "", { noremap = true }, category, id, desc)
+end
 
--- <Leader> a = write buffer
--- <Leader> b = +Buffers
--- <Leader> c =
--- <Leader> d = +Debug
--- <Leader> e =
--- <Leader> f = files
--- <Leader> g = +Git
--- <Leader> h = +Harpoon
--- <Leader> i =
--- <Leader> j =
--- <Leader> k =
--- <Leader> l = +LSP
--- <Leader> m = +local
--- <Leader> n = +Notes
--- <Leader> o =
--- <Leader> p = +Packer
--- <Leader> q = quit
--- <Leader> r = +Replace (spectre)
--- <Leader> s = +Search
--- <Leader> t = filetree
--- <Leader> u = restore files (gomi)
--- <Leader> v =
--- <Leader> w = +Windows
--- <Leader> x =
--- <Leader> y = yank history (neoclip)
--- <Leader> z =
--- <Leader> ; = dashboard
--- <Leader> , =
--- <Leader> . =
--- <Leader> \ =
--- <Leader> Tab
--- <Leader> Enter
--- <Leader> Esc
--- <Leader> Space
-
------[[------------]]-----
----    Ctrl Mappings   ---
------]]------------[[-----
-
--- <C-a> = tmux prefix
--- <C-b> = open buku bookmarks (tmux)
--- <C-c> =
--- <C-d> = scroll down
--- <C-e> = close nvim completion
--- <C-f> = session switcher (tmux)
--- <C-g> = rotate panes (tmux)
--- <C-h> = select right pane (tmux)
--- <C-i> = forward in jumplist
--- <C-j> = select bottom pane (tmux)
--- <C-k> = select top pane (tmux)
--- <C-l> = select left pane (tmux)
--- <C-m> = (i think this is <cr>)
--- <C-n> = next window (tmux)
--- <C-o> = back in jumplist
--- <C-p> = previous window (tmux)
--- <C-q> = open quickfix
--- <C-r> = redo
--- <C-s> = rotate panes (tmux)
--- <C-t> = project opener (tmux)
--- <C-u> = scroll up
--- <C-v> = block visual mode
--- ? <C-w> = window keys
--- <C-x> = session killer (tmux)
--- <C-y> = multicursor
--- <C-z> = zoom pane (tmux)
--- <C-;> = (remapped to C-h)
--- <C-,> =
--- <C-.> =
--- <C-\> =
--- <C-Tab> =
--- <C-Enter> =
--- <C-Esc> =
--- <C-Space> =
-
------[[------------]]-----
----    Alt Mappings    ---
------]]------------[[-----
--- <A-a> = "<ESC>ggVG<CR>" -- select all in insert
--- <A-a> = "<C-a>" -- increment in normal
--- <A-b> =
--- <A-c> =
--- <A-d> =
--- <A-e> =
--- <A-f> =
--- <A-g> = toggleterm g
--- <A-h> = toggleterm h
--- <A-i> = bufjump forward
--- <A-j> = move line down
--- <A-k> = move line up
--- <A-l> =
--- <A-m> =
--- <A-n> =
--- <A-o> = bufjump backward
--- <A-p> =
--- <A-q> =
--- <A-r> =
--- <A-s> =
--- <A-t> =
--- <A-u> =
--- <A-v> =
--- <A-w> =
--- ? <A-x> = "<C-x>" -- decrement in normal
--- <A-y> =
--- <A-z> =
--- <A-;> =
--- <A-,> =
--- <A-.> =
--- <A-\> =
--- <A-Tab> =
--- <A-Enter> =
--- <A-Esc> =
--- <A-Space> =
-
------[[------------]]-----
----   Hyper Mappings   ---
------]]------------[[-----
--- <Hyper-a> =
--- <Hyper-b> =
--- <Hyper-c> =
--- <Hyper-d> =
--- <Hyper-e> =
--- <Hyper-f> =
--- <Hyper-g> =
--- <Hyper-h> =
--- <Hyper-i> =
--- <Hyper-j> =
--- <Hyper-k> =
--- <Hyper-l> =
--- <Hyper-m> =
--- <Hyper-n> =
--- <Hyper-o> =
--- <Hyper-p> =
--- <Hyper-q> =
--- <Hyper-r> =
--- <Hyper-s> =
--- <Hyper-t> =
--- <Hyper-u> =
--- <Hyper-v> =
--- <Hyper-w> =
--- <Hyper-x> =
--- <Hyper-y> =
--- <Hyper-z> =
--- <Hyper-;> =
--- <Hyper-,> =
--- <Hyper-.> =
--- <Hyper-\> =
--- <Hyper-Tab> =
--- <Hyper-Enter> =
--- <Hyper-Esc> =
--- <Hyper-Space> =
+M.nnoremap_which = function(lhs, rhs, label, category, id, desc)
+  mapx.nnoremap(lhs, rhs, label)
+  mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
+end
 
 M.config = function()
   -- TODO: S in visual mode should be lightspeed_S, so what should I use for visual sandwich surround?
 
-  -- Allow using alt in macOS without enabling “Use Option as Meta key”
-
-  -- vim.api.nvim_set_keymap("n", "∆", "<A-j>", { noremap = false, silent = true, expr = true })
-
   -----[[------------]]-----
   ---       Normal       ---
   -----]]------------[[-----
-  -- better movement keys
-  lvim.keys.normal_mode[";"] = "l"
-  lvim.keys.normal_mode["l"] = "h"
-  -- Use h to quickly enter command mode (since I use ; to move right and l to move left, my h key is useless)
-  lvim.keys.normal_mode["h"] = ":"
+  local m = require("mapx").setup { whichkey = true }
+  -- normal mode remaps (without support for whichkey)
+  -- local nnoremap = M.nnoremap
+
+  -- I use jkl; instead of hjkl
+  M.nnoremap(";", "l", "Navigation", "right", "Move cursor to right.")
+  M.nnoremap("l", "h", "Navigation", "left", "Move cursor to left.")
+
+  -- since I don't use h to move cursor, might as well use it to enter command mode
+  M.nnoremap("h", ":", "Modes", "command_mode", "Enter command mode.")
+
   -- keep cursor centered when using n(next) and N(previous)
-  lvim.keys.normal_mode["n"] = "nzzzv"
-  lvim.keys.normal_mode["N"] = "Nzzzv"
+  M.nnoremap("n", "nzzzv", "Search", "next_occurrence", "Search forwards for the next occurrence.")
+  M.nnoremap("N", "Nzzzv", "Search", "prev_occurrence", "Search backwards for the previous occurrence.")
+
   -- keep cursor centered and in-place when joining lines with J
-  lvim.keys.normal_mode["J"] = "mzJ`z"
+  M.nnoremap("J", "mzJ`z", "Editing", "join_lines", "Join line below to to the current one while keeping cursor centered and in-place.")
+
   -- reverse join
   -- lvim.keys.normal_mode["H"] = "revJ"
+
   -- easy align
   -- lvim.keys.normal_mode["L"] = "vimeasyalign"
+
   -- make Y act like D and C but for yanking (this is going to get merged into neovim core)
-  lvim.keys.normal_mode["Y"] = "y$"
+  -- nnoremap("Y", "y$", "", "", "", "")
+
   -- like the previous but ignores white space
   -- lvim.keys.normal_mode["Y"] = "yg_"
+
   -- save
   -- lvim.keys.normal_mode["<C-s>"] = ":update<cr>"
 
@@ -197,88 +67,89 @@ M.config = function()
   -- vim.api.nvim_set_keymap("v", "X", '"_X', { noremap = true, silent = true })
 
   -- navigate windows/splits
-  lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require('Navigator').left()<CR>"
-  lvim.keys.normal_mode["<C-j>"] = "<cmd>lua require('Navigator').down()<CR>"
-  lvim.keys.normal_mode["<C-k>"] = "<cmd>lua require('Navigator').up()<CR>"
-  lvim.keys.normal_mode["<C-h>"] = "<cmd>lua require('Navigator').right()<CR>" -- I have <C-;> happed to <C-h> on my keyboard since terminals don't recognize <C-;> as an actual thing
+  M.nnoremap("<C-l>", "<cmd>lua require('Navigator').left()<CR>", "Navigation", "move_cursor_left_window", "Move cursor to the left window.")
+  M.nnoremap("<C-j>", "<cmd>lua require('Navigator').down()<CR>", "Navigation", "move_cursor_down_window", "Move cursor to the window below.")
+  M.nnoremap("<C-k>", "<cmd>lua require('Navigator').up()<CR>", "Navigation", "move_cursor_up_window", "Move cursor to the window above.")
+  M.nnoremap("<C-h>", "<cmd>lua require('Navigator').right()<CR>", "Navigation", "move_cursor_right_window", "Move cursor to the right window.")
+  -- I have <C-;> happed to <C-h> on my keyboard since terminals don't recognize <C-;> as an actual thing
+
   -- clean control keybindings so I can use them with tmux
-  vim.api.nvim_set_keymap("n", "<C-b>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-e>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-f>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-g>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-h>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-m>", "", { noremap = true })
-  -- vim.api.nvim_set_keymap("n", "<C-m>", "<Plug>(VM-Find-Under)", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-n>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-p>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-s>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-x>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-y>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-z>", "", { noremap = true })
-  vim.api.nvim_set_keymap("n", "<C-/>", "", { noremap = true })
+  -- M.nnoremap("<C-b>", "", "Tmux", "tmux-c-b", "empty c-b")
+  -- M.nnoremap("<C-e>", "", "Tmux", "tmux-c-e", "empty c-e")
+  -- M.nnoremap("<C-f>", "", "Tmux", "tmux-c-f", "empty c-f")
+  -- M.nnoremap("<C-g>", "", "Tmux", "tmux-c-g", "empty c-g")
+  -- M.nnoremap("<C-h>", "", "Tmux", "tmux-c-h", "empty c-h")
+  -- M.nnoremap("<C-m>", "", "Tmux", "tmux-c-m", "empty c-m")
+  -- M.nnoremap("<C-n>", "", "Tmux", "tmux-c-n", "empty c-n")
+  -- M.nnoremap("<C-p>", "", "Tmux", "tmux-c-p", "empty c-p")
+  -- M.nnoremap("<C-s>", "", "Tmux", "tmux-c-s", "empty c-s")
+  -- M.nnoremap("<C-x>", "", "Tmux", "tmux-c-x", "empty c-x")
+  -- M.nnoremap("<C-y>", "", "Tmux", "tmux-c-y", "empty c-y")
+  -- M.nnoremap("<C-z>", "", "Tmux", "tmux-c-z", "empty c-z")
+  -- M.nnoremap("<C-/>", "", "Tmux", "tmux-c-/", "empty c-/")
 
   -- Increment
-  lvim.keys.normal_mode["<A-a>"] = "<C-a>"
+  M.nnoremap("<A-a>", "<C-a>", "Editing", "select_all", "Select all buffer text.")
+
   -- move current line up/down
-  lvim.keys.normal_mode["<A-j>"] = ":m .+1<cr>=="
-  lvim.keys.normal_mode["<A-k>"] = ":m .-2<cr>=="
+  M.nnoremap("<A-j>", ":m .+1<cr>==", "Editing", "move_line_up", "Move current line up.")
+  M.nnoremap("<A-k>", ":m .-2<cr>==", "Editing", "move_line_down", "Move current line down.")
+
   -- jump back and forth between buffers (mirror C-o/C-i for moving in the jumplist)
-  lvim.keys.normal_mode["<A-o>"] = ":lua require('bufjump').backward()<cr>"
-  lvim.keys.normal_mode["<A-i>"] = ":lua require('bufjump').forward()<cr>"
+  M.nnoremap("<A-o>", ":lua require('bufjump').backward()<cr>", "Navigation", "prev_jumplist_buf", "Move to previous buffer in jumplist")
+  M.nnoremap("<A-i>", ":lua require('bufjump').forward()<cr>", "Navigation", "next_jumplist_buf", "Move to next buffer in jumplist")
+
   -- quickly toggle terminals
-  lvim.keys.normal_mode["<A-h>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>"
-  -- lvim.keys.normal_mode["<A-d>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term3()<CR>"
-  -- lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term4()<cr>"
-  -- lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.builtins.toggleterm').toggle_term5()<CR>"
-  -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>"
-  -- lvim.keys.normal_mode["<A-t>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>"
-  -- lvim.keys.normal_mode["<A-y>"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>"
+  M.nnoremap("<A-h>", "<cmd>lua require('user.builtins.toggleterm').toggle_term2()<cr>", "Terminal", "toggle_term2", "Toggle terminal in position 2")
+
   -- quickly switch to harpoon marked files
-  lvim.keys.normal_mode["<A-5>"] = "<cmd>lua require('harpoon.ui').nav_file(5)<CR>"
-  lvim.keys.normal_mode["<A-4>"] = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>"
-  lvim.keys.normal_mode["<A-3>"] = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>"
-  lvim.keys.normal_mode["<A-2>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>"
-  lvim.keys.normal_mode["<A-1>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>"
+  M.nnoremap("<A-5>", "<cmd>lua require('harpoon.ui').nav_file(5)<CR>", "Navigation", "harpoon_nav_file5", "Move to harpoon file 5")
+  M.nnoremap("<A-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Navigation", "harpoon_nav_file4", "Move to harpoon file 4")
+  M.nnoremap("<A-3>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Navigation", "harpoon_nav_file3", "Move to harpoon file 3")
+  M.nnoremap("<A-2>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Navigation", "harpoon_nav_file2", "Move to harpoon file 2")
+  M.nnoremap("<A-1>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Navigation", "harpoon_nav_file1", "Move to harpoon file 1")
 
   -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
-  -- vim.api.nvim_set_keymap("n", "S591", "_", { noremap = true })
-  vim.api.nvim_set_keymap("n", "Q949", "_", { noremap = true })
-  -- vim.api.nvim_set_keymap("n", "S4", "_", { noremap = true })
-  vim.api.nvim_set_keymap("n", "12", "$", { noremap = true })
-  -- vim.api.nvim_set_keymap("n", "S591", "b", { noremap = true })
+  M.nnoremap("Q949", "_", "Motion", "first_non_blank", "Jump to the first non-blank character of the line.")
+  M.nnoremap("12", "$", "Motion", "end_of_line", "Jump to the end of the line.")
 
   -- more ergonomic matchup mapping with alt-tab (since just tab conflicts with C-i for jumplist navigation)
-  -- vim.cmd "noremap <silent> <Tab> :<C-u>normal %<CR>"
-  vim.cmd "noremap <silent> <A-Tab> :<C-u>normal %<CR>"
+  -- vim.cmd "noremap <silent> <A-Tab> :<C-u>normal %<CR>"
+  M.nnoremap("<A-Tab>", ":<C-u>normal %<cr>", "Motion", "matchup", "Move to matching character.")
+
   -- no highlight on esc
-  lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<CR>"
-  -- degenerate emacs inside nvim just to use magit
-  -- lvim.keys.normal_mode["<C-a>"] = "<cmd>lua require('user.toggleterm')._toggle_magit()<cr>"
-  -- lvim.builtin.which_key.mappings["<space>"] = { ":term emacsclient -nw -e '(magit-status)' <cr>", "magit" }
+  M.nnoremap("<Esc>", "<cmd>nohlsearch<cr>", "Search", "no_highlight_search", "Remove highlighting of search matches")
 
   -----[[------------]]-----
   ---       Visual       ---
   -----]]------------[[-----
+  -- visual mode remaps (without support for whichkey)
+  -- local vnoremap = M.vnoremap
+
   -- better movement keys
-  lvim.keys.visual_mode[";"] = "l"
-  lvim.keys.visual_mode["l"] = "h"
+  M.vnoremap(";", "l", "Navigation", "visual_right", "Move cursor to right.")
+  M.vnoremap("l", "h", "Navigation", "visual_left", "Move cursor to left.")
+
   -- better pasting in visual mode
-  lvim.keys.visual_mode["p"] = [["_dP]]
+  vnoremap("p", [["_dP]])
 
   -- Move visual selection up/down
-  lvim.keys.visual_mode["<A-j>"] = ":m '>+1<cr>gv=gv"
-  lvim.keys.visual_mode["<A-k>"] = ":m '<-2<cr>gv=gv"
+  M.vnoremap("<A-j>", ":m '>+1<cr>gv=gv", "Editing", "visual_move_line_up", "Move current line up.")
+  M.vnoremap("<A-k>", ":m '<-2<cr>gv=gv", "Editing", "visual_move_line_down", "Move current line down.")
+
   -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12)
-  -- vim.api.nvim_set_keymap("v", "S4", "_", { noremap = true })
-  vim.api.nvim_set_keymap("v", "Q949", "_", { noremap = true })
-  vim.api.nvim_set_keymap("v", "12", "$", { noremap = true })
+  M.vnoremap("Q949", "_", "Motion", "visual_first_non_blank", "Jump to the first non-blank character of the line.")
+  M.vnoremap("12", "$", "Motion", "visual_end_of_line", "Jump to the end of the line.")
 
   -----[[------------]]-----
   ---       Insert       ---
   -----]]------------[[-----
-  lvim.keys.insert_mode["jk"] = nil
-  lvim.keys.insert_mode["kj"] = nil
-  lvim.keys.insert_mode["jj"] = nil
+  -- insert mode remaps (without support for whichkey)
+  -- local vnoremap = M.inoremap
+
+  -- inoremap("jk", "")
+  -- inoremap("kj", "")
+  -- inoremap("jj", "")
 
   -- lvim.keys.insert_mode["<C-a>"] = "<esc>I"
   -- lvim.keys.insert_mode["<C-e>"] = "<esc>A"
@@ -286,7 +157,8 @@ M.config = function()
   -- lvim.keys.insert_mode["<C-b>"] = "<Left>"
 
   -- select all
-  lvim.keys.insert_mode["<A-a>"] = "<ESC>ggVG<CR>"
+  M.inoremap("<A-a>", "<ESC>ggVG<CR>", "Editing", "insert_select_all", "Select all buffer text in insert mode.")
+
   -- lvim.keys.insert_mode["<A-h>"] = nil
   -- lvim.keys.insert_mode["<A-j>"] = nil
   -- lvim.keys.insert_mode["<A-k>"] = nil
@@ -297,31 +169,33 @@ M.config = function()
   -- lvim.keys.insert_mode["<A-d>"] = nil
   -- lvim.keys.insert_mode["<A-s>"] = nil
   -- lvim.keys.insert_mode["<A-a>"] = nil
-  -- ergonmic mappings for end of line and beginning of line my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12
-  -- vim.api.nvim_set_keymap("i", "S4", "<Esc>_i", { noremap = true })
-  vim.api.nvim_set_keymap("i", "Q949", "<Esc>_i", { noremap = true })
+
   -- make sure tmux doesn't bind anything to C-s
-  vim.api.nvim_set_keymap("i", "12", "<Esc>$a", { silent = true, noremap = true })
-  vim.api.nvim_set_keymap("i", "<S-Left>", "<C-\\><C-O><Plug>WordMotion_b", { noremap = false })
-  vim.api.nvim_set_keymap("i", "<S-Right>", "<C-\\><C-O><Plug>WordMotion_w", { noremap = false })
+
+  -- ergonmic mappings for end of line and beginning of line my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12
+  M.inoremap("Q949", "<Esc>_i", "Motion", "insert_first_non_blank", "Jump to the first non-blank character of the line.")
+  M.inoremap("12", "<Esc>$a", "Motion", "insert_end_of_line", "Jump to the end of the line.")
+
+  M.inoremap("<S-Left>", "<C-\\><C-O><Plug>WordMotion_b", "Motion", "word_motion_back", "Jump backwards to the start of a word.")
+  M.inoremap("<S-Right>", "<C-\\><C-O><Plug>WordMotion_w", "Motiion", "word_motion_word", "Jump forwards tto the start of a word")
+
   -- NOTE: not sure if i want this mapping (visually laggy)
-  -- vim.api.nvim_set_keymap("i", "<C-w>", "<space><C-\\><C-O>d<Plug>WordMotion_b<C-O>x", { noremap = false })
-  vim.api.nvim_set_keymap("i", "<C-w>", "<c-\\><c-O>b<c-\\><c-O>d<S-Right>", { noremap = false })
+  inoremap("<C-w>", "<c-\\><c-O>b<c-\\><c-O>d<S-Right>")
 
   -- Undo break points (for a finer-grained undo command)
   -- should I add space to this list?
-  lvim.keys.insert_mode[","] = ",<c-g>u"
-  lvim.keys.insert_mode["."] = ".<c-g>u"
-  lvim.keys.insert_mode["!"] = "!<c-g>u"
-  lvim.keys.insert_mode["?"] = "?<c-g>u"
-  lvim.keys.insert_mode["<cr>"] = "<cr><c-g>u"
-  lvim.keys.insert_mode["<space>"] = "<space><c-g>u"
+  inoremap(",", ",<c-g>u")
+  inoremap(".", ".<c-g>u")
+  inoremap("!", "!<c-g>u")
+  inoremap("?", "?<c-g>u")
+  inoremap("<cr>", "<cr><c-g>u")
+  inoremap("<space>", "<space><c-g>u")
+
   -- Fix previous spelling mistake
-  -- lvim.keys.insert_mode["<C-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
-  lvim.keys.insert_mode["<A-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
+  M.inoremap("<A-h>", "<c-g>u<Esc>[s1z=`]a<c-g>u", "Editing", "fix_prev_spelling", "Fix previous spelling mistake")
+
   -- A-del is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
-  -- vim.api.nvim_set_keymap("i", "<A-bs>", "<Esc>dbxi", {})
-  lvim.keys.insert_mode["<A-bs>"] = "<c-w>"
+  M.inoremap("<A-bs>", "<c-w>", "Editing", "delelte_word", "Delete word before the cursor.")
 
   -----[[------------]]-----
   ---        Term        ---
@@ -346,159 +220,108 @@ M.config = function()
 
   --]]
 
-  -- Assigned, not implemented
-  -- =====================================
-  -- ["p"] = +Workspaces
-  -- ["P"] = +Packer
-  -- ["M"] = (make) -- autocommands based on filetype
-  -- ["R"] = (run)  -- autocommands based on filetype
-  -- ["T"] = (test) -- autocommands based on filetype
+  -----[[------------]]-----
+  ---      Whichkey      ---
+  -----]]------------[[-----
+  -- Whichkey remaps
+  -- local nnoremap = M.nnoremap_which
 
-  -- ["Tt"] (TSPlaygroundToggle)
-
-  -- not assigned
-  -- =====================================
-  -- (bibliography)
-
-  -- ["c"] =
-  -- ["C"] =
-  -- ["j"] =
-  -- ["k"] =
-  -- ["m"] =
-  -- ["o"] =
-  -- ["v"] =
-  -- ["x"] =
-  -- ["X"] =
-  -- ["."] =
-  -- ["\"] =
-  -- ["["] =
-  -- ["]"] =
-  -- ["="] =
-  -- ["-"] =
-  -- ["<space>"] =
-  -- ["<cr>"] =
-  -- ["<bs>"] =
-  -- ["("] =
-  -- [")"] =
-
-  -- lvim.builtin.which_key.mappings["n"] = {
-  --   name = "Neogen",
-  --   c = { "<cmd>lua require('neogen').generate({ type = 'class'})<CR>", "Class Documentation" },
-  --   f = { "<cmd>lua require('neogen').generate({ type = 'func'})<CR>", "Function Documentation" },
-  -- }
-
-  -- lvim.builtin.which_key.mappings["?"] = { "<cmd>Cheat<CR>", "cheat.sh" }
-
-  lvim.builtin.which_key.mappings["a"] = { "<cmd>up<CR>", "write buffer" }
-
-  -- lvim.builtin.which_key.mappings["c"] = nil
-  -- lvim.builtin.which_key.mappings["c"] = { "<Plug>RestNvim", "rest" }
-  -- show up only on html files (maybe css/js too)
-  -- lvim.builtin.which_key.mappings["c"] = { "<cmd>Bracey<cr>", "live server" }
-
-  lvim.builtin.which_key.mappings["e"] = nil
-
-  -- lvim.builtin.which_key.mappings["e"] = { "<cmd>SnipRun<cr>", "eval" }
-  -- lvim.builtin.which_key.vmappings["e"] = { "<cmd>SnipRun<cr>", "eval bloc" }
-  -- The operator mapping allows you to combine movements with sniprun:
-  -- "<plug>SnipRunOperator + j" will run sniprun on the current line + the line below.
-
-  lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<CR>", "file tree" }
-  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "files" }
-  -- lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf<cr><cmd>FloatermUpdate --height=0.90 --width=0.90<cr>", "files" }
-  -- lvim.builtin.which_key.mappings["f"] = { "<cmd>edit .<cr>", "file buffer" }
-  -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'user.lir.utils'.toggle_lir()<cr>", "file buffer" }
-  -- lvim.builtin.which_key.mappings["F"] = { "<cmd>lua require'lir.float'.toggle()<cr>", "files" }
-
+  M.nnoremap_which("<Leader>a", "<cmd>up<CR>", "write buffer", "Editing", "update", "Writes the buffer but only if it has been modified.")
+  nnoremap("<Leader>c", "", "which_key_ignore")
+  nnoremap("<Leader>e", "", "which_key_ignore")
+  M.nnoremap_which("<Leader>t", "<cmd>NvimTreeToggle<CR>", "file tree", "Files", "nvimtree_toggle", "Toggles Nvimtree")
+  M.nnoremap_which("<Leader>f", "<cmd>Lf %<cr>", "files", "Files", "lf_togggle", "Toggles Lf (file manager)")
   -- toggle spell check
-  -- lvim.builtin.which_key.mappings["h"] = { "<cmd>set spell!<cr> <cmd>set spellcapcheck!=<cr> l", "spellcheck" }
-  lvim.builtin.which_key.mappings["i"] = { "<cmd>set spell!<cr>", "spellcheck" }
-
-  lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit" }
-  -- lvim.builtin.which_key.mappings["q"] = { "<cmd>SaveSession<cr> <cmd>w<cr> <cmd>qa<cr>", "save and quit" }
-
+  M.nnoremap_which("<Leader>i", "<cmd>set spell!<cr>", "spellcheck", "Editing", "toggle_spellcheck", "Toggle spellcheck")
+  M.nnoremap_which("<Leader>q", "<cmd>qa<cr>", "quit", "Quit", "quit_all", "Exit NeoVim")
   -- TODO: make Lf use gomi to delete files
-  lvim.builtin.which_key.mappings["u"] = {
+  M.nnoremap_which(
+    "<Leader>u",
     "<cmd>lua require('user.builtins.toggleterm').restore_files()<cr>",
     "restore files",
-  }
-
-  -- shows up only on files that can be made/run/tested
-  -- lvim.builtin.which_key.mappings["M"] = "make"
-  -- lvim.builtin.which_key.mappings["R"] = "run"
-  -- lvim.builtin.which_key.mappings["T"] = "test"
-
-  -- lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "zen" }
-  -- lvim.builtin.which_key.mappings["p"] = "workspaces"
-  -- lvim.builtin.which_key.mappings["P"] = "Packer"
-
-  -- lvim.builtin.which_key.mappings["y"] = { "<cmd>Telescope neoclip plus<cr>", "yank history" }
-  lvim.builtin.which_key.mappings["y"] = {
+    "Files",
+    "restore_files_gomi",
+    "Restore files through Gomi"
+  )
+  M.nnoremap_which(
+    "<Leader>y",
     "<cmd>lua require('telescope').extensions.neoclip.default({initial_mode = 'normal'})<cr>",
     "yank history",
-  }
+    "Yank",
+    "neoclip_yank_history",
+    "Toggle Neoclip (clipboard manager)"
+  )
+  M.nnoremap_which("<Leader>/", "<cmd>lua require('Comment').toggle()<CR>", "comment", "Comment", "toggle_comment", "Toggle line comment.")
+  M.nnoremap_which("<Leader>;", "<cmd>Dashboard<CR>", "dashboard", "Navigation", "dashboard", "Jump to dashboard.")
 
-  -- lvim.builtin.which_key.mappings["/"] = { ":CommentToggle<CR>", "comment" }
-  lvim.builtin.which_key.mappings["/"] = { "<cmd>lua require('Comment').toggle()<CR>", "comment" }
-
+  -- =========================================
   -- +Buffers
   -- =========================================
-  lvim.builtin.which_key.mappings["b"] = {
-    name = "+Buffers",
-    a = {
-      "<cmd>BDelete all<cr>",
-      "delete all buffers",
-    },
-    b = {
-      "<cmd>lua require'user.telescope.custom_pickers'.switch_buffers()<cr>",
-      "switch buffer",
-    },
-    d = {
-      "<cmd>BDelete this<CR>",
-      "close this buffer",
-    },
-    h = {
-      "<cmd>BDelete! hidden<cr>",
-      "close hidden buffers",
-    },
-    n = {
-      "<cmd>bnext<cr>",
-      "next buffer",
-    },
-    o = {
-      "<cmd>BDelete! other<CR>",
-      "close other buffers",
-    },
-    p = {
-      "<cmd>bprevious<cr>",
-      "previous buffer",
-    },
-  }
+  m.name("<Leader>b", "+Buffers")
+  M.nnoremap_which("<Leader>ba", "<cmd>BDelete all<cr>", "delete all buffers", "Buffers", "del_all_buf", "Deletes all buffers.")
+  M.nnoremap_which(
+    "<Leader>bb",
+    "<cmd>lua require'user.telescope.custom_pickers'.switch_buffers()<cr>",
+    "switch buffer",
+    "Buffers",
+    "buffer_switcher",
+    "Open buffer switcher."
+  )
+  M.nnoremap_which("<Leader>bd", "<cmd>BDelete this<CR>", "close this buffer", "Buffers", "del_buf", "Delete current buffer.")
+  M.nnoremap_which("<Leader>bh", "<cmd>BDelete! hidden<cr>", "close hidden buffers", "Buffers", "del_hidden_bufs", "Delete all hidden buffers.")
+  M.nnoremap_which("<Leader>bn", "<cmd>bnext<cr>", "next buffer", "Buffers", "next_buf", "Jump to next buffer.")
+  M.nnoremap_which("<Leader>bo", "<cmd>BDelete! other<CR>", "close other buffers", "Buffers", "del_other_bufs", "Delete other buffers.")
+  M.nnoremap_which("<Leader>bp", "<cmd>bprevious<cr>", "previous buffer", "Buffers", "prev_buf", "Jump to previous buffer.")
+  -- ignore builtin lunarvim mappings
+  nnoremap("<Leader>bc", "", "which_key_ignore")
+  nnoremap("<Leader>bD", "", "which_key_ignore")
+  nnoremap("<Leader>be", "", "which_key_ignore")
+  nnoremap("<Leader>bf", "", "which_key_ignore")
+  nnoremap("<Leader>bj", "", "which_key_ignore")
+  nnoremap("<Leader>bl", "", "which_key_ignore")
+  nnoremap("<Leader>bL", "", "which_key_ignore")
+  nnoremap("<Leader>bw", "", "which_key_ignore")
 
   -- =========================================
   -- +Debugging
   -- =========================================
-  lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "toggle debug UI" }
-  lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "eval" }
+  m.name("<Leader>d", "+Debug")
+  M.nnoremap_which("<Leader>dU", "<cmd>lua require('dapui').toggle()<cr>", "toggle debug UI", "Debug", "dapui_toggle", "Toggle dapui (debug ui)")
+  M.nnoremap_which("<Leader>de", "<cmd>lua require('dapui').eval()<cr>", "eval", "Debug", "dapui_eval", "Evaluate expression in dapui")
 
-  -- TODO override builtin git mappings
   -- =========================================
   -- +Git
   -- =========================================
-  lvim.builtin.which_key.mappings["gd"] = { "<cmd>DiffviewOpen<cr>", "diff open" }
-  -- lvim.builtin.which_key.mappings["gd"] = { "<cmd>DiffviewOpen HEAD~1<cr>", "diff open" }
-  lvim.builtin.which_key.mappings["gD"] = { "<cmd>DiffviewClose<cr>", "diff close" }
-  lvim.builtin.which_key.mappings["gi"] = { "<cmd>Octo issue list<cr>", "list issues" }
-  lvim.builtin.which_key.mappings["gl"] = { "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message" }
-  lvim.builtin.which_key.mappings["gP"] = { "<cmd>Octo pr list<cr>", "list pull requests" }
-  lvim.builtin.which_key.mappings["gg"] = {
-    "<cmd>lua require('user.builtins.toggleterm').lazy_git()<CR>",
-    "LazyGit",
-  }
-  lvim.builtin.which_key.mappings["gG"] = {
-    "<cmd>Neogit<CR>",
-    "Neogit",
-  }
+  m.name("<Leader>g", "+Git")
+  M.nnoremap_which("<Leader>gi", "<cmd>Octo issue list<cr>", "list issues", "Git", "octo_issue_list", "List Github issues.")
+  M.nnoremap_which("<Leader>gl", "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message", "Git", "gitsigns_blame_line", "Toggle git blame line.")
+  M.nnoremap_which(
+    "<Leader>gL",
+    "<cmd>lua require('user.builtins.toggleterm').forgit_log()<cr>",
+    "forgit diff",
+    "Git",
+    "forgit_diff_log",
+    "Open git log with forgot"
+  )
+  M.nnoremap_which("<Leader>gP", "<cmd>Octo pr list<cr>", "list pull requests", "Git", "octo_pr_list", "List Github pull requests.")
+  M.nnoremap_which("<Leader>gg", "<cmd>lua require('user.builtins.toggleterm').lazy_git()<CR>", "LazyGit", "Git", "lazygit_toggle", "Open Lazygit.")
+  M.nnoremap_which("<Leader>gG", "<cmd>Neogit<CR>", "Neogit", "Git", "neogit_toggle", "Open Neogit")
+  M.nnoremap_which(
+    "<Leader>gc",
+    "<cmd>lua require('user.telescope.custom_pickers').delta_git_commits()<CR>",
+    "project's commits",
+    "Git",
+    "git_commits_delta",
+    "Open project's git commits with delta preview."
+  )
+  M.nnoremap_which(
+    "<Leader>gC",
+    "<cmd>lua require('user.telescope.custom_pickers').delta_git_bcommits()<CR>",
+    "buffer's commits",
+    "Git",
+    "git_bcommits_delta",
+    "Open buffer's git commits with delta preview."
+  )
   -- buffer log?
   -- S to stage file
   -- U to unstage file
@@ -508,61 +331,54 @@ M.config = function()
   -- list repositories
   -- list submodules
 
-  lvim.builtin.which_key.mappings["g"]["c"] = {
-    "<cmd>lua require('user.telescope.custom_pickers').delta_git_commits()<CR>",
-    "project's commits",
-  }
-  lvim.builtin.which_key.mappings["g"]["C"] = {
-    "<cmd>lua require('user.telescope.custom_pickers').delta_git_bcommits()<CR>",
-    "buffer's commits",
-  }
-  -- lvim.builtin.which_key.mappings["g"]["c"] = {
-  --   "<cmd>lua require('user.telescope.pickers.delta')._git_commits()<CR>",
-  --   "project's commits",
-  -- }
-  -- lvim.builtin.which_key.mappings["g"]["C"] = {
-  --   "<cmd>lua require('user.telescope.pickers.delta').git_bcommits()<CR>",
-  --   "buffer's commits",
-  -- }
-  -- lvim.builtin.which_key.mappings["gS"] = {
-  --   "<cmd>lua require('user.telescope.pickers.delta').git_status()<CR>",
-  --   "git status",
-  -- }
-
+  -- =========================================
   -- +Harpoon
   -- =========================================
-  lvim.builtin.which_key.mappings["h"] = {
-    name = "+Harpoon",
-    a = {
-      "<cmd>lua require('harpoon.mark').add_file()<CR>",
-      "mark buffer",
-    },
-    h = {
-      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
-      "show marks",
-    },
-    ["1"] = {
-      "<cmd>lua require('harpoon.ui').nav_file(1)<CR>",
-      "switch to mark 1",
-    },
-    ["2"] = {
-      "<cmd>lua require('harpoon.ui').nav_file(2)<CR>",
-      "switch to mark 2",
-    },
-    ["3"] = {
-      "<cmd>lua require('harpoon.ui').nav_file(3)<CR>",
-      "switch to mark 3",
-    },
-    ["4"] = {
-      "<cmd>lua require('harpoon.ui').nav_file(4)<CR>",
-      "switch to mark 4",
-    },
-    ["5"] = {
-      "<cmd>lua require('harpoon.ui').nav_file(5)<CR>",
-      "switch to mark 5",
-    },
-  }
+  m.name("<Leader>h", "+Harpoon")
+  M.nnoremap_which("<Leader>ha", "<cmd>lua require('harpoon.mark').add_file()<CR>", "mark buffer", "Navigation", "harpoon_add_file", "Mark a file in Harpoon.")
+  nnoremap("<Leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "show marks")
+  M.nnoremap_which(
+    "<Leader>h1",
+    "<cmd>lua require('harpoon.ui').nav_file(1)<CR>",
+    "switch to mark 1",
+    "Navigation",
+    "harpoon_nav_file1_which",
+    "Move to harpoon file 1"
+  )
+  M.nnoremap_which(
+    "<Leader>h2",
+    "<cmd>lua require('harpoon.ui').nav_file(2)<CR>",
+    "switch to mark 2",
+    "Navigation",
+    "harpoon_nav_file2_which",
+    "Move to harpoon file 2"
+  )
+  M.nnoremap_which(
+    "<Leader>h3",
+    "<cmd>lua require('harpoon.ui').nav_file(3)<CR>",
+    "switch to mark 3",
+    "Navigation",
+    "harpoon_nav_file3_which",
+    "Move to harpoon file 3"
+  )
+  M.nnoremap_which(
+    "<Leader>h4",
+    "<cmd>lua require('harpoon.ui').nav_file(4)<CR>",
+    "switch to mark 4",
+    "Navigation",
+    "harpoon_nav_file4_which",
+    "Move to harpoon file 4"
+  )
+  M.nnoremap_which(
+    "<Leader>h5",
+    "<cmd>lua require('harpoon.ui').nav_file(5)<CR>",
+    "switch to mark 5",
+    "Navigation",
+    "harpoon_nav_file5_which",
+    "Move to harpoon file 5"
+  )
 
+  -- =========================================
   -- +LSP
   -- =========================================
   -- TODO: override builtin LSP mappings
@@ -576,70 +392,35 @@ M.config = function()
   -- ["u"] =
   -- ["v"] =
   -- ["y"] =
+  m.name("<Leader>l", "+LSP")
+  nnoremap("<Leader>la", "<cmd>CodeActionMenu<cr>", "code actions")
+  nnoremap("<Leader>lA", "<cmd>lua vim.lsp.codelens.run()<cr>", "codelens actions")
+  nnoremap("<Leader>lb", "<cmd>lua require'nvim-biscuits'.toggle_biscuits()<cr>", "toggle biscuits")
+  nnoremap("<Leader>lc", "<cmd>TSContextToggle<cr>", "toggle context")
+  nnoremap("<Leader>ld", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions")
+  nnoremap("<Leader>le", "<cmd>TroubleToggle lsp_references<cr>", "references")
+  nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<cr>", "format")
+  nnoremap("<Leader>ll", "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "line diagnostics")
+  -- TODO: use aerial.nvim
+  nnoremap("<Leader>lo", "<cmd>SymbolsOutline<cr>", "symbol outline")
+  m.name("<Leader>lp", "+Peek")
+  nnoremap("<Leader>lpd", "<cmd>lua require('lsp.peek').Peek('definition')<cr>", "peek definition")
+  nnoremap("<Leader>lpt", "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition")
+  nnoremap("<Leader>lpi", "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation")
+  nnoremap("<Leader>lr", "<cmd>lua require('renamer').rename()<cr>", "rename")
+  nnoremap("<Leader>lt", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions")
+  nnoremap("<Leader>lx", "<cmd>TroubleToggle document_diagnostics<cr>", "document diagnostics")
+  nnoremap("<Leader>lX", "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics")
 
-  lvim.builtin.which_key.mappings["la"] = {
-    "<cmd>CodeActionMenu<cr>",
-    "code actions",
-  }
-  lvim.builtin.which_key.mappings["lA"] = {
-    -- "<cmd>lua require('user.telescope.pickers.codelens_actions')()<cr>",
-    "<cmd>lua vim.lsp.codelens.run()<cr>",
-    "codelens actions",
-  }
-  lvim.builtin.which_key.mappings["lb"] = {
-    "<cmd>lua require'nvim-biscuits'.toggle_biscuits()<cr>",
-    "toggle biscuits",
-  }
-  lvim.builtin.which_key.mappings["lc"] = {
-    "<cmd>TSContextToggle<cr>",
-    "toggle context",
-  }
-  lvim.builtin.which_key.mappings["ld"] = {
-    "<cmd>TroubleToggle lsp_definitions<cr>",
-    "definitions",
-  }
-  lvim.builtin.which_key.mappings["le"] = {
-    "<cmd>TroubleToggle lsp_references<cr>",
-    "references",
-  }
-  lvim.builtin.which_key.mappings["l"]["f"] = {
-    -- "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
-    "<cmd>lua vim.lsp.buf.formatting()<cr>",
-    "format",
-  }
-  lvim.builtin.which_key.mappings["l"]["l"] = {
-    "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>",
-    "line diagnostics",
-  }
-
-  lvim.builtin.which_key.mappings["lo"] = { "<cmd>SymbolsOutline<cr>", "symbol outline" }
-  lvim.builtin.which_key.mappings["l"]["p"] = {
-    name = "+Peek",
-    d = { "<cmd>lua require('lsp.peek').Peek('definition')<cr>", "peek definition" },
-    t = { "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
-    i = { "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation" },
-  }
-  -- lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("user.lsp.rename").rename()<cr>', "rename" }
-  lvim.builtin.which_key.mappings["l"]["r"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
-  -- lvim.builtin.which_key.vmappings["l"]["r"] = { '<cmd>lua require("renamer").rename()<cr>', "rename" }
-  lvim.builtin.which_key.mappings["lt"] = {
-    "<cmd>TroubleToggle lsp_definitions<cr>",
-    "definitions",
-  }
-  lvim.builtin.which_key.mappings["l"]["x"] = {
-    "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
-    "document diagnostics",
-  }
-  lvim.builtin.which_key.mappings["l"]["X"] = {
-    "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
-    "workspace diagnostics",
-  }
-  -- lvim.builtin.which_key.mappings["lz"] = {
-  --   "<cmd>ISwap<cr>",
-  --   "swap parameters",
-  -- }
+  nnoremap("<Leader>li", "", "which_key_ignore")
+  nnoremap("<Leader>lI", "", "which_key_ignore")
+  nnoremap("<Leader>lj", "", "which_key_ignore")
+  nnoremap("<Leader>lk", "", "which_key_ignore")
+  nnoremap("<Leader>ls", "", "which_key_ignore")
+  nnoremap("<Leader>lS", "", "which_key_ignore")
 
   -- +M (Localleader)
+  -- TODO: should i use minor_mode.nvim for this?
   -- TODO: do this without using a global variable later
   -- TODO: should these only work on a package.json file?
   vim.cmd [[
@@ -671,32 +452,45 @@ autocmd FileType json lua whichkeyJson()
     }
   end
 
+  -- =========================================
   -- +Notes
   -- =========================================
-  lvim.builtin.which_key.mappings["n"] = {
-    name = "+Notes",
-    -- f = {
-    --   "<cmd>cd ~/.config/lvim/lua/notes/obsidian-notes<cr><cmd>LfWorkingDirectory<CR>",
-    --   "manage notes",
-    -- },
-    f = {
-      "<cmd>Lf ~/.config/lvim/lua/notes/obsidian-notes/<cr>",
-      "manage notes",
-    },
-    w = { "<plug>(wiki-index)", "wiki index" },
-  }
+  m.name("<Leader>n", "+Notes")
+  nnoremap("<Leader>nf", "<cmd>Lf ~/.config/lvim/lua/notes/obsidian-notes/<cr>", "manage notes")
+  nnoremap("<Leader>nw", "<plug>(wiki-index)", "wiki index")
 
+  -- =========================================
   -- +Replace
   -- =========================================
-  lvim.builtin.which_key.mappings["r"] = {
-    name = "+Replace",
-    f = { "<cmd>lua require('spectre').open_file_search()<cr>", "replace file" },
-    r = { "<cmd>lua require('spectre').open()<cr>", "replace" },
-    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "replace word" },
-  }
+  m.name("<Leader>r", "+Replace")
+  nnoremap("<Leader>rf", "<cmd>lua require('spectre').open_file_search()<cr>", "replace file")
+  nnoremap("<Leader>rr", "<cmd>lua require('spectre').open()<cr>", "replace")
+  nnoremap("<Leader>rw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "replace word")
 
   -- +Search
   -- =========================================
+  m.name("<Leader>s", "+Search")
+  nnoremap("<Leader>sb", "<cmd>lua require'user.telescope.custom_pickers'.grep_current_buffer()<cr>", "grep in buffer")
+  nnoremap("<Leader>sc", "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_config_files()<CR>", "config")
+  nnoremap("<Leader>sC", "<cmd>lua require'user.telescope.custom_pickers'.grep_config_files()<cr>", "grep in config")
+  nnoremap("<Leader>sd", "<cmd>Dash<cr>", "docs")
+  nnoremap("<Leader>se", "<cmd>Telescope bookmarks<cr>", "browser bookmarks")
+  -- nnoremap("<Leader>sP", "<cmd>lua require'user.telescope.custom_pickers'.conda()<cr>", "conda")
+  -- nnoremap("<Leader>s;", "")
+  -- nnoremap("<Leader>s.", "")
+  -- nnoremap("<Leader>s>", "")
+  -- nnoremap("<Leader>sf", "")
+  -- nnoremap("<Leader>sh", "")
+  -- nnoremap("<Leader>sk", "")
+  -- nnoremap("<Leader>sl", "")
+  -- nnoremap("<Leader>sn", "")
+  -- nnoremap("<Leader>sp", "")
+  -- nnoremap("<Leader>sr", "")
+  -- nnoremap("<Leader>sR", "")
+  -- nnoremap("<Leader>sg", "")
+  -- nnoremap("<Leader>st", "")
+  nnoremap("<Leader>sz", "<cmd>Telescope zoxide list<cr>", "zoxide")
+  nnoremap("<Leader>sZ", "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search")
   lvim.builtin.which_key.mappings["s"] = {
     name = "+Search",
     -- Telescope commands
@@ -738,7 +532,8 @@ autocmd FileType json lua whichkeyJson()
       "files in project",
     },
     h = { ":Telescope help_tags<cr>", "help tags" },
-    k = { "<cmd>Telescope keymaps<cr>", "keymaps" },
+    -- k = { "<cmd>Telescope keymaps<cr>", "keymaps" },
+    k = { "<cmd>Telescope mapper<cr>", "keymaps" },
     l = {
       -- "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.local/share/lunarvim/lvim', prompt_title = 'Core LunarVim files'})<CR>",
       "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>",

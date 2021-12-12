@@ -5,36 +5,6 @@ M.config = function()
   if not status_ok then
     return
   end
-  -- local formatters = require "lvim.lsp.null-ls.formatters"
-  -- formatters.setup {
-  --   {
-  --     exe = "prettier",
-  --     filetypes = {
-  --       "javascriptreact",
-  --       "javascript",
-  --       "typescriptreact",
-  --       "typescript",
-  --       "json",
-  --       "markdown",
-  --     },
-  --   },
-  --   {
-
-  --   }
-  -- }
-  -- local linters = require "lvim.lsp.null-ls.linters"
-  -- linters.setup {
-  --   {
-  --     exe = "eslint",
-  --     filetypes = {
-  --       "javascriptreact",
-  --       "javascript",
-  --       "typescriptreact",
-  --       "typescript",
-  --       "vue",
-  --     },
-  --   },
-  -- }
 
   nls.config {
     debounce = 150,
@@ -50,7 +20,7 @@ M.config = function()
       nls.builtins.formatting.eslint_d.with {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
       },
-      nls.builtins.formatting.fnlfmt,
+      -- nls.builtins.formatting.fnlfmt,
       nls.builtins.formatting.fixjson,
       nls.builtins.formatting.gofumpt,
       -- nls.builtins.formatting.goimports,
@@ -98,10 +68,13 @@ M.config = function()
       -- nls.builtins.diagnostics.flake8,
       -- nls.builtins.diagnostics.golangci_lint,
       nls.builtins.diagnostics.hadolint,
-      nls.builtins.diagnostics.luacheck,
+      -- nls.builtins.diagnostics.luacheck,
       nls.builtins.diagnostics.markdownlint,
-      -- nls.builtins.diagnostics.pylint,
+      -- nls.builtins.diagnostics.mypy,
+      nls.builtins.diagnostics.pylint,
+      -- nls.builtins.diagnostics.pylama,
       -- nls.builtins.diagnostics.revive,
+      nls.builtins.diagnostics.selene.with { filetypes = { "lua" } },
       nls.builtins.diagnostics.shellcheck,
       -- nls.builtins.diagnostics.staticcheck,
       nls.builtins.diagnostics.stylelint.with {
@@ -121,3 +94,34 @@ M.config = function()
 end
 
 return M
+
+-- local formatters = require "lvim.lsp.null-ls.formatters"
+-- formatters.setup {
+--   {
+--     exe = "prettier",
+--     filetypes = {
+--       "javascriptreact",
+--       "javascript",
+--       "typescriptreact",
+--       "typescript",
+--       "json",
+--       "markdown",
+--     },
+--   },
+--   {
+
+--   }
+-- }
+-- local linters = require "lvim.lsp.null-ls.linters"
+-- linters.setup {
+--   {
+--     exe = "eslint",
+--     filetypes = {
+--       "javascriptreact",
+--       "javascript",
+--       "typescriptreact",
+--       "typescript",
+--       "vue",
+--     },
+--   },
+-- }

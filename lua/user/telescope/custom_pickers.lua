@@ -243,6 +243,81 @@ M.delta_git_bcommits = function(opts)
   builtin.git_bcommits(opts)
 end
 
+-- M.conda = function(opts)
+--   local pickers = require "telescope.pickers"
+--   local finders = require "telescope.finders"
+--   local action_state = require "telescope.actions.state"
+--   local conf = require("telescope.config").values
+
+--   local scan = require "plenary.scandir"
+--   local home = os.getenv "HOME"
+--   opts = opts or {}
+
+--   -- local conda_path = home .. "/anaconda3"
+--   -- local conda_env_path = home .. "/anaconda3/envs"
+--   local conda_path = home .. "/.miniconda"
+--   local conda_env_path = home .. "/.miniconda/envs"
+
+--   local conda_finder = function()
+--     local conda_envs = {}
+--     scan.scan_dir(conda_env_path, {
+--       hidden = opts.hidden or false,
+--       add_dirs = true,
+--       depth = 1,
+--       on_insert = function(entry, typ)
+--         table.insert(conda_envs, entry)
+--       end,
+--     })
+
+--     local conda_maker = function(entry)
+--       local path_remove = function(String, Path)
+--         if String == conda_path then
+--           return "base"
+--         else
+--           return string.gsub(String, Path .. "/", "")
+--         end
+--       end
+
+--       local disp = path_remove(entry, conda_env_path)
+
+--       return { value = entry, display = disp, ordinal = disp }
+--     end
+
+--     table.insert(conda_envs, conda_path)
+--     return finders.new_table { results = conda_envs, entry_maker = conda_maker }
+--   end
+
+--   pickers.new(opts, {
+--     prompt_title = "Select an Environment",
+--     results_title = "Conda Environments",
+--     finder = conda_finder(),
+--     sorter = conf.generic_sorter(opts),
+
+--     attach_mappings = function(prompt_bufnr, map)
+--       actions.select_default:replace(function()
+--         local env_to_bin = function(env)
+--           if env == "base" then
+--             return conda_path .. "/bin"
+--           else
+--             return conda_env_path .. "/" .. env .. "/bin"
+--           end
+--         end
+--         actions.close(prompt_bufnr)
+--         local selection = action_state.get_selected_entry()
+--         local current_env = vim.env.CONDA_DEFAULT_ENV
+--         local next_env = selection["display"]
+--         vim.env.CONDA_DEFAULT_ENV = next_env
+--         print("before vim env path", vim.env.PATH)
+--         current_anaconda = env_to_bin(current_env)
+--         next_anaconda = env_to_bin(next_env)
+--         vim.env.PATH = string.gsub(vim.env.PATH, current_anaconda, next_anaconda)
+--         print("after vim env path", vim.env.PATH)
+--       end)
+--       return true
+--     end,
+--   }):find()
+-- end
+
 -- -- If I ever wanna make my own sessions telescope picker
 -- M.sessions = function()
 --   local actions = require "telescope.actions"
