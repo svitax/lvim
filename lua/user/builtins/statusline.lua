@@ -59,34 +59,62 @@ M.config = function()
     table.insert(config.inactive_sections.lualine_x, component)
   end
 
+  local conditions = {
+    check_git_workspace = function()
+      local filepath = vim.fn.expand "%:p:h"
+      local gitdir = vim.fn.finddir(".git", filepath .. ";")
+      return gitdir and #gitdir > 0 and #gitdir < #filepath
+    end,
+  }
+
   ------------------------------------------------------------------------------
   -- Active Left
   ------------------------------------------------------------------------------
 
+  local mode_colors = {
+    ["n"] = { "NORMAL", c.red, " " },
+    ["no"] = { "N-PENDING", c.red, " " },
+    ["i"] = { "INSERT", c.dark_purple, " " },
+    ["ic"] = { "INSERT", c.dark_purple, " " },
+    ["t"] = { "TERMINAL", c.green, " " },
+    ["v"] = { "VISUAL", c.cyan, " " },
+    ["V"] = { "V-LINE", c.cyan, " " },
+    [""] = { "V-BLOCK", c.cyan, " " },
+    ["R"] = { "REPLACE", c.orange, " " },
+    ["Rv"] = { "V-REPLACE", c.orange, " " },
+    ["s"] = { "SELECT", c.nord_blue, " " },
+    ["S"] = { "S-LINE", c.nord_blue, " " },
+    [""] = { "S-BLOCK", c.nord_blue, " " },
+    ["c"] = { "COMMAND", c.pink, " " },
+    ["cv"] = { "COMMAND", c.pink, " " },
+    ["ce"] = { "COMMAND", c.pink, " " },
+    ["r"] = { "PROMPT", c.teal, " " },
+    ["rm"] = { "MORE", c.teal, " " },
+    ["r?"] = { "CONFIRM", c.teal, " " },
+    ["!"] = { "SHELL", c.green, " " },
+  }
+
   -- Main Icon
   ins_left {
     function()
-      return icons.default.main_icon
+      vim.api.nvim_command("hi! ViModeIcon guifg=" .. c.statusline_bg .. " guibg=" .. mode_colors[vim.fn.mode()][2])
+      -- return icons.default.vi_mode_icon
+      return mode_colors[vim.fn.mode()][3]
     end,
-    color = { fg = c.statusline_bg, bg = c.nord_blue },
-    padding = { left = 0, right = 0 },
+    color = "ViModeIcon",
+    padding = { left = 1, right = 0 },
   }
-
-  -- -- Main Icon separator
-  -- ins_left {
-  --   function()
-  --     return icons.default.right
-  --   end,
-  --   color = { fg = c.nord_blue, bg = c.lightbg },
-  --   padding = { left = 0, right = 0 },
-  -- }
 
   -- Main Icon separator
   ins_left {
     function()
+      vim.api.nvim_command(
+        "hi! ViModeSep guifg=" .. mode_colors[vim.fn.mode()][2] .. " guibg=" .. c.one_bg2 .. " gui=bold"
+      )
       return icons.default.right
     end,
-    color = { fg = c.nord_blue, bg = c.lightbg },
+    -- color = { fg = c.nord_blue, bg = c.lightbg },
+    color = "ViModeSep",
     padding = { left = 0, right = 0 },
   }
 
@@ -297,94 +325,63 @@ M.config = function()
 
   -- ins_right {
   --   function()
-  --     return ""
+  --     if next(vim.treesitter.highlighter.active) then
+  --       return "  "
+  --     end
+  --     return ""
   --   end,
-  --   color = { fg = gruvchad_colors.cyan, bg = gruvchad_colors.statusline_bg },
+  --   padding = { left = 0, right = 0 },
+  --   color = { fg = c.green },
   --   cond = function()
   --     return vim.api.nvim_win_get_width(0) > 70
   --   end,
-  --   padding = { left = 1, right = 1 },
   -- }
 
-  ins_right {
-    "b:gitsigns_head",
-    icon = "",
-    cond = function()
-      return vim.api.nvim_win_get_width(0) > 70
-    end,
-    color = { fg = c.grey_fg2, bg = c.statusline_bg },
-    padding = { left = 0, right = 1 },
-  }
-
   -- Color table for highlights
-  local mode_colors = {
-    ["n"] = { "NORMAL", c.red, " " },
-    ["no"] = { "N-PENDING", c.red, " " },
-    ["i"] = { "INSERT", c.dark_purple, " " },
-    ["ic"] = { "INSERT", c.dark_purple, " " },
-    ["t"] = { "TERMINAL", c.green, " " },
-    ["v"] = { "VISUAL", c.cyan, " " },
-    ["V"] = { "V-LINE", c.cyan, " " },
-    [""] = { "V-BLOCK", c.cyan, " " },
-    ["R"] = { "REPLACE", c.orange, " " },
-    ["Rv"] = { "V-REPLACE", c.orange, " " },
-    ["s"] = { "SELECT", c.nord_blue, " " },
-    ["S"] = { "S-LINE", c.nord_blue, " " },
-    [""] = { "S-BLOCK", c.nord_blue, " " },
-    ["c"] = { "COMMAND", c.pink, " " },
-    ["cv"] = { "COMMAND", c.pink, " " },
-    ["ce"] = { "COMMAND", c.pink, " " },
-    ["r"] = { "PROMPT", c.teal, " " },
-    ["rm"] = { "MORE", c.teal, " " },
-    ["r?"] = { "CONFIRM", c.teal, " " },
-    ["!"] = { "SHELL", c.green, " " },
-  }
 
   ins_right {
     function()
       return icons.default.left
     end,
     color = { fg = c.one_bg2, bg = c.statusline_bg },
+    cond = conditions.check_git_workspace,
     padding = { left = 0, right = 0 },
   }
 
   ins_right {
     function()
-      vim.api.nvim_command(
-        "hi! ViModeSep guifg=" .. mode_colors[vim.fn.mode()][2] .. " guibg=" .. c.one_bg2 .. " gui=bold"
-      )
       return icons.default.left
     end,
-    color = "ViModeSep",
+    color = { fg = c.green, bg = c.one_bg2 },
+    cond = conditions.check_git_workspace,
     padding = { left = 0, right = 0 },
   }
 
   ins_right {
     function()
-      vim.api.nvim_command("hi! ViModeIcon guifg=" .. c.statusline_bg .. " guibg=" .. mode_colors[vim.fn.mode()][2])
-      -- return icons.default.vi_mode_icon
-      return mode_colors[vim.fn.mode()][3]
+      return ""
     end,
-    color = "ViModeIcon",
-    padding = { left = 0, right = 0 },
-  }
-  ins_right {
-    function()
-      vim.api.nvim_command("hi! ViModeSpace guibg=" .. c.statusline_bg .. " guifg=" .. mode_colors[vim.fn.mode()][2])
-      return "▍"
-    end,
-    color = "ViModeSpace",
-    padding = { left = 0, right = 0 },
+    color = { fg = c.statusline_bg, bg = c.green },
+    cond = conditions.check_git_workspace,
+    -- cond = function()
+    --   -- return vim.api.nvim_win_get_width(0) > 70
+    -- end,
+    padding = { left = 0, right = 1 },
   }
 
   ins_right {
+    -- "b:gitsigns_head",
     function()
-      vim.api.nvim_command(
-        "hi! ViModeText guifg=" .. mode_colors[vim.fn.mode()][2] .. " guibg=" .. c.statusline_bg .. " gui=bold"
-      )
-      return mode_colors[vim.fn.mode()][1] .. " "
+      if vim.b.gitsigns_head == "" then
+        return "nil"
+      end
+      return vim.b.gitsigns_head
     end,
-    color = "ViModeText",
+    -- cond = function()
+    --   -- return vim.api.nvim_win_get_width(0) > 70
+    -- end,
+    color = { fg = c.green, bg = c.statusline_bg },
+    cond = conditions.check_git_workspace,
     padding = { left = 1, right = 1 },
   }
 
@@ -403,7 +400,7 @@ M.config = function()
     function()
       return icons.default.left
     end,
-    color = { fg = c.green, bg = c.grey },
+    color = { fg = c.blue, bg = c.grey },
     padding = { left = 0, right = 0 },
     cond = function()
       return vim.api.nvim_win_get_width(0) > 90
@@ -414,7 +411,7 @@ M.config = function()
     function()
       return icons.default.position_icon
     end,
-    color = { fg = c.black, bg = c.green },
+    color = { fg = c.black, bg = c.blue },
     padding = { left = 0, right = 0 },
     cond = function()
       return vim.api.nvim_win_get_width(0) > 90
@@ -434,7 +431,7 @@ M.config = function()
       local result, _ = math.modf((current_line / total_line) * 100)
       return " " .. result .. "%% "
     end,
-    color = { fg = c.green, bg = c.one_bg },
+    color = { fg = c.blue, bg = c.one_bg },
     cond = function()
       return vim.api.nvim_win_get_width(0) > 90
     end,
@@ -447,10 +444,10 @@ M.config = function()
   -- Main Icon
   ins_inactive_left {
     function()
-      return icons.default.main_icon
+      return mode_colors[vim.fn.mode()][3]
     end,
     color = { fg = c.statusline_bg, bg = c.grey_fg2 },
-    padding = { left = 0, right = 0 },
+    padding = { left = 1, right = 0 },
   }
 
   -- Main Icon separator
@@ -597,25 +594,43 @@ M.config = function()
     end,
   }
 
-  -- ins_right {
-  --   function()
-  --     return ""
-  --   end,
-  --   color = { fg = gruvchad_colors.cyan, bg = gruvchad_colors.statusline_bg },
-  --   cond = function()
-  --     return vim.api.nvim_win_get_width(0) > 70
-  --   end,
-  --   padding = { left = 1, right = 1 },
-  -- }
+  ins_inactive_right {
+    function()
+      return icons.default.left
+    end,
+    color = { fg = c.one_bg2, bg = c.statusline_bg },
+    padding = { left = 0, right = 0 },
+  }
 
   ins_inactive_right {
-    "b:gitsigns_head",
-    icon = "",
+    function()
+      return icons.default.left
+    end,
+    color = { fg = c.grey_fg2, bg = c.one_bg2 },
+    padding = { left = 0, right = 0 },
+  }
+
+  ins_inactive_right {
+    function()
+      return ""
+    end,
+    color = { fg = c.statusline_bg, bg = c.grey_fg2 },
     cond = function()
       return vim.api.nvim_win_get_width(0) > 70
     end,
-    color = { fg = c.grey_fg2, bg = c.statusline_bg },
     padding = { left = 0, right = 1 },
+  }
+
+  -- TODO: find a condition for git branches
+  ins_inactive_right {
+    "b:gitsigns_head",
+    -- icon = "",
+    cond = function()
+      return vim.api.nvim_win_get_width(0) > 70
+    end,
+    -- color = { fg = c.grey_fg2, bg = c.statusline_bg },
+    color = { fg = c.grey_fg2, bg = c.statusline_bg },
+    padding = { left = 1, right = 1 },
   }
 
   ins_inactive_right {

@@ -10,11 +10,11 @@ M.config = function()
     },
   }
 
-  lvim.builtin.treesitter.ensure_installed = { "org" }
+  -- lvim.builtin.treesitter.ensure_installed = { "org" }
 
   lvim.builtin.treesitter.highlight = {
     enable = true,
-    disable = { "org" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    disable = { "org", "r" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
     additional_vim_regex_highlighting = { "org" }, -- Required since TS highlighter doesn't support all syntax features (conceal)
   }
   -- lvim.builtin.treesitter.highlight.disable = { "org" }

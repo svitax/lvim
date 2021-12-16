@@ -3,24 +3,6 @@ local M = {}
 local mapx = require("mapx").setup { global = "force", whichkey = true }
 local mapper = require "nvim-mapper"
 
-M.nnoremap = function(lhs, rhs, category, id, desc)
-  mapx.nnoremap(lhs, rhs)
-  mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
-end
-M.vnoremap = function(lhs, rhs, category, id, desc)
-  mapx.vnoremap(lhs, rhs)
-  mapper.map_virtual("v", lhs, "", { noremap = true }, category, id, desc)
-end
-M.inoremap = function(lhs, rhs, category, id, desc)
-  mapx.inoremap(lhs, rhs)
-  mapper.map_virtual("i", lhs, "", { noremap = true }, category, id, desc)
-end
-
-M.nnoremap_which = function(lhs, rhs, label, category, id, desc)
-  mapx.nnoremap(lhs, rhs, label)
-  mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
-end
-
 M.config = function()
   -- TODO: S in visual mode should be lightspeed_S, so what should I use for visual sandwich surround?
 
@@ -227,8 +209,6 @@ M.config = function()
   -- local nnoremap = M.nnoremap_which
 
   M.nnoremap_which("<Leader>a", "<cmd>up<CR>", "write buffer", "Editing", "update", "Writes the buffer but only if it has been modified.")
-  nnoremap("<Leader>c", "", "which_key_ignore")
-  nnoremap("<Leader>e", "", "which_key_ignore")
   M.nnoremap_which("<Leader>t", "<cmd>NvimTreeToggle<CR>", "file tree", "Files", "nvimtree_toggle", "Toggles Nvimtree")
   M.nnoremap_which("<Leader>f", "<cmd>Lf %<cr>", "files", "Files", "lf_togggle", "Toggles Lf (file manager)")
   -- toggle spell check
@@ -253,6 +233,9 @@ M.config = function()
   )
   M.nnoremap_which("<Leader>/", "<cmd>lua require('Comment').toggle()<CR>", "comment", "Comment", "toggle_comment", "Toggle line comment.")
   M.nnoremap_which("<Leader>;", "<cmd>Dashboard<CR>", "dashboard", "Navigation", "dashboard", "Jump to dashboard.")
+
+  nnoremap("<Leader>c", "", "which_key_ignore")
+  nnoremap("<Leader>e", "", "which_key_ignore")
 
   -- =========================================
   -- +Buffers
@@ -336,7 +319,7 @@ M.config = function()
   -- =========================================
   m.name("<Leader>h", "+Harpoon")
   M.nnoremap_which("<Leader>ha", "<cmd>lua require('harpoon.mark').add_file()<CR>", "mark buffer", "Navigation", "harpoon_add_file", "Mark a file in Harpoon.")
-  nnoremap("<Leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "show marks")
+  M.nnoremap_which("<Leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "show marks", "Navigation", "harpoon_quick_menu", "Toggle Harpoon file navigation quick menu")
   M.nnoremap_which(
     "<Leader>h1",
     "<cmd>lua require('harpoon.ui').nav_file(1)<CR>",
@@ -393,24 +376,23 @@ M.config = function()
   -- ["v"] =
   -- ["y"] =
   m.name("<Leader>l", "+LSP")
-  nnoremap("<Leader>la", "<cmd>CodeActionMenu<cr>", "code actions")
-  nnoremap("<Leader>lA", "<cmd>lua vim.lsp.codelens.run()<cr>", "codelens actions")
-  nnoremap("<Leader>lb", "<cmd>lua require'nvim-biscuits'.toggle_biscuits()<cr>", "toggle biscuits")
-  nnoremap("<Leader>lc", "<cmd>TSContextToggle<cr>", "toggle context")
-  nnoremap("<Leader>ld", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions")
-  nnoremap("<Leader>le", "<cmd>TroubleToggle lsp_references<cr>", "references")
-  nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<cr>", "format")
-  nnoremap("<Leader>ll", "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<CR>", "line diagnostics")
+  M.nnoremap_which("<Leader>la", "<cmd>CodeActionMenu<cr>", "code actions", "Code", "code_action_menu", "Show menu for code actions.")
+  M.nnoremap_which("<Leader>lA", "<cmd>lua vim.lsp.codelens.run()<cr>", "codelens actions", "Code", "codelens_action_menu", "Show menu for codelens actions.")
+  -- nnoremap("<Leader>lb", "<cmd>lua require'nvim-biscuits'.toggle_biscuits()<cr>", "toggle biscuits")
+  M.nnoremap_which("<Leader>ld", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions", "Code", "trouble_lsp_definitions", "Toggle LSP definitions.")
+  M.nnoremap_which("<Leader>le", "<cmd>TroubleToggle lsp_references<cr>", "references", "Code", "trouble_lsp_references", "Toggle LSP references.")
+  M.nnoremap_which("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<cr>", "format", "Code", "lsp_format", "Format buffer")
+  M.nnoremap_which("<Leader>ll", "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<cr>", "line diagnostics", "Code", "line_diagnostics", "Show line diagnostics in a popup window")
   -- TODO: use aerial.nvim
-  nnoremap("<Leader>lo", "<cmd>SymbolsOutline<cr>", "symbol outline")
+  M.nnoremap_which("<Leader>lo", "<cmd>SymbolsOutline<cr>", "symbol outline", "Code", "symbols_outline", "Toggle SymbolsOutline (tree-like view of for symbols powered by LSP)")
   m.name("<Leader>lp", "+Peek")
-  nnoremap("<Leader>lpd", "<cmd>lua require('lsp.peek').Peek('definition')<cr>", "peek definition")
-  nnoremap("<Leader>lpt", "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition")
-  nnoremap("<Leader>lpi", "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation")
-  nnoremap("<Leader>lr", "<cmd>lua require('renamer').rename()<cr>", "rename")
-  nnoremap("<Leader>lt", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions")
-  nnoremap("<Leader>lx", "<cmd>TroubleToggle document_diagnostics<cr>", "document diagnostics")
-  nnoremap("<Leader>lX", "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics")
+  M.nnoremap_which("<Leader>lpd", "<cmd>lua require('lsp.peek').Peek('definition')<cr>", "peek definition", "Code", "peek_definition", "Peek definition.")
+  M.nnoremap_which("<Leader>lpt", "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition", "Code", "peek_type_definition", "Peek type definition.")
+  M.nnoremap_which("<Leader>lpi", "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation", "Code", "peek_implementation", "Peek implementation.")
+  M.nnoremap_which("<Leader>lr", "<cmd>lua require('renamer').rename()<cr>", "rename", "Code", "renamer", "Rename symbol.")
+  -- nnoremap("<Leader>lt", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions")
+  M.nnoremap_which("<Leader>lx", "<cmd>TroubleToggle document_diagnostics<cr>", "document diagnostics", "Code", "trouble_document_diagnostics", "Toggle document diagnostics.")
+  M.nnoremap_which("<Leader>lX", "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics", "Code", "trouble_workspace_diagnostics", "Toggle workspace diagnostics.")
 
   nnoremap("<Leader>li", "", "which_key_ignore")
   nnoremap("<Leader>lI", "", "which_key_ignore")
@@ -456,127 +438,67 @@ autocmd FileType json lua whichkeyJson()
   -- +Notes
   -- =========================================
   m.name("<Leader>n", "+Notes")
-  nnoremap("<Leader>nf", "<cmd>Lf ~/.config/lvim/lua/notes/obsidian-notes/<cr>", "manage notes")
-  nnoremap("<Leader>nw", "<plug>(wiki-index)", "wiki index")
+  M.nnoremap_which("<Leader>nf", "<cmd>Lf ~/.config/lvim/lua/notes/obsidian-notes/<cr>", "manage notes", "Notes", "open_notes_folder", "Open my Obsidian notes folder.")
+  M.nnoremap_which("<Leader>nw", "<plug>(wiki-index)", "wiki index", "Notes", "open_wiki_index", "Open Vimwiki index file.")
 
   -- =========================================
   -- +Replace
   -- =========================================
   m.name("<Leader>r", "+Replace")
-  nnoremap("<Leader>rf", "<cmd>lua require('spectre').open_file_search()<cr>", "replace file")
-  nnoremap("<Leader>rr", "<cmd>lua require('spectre').open()<cr>", "replace")
-  nnoremap("<Leader>rw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "replace word")
+  M.nnoremap_which("<Leader>rf", "<cmd>lua require('spectre').open_file_search()<cr>", "replace file", "Replace", "spectre_file_search", "Find and replace in current file.")
+  M.nnoremap_which("<Leader>rr", "<cmd>lua require('spectre').open()<cr>", "replace", "Replace", "spectre_search", "Find and replace in workspace.")
+  M.nnoremap_which("<Leader>rw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "replace word", "Replace", "spectre_word_search", "Find and replace selected word.")
 
   -- +Search
   -- =========================================
   m.name("<Leader>s", "+Search")
-  nnoremap("<Leader>sb", "<cmd>lua require'user.telescope.custom_pickers'.grep_current_buffer()<cr>", "grep in buffer")
-  nnoremap("<Leader>sc", "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_config_files()<CR>", "config")
-  nnoremap("<Leader>sC", "<cmd>lua require'user.telescope.custom_pickers'.grep_config_files()<cr>", "grep in config")
-  nnoremap("<Leader>sd", "<cmd>Dash<cr>", "docs")
-  nnoremap("<Leader>se", "<cmd>Telescope bookmarks<cr>", "browser bookmarks")
+  M.nnoremap_which("<Leader>sb", "<cmd>lua require'user.telescope.custom_pickers'.grep_current_buffer()<cr>", "grep in buffer", "Search", "grep_current_buffer", "Greps in current buffer.")
+  M.nnoremap_which("<Leader>sc", "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_config_files()<CR>", "config", "Search", "search_config_files", "Search my config files.")
+  M.nnoremap_which("<Leader>sC", "<cmd>lua require'user.telescope.custom_pickers'.grep_config_files()<cr>", "grep in config", "Search", "grep_config_files", "Greps in my config files.")
+  M.nnoremap_which("<Leader>sd", "<cmd>Dash<cr>", "docs", "Search", "dash", "Search for documentation in Dash.")
+  M.nnoremap_which("<Leader>se", "<cmd>Telescope bookmarks<cr>", "browser bookmarks", "Search", "search_browser_bookmarks", "Search browser bookmarks.")
+  M.nnoremap_which("<Leader>s;", "<cmd>Telescope commands<cr>", "vim commands", "Search", "search_vim_commands", "Search vim commands.")
+  M.nnoremap_which("<Leader>s.", "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<CR>", "dotfiles", "Search", "search_dotfiles", "Search my dotfiles.")
+  M.nnoremap_which("<Leader>s>", "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>", "grep in dotfiles", "Search", "grep_dotfiles", "Greps in my dotfiles.")
+  M.nnoremap_which("<Leader>sf", "<cmd>lua require('user.telescope.custom_pickers').find_files()<CR>", "files in project", "Search", "search_project_files", "Search files in current project.")
+  M.nnoremap_which("<Leader>sh", "<cmd>Telescope help_tags<cr>", "help tags", "Search", "search_help_tags", "Search help tags.")
+  M.nnoremap_which("<Leader>sk", "<cmd>Telescope mapper<cr>", "keymaps", "Search", "search_keymappings_mapper", "Search keymappings through mapper.")
+  M.nnoremap_which("<Leader>sl", "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>", "LunarVim files", "Search", "search_lunarvim_files", "Search LunarVim files.")
+  M.nnoremap_which("<Leader>sn", "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes", "Search", "search_notes", "Search my Obsidian notes.")
+  M.nnoremap_which("<Leader>sp", "<cmd>Telescope projects<cr>", "projects", "Search", "search_projects", "Search projects and project files.")
+  M.nnoremap_which("<Leader>sr", "<cmd>Telescope oldfiles<cr>", "recent files", "Search", "search_recent_files", "Search recently opened files.")
+  M.nnoremap_which("<Leader>sg", "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project", "Search", "grep_project_files", "Greps in current project.")
+  M.nnoremap_which("<Leader>sz", "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search", "Search", "grep_last_search", "Greps last search.")
   -- nnoremap("<Leader>sP", "<cmd>lua require'user.telescope.custom_pickers'.conda()<cr>", "conda")
-  -- nnoremap("<Leader>s;", "")
-  -- nnoremap("<Leader>s.", "")
-  -- nnoremap("<Leader>s>", "")
-  -- nnoremap("<Leader>sf", "")
-  -- nnoremap("<Leader>sh", "")
-  -- nnoremap("<Leader>sk", "")
-  -- nnoremap("<Leader>sl", "")
-  -- nnoremap("<Leader>sn", "")
-  -- nnoremap("<Leader>sp", "")
-  -- nnoremap("<Leader>sr", "")
-  -- nnoremap("<Leader>sR", "")
-  -- nnoremap("<Leader>sg", "")
-  -- nnoremap("<Leader>st", "")
-  nnoremap("<Leader>sz", "<cmd>Telescope zoxide list<cr>", "zoxide")
-  nnoremap("<Leader>sZ", "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search")
-  lvim.builtin.which_key.mappings["s"] = {
-    name = "+Search",
-    -- Telescope commands
-    b = {
-      -- "<cmd>Telescope current_buffer_fuzzy_find<cr>", "grep in buffer",
-      "<cmd>lua require'user.telescope.custom_pickers'.grep_current_buffer()<cr>",
-      "grep in buffer",
-    },
-    c = {
-      -- "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.config/lvim', prompt_title = 'files in LunarVim config'})<CR>",
-      "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_config_files()<CR>",
-      "config",
-    },
-    C = {
-      -- "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config/lvim', only_sort_text = true, prompt_title = 'grep LunarVim config'})<CR>",
-      "<cmd>lua require'user.telescope.custom_pickers'.grep_config_files()<cr>",
-      "grep in config",
-    },
-    d = {
-      "<cmd>Dash<cr>",
-      "docs",
-    },
-    [";"] = {
-      "<cmd>Telescope commands<cr>",
-      "vim commands",
-    },
-    ["."] = {
-      -- "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--hidden', '--files', '--follow','--glob=!.git'}, cwd = '~/.config', prompt_title = 'search dotfiles'})<CR>",
-      "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<CR>",
-      "dotfiles",
-    },
-    [">"] = {
-      -- "<cmd>lua require('telescope.builtin').live_grep({ cwd = '~/.config', prompt_title = 'grep dotfiles' })<CR>",
-      "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>",
-      "grep in dotfiles",
-    },
-    f = {
-      "<cmd>lua require('user.telescope.custom_pickers').find_files()<CR>",
-      "files in project",
-    },
-    h = { ":Telescope help_tags<cr>", "help tags" },
-    -- k = { "<cmd>Telescope keymaps<cr>", "keymaps" },
-    k = { "<cmd>Telescope mapper<cr>", "keymaps" },
-    l = {
-      -- "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/.local/share/lunarvim/lvim', prompt_title = 'Core LunarVim files'})<CR>",
-      "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>",
-      "LunarVim files",
-    },
-    -- m = { "man pages" },
-    n = {
-      -- "<cmd>lua require('telescope.builtin').find_files({cwd = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'})<CR>",
-      "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>",
-      "notes",
-    },
-    -- p = { "<cmd>lua require'user.telescope.pickers.projects'()<cr>", "workspaces" },
-    p = { "<cmd>Telescope projects<cr>", "projects" },
-    r = { "<cmd>Telescope oldfiles<cr>", "recent files" },
-    R = { "<cmd>Telescope frecency<cr>", "frecency" },
-    -- R = { "registers" },
-    -- s = { "<cmd>SearchSession<cr>", "sessions" },
-    g = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
-    t = { "<cmd>TodoTrouble<cr>", "todos" },
-    -- z = { ":Telescope zoxide list<cr>", "zoxide" },
-    z = { "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search" },
-  }
+  -- nnoremap("<Leader>sz", "<cmd>Telescope zoxide list<cr>", "zoxide")
+
+  nnoremap("<Leader>sM", "", "which_key_ignore")
+  nnoremap("<Leader>sR", "", "which_key_ignore")
+  nnoremap("<Leader>st", "", "which_key_ignore")
 
   -- +Treesitter
   -- ==================================================================================
-  lvim.builtin.which_key.mappings["Tc"] = { "<cmd>TSContextToggle<cr>", "context" }
-  lvim.builtin.which_key.mappings["Tp"] = { "<cmd>TSPlagroundToggle<cr>", "playground" }
+  M.nnoremap_which("<Leader>Tc", "<cmd>TSContextToggle<cr>", "toggle context", "Code", "ts_context_toggle", "Toggle Treesitter context.")
+  M.nnoremap_which("<Leader>Tp", "<cmd>TSPlagroundToggle<cr>", "toggle playground", "Code", "ts_playground_toggle", "Toggle Treesitter playground.")
+
+  nnoremap("<Leader>Ti", "", "which_key_ignore")
 
   -- +Windows
   -- ==================================================================================
-  lvim.builtin.which_key.mappings["w"] = {
-    name = "+Windows",
-    d = { "<cmd>close<CR>", "delete window" },
-    o = { "<cmd>only<CR>", "delete other windows" },
-    s = { "<cmd>split<CR>", "split" },
-    v = { "<cmd>vsplit<CR>", "vsplit" },
-    z = { "<Plug>Zoom", "toggle zoom window" },
+  M.nnoremap_which("<Leader>wd", "<cmd>close<cr>", "delete window", "Windows", "delete_window", "Deletes current window.")
+  M.nnoremap_which("<Leader>wo", "<cmd>only<cr>", "delete other windows", "Windows", "only_window", "Deletes all other windows.")
+  M.nnoremap_which("<Leader>ws", "<cmd>split<cr>", "split", "Windows", "split_window", "Splits window horizontally.")
+  M.nnoremap_which("<Leader>wv", "<cmd>vsplit<cr>", "vsplit", "Windows", "vsplit_window", "Splits window vertically.")
+  M.nnoremap_which("<Leader>wz", "<Plug>Zoom<cr>", "toggle zoom window", "Windows", "zoom_window", "Zooms in current window.")
 
-    j = { "", "switch window down" },
-    k = { "", "switch window up" },
-    l = { "", "switch window left" },
-    [";"] = { "", "switch window right" },
-  }
+  nnoremap("<Leader>wj", "", "switch window down")
+  nnoremap("<Leader>wk", "", "switch window up")
+  nnoremap("<Leader>wl", "", "switch window left")
+  nnoremap("<Leader>w;", "", "switch window right")
+
+  M.nnoremap_which("ga", "<cmd>CodeActionMenu<cr>", "code actions", "Code", "code_action_menu_g", "Show menu for code actions")
+  M.nnoremap_which("gl", "<cmd>lua require'lvim.lsp.handlers'.show_line_diagnostics()<cr>", "show line diagnostics", "Code", "line_diagnostics_g", "Show line diagnostics in a popup window")
+  M.nnoremap_which("ge", "<cmd>TroubleToggle lsp_references<cr>", "references", "Code", "trouble_lsp_references_g", "Toggle lsp references")
 
   lvim.builtin.which_key.on_config_done = function(wk)
     local keys = {
@@ -717,5 +639,24 @@ autocmd FileType json lua whichkeyJson()
   --   },
   -- }
 end
+
+M.nnoremap = function(lhs, rhs, category, id, desc)
+  mapx.nnoremap(lhs, rhs)
+  mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
+end
+M.vnoremap = function(lhs, rhs, category, id, desc)
+  mapx.vnoremap(lhs, rhs)
+  mapper.map_virtual("v", lhs, "", { noremap = true }, category, id, desc)
+end
+M.inoremap = function(lhs, rhs, category, id, desc)
+  mapx.inoremap(lhs, rhs)
+  mapper.map_virtual("i", lhs, "", { noremap = true }, category, id, desc)
+end
+
+M.nnoremap_which = function(lhs, rhs, label, category, id, desc)
+  mapx.nnoremap(lhs, rhs, label)
+  mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
+end
+
 
 return M

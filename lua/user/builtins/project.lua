@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  lvim.builtin.project.show_hidden = true
+  lvim.builtin.project.show_hidden = false
 end
 
 return M
