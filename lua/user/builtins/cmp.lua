@@ -19,7 +19,8 @@ M.config = function()
     nvim_lua = 1,
     luasnip = 1,
   }
-  lvim.builtin.cmp.formatting.fields = { "abbr", "kind", "menu" }
+  -- lvim.builtin.cmp.formatting.fields = { "abbr", "kind", "menu" }
+  lvim.builtin.cmp.formatting.fields = { "kind", "abbr", "menu" }
   lvim.builtin.cmp.formatting.kind_icons = require("user.builtins.lsp_kind").symbols()
 
   lvim.builtin.cmp.formatting.source_names = {
@@ -53,7 +54,7 @@ M.config = function()
     -- { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
-    { name = "luasnip", max_item_count = 10 },
+    { name = "luasnip" },
     { name = "path", max_item_count = 10 },
     { name = "calc" },
     { name = "cmp_git" },
@@ -63,7 +64,7 @@ M.config = function()
     { name = "buffer", max_item_count = 5, keyword_length = 5 },
     -- { name = "fuzzy_buffer", max_item_count = 5, keyword_length = 5 },
     -- { name = "npm", keyword_length = 4 },
-    { name = "rg" },
+    { name = "rg", max_item_count = 10 },
     -- { name = "spell", max_item_count = 5 },
     { name = "orgmode" },
     -- { name = "treesitter" },

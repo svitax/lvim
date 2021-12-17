@@ -7,6 +7,10 @@ M.config = function()
   -- ]]
   -- NOTE Autocommands (https://neovim.io/doc/user/autocmd.html)
   -- BufEnter *.tex :lua require('texwhichkey')]], false
+
+  -- local codelens_viewer = "lua require('user.codelens').show_line_sign()"
+  local codelens_viewer = "lua require('nvim-lightbulb').update_lightbulb()"
+
   lvim.autocommands.custom_groups = {
     -- { "BufEnter", "*.json", ":lua require('user.autocommands').json_package_mappings()" },
     { "BufWinEnter", ".sol", "setlocal filetype=solidity" },
@@ -32,6 +36,7 @@ M.config = function()
     -- { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb({sign={enabled=true}})" },
     -- { "CursorHoldI", "*", "lua require 'nvim-lightbulb'.update_lightbulb()" },
     -- * lua require'nvim-lightbulb'.update_lightbulb()]]
+    { "CursorHold", "*.rs,*.go,*.ts,*.tsx,*.js,*.jsx", codelens_viewer },
 
     { "BufWritePost", ".tmux.conf", "execute ':!tmux source-file %'" },
     { "BufWritePost", ".tmux.local.conf", "execute ':!tmux source-file %'" },

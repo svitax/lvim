@@ -5,83 +5,32 @@ M.config = function()
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
-    -- {
-    --   "kosayoda/nvim-lightbulb",
-    --   event = "CursorHold",
-    -- },
-    {
-      "weilbith/nvim-code-action-menu",
-      event = "BufRead",
-    },
-    {
-      "ray-x/lsp_signature.nvim",
-      config = function()
-        require("user.lsp_signature").config()
-      end,
-      event = "BufRead",
-    },
-    {
-      "folke/trouble.nvim",
-      config = function()
-        require("trouble").setup {
-          auto_open = false,
-          auto_close = true,
-          padding = false,
-          height = 10,
-          use_diagnostic_signs = true,
-        }
-      end,
-    },
+    require "user.plugins.lightbulb",
+    require "user.plugins.code-action-menu",
+    require "user.plugins.lsp-signature",
+    require "user.plugins.trouble",
     -----[[------------]]-----
     ---       Python       ---
     -----]]------------[[-----
-    { "eddiebergman/nvim-treesitter-pyfold", ft = "py" },
+    require "user.plugins.treesitter-pyfold",
     -----[[------------]]-----
     ---     TypeScript     ---
     -----]]------------[[-----
     -- https://github.com/kozer/emmet-language-server
-    {
-      -- TODO: get TSLspOrganize and TSPLspImportAll to go off when formatting javascript files
-      "jose-elias-alvarez/nvim-lsp-ts-utils",
-      before = "williamboman/nvim-lsp-installer",
-      requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" },
-    },
-    {
-      "vuki656/package-info.nvim",
-      requires = "MunifTanjim/nui.nvim",
-      config = function()
-        require("package-info").setup {
-          colors = {
-            up_to_date = "#3C4048", -- Text color for up to date package virtual text
-            outdated = "#d19a66", -- Text color for outdated package virtual text
-          },
-          icons = {
-            enable = true, -- Whether to display icons
-            style = {
-              up_to_date = "|  ", -- Icon for up to date packages
-              outdated = "|  ", -- Icon for outdated packages
-            },
-          },
-          autostart = false, -- Whether to autostart when `package.json` is opened
-          hide_up_to_date = true, -- It hides up to date versions when displaying virtual text
-          hide_unstable_versions = false, -- It hides unstable versions from version list e.g next-11.1.3-canary3
-          package_manager = "yarn",
-        }
-      end,
-      ft = { "json" },
-    },
-    { "b0o/schemastore.nvim" },
+    require "user.plugins.lsp-ts-utils",
+    require "user.plugins.package-info",
+    require "user.plugins.schemastore",
     -----[[------------]]-----
     ---        Lua         ---
     -----]]------------[[-----
-    { "folke/lua-dev.nvim", before = "williamboman/nvim-lsp-installer" },
+    require "user.plugins.lua-dev",
     -----[[------------]]-----
     ---       Golang       ---
     -----]]------------[[-----
     -- https://github.com/Snyssfx/goerr-nvim
     -- https://github.com/ray-x/go.nvim
     -- TODO: copy the leetcode type snippets from vscode-go-snippets
-    { "codetalks-new/vscode-go-snippets" },
+    require "user.plugins.vscode-go-snippets",
     -- TODO: copy the fiber snippets from vscode-go-power
     -- { "Ja7ad/vscode-go-power" },
     -- https://github.com/honnamkuan/vscode-golang-snippets
@@ -93,85 +42,16 @@ M.config = function()
     -----[[------------]]-----
     ---       Files        ---
     -----]]------------[[-----
-    {
-      "ThePrimeagen/harpoon",
-      event = "WinEnter",
-      config = function()
-        require("harpoon").setup {
-          global_settings = {
-            save_on_toggle = true,
-            save_on_change = true,
-          },
-        }
-      end,
-    },
-    {
-      "kazhala/close-buffers.nvim",
-      event = "BufRead",
-      -- cmd = { "BDelete", "BDelete!", "BWipeout", "BWipeout!" },
-      config = function()
-        require("close_buffers").setup {
-          filetype_ignore = {}, -- Filetype to ignore when running deletions
-          file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
-          file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
-          preserve_window_layout = { "this", "nameless" }, -- Types of deletion that should preserve the window layout
-          next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
-        }
-      end,
-    },
-    {
-      -- TODO: must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
-      "is0n/fm-nvim",
-      cmd = { "Lf", "Nnn", "Ranger" },
-      config = function()
-        require("fm-nvim").setup {
-          border = "rounded",
-          edit_cmd = "edit",
-          height = 0.90,
-          width = 0.90,
-          -- mappings = {
-          --   vert_split = "<C-v>",
-          --   horz_split = "<C-s>",
-          --   tabedit = "<C-t>",
-          --   edit = "<C-e>",
-          -- },
-        }
-      end,
-    },
+    require "user.plugins.harpoon",
+    require "user.plugins.close-buffers",
+    require "user.plugins.fm",
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
-    {
-      "romgrk/nvim-treesitter-context",
-      event = "BufRead",
-      require = { "nvim-treesitter/nvim-treesitter" },
-      config = function()
-        require("treesitter-context").setup {
-          enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
-          throttle = true, -- Throttles plugin updates (may improve performance)
-          max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-          patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-            default = {
-              "class",
-              "function",
-              "method",
-              "for", -- These won't appear in the context
-              "while",
-              "if",
-              "switch",
-              "case",
-            },
-          },
-        }
-      end,
-    },
-    { "VebbNix/lf-vim", event = "BufRead" },
-    { "fladson/vim-kitty", event = "BufRead" },
-    {
-      "nvim-treesitter/playground",
-      after = "nvim-treesitter",
-      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
-    },
+    require "user.plugins.treesitter-context",
+    require "user.plugins.lf-vim",
+    require "user.plugins.vim-kitty",
+    require "user.plugins.treesitter-playground",
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
@@ -180,150 +60,37 @@ M.config = function()
     -- { "ThePrimeagen/git-worktree.nvim" },
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
-    {
-      "pwntester/octo.nvim",
-      cmd = "Octo",
-      config = function()
-        require("octo").setup()
-      end,
-    },
-    {
-      "sindrets/diffview.nvim",
-      cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-      config = function()
-        require("diffview").setup {
-          enhanced_diff_hl = true,
-          file_panel = {
-            position = "right",
-          },
-          key_bindings = {
-            file_panel = { q = "<Cmd>DiffviewClose<CR>" },
-            view = { q = "<Cmd>DiffviewClose<CR>" },
-          },
-        }
-      end,
-    },
-    -- {
-    --   "TimUntersberger/neogit",
-    --   requires = {
-    --     "nvim-lua/plenary.nvim",
-    --     "sindrets/diffview.nvim",
-    --   },
-    --   config = function()
-    --     local neogit = require "neogit"
-    --     neogit.setup {
-    --       disable_context_highlighting = true,
-    --       disable_commit_confirmation = true,
-    --       integrations = {
-    --         diffview = true,
-    --       },
-    --     }
-    --     neogit.config.use_magit_keybindings()
-    --   end,
-    -- },
+    require "user.plugins.octo",
+    require "user.plugins.diffview",
+    -- require "user.plugins.neogit",
     -- NOTE: using this for merge conflict resolution from lazygit
-    { "tpope/vim-fugitive", event = "WinEnter" },
+    require "user.plugins.fugitive",
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
-    {
-      "kristijanhusak/orgmode.nvim",
-      -- keys = { "go", "gC" },
-      -- ft = { "org" },
-      config = function()
-        require("user.orgmode").orgmode_setup()
-      end,
-    },
-    {
-      "akinsho/org-bullets.nvim",
-      config = function()
-        require("user.orgmode").org_bullets_setup()
-      end,
-    },
-    {
-      "lukas-reineke/headlines.nvim",
-      config = function()
-        require("user.orgmode").headlines_setup()
-      end,
-    },
+    require "user.plugins.orgmode",
+    require "user.plugins.org-bullets",
+    require "user.plugins.headlines",
     -- {
     --   "dkarter/bullets.vim",
     --   config = function()
     --     vim.g.bullets_enabled_file_types = { "markdown" }
     --   end,
     -- }, -- https://github.com/dkarter/bullets.vim
-    {
-      "plasticboy/vim-markdown",
-      config = function()
-        -- " Configuration for vim-markdown
-        vim.g.vim_markdown_conceal = 2
-        vim.g.vim_markdown_conceal_code_blocks = 0
-        vim.g.vim_markdown_math = 1
-        vim.g.vim_markdown_toml_frontmatter = 1
-        vim.g.vim_markdown_frontmatter = 1
-        vim.g.vim_markdown_strikethrough = 1
-        vim.g.vim_markdown_autowrite = 1
-        vim.g.vim_markdown_edit_url_in = "tab"
-        vim.g.vim_markdown_follow_anchor = 1
-        vim.g.vim_markdown_auto_insert_bullets = 1
-        vim.g.vim_markdown_new_list_item_indent = 0
-      end,
-      ft = "markdown",
-    },
-    {
-      "lervag/wiki.vim",
-      config = function()
-        vim.g.wiki_root = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax"
-        vim.g.wiki_filetypes = { "md" }
-        vim.g.wiki_link_target_type = "md" -- md style links or wiki style links
-        vim.g.wiki_mappings_use_defaults = "local" -- all, local, global, or none
-      end,
-    },
+    require "user.plugins.vim-markdown",
+    require "user.plugins.wiki-vim",
     -----[[------------]]-----
     ---      Mappings      ---
     -----]]------------[[-----
-    {
-      "lazytanuki/nvim-mapper",
-      before = "telescope.nvim",
-      config = function()
-        require("nvim-mapper").setup {
-          no_map = true,
-          search_path = os.getenv "HOME" .. "/.config/lvim/lua",
-          -- Available actions:
-          --   * "definition" - Go to keybind definition (default)
-          --   * "execute" - Execute the keybind command
-          action_on_enter = "definition",
-        }
-        require("telescope").load_extension "mapper"
-      end,
-    },
-    { "b0o/mapx.nvim" },
+    require "user.plugins.mapper",
+    require "user.plugins.mapx",
     -----[[------------]]-----
     ---         UI         ---
     -----]]------------[[-----
-    { "nixprime/cpsm", run = "PY3=ON ./install.sh" },
-    {
-      "gelguy/wilder.nvim",
-      event = { "CursorHold", "CmdlineEnter" },
-      rocks = { "luarocks-fetch-gitrec", "pcre2" },
-      -- rocks = { "luarocks-fetch-gitrec" },
-      requires = { "romgrk/fzy-lua-native", "nixprime/cpsm" },
-      config = function()
-        vim.cmd(string.format("source %s", "~/.config/lvim/vimscript/wilder.vim"))
-      end,
-      run = ":UpdateRemotePlugins",
-      --   run = "./install.sh",
-    },
-    {
-      "karb94/neoscroll.nvim",
-      event = "BufRead",
-      config = function()
-        require("neoscroll").setup {
-          easing_function = "quadratic", -- Default easing function
-          mappings = { "<C-u>", "<C-d>", "zt", "zz", "zb" },
-        }
-      end,
-    },
+    require "user.plugins.dressing",
+    require "user.plugins.cosmic-ui",
+    require "user.plugins.wilder",
+    require "user.plugins.neoscroll",
     -- {
     --   "Mathijs-Bakker/zoom-vim",
     --   event = "BufRead",
@@ -333,52 +100,11 @@ M.config = function()
     -----]]------------[[-----
     -- TODO: look into vim-yoink as a replacement for nvim-neoclip
     -- { "svermeulen/vim-yoink", config = function() end, },
-    {
-      "windwp/nvim-spectre",
-      event = "BufRead",
-      config = require("user.spectre").config,
-    },
-    {
-      "AckslD/nvim-neoclip.lua",
-      -- event = "WinEnter",
-      requires = { "tami5/sqlite.lua", module = "sqlite" },
-      config = function()
-        require("user.neoclip").config()
-        require("telescope").load_extension "neoclip"
-      end,
-    },
-    {
-      "filipdutescu/renamer.nvim",
-      config = function()
-        require("renamer").setup {
-          title = "Rename",
-        }
-      end,
-      key = "<leader>lr",
-    },
-    {
-      "mg979/vim-visual-multi",
-      -- event = "WinEnter",
-      config = function()
-        vim.g.VM_theme_set_by_colorscheme = true -- Required for Visual Multi theming
-        -- vim.g.VM_default_mappings = false
-        vim.cmd "let g:VM_default_mappings = 0"
-        vim.cmd "let g:VM_custom_motions = {';': 'l', 'l': 'h', 'h': ';'}"
-        vim.cmd "let g:VM_maps = {}"
-        vim.cmd "let g:VM_maps['Find Under'] = '<C-y>'" -- replace C-n
-        vim.cmd "let g:VM_maps['Find Subword Under'] = '<C-y>'" -- replace visual C-n
-        -- vim.cmd "let g:VM_maps['Select Cursor Down'] = '<C-Down>'"
-        -- vim.cmd "let g:VM_maps['Select Cursor Up']   = '<C-Up>'"
-        -- vim.cmd "let g:VM_maps['Add Cursor At Pos']  = '<C-m>'"
-      end,
-    },
-    {
-      "machakann/vim-sandwich",
-      config = function()
-        vim.cmd "runtime macros/sandwich/keymap/surround.vim"
-      end,
-      -- event = "WinEnter"
-    },
+    require "user.plugins.spectre",
+    require "user.plugins.cutlass",
+    require "user.plugins.neoclip",
+    require "user.plugins.visual-multi",
+    require "user.plugins.sandwich",
     -- { "chaoren/vim-wordmotion", event = "BufRead" },
     -- {
     -- Using vim-sandwich until surround.nvim highlights matches
@@ -391,111 +117,27 @@ M.config = function()
     -----[[------------]]-----
     ---     Navigation     ---
     -----]]------------[[-----
-    {
-      "kwkarlwang/bufjump.nvim",
-      event = "BufRead",
-      config = function()
-        require("bufjump").setup {
-          on_success = function()
-            vim.cmd [[execute "normal! g`\"zz"]]
-          end,
-        }
-      end,
-    },
-    {
-      "ggandor/lightspeed.nvim",
-      -- event = "WinEnter",
-      config = function()
-        require("lightspeed").setup {
-          -- jump_to_first_match = true,
-          highlight_unique_chars = true,
-          substitute_chars = { ["\r"] = "¬" },
-        }
-      end,
-    },
+    require "user.plugins.bufjump",
+    require "user.plugins.lightspeed",
     -- TODO: try using this for resize mappings and copy sync
     -- https://github.com/aserowy/tmux.nvim
-    {
-      -- I need this to make winndow movement work with my prefered movement keys (jkl;)
-      "numToStr/Navigator.nvim",
-      event = "BufWinEnter",
-      config = function()
-        require("Navigator").setup()
-        vim.api.nvim_set_keymap("n", "<C-l>", "<cmd>lua require('Navigator').left()<CR>", { silent = true })
-        vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require('Navigator').down()<CR>", { silent = true })
-        vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require('Navigator').up()<CR>", { silent = true })
-        vim.api.nvim_set_keymap("n", "<C-h>", "<cmd>lua require('Navigator').right()<CR>", { silent = true })
-      end,
-    },
-    {
-      "dhruvmanila/telescope-bookmarks.nvim",
-      after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension "bookmarks"
-      end,
-    },
+    require "user.plugins.navigator",
+    require "user.plugins.telescope-bookmarks",
     -----[[------------]]-----
     ---    Text Objects    ---
     -----]]------------[[-----
-    {
-      "andymass/vim-matchup",
-      event = "CursorMoved",
-      config = function()
-        -- vim.g.matchup_matchparen_offscreen = { method = "popup", scrolloff = 1 }
-        vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
-        -- vim.g.matchup_matchparen_enabled = 0
-        vim.g.matchup_surround_enabled = 1
-        vim.g.matchup_matchparen_deferred = 1
-      end,
-    },
-    {
-      "RRethy/nvim-treesitter-textsubjects",
-      -- event = "CursorMoved",
-      after = "nvim-treesitter",
-    },
-    { "nvim-treesitter/nvim-treesitter-textobjects", branch = "0.5-compat" },
+    require "user.plugins.matchup",
+    require "user.plugins.treesitter-textsubjects",
+    require "user.plugins.treesitter-textobjects",
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
-    {
-      "ethanholz/nvim-lastplace",
-      event = "BufRead",
-      config = function()
-        require("nvim-lastplace").setup {
-          lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-          lastplace_ignore_filetype = {
-            "gitcommit",
-            "gitrebase",
-            "svn",
-            "hgcommit",
-          },
-          lastplace_open_folds = true,
-        }
-      end,
-    },
+    require "user.plugins.lastplace",
     -----[[------------]]-----
     ---       Colors       ---
     -----]]------------[[-----
-    {
-      "svitax/fennec-gruvbox.nvim",
-      requires = { "rktjmp/lush.nvim" },
-    },
-    {
-      "norcalli/nvim-colorizer.lua",
-      event = "BufRead",
-      config = function()
-        require("colorizer").setup({ "*" }, {
-          RGB = true, -- #RGB hex codes
-          RRGGBB = true, -- #RRGGBB hex codes
-          RRGGBBAA = true, -- #RRGGBBAA hex codes
-          rgb_fn = true, -- CSS rgb() and rgba() functions
-          hsl_fn = true, -- CSS hsl() and hsla() functions
-          css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-          css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-          names = true, -- "Name" codes like Blue
-        })
-      end,
-    },
+    require "user.plugins.fennec-gruvbox",
+    require "user.plugins.colorizer",
     -- {
     --   "folke/todo-comments.nvim",
     --   event = "BufRead",
@@ -507,7 +149,7 @@ M.config = function()
     ---      Snippets      ---
     -----]]------------[[-----
     -- TODO: can probably write these snippets into luasnip myself
-    { "dsznajder/vscode-es7-javascript-react-snippets" },
+    require "user.plugins.vscode-es7-javascript-react-snippets",
     -- {
     --   "mrjones2014/dash.nvim",
     --   run = "make install",
@@ -529,14 +171,7 @@ M.config = function()
     -----[[------------]]-----
     ---     Completion     ---
     -----]]------------[[-----
-    {
-      "windwp/nvim-ts-autotag",
-      config = function()
-        require("nvim-ts-autotag").setup()
-      end,
-      ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue", "css" },
-      -- event = "InsertEnter",
-    },
+    require "user.plugins.ts-autotag",
     -- {
     --   "kkoomen/vim-doge",
     --   event = "BufRead",
@@ -546,21 +181,11 @@ M.config = function()
     --     vim.cmd "let g:doge_enable_mappings = 0"
     --   end,
     -- },
-    {
-      "petertriho/cmp-git",
-      requires = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
-      config = function()
-        require("cmp_git").setup {
-          -- defaults
-          filetypes = { "gitcommit", "NeogitCommitMessage" },
-          remotes = { "upstream", "origin" }, -- in order of most to least prioritized
-        }
-      end,
-    },
-    { "hrsh7th/cmp-cmdline", requires = { "hrsh7th/nvim-cmp" } },
-    { "dmitmel/cmp-cmdline-history", requires = { "hrsh7th/nvim-cmp" } },
-    { "lukas-reineke/cmp-rg", requires = { "hrsh7th/nvim-cmp" } },
-    { "hrsh7th/cmp-nvim-lsp-document-symbol", requires = { "hrsh7th/nvim-cmp" } },
+    require "user.plugins.cmp-git",
+    require "user.plugins.cmp-cmdline",
+    require "user.plugins.cmp-cmdline-history",
+    require "user.plugins.cmp-rg",
+    require "user.plugins.cmp-nvim-lsp-document-symbol",
     -- { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
     -- { "ray-x/cmp-treesitter", requires = { "hrsh7th/nvim-cmp" } },
     -- { "hrsh7th/cmp-nvim-lsp-signature-help", requires = { "ray-x/lsp_signature.nvim", "hrsh7th/nvim-cmp" } },
@@ -580,7 +205,7 @@ M.config = function()
     -----[[------------]]-----
     ---      QuickFix      ---
     -----]]------------[[-----
-    { "kevinhwang91/nvim-bqf", event = "BufRead" },
+    require "user.plugins.bqf",
     -- https://gitlab.com/yorickpeterse/nvim-pqf
     -----[[------------]]-----
     ---        Shell       ---

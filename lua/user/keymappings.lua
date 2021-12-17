@@ -6,6 +6,7 @@ local mapper = require "nvim-mapper"
 M.config = function()
   -- TODO: S in visual mode should be lightspeed_S, so what should I use for visual sandwich surround?
 
+
   -----[[------------]]-----
   ---       Normal       ---
   -----]]------------[[-----
@@ -17,6 +18,16 @@ M.config = function()
   M.nnoremap(";", "l", "Navigation", "right", "Move cursor to right.")
   M.nnoremap("l", "h", "Navigation", "left", "Move cursor to left.")
 
+  onoremap(";", "l")
+  onoremap("l", "h")
+  mapper.map_virtual("n", "x;", "", {noremap = true}, "Cut", "cut_cur", "Cuts current char using cutlass")
+  mapper.map_virtual("n", "xh", "", {noremap = true}, "Cut", "cut_prev", "Cuts previous char using cutlass")
+
+  -- I'm using cutlass.nvim so I want to document that functionality
+  mapper.map_virtual("n", "d", "", {noremap = true}, "Delete", "del", "Delete using cutlass (deletions use the black hole register)")
+  mapper.map_virtual("n", "c", "", {noremap = true}, "Change", "change", "Changes using cutlass (changes use the black hole register)")
+  mapper.map_virtual("n", "x", "", {noremap = true}, "Cut", "cut", "Cuts using cutlass")
+
   -- since I don't use h to move cursor, might as well use it to enter command mode
   M.nnoremap("h", ":", "Modes", "command_mode", "Enter command mode.")
 
@@ -26,6 +37,10 @@ M.config = function()
 
   -- keep cursor centered and in-place when joining lines with J
   M.nnoremap("J", "mzJ`z", "Editing", "join_lines", "Join line below to to the current one while keeping cursor centered and in-place.")
+
+  -- lightspeed
+  nmap("s", "<Plug>Lightspeed_s")
+  nmap("S", "<Plug>Lightspeed_S")
 
   -- reverse join
   -- lvim.keys.normal_mode["H"] = "revJ"
@@ -376,6 +391,7 @@ M.config = function()
   -- ["v"] =
   -- ["y"] =
   m.name("<Leader>l", "+LSP")
+  -- M.nnoremap_which("<Leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", "code actions", "Code", "code_action_menu", "Show menu for code actions.")
   M.nnoremap_which("<Leader>la", "<cmd>CodeActionMenu<cr>", "code actions", "Code", "code_action_menu", "Show menu for code actions.")
   M.nnoremap_which("<Leader>lA", "<cmd>lua vim.lsp.codelens.run()<cr>", "codelens actions", "Code", "codelens_action_menu", "Show menu for codelens actions.")
   -- nnoremap("<Leader>lb", "<cmd>lua require'nvim-biscuits'.toggle_biscuits()<cr>", "toggle biscuits")
@@ -389,7 +405,8 @@ M.config = function()
   M.nnoremap_which("<Leader>lpd", "<cmd>lua require('lsp.peek').Peek('definition')<cr>", "peek definition", "Code", "peek_definition", "Peek definition.")
   M.nnoremap_which("<Leader>lpt", "<cmd>lua require('lsp.peek').Peek('typeDefinition')<cr>", "peek type definition", "Code", "peek_type_definition", "Peek type definition.")
   M.nnoremap_which("<Leader>lpi", "<cmd>lua require('lsp.peek').Peek('implementation')<cr>", "peek implementation", "Code", "peek_implementation", "Peek implementation.")
-  M.nnoremap_which("<Leader>lr", "<cmd>lua require('renamer').rename()<cr>", "rename", "Code", "renamer", "Rename symbol.")
+  M.nnoremap_which("<Leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", "rename", "Code", "renamer", "Rename symbol.")
+  -- <cmd>lua vim.lsp.buf.rename()<CR>
   -- nnoremap("<Leader>lt", "<cmd>TroubleToggle lsp_definitions<cr>", "definitions")
   M.nnoremap_which("<Leader>lx", "<cmd>TroubleToggle document_diagnostics<cr>", "document diagnostics", "Code", "trouble_document_diagnostics", "Toggle document diagnostics.")
   M.nnoremap_which("<Leader>lX", "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics", "Code", "trouble_workspace_diagnostics", "Toggle workspace diagnostics.")
@@ -459,8 +476,7 @@ autocmd FileType json lua whichkeyJson()
   M.nnoremap_which("<Leader>se", "<cmd>Telescope bookmarks<cr>", "browser bookmarks", "Search", "search_browser_bookmarks", "Search browser bookmarks.")
   M.nnoremap_which("<Leader>s;", "<cmd>Telescope commands<cr>", "vim commands", "Search", "search_vim_commands", "Search vim commands.")
   M.nnoremap_which("<Leader>s.", "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<CR>", "dotfiles", "Search", "search_dotfiles", "Search my dotfiles.")
-  M.nnoremap_which("<Leader>s>", "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>", "grep in dotfiles", "Search", "grep_dotfiles", "Greps in my dotfiles.")
-  M.nnoremap_which("<Leader>sf", "<cmd>lua require('user.telescope.custom_pickers').find_files()<CR>", "files in project", "Search", "search_project_files", "Search files in current project.")
+  M.nnoremap_which("<Leader>s>", "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>", "grep in dotfiles", "Search", "grep_dotfiles", "Greps in my dotfiles.") M.nnoremap_which("<Leader>sf", "<cmd>lua require('user.telescope.custom_pickers').find_files()<CR>", "files in project", "Search", "search_project_files", "Search files in current project.")
   M.nnoremap_which("<Leader>sh", "<cmd>Telescope help_tags<cr>", "help tags", "Search", "search_help_tags", "Search help tags.")
   M.nnoremap_which("<Leader>sk", "<cmd>Telescope mapper<cr>", "keymaps", "Search", "search_keymappings_mapper", "Search keymappings through mapper.")
   M.nnoremap_which("<Leader>sl", "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>", "LunarVim files", "Search", "search_lunarvim_files", "Search LunarVim files.")

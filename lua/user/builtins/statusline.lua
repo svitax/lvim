@@ -129,11 +129,19 @@ M.config = function()
       local number = (string.format("%s", status)):sub(-1)
       return " " .. number
     end,
-    color = { fg = c.yellow, bg = c.lightbg, gui = "bold" },
-    padding = { left = 0, right = 0 },
+    color = { fg = c.yellow, bg = c.one_bg2, gui = "bold" },
+    padding = { left = 0, right = 1 },
     cond = function()
       return vim.api.nvim_win_get_width(0) > 80
     end,
+  }
+  -- Harpoon separator
+  ins_left {
+    function()
+      return icons.default.right
+    end,
+    color = { fg = c.one_bg2, bg = c.lightbg },
+    padding = { left = 0, right = 0 },
   }
 
   -- Harpoon separator
@@ -158,7 +166,7 @@ M.config = function()
     -- disable_text = true,
     icon_only = true,
     color = { fg = c.white, bg = c.lightbg, gui = "bold" },
-    padding = { left = 1 },
+    padding = { left = 0 },
   }
 
   -- filename

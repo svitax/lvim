@@ -10,6 +10,8 @@ return function()
   lvim.builtin.telescope.defaults.prompt_prefix = " "
   lvim.builtin.telescope.defaults.selection_caret = " "
 
+  lvim.builtin.telescope.defaults.dynamic_preview_title = true
+
   lvim.builtin.telescope.defaults.winblend = lvim.winblend
   lvim.builtin.telescope.defaults.mappings = {
     i = {
