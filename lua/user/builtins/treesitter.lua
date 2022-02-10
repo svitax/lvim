@@ -35,7 +35,7 @@ M.config = function()
 
   lvim.builtin.treesitter.indent.disable = { "python", "go", "yaml" }
 
-  lvim.builtin.treesitter.matchup.enable = true
+  -- lvim.builtin.treesitter.matchup.enable = false
 
   lvim.builtin.treesitter.playground.enable = true
   lvim.builtin.treesitter.pyfold = {
@@ -128,6 +128,7 @@ M.config = function()
     --     branch = "main",
     --   },
     -- }
+
     -- solidity parser
     parser_config.solidity = {
       install_info = {

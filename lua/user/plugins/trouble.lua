@@ -9,4 +9,5 @@ return {
       use_diagnostic_signs = true,
     }
   end,
+  event = "BufRead",
 }

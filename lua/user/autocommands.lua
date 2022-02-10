@@ -15,9 +15,10 @@ M.config = function()
     -- { "BufEnter", "*.json", ":lua require('user.autocommands').json_package_mappings()" },
     { "BufWinEnter", ".sol", "setlocal filetype=solidity" },
     { "BufRead", "*.sol", "setlocal filetype=solidity" },
-    { "BufEnter", "*.md", "setlocal conceallevel=2" },
-    { "BufEnter", "*.md", "nnoremap <silent> <buffer> <cr> :WikiLinkFollow<CR>" },
-    -- vim.api.nvim_buf_set_keymap("n", "<cr>", "", { noremap = false })
+
+    { "BufRead", "*.md", ":Mkdnflow" },
+    { "BufRead", "*.md", "setlocal conceallevel=2" },
+    -- { "BufEnter", "*.md", "nnoremap <silent> <buffer> <cr> :WikiLinkFollow<CR>" },
 
     -- { "BufEnter", "*.norg", "setlocal conceallevel=2" },
     { "FileType", "spectre_panel", "nnoremap <silent> <buffer> q :q<CR>" },

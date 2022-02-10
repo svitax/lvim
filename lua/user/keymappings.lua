@@ -18,8 +18,9 @@ M.config = function()
   M.nnoremap(";", "l", "Navigation", "right", "Move cursor to right.")
   M.nnoremap("l", "h", "Navigation", "left", "Move cursor to left.")
 
-  onoremap(";", "l")
-  onoremap("l", "h")
+  M.onoremap(";", "l", "Navigation", "op_right", "Move cursor to right.")
+  M.onoremap("l", "h", "Navigation", "op_left", "Move cursor to left.")
+
   mapper.map_virtual("n", "x;", "", {noremap = true}, "Cut", "cut_cur", "Cuts current char using cutlass")
   mapper.map_virtual("n", "xh", "", {noremap = true}, "Cut", "cut_prev", "Cuts previous char using cutlass")
 
@@ -41,6 +42,11 @@ M.config = function()
   -- lightspeed
   nmap("s", "<Plug>Lightspeed_s")
   nmap("S", "<Plug>Lightspeed_S")
+  vmap("s", "<Plug>Lightspeed_s")
+  vmap("S", "<Plug>Lightspeed_S")
+
+  -- treehopper
+  vnoremap("<Tab>", ":lua require('tsht').nodes()<cr>")
 
   -- reverse join
   -- lvim.keys.normal_mode["H"] = "revJ"
@@ -223,7 +229,7 @@ M.config = function()
   -- Whichkey remaps
   -- local nnoremap = M.nnoremap_which
 
-  M.nnoremap_which("<Leader>a", "<cmd>up<CR>", "write buffer", "Editing", "update", "Writes the buffer but only if it has been modified.")
+  M.nnoremap_which("<Leader>a", "<cmd>up!<CR>", "write buffer", "Editing", "update", "Writes the buffer but only if it has been modified.")
   M.nnoremap_which("<Leader>t", "<cmd>NvimTreeToggle<CR>", "file tree", "Files", "nvimtree_toggle", "Toggles Nvimtree")
   M.nnoremap_which("<Leader>f", "<cmd>Lf %<cr>", "files", "Files", "lf_togggle", "Toggles Lf (file manager)")
   -- toggle spell check
@@ -246,7 +252,9 @@ M.config = function()
     "neoclip_yank_history",
     "Toggle Neoclip (clipboard manager)"
   )
-  M.nnoremap_which("<Leader>/", "<cmd>lua require('Comment').toggle()<CR>", "comment", "Comment", "toggle_comment", "Toggle line comment.")
+  -- M.nnoremap_which("<Leader>/", "<cmd>lua require('Comment').toggle()<CR>", "comment", "Comment", "toggle_comment", "Toggle line comment.")
+  nmap("<Leader>/", "gcc", "toggle comment")
+  M.vnoremap("<Leader>/", "gc", "Comment", "toggle_comment_visual", "Toggle line comment in visual mode")
   M.nnoremap_which("<Leader>;", "<cmd>Dashboard<CR>", "dashboard", "Navigation", "dashboard", "Jump to dashboard.")
 
   nnoremap("<Leader>c", "", "which_key_ignore")
@@ -288,9 +296,28 @@ M.config = function()
   M.nnoremap_which("<Leader>de", "<cmd>lua require('dapui').eval()<cr>", "eval", "Debug", "dapui_eval", "Evaluate expression in dapui")
 
   -- =========================================
+  -- +Eval
+  -- =========================================
+  m.name("<Leader>e", "+Eval")
+  m.name("<Leader>ec", "+comment")
+  M.nnoremap_which("<Leader>ee", "<cmd>ConjureEvalCurrentForm<cr>", "eval current form", "Eval", "eval_current_form", "Evaluate current form under cursor in Conjure")
+  M.nnoremap_which("<Leader>ece", "<cmd>ConjureCommentCurrentForm<cr>", "eval comment current form", "Eval", "eval_comment_current_form", "Evaluate current form under cursor in Conjure and insert result as comment")
+  M.nnoremap_which("<Leader>er", "<cmd>ConjureEvalRootForm<cr>", "eval root form", "Eval", "eval_root_form", "Evaluate root form under cursor in Conjure")
+  M.nnoremap_which("<Leader>ecr", "<cmd>ConjureCommentRootForm<cr>", "eval comment root form", "Eval", "eval_comment_root_form", "Evaluate root form under cursor in Conjure and insert result as comment.")
+  M.nnoremap_which("<Leader>ew", "<cmd>ConjureEvalWord<cr>", "eval word", "Eval", "eval_word", "Evaluate word under cursor in Conjure.")
+  M.nnoremap_which("<Leader>ecw", "<cmd>ConjureCommentEvalWord<cr>", "eval comment word", "Eval", "eval_comment_word", "Evaluate word under cursor in Conjure and insert result as comment.")
+  M.nnoremap_which("<Leader>e!", "<cmd>ConjureEvalReplaceForm<cr>", "eval replace form", "Eval", "eval_replace_form", "Evaluate form under cursor and replace with the result.")
+  M.nnoremap_which("<Leader>em", "<cmd>ConjureEvalMarkedForm<cr>", "eval marked form", "Eval", "eval_marked_form", "Evaluate form at the mark's location.")
+  M.nnoremap_which("<Leader>ef", "<cmd>ConjureEvalFile<cr>", "eval file", "Eval", "eval_file", "Evaluate file from disk.")
+  M.nnoremap_which("<Leader>eb", "<cmd>ConjureEvalBuffer<cr>", "eval buffer", "Eval", "eval_buffer", "Evaluate buffer from memory.")
+
+  M.vnoremap_which("<Leader>e", "<cmd>ConjureEvalVisual<cr>", "eval visual", "Eval", "eval_visual", "Evaluate the visual selection.")
+
+  -- =========================================
   -- +Git
   -- =========================================
   m.name("<Leader>g", "+Git")
+  M.nnoremap_which("<Leader>gd", "<cmd>DiffviewOpen<cr>", "diffview", "Git", "diff_view_open", "Open git diffview.")
   M.nnoremap_which("<Leader>gi", "<cmd>Octo issue list<cr>", "list issues", "Git", "octo_issue_list", "List Github issues.")
   M.nnoremap_which("<Leader>gl", "<cmd>lua require'gitsigns'.blame_line(true)<cr>", "blame message", "Git", "gitsigns_blame_line", "Toggle git blame line.")
   M.nnoremap_which(
@@ -478,12 +505,16 @@ autocmd FileType json lua whichkeyJson()
   M.nnoremap_which("<Leader>s.", "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<CR>", "dotfiles", "Search", "search_dotfiles", "Search my dotfiles.")
   M.nnoremap_which("<Leader>s>", "<cmd>lua require'user.telescope.custom_pickers'.grep_dotfiles()<cr>", "grep in dotfiles", "Search", "grep_dotfiles", "Greps in my dotfiles.") M.nnoremap_which("<Leader>sf", "<cmd>lua require('user.telescope.custom_pickers').find_files()<CR>", "files in project", "Search", "search_project_files", "Search files in current project.")
   M.nnoremap_which("<Leader>sh", "<cmd>Telescope help_tags<cr>", "help tags", "Search", "search_help_tags", "Search help tags.")
+  M.nnoremap_which("<Leader>si", "<cmd>lua require'telescope.builtin'.symbols{sources = {'ipa'} }<cr>", "IPA symbols", "Search", "search_ipa_symbols", "Search IPA symbols.")
   M.nnoremap_which("<Leader>sk", "<cmd>Telescope mapper<cr>", "keymaps", "Search", "search_keymappings_mapper", "Search keymappings through mapper.")
   M.nnoremap_which("<Leader>sl", "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>", "LunarVim files", "Search", "search_lunarvim_files", "Search LunarVim files.")
   M.nnoremap_which("<Leader>sn", "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes", "Search", "search_notes", "Search my Obsidian notes.")
   M.nnoremap_which("<Leader>sp", "<cmd>Telescope projects<cr>", "projects", "Search", "search_projects", "Search projects and project files.")
   M.nnoremap_which("<Leader>sr", "<cmd>Telescope oldfiles<cr>", "recent files", "Search", "search_recent_files", "Search recently opened files.")
+  M.nnoremap_which("<Leader>ss", "<cmd>Telescope luasnip<cr>", "snippets", "Search", "search_snippets", "Search snippets for the current filetype.")
   M.nnoremap_which("<Leader>sg", "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project", "Search", "grep_project_files", "Greps in current project.")
+  M.nnoremap_which("<Leader>sx", "<cmd>lua require'telescope.builtin'.symbols{sources = {'xsampa'} }<cr>", "X-SAMPA symbols", "Search", "search_xsampa_symbols", "Search X-SAMPA symbols.")
+  M.nnoremap_which("<Leader>si", "<cmd>lua require'telescope.builtin'.symbols{sources = {'ipa'} }<cr>", "IPA symbols", "Search", "search_ipa_symbols", "Search IPA symbols.")
   M.nnoremap_which("<Leader>sz", "<cmd>lua require('user.telescope.custom_pickers').grep_last_search()<cr>", "grep last search", "Search", "grep_last_search", "Greps last search.")
   -- nnoremap("<Leader>sP", "<cmd>lua require'user.telescope.custom_pickers'.conda()<cr>", "conda")
   -- nnoremap("<Leader>sz", "<cmd>Telescope zoxide list<cr>", "zoxide")
@@ -668,10 +699,18 @@ M.inoremap = function(lhs, rhs, category, id, desc)
   mapx.inoremap(lhs, rhs)
   mapper.map_virtual("i", lhs, "", { noremap = true }, category, id, desc)
 end
+M.onoremap = function(lhs, rhs, category, id, desc)
+  mapx.onoremap(lhs, rhs)
+  mapper.map_virtual("o", lhs, "", { noremap = true }, category, id, desc)
+end
 
 M.nnoremap_which = function(lhs, rhs, label, category, id, desc)
   mapx.nnoremap(lhs, rhs, label)
   mapper.map_virtual("n", lhs, "", { noremap = true }, category, id, desc)
+end
+M.vnoremap_which = function(lhs, rhs, label, category, id, desc)
+  mapx.vnoremap(lhs, rhs, label)
+  mapper.map_virtual("v", lhs, "", { noremap = true }, category, id, desc)
 end
 
 

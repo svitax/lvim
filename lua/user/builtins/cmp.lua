@@ -34,6 +34,7 @@ M.config = function()
     calc = "  ",
     -- cmp_git = "  ",
     cmp_git = "(Git)",
+    conventionalcommits = "(CC)",
     -- cmp_tabnine = ""ﮧ"",
     emoji = "  ",
     buffer = "(Buffer)",
@@ -47,17 +48,23 @@ M.config = function()
     orgmode = "(Org)", -- "  "
     cmdline = "(Cmd)",
     cmdline_history = "(Hist)",
+    latex_symbols = "(Tex)",
+    cmp_pandoc = "(Pandoc)",
+    conjure = "(Conjure)",
   }
 
   -- sources haave to be in order of priority
   lvim.builtin.cmp.sources = {
+    { name = "conjure" },
     -- { name = "nvim_lsp_signature_help" },
+    { name = "cmp_pandoc" },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "path", max_item_count = 10 },
     { name = "calc" },
     { name = "cmp_git" },
+    { name = "conventionalcommits" },
     -- { name = "cmp_tabnine", max_item_count = 3 },
     { name = "crates" },
     { name = "emoji" },
@@ -67,23 +74,25 @@ M.config = function()
     { name = "rg", max_item_count = 10 },
     -- { name = "spell", max_item_count = 5 },
     { name = "orgmode" },
+    { name = "latex_symbols", max_item_count = 20 },
     -- { name = "treesitter" },
   }
 
   -- require("cmp").setup.cmdline(":", {
   --   sources = {
   --     { name = "cmdline" },
-  --     -- { name = "cmdline_history" },
+  --     { name = "cmdline_history" },
   --     { name = "path" },
   --   },
   -- })
-  require("cmp").setup.cmdline("/", {
-    sources = {
-      { name = "nvim_lsp_document_symbol" },
-      -- { name = "buffer" },
-      -- { name = "cmdline_history" },
-    },
-  })
+
+  -- require("cmp").setup.cmdline("/", {
+  --   sources = {
+  --     -- { name = "nvim_lsp_document_symbol" },
+  --     -- { name = "buffer" },
+  --     -- { name = "cmdline_history" },
+  --   },
+  -- })
 
   local check_backspace = function()
     local col = vim.fn.col "." - 1

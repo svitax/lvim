@@ -1,6 +1,6 @@
 return {
   "AckslD/nvim-neoclip.lua",
-  -- event = "WinEnter",
+  event = "WinEnter",
   requires = { "tami5/sqlite.lua", module = "sqlite" },
   config = function()
     local status_ok, neoclip = pcall(require, "neoclip")
@@ -9,15 +9,20 @@ return {
     end
 
     neoclip.setup {
+      -- TODO: when stable neovim gets RecordingLeave turn enable_macro_history back on
+      enable_macro_history = false,
+
       default_register = "+",
       content_spec_column = true,
-      enable_persistant_history = true,
+      enable_persistent_history = true,
       db_path = vim.fn.stdpath "data" .. "/neoclip.sqlite3",
       keys = {
         -- i = { select = "<a-p>", paste = "<CR>", paste_behind = "<c-P>" },
         -- n = { select = "p", paste = "<CR>", paste_behind = "P" },
-        i = { select = "<cr>", paste = "<a-p>", paste_behind = "<a-P>" },
-        n = { select = "<cr>", paste = "p", paste_behind = "P" },
+        telescope = {
+          i = { select = "<cr>", paste = "<a-p>", paste_behind = "<a-P>" },
+          n = { select = "<cr>", paste = "p", paste_behind = "P" },
+        },
       },
       -- NOTE: I basically don't want single empty lines to appear neoclips history
       filter = function(table)

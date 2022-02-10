@@ -1,6 +1,8 @@
 return {
   "petertriho/cmp-git",
-  requires = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
+  after = { "nvim-cmp" },
+  requires = { "nvim-lua/plenary.nvim" },
+  -- requires = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
   config = function()
     require("cmp_git").setup {
       -- defaults

@@ -2,6 +2,16 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+    -- https://gitlab.com/HiPhish/guile.vim
+    -- https://github.com/tpope/vim-sexp-mappings-for-regular-people
+    { "gpanders/nvim-parinfer" },
+    { "Olical/conjure" },
+    { "PaterJason/cmp-conjure", config = function ()
+      -- vim.g["conjure#mapping#prefix"] = "<Leader>e"
+    end },
+    { "clojure-vim/vim-jack-in" },
+    { "tpope/vim-dispatch" },
+    { "adenling/vim-dispatch-neovim" },
     -----[[------------]]-----
     ---        LSP         ---
     -----]]------------[[-----
@@ -12,25 +22,29 @@ M.config = function()
     -----[[------------]]-----
     ---       Python       ---
     -----]]------------[[-----
+    -- TODO: merge into a single treesitter file
     require "user.plugins.treesitter-pyfold",
     -----[[------------]]-----
     ---     TypeScript     ---
     -----]]------------[[-----
-    -- https://github.com/kozer/emmet-language-server
     require "user.plugins.lsp-ts-utils",
     require "user.plugins.package-info",
     require "user.plugins.schemastore",
+    -- require "user.tailwindcss-colors",
+    -- TODO: emmet ls or emmet cmp
+    -- https://github.com/kozer/emmet-language-server
     -----[[------------]]-----
     ---        Lua         ---
     -----]]------------[[-----
-    require "user.plugins.lua-dev",
+    -- require "user.plugins.lua-dev",
     -----[[------------]]-----
     ---       Golang       ---
     -----]]------------[[-----
-    -- https://github.com/Snyssfx/goerr-nvim
-    -- https://github.com/ray-x/go.nvim
+    -- tl
     -- TODO: copy the leetcode type snippets from vscode-go-snippets
     require "user.plugins.vscode-go-snippets",
+    -- https://github.com/Snyssfx/goerr-nvim
+    -- https://github.com/ray-x/go.nvim
     -- TODO: copy the fiber snippets from vscode-go-power
     -- { "Ja7ad/vscode-go-power" },
     -- https://github.com/honnamkuan/vscode-golang-snippets
@@ -48,10 +62,11 @@ M.config = function()
     -----[[------------]]-----
     ---       Syntax       ---
     -----]]------------[[-----
+    -- TODO: merge into a single treesitter file
     require "user.plugins.treesitter-context",
     require "user.plugins.lf-vim",
     require "user.plugins.vim-kitty",
-    require "user.plugins.treesitter-playground",
+    -- require "user.plugins.treesitter-playground",
     -----[[------------]]-----
     ---        Git         ---
     -----]]------------[[-----
@@ -61,24 +76,30 @@ M.config = function()
     -- { "ruifm/gitlinker.nvim", event = "BufRead"},
     -- { "mattn/vim-gist", event = "BufRead" },
     require "user.plugins.octo",
+    -- TODO: change git diff highlights
     require "user.plugins.diffview",
-    -- require "user.plugins.neogit",
     -- NOTE: using this for merge conflict resolution from lazygit
     require "user.plugins.fugitive",
+    -- NOTE: i like lazygit way more
+    -- require "user.plugins.neogit",
     -----[[------------]]-----
     ---        Notes       ---
     -----]]------------[[-----
-    require "user.plugins.orgmode",
-    require "user.plugins.org-bullets",
-    require "user.plugins.headlines",
+    -- TODO: probably going to replace orgmode with markdown + wiki
+    -- require "user.plugins.orgmode",
+    -- require "user.plugins.org-bullets",
+    -- require "user.plugins.headlines",
+    -- require "user.plugins.wiki-vim",
+    require "user.plugins.vim-markdown",
+    require "user.plugins.mkdnflow",
+    -- TODO: add to a single telescope file
+    require "user.plugins.telescope-symbols",
     -- {
     --   "dkarter/bullets.vim",
     --   config = function()
     --     vim.g.bullets_enabled_file_types = { "markdown" }
     --   end,
     -- }, -- https://github.com/dkarter/bullets.vim
-    require "user.plugins.vim-markdown",
-    require "user.plugins.wiki-vim",
     -----[[------------]]-----
     ---      Mappings      ---
     -----]]------------[[-----
@@ -88,9 +109,11 @@ M.config = function()
     ---         UI         ---
     -----]]------------[[-----
     require "user.plugins.dressing",
-    require "user.plugins.cosmic-ui",
     require "user.plugins.wilder",
     require "user.plugins.neoscroll",
+    require "user.plugins.scrollbar",
+    -- require "user.plugins.lsp-lines",
+    -- require "user.plugins.cosmic-ui",
     -- {
     --   "Mathijs-Bakker/zoom-vim",
     --   event = "BufRead",
@@ -123,12 +146,18 @@ M.config = function()
     -- https://github.com/aserowy/tmux.nvim
     require "user.plugins.navigator",
     require "user.plugins.telescope-bookmarks",
+    require "user.plugins.telescope-luasnip",
+
+    -- require "user.plugins.telescope-hop",
     -----[[------------]]-----
     ---    Text Objects    ---
     -----]]------------[[-----
-    require "user.plugins.matchup",
-    require "user.plugins.treesitter-textsubjects",
-    require "user.plugins.treesitter-textobjects",
+    -- require "user.plugins.matchup",
+    -- TODO: i might swap these out for nvim-treehopper
+    -- TODO: merge into a single treesitter file
+    require "user.plugins.treehopper",
+    -- require "user.plugins.treesitter-textsubjects",
+    -- require "user.plugins.treesitter-textobjects",
     -----[[------------]]-----
     ---      Sessions      ---
     -----]]------------[[-----
@@ -138,13 +167,6 @@ M.config = function()
     -----]]------------[[-----
     require "user.plugins.fennec-gruvbox",
     require "user.plugins.colorizer",
-    -- {
-    --   "folke/todo-comments.nvim",
-    --   event = "BufRead",
-    --   config = function()
-    --     require("user.todo_comments").config()
-    --   end,
-    -- },
     -----[[------------]]-----
     ---      Snippets      ---
     -----]]------------[[-----
@@ -171,75 +193,22 @@ M.config = function()
     -----[[------------]]-----
     ---     Completion     ---
     -----]]------------[[-----
+    -- TODO: merge into a single treesitter file
     require "user.plugins.ts-autotag",
-    -- {
-    --   "kkoomen/vim-doge",
-    --   event = "BufRead",
-    --   run = { ":call doge#install()" },
-    --   config = function()
-    --     vim.cmd "let g:doge_comment_jump_modes = ['n', 'i', 's']"
-    --     vim.cmd "let g:doge_enable_mappings = 0"
-    --   end,
-    -- },
+    -- TODO: merge into a single cmp file
     require "user.plugins.cmp-git",
-    require "user.plugins.cmp-cmdline",
-    require "user.plugins.cmp-cmdline-history",
     require "user.plugins.cmp-rg",
-    require "user.plugins.cmp-nvim-lsp-document-symbol",
-    -- { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
-    -- { "ray-x/cmp-treesitter", requires = { "hrsh7th/nvim-cmp" } },
-    -- { "hrsh7th/cmp-nvim-lsp-signature-help", requires = { "ray-x/lsp_signature.nvim", "hrsh7th/nvim-cmp" } },
-    -- {
-    --   "tzachar/cmp-tabnine",
-    --   run = "./install.sh",
-    --   requires = "hrsh7th/nvim-cmp",
-    --   config = function()
-    --     local tabnine = require "cmp_tabnine.config"
-    --     tabnine:setup {
-    --       max_lines = 1000,
-    --       max_num_results = 10,
-    --       sort = true,
-    --     }
-    --   end,
-    -- },
+    require "user.plugins.cmp-latex-symbols",
+    require "user.plugins.cmp-conventionalcommits",
+
+    -- require "user.plugins.cmp-cmdline",
+    -- require "user.plugins.cmp-cmdline-history",
+    -- require "user.plugins.cmp-nvim-lsp-document-symbol",
     -----[[------------]]-----
     ---      QuickFix      ---
     -----]]------------[[-----
     require "user.plugins.bqf",
     -- https://gitlab.com/yorickpeterse/nvim-pqf
-    -----[[------------]]-----
-    ---        Shell       ---
-    -----]]------------[[-----
-    -- { "waylonwalker/Telegraph.nvim" },
-    -----[[------------]]-----
-    ---        HTTP        ---
-    -----]]------------[[-----
-    -- {
-    --   "turbio/bracey.vim",
-    --   event = "BufRead",
-    --   ft = { "html", "javascript", "css" },
-    --   run = "npm install --prefix server",
-    -- },
-    -- TODO: guess I'm using postman until I figure out how to get this to work (looks like a plenary bug on macos?)
-    -- {
-    --   "NTBBloodbath/rest.nvim",
-    --   requires = { "nvim-lua/plenary.nvim" },
-    --   config = function()
-    --     require("rest-nvim").setup {
-    --       -- Open request results in a horizontal split
-    --       result_split_horizontal = false,
-    --       -- Skip SSL verification, useful for unknown certificates
-    --       skip_ssl_verification = false,
-    --       -- Highlight request on run
-    --       highlight = {
-    --         enabled = true,
-    --         timeout = 150,
-    --       },
-    --       -- Jump to request line on run
-    --       jump_to_request = false,
-    --     }
-    --   end,
-    -- },
   }
 end
 
@@ -321,5 +290,60 @@ return M
 --         },
 --       },
 --     }
+--   end,
+-- },
+-----[[------------]]-----
+---        Shell       ---
+-----]]------------[[-----
+-- { "waylonwalker/Telegraph.nvim" },
+-----[[------------]]-----
+---        HTTP        ---
+-----]]------------[[-----
+-- TODO: guess I'm using postman until I figure out how to get this to work (looks like a plenary bug on macos?)
+-- {
+--   "NTBBloodbath/rest.nvim",
+--   requires = { "nvim-lua/plenary.nvim" },
+--   config = function()
+--     require("rest-nvim").setup {
+--       -- Open request results in a horizontal split
+--       result_split_horizontal = false,
+--       -- Skip SSL verification, useful for unknown certificates
+--       skip_ssl_verification = false,
+--       -- Highlight request on run
+--       highlight = {
+--         enabled = true,
+--         timeout = 150,
+--       },
+--       -- Jump to request line on run
+--       jump_to_request = false,
+--     }
+--   end,
+-- },
+-----[[------------]]-----
+---     Completion     ---
+-----]]------------[[-----
+-- { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } },
+-- { "ray-x/cmp-treesitter", requires = { "hrsh7th/nvim-cmp" } },
+-- { "hrsh7th/cmp-nvim-lsp-signature-help", requires = { "ray-x/lsp_signature.nvim", "hrsh7th/nvim-cmp" } },
+-- {
+--   "tzachar/cmp-tabnine",
+--   run = "./install.sh",
+--   requires = "hrsh7th/nvim-cmp",
+--   config = function()
+--     local tabnine = require "cmp_tabnine.config"
+--     tabnine:setup {
+--       max_lines = 1000,
+--       max_num_results = 10,
+--       sort = true,
+--     }
+--   end,
+-- },
+-- {
+--   "kkoomen/vim-doge",
+--   event = "BufRead",
+--   run = { ":call doge#install()" },
+--   config = function()
+--     vim.cmd "let g:doge_comment_jump_modes = ['n', 'i', 's']"
+--     vim.cmd "let g:doge_enable_mappings = 0"
 --   end,
 -- },

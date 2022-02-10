@@ -6,7 +6,7 @@ M.config = function()
     return
   end
 
-  nls.config {
+  nls.setup {
     debounce = 150,
     save_after_format = false,
     sources = {
@@ -20,7 +20,7 @@ M.config = function()
       nls.builtins.formatting.eslint_d.with {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
       },
-      -- nls.builtins.formatting.fnlfmt,
+      nls.builtins.formatting.fnlfmt,
       nls.builtins.formatting.fixjson,
       nls.builtins.formatting.gofumpt,
       -- nls.builtins.formatting.goimports,
@@ -68,13 +68,15 @@ M.config = function()
       -- nls.builtins.diagnostics.flake8,
       -- nls.builtins.diagnostics.golangci_lint,
       nls.builtins.diagnostics.hadolint,
-      -- nls.builtins.diagnostics.luacheck,
+      -- nls.builtins.diagnostics.jsonlint,
+      nls.builtins.diagnostics.luacheck,
       nls.builtins.diagnostics.markdownlint,
+      -- TODO: pip install stubs (ex. pandas-stubs) for a library
       -- nls.builtins.diagnostics.mypy,
-      nls.builtins.diagnostics.pylint,
-      -- nls.builtins.diagnostics.pylama,
+      -- nls.builtins.diagnostics.pylint,
+      nls.builtins.diagnostics.pylama.with { extra_args = { "-l", "mypy,pylint,pycodestyle,pydocstyle,pyflakes,vulture" } },
       -- nls.builtins.diagnostics.revive,
-      nls.builtins.diagnostics.selene.with { filetypes = { "lua" } },
+      -- nls.builtins.diagnostics.selene.with { filetypes = { "lua" } },
       nls.builtins.diagnostics.shellcheck,
       -- nls.builtins.diagnostics.staticcheck,
       nls.builtins.diagnostics.stylelint.with {

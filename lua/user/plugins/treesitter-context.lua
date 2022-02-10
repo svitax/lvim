@@ -1,3 +1,4 @@
+-- TODO: change the background of the context to something that stands out more
 return {
   "romgrk/nvim-treesitter-context",
   event = "BufRead",
