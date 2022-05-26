@@ -1,18 +1,10 @@
 local M = {}
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
 
 M.config = function()
-  lvim.autocommands.custom_groups = {
-    {
-      "FileType",
-      "alpha",
-      "set laststatus=0 | autocmd BufLeave <buffer> set laststatus=" .. vim.opt.laststatus._value,
-    },
-  }
-
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = "alpha",
+    command = "set laststatus=0 | autocmd BufLeave <buffer> set laststatus=" .. vim.opt.laststatus._value,
+  })
 
   vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost" }, {
     callback = function()
