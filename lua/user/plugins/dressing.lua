@@ -10,6 +10,9 @@ M.config = function()
     input = {
       enabled = false,
     },
+    select = {
+      telescope = require("telescope.themes").get_ivy {},
+    },
   }
 end
 
