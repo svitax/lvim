@@ -153,7 +153,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["b"] = {
     name = "+Buffers",
     ["a"] = { "<cmd>BDelete all<cr>", "delete all buffers" },
-    ["b"] = { "<cmd>Telescope buffers<cr>", "switch buffers" },
+    ["b"] = { "<cmd>lua require('user.telescope.custom_pickers').switch_buffers()<cr>", "switch buffers" },
     ["d"] = { "<cmd>BDelete this<CR>", "close this buffer" },
     ["h"] = { "<cmd>BDelete! hidden<cr>", "close hidden buffers" },
     ["n"] = { "<cmd>CybuNext<cr>", "next buffer" },
@@ -172,6 +172,28 @@ M.config = function()
   lvim.builtin.which_key.mappings["lX"] = { "Trouble workspace_diagnostics<cr>", "workspace diagnostics" }
 
   -- =========================================
+  -- +Search
+  -- =========================================
+  lvim.builtin.which_key.mappings["s"] = {
+    name = "+Search",
+    ["."] = { "<cmd>lua require('user.telescope.custom_pickers').find_dotfiles()<cr>", "dotfiles" },
+    [">"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_dotfiles()<cr>", "grep in dotfiles" },
+    ["b"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_current_buffer()<cr>", "grep in buffer" },
+    ["c"] = {
+      "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_config_files()<cr>",
+      "lunarvim config files",
+    },
+    ["C"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_config_files()<cr>", "grep in config files" },
+    ["f"] = { "<cmd>lua require('user.telescope.custom_pickers').find_files()<cr>", "files in project" },
+    ["k"] = { "<cmd>Legendary<cr>", "keymaps" },
+    ["l"] = { "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_files()<cr>", "lunarvim files" },
+    ["n"] = { "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes" },
+    ["p"] = { "<cmd>Telescope projects theme=ivy<cr>", "projects" },
+    ["r"] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "recent files" },
+    ["g"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
+  }
+
+  -- =========================================
   -- +Windows
   -- =========================================
   lvim.builtin.which_key.mappings["w"] = {
@@ -186,9 +208,6 @@ M.config = function()
     ["l"] = { "", "switch window left" },
     [";"] = { "", "switch window right" },
   }
-
-  -- Use which-key to add extra bindings with the leader-key prefix
-  lvim.builtin.which_key.mappings["sp"] = { "<cmd>Telescope projects<CR>", "search projects" }
 end
 
 M.set_lightspeed_keymaps = function()
