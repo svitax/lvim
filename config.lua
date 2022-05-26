@@ -7,6 +7,7 @@ lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "fennec-gruvbox"
 lvim.leader = "space"
+lvim.lsp.diagnostics.virtual_text = false
 
 -- LunarVim Builtins
 -- =========================================
