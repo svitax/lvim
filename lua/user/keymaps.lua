@@ -142,7 +142,10 @@ M.config = function()
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit all" }
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
   lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<cr>", "dashboard" }
-  lvim.builtin.which_key.mappings["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "comment line" }
+  lvim.builtin.which_key.mappings["/"] = {
+    "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>",
+    "comment line",
+  }
 
   -- =========================================
   -- +Buffers
