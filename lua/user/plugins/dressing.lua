@@ -6,7 +6,11 @@ M.config = function()
     return
   end
 
-  dressing.setup {}
+  dressing.setup {
+    input = {
+      enabled = false,
+    },
+  }
 end
 
 return M
