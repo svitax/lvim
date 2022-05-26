@@ -1,11 +1,22 @@
 local M = {}
 
 M.config = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.offsetEncoding = { "utf-16" }
+  require("lspconfig").clangd.setup { capabilities = capabilities }
+
   -- set a formatter, this will override the language server formatting capabilities (if it exists)
   local formatters = require "lvim.lsp.null-ls.formatters"
   formatters.setup {
+    { command = "gofumpt", filetypes = { "go" } },
+    { command = "golines", filetypes = { "go" } },
+    { command = "stylua", filetypes = { "lua" } },
     { command = "black", filetypes = { "python" } },
     { command = "isort", filetypes = { "python" } },
+    { command = "shfmt", filetypes = { "sh" } },
+    { command = "shellharden", filetypes = { "sh" } },
+    -- { command = "clang_format", filetypes = { "cpp", "c" } },
+    { command = "uncrustify", filetypes = { "cpp", "c" } },
     {
       -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
       command = "prettier",
@@ -21,6 +32,11 @@ M.config = function()
   local linters = require "lvim.lsp.null-ls.linters"
   linters.setup {
     { command = "flake8", filetypes = { "python" } },
+    { command = "mypy", filetypes = { "python" }, extra_args = { "--strict" } },
+    { command = "pylint", filetypes = { "python" } },
+    { command = "vint", filetypes = { "vim" } },
+    { command = "cppcheck", filetypes = { "cpp", "c" } },
+    { command = "golangci_lint", filetypes = { "go" } },
     {
       -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
       command = "shellcheck",
@@ -28,6 +44,7 @@ M.config = function()
       -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
       extra_args = { "--severity", "warning" },
     },
+    { command = "luacheck", filetypes = { "lua" } },
     -- {
     --   command = "codespell",
     --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
@@ -62,7 +79,6 @@ M.config = function()
   --   --Enable completion triggered by <c-x><c-o>
   --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
   -- end
-
 end
 
 return M
