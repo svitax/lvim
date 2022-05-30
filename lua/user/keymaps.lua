@@ -172,7 +172,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["ld"] = { "Trouble lsp_definitions<cr>", "definitions" }
   lvim.builtin.which_key.mappings["le"] = { "Trouble lsp_references<cr>", "references" }
   lvim.builtin.which_key.mappings["lL"] = { "Trouble loclist<cr>", "loclist" }
-  lvim.builtin.which_key.mappings["lq"] = { "Trouble quicklist<cr>", "definitions" }
+  lvim.builtin.which_key.mappings["lq"] = { "Trouble quicklist<cr>", "quicklist" }
   lvim.builtin.which_key.mappings["lx"] = { "Trouble document_diagnostics<cr>", "buffer diagnostics" }
   lvim.builtin.which_key.mappings["lX"] = { "Trouble workspace_diagnostics<cr>", "workspace diagnostics" }
 
