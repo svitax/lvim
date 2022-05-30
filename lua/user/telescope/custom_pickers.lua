@@ -207,7 +207,7 @@ function M.find_lunarvim_files(opts)
     layout_strategy = "bottom_pane",
     prompt_title = "~ LunarVim files ~",
     cwd = get_runtime_dir(),
-    search_dirs = { utils.join_paths(get_runtime_dir(), "lvim"), lvim.lsp.templates_dir },
+    search_dirs = { require("lvim.utils").join_paths(get_runtime_dir(), "lvim"), lvim.lsp.templates_dir },
   }
   opts = vim.tbl_deep_extend("force", theme_opts, opts)
   builtin.find_files(opts)
