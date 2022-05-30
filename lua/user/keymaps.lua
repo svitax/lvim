@@ -139,6 +139,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
+  lvim.builtin.which_key.mappings["h"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit all" }
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
   lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<cr>", "dashboard" }
