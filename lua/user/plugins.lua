@@ -58,6 +58,7 @@ M.config = function()
       config = require("user.plugins.fm").config(),
     },
     { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig" }, config = function() end },
+    { "wakatime/vim-wakatime" },
   }
 end
 
