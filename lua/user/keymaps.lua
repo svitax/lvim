@@ -162,6 +162,11 @@ M.config = function()
   }
 
   -- =========================================
+  -- +Git
+  -- =========================================
+  lvim.builtin.which_key.mappings["gg"] = { ":LazyGit<cr>", "lazygit" }
+
+  -- =========================================
   -- +LSP
   -- =========================================
   lvim.builtin.which_key.mappings["ld"] = { "Trouble lsp_definitions<cr>", "definitions" }

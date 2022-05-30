@@ -57,6 +57,7 @@ M.config = function()
       cmd = { "Lf" },
       config = require("user.plugins.fm").config(),
     },
+    { "kdheepak/lazygit.nvim", cmd = { "LazyGit", "LazyGitConfig" }, config = function() end },
   }
 end
 
