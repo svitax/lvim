@@ -54,7 +54,7 @@ M.config = function()
     },
     { -- TODO: must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
       "is0n/fm-nvim",
-      cmd = { "Lf", "Nnn", "Ranger" },
+      cmd = { "Lf" },
       config = require("user.plugins.fm").config(),
     },
   }
