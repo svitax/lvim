@@ -62,6 +62,10 @@ M.config = function()
       cmd = { "LazyGit", "LazyGitConfig" },
     },
     { "wakatime/vim-wakatime" },
+    {
+      "petertriho/nvim-scrollbar",
+      config = require("user.plugins.scrollbar").config(),
+    },
   }
 end
 
