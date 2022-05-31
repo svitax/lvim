@@ -78,6 +78,10 @@ M.config = function()
       "chentoast/marks.nvim",
       config = require("user.plugins.marks").config(),
     },
+    {
+      "declancm/cinnamon.nvim",
+      config = require("user.plugins.cinnamon").config(),
+    },
   }
 end
 
