@@ -66,6 +66,10 @@ M.config = function()
       "petertriho/nvim-scrollbar",
       config = require("user.plugins.scrollbar").config(),
     },
+    {
+      "kevinhwang91/nvim-hlslens",
+      config = require("user.plugins.hlslens").config(),
+    },
   }
 end
 
