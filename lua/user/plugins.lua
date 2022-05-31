@@ -70,6 +70,10 @@ M.config = function()
       "kevinhwang91/nvim-hlslens",
       config = require("user.plugins.hlslens").config(),
     },
+    {
+      "toppair/reach.nvim",
+      config = require("user.plugins.reach").config(),
+    },
   }
 end
 
