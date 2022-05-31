@@ -5,9 +5,9 @@ M.config = function()
   lvim.builtin.alpha.mode = "dashboard"
   lvim.builtin.alpha.dashboard.section.buttons.entries = {
     { "n", "  New File", "<CMD>ene!<CR>" },
-    { "f", "  Find File", "<CMD>lua require('user.telescope.custom_pickers').find_files()<CR>" },
-    { "p", "  Recent Projects ", "<CMD>Telescope projects theme=ivy<CR>" },
-    { "r", "  Recently Used Files", "<CMD>Telescope oldfiles theme=ivy<CR>" },
+    { "<spc> s f", "  Find File", "<CMD>lua require('user.telescope.custom_pickers').find_files()<CR>" },
+    { "<spc> s p", "  Recent Projects ", "<CMD>Telescope projects theme=ivy<CR>" },
+    { "<spc> s r", "  Recently Used Files", "<CMD>Telescope oldfiles theme=ivy<CR>" },
     -- { "SPC s g", "  Find Word", "<CMD>Telescope live_grep theme=ivy<CR>" },
     {
       "c",
