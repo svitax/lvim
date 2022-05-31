@@ -15,7 +15,7 @@ M.buffers = function()
     show_icons = true,
     show_current = true, -- Include current buffer in the list
     show_modified = true, -- Show buffer modified indicator
-    modified_icon = "⬤", -- Character to use as modified indicator
+    modified_icon = "", -- Character to use as modified indicator
     grayout_current = true, -- Wheter to gray out current buffer entry
     force_delete = {}, -- List of filetypes / buftypes to use
     -- 'bdelete!' on, e.g. { 'terminal' }

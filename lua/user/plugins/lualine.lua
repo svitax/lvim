@@ -40,7 +40,7 @@ M.config = function()
     fmt = function(str)
       return "-- " .. str .. " --"
     end,
-    color = { fg = c.line_fg }
+    color = { fg = c.line_fg },
   }
 
   local filetype = {
@@ -128,18 +128,21 @@ M.config = function()
       {
         function()
           local fg = "#228b22" -- not modified
+          local mod = " "
           if vim.bo.modified then
             fg = "#c70039" -- unsaved
+            mod = ""
           elseif not vim.bo.modifiable then
             fg = "#a70089"
+            mod = ""
           end -- readonly
           vim.cmd("hi! lualine_filename_status guifg=" .. fg)
           -- return "%t %m"
-          return "%m"
+          return mod
         end,
         -- color = "lualine_filename_status",
       },
-      mode
+      mode,
     },
     -- lualine_c = {},
     -- lualine_c = {
@@ -200,7 +203,6 @@ M.config = function()
   custom_gruvbox.inactive.c = { fg = c.line_fg, bg = c.line_bg }
 
   lvim.builtin.lualine.options.theme = custom_gruvbox
-
 end
 
 return M
