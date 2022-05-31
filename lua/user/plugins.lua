@@ -74,6 +74,10 @@ M.config = function()
       "toppair/reach.nvim",
       config = require("user.plugins.reach").config(),
     },
+    {
+      "chentoast/marks.nvim",
+      config = require("user.plugins.marks").config(),
+    },
   }
 end
 
