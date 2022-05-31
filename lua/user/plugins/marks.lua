@@ -1,8 +1,8 @@
 local M = {}
 
 M.config = function()
-  local ok, marks = pcall(require, "marks")
-  if not ok then
+  local status_ok, marks = pcall(require, "marks")
+  if not status_ok then
     return
   end
 

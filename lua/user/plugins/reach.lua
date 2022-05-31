@@ -1,8 +1,8 @@
 local M = {}
 
 M.config = function()
-  local ok, reach = pcall(require, "reach")
-  if not ok then
+  local status_ok, reach = pcall(require, "reach")
+  if not status_ok then
     return
   end
 

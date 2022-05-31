@@ -1,8 +1,8 @@
 local M = {}
 
 M.config = function()
-  local ok, cybu = pcall(require, "cybu")
-  if not ok then
+  local status_ok, cybu = pcall(require, "cybu")
+  if not status_ok then
     return
   end
 
