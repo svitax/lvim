@@ -47,6 +47,13 @@ M.config = function()
   lvim.keys.normal_mode["<A-o>"] = ":lua require('bufjump').backward()<cr>"
   lvim.keys.normal_mode["<A-i>"] = ":lua require('bufjump').forward()<cr>"
 
+  -- toggleterm maps
+  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.plugins.toggleterm').toggle_term2()<cr>"
+  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.plugins.toggleterm').toggle_term3()<cr>"
+  -- lvim.keys.normal_mode["<A-d>"] = ""
+  -- lvim.keys.normal_mode["<A-f>"] = ""
+  -- lvim.keys.normal_mode["<A-g>"] = ""
+
   -- ergonmic mappings for end of line and beginning of line (my terminal has Cmd+Left mapped to Shift+Left and Cmd+Right mapped to Shift+Right)
   lvim.keys.normal_mode["<S-Left>"] = "_"
   lvim.keys.normal_mode["<S-Right>"] = "$"
