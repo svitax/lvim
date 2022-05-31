@@ -86,6 +86,13 @@ M.config = function()
       "ray-x/lsp_signature.nvim",
       config = require("user.plugins.lsp_signature").config(),
     },
+    {
+      "echasnovski/mini.nvim",
+      branch = "stable",
+      config = function()
+        require("user.plugins.surround").config()
+      end,
+    },
   }
 end
 
