@@ -82,6 +82,10 @@ M.config = function()
       "declancm/cinnamon.nvim",
       config = require("user.plugins.cinnamon").config(),
     },
+    {
+      "ray-x/lsp_signature.nvim",
+      config = require("user.plugins.lsp_signature").config(),
+    },
   }
 end
 
