@@ -91,6 +91,7 @@ M.config = function()
       branch = "stable",
       config = function()
         require("user.plugins.surround").config()
+        require("user.plugins.indentscope").config()
       end,
     },
   }
