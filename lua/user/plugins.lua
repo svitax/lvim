@@ -71,10 +71,6 @@ M.config = function()
       config = require("user.plugins.hlslens").config(),
     },
     {
-      "toppair/reach.nvim",
-      config = require("user.plugins.reach").config(),
-    },
-    {
       "chentoast/marks.nvim",
       config = require("user.plugins.marks").config(),
     },

@@ -148,12 +148,11 @@ M.config = function()
   -----]]------------[[-----
 
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up!<cr>", "write buffer" }
-  lvim.builtin.which_key.mappings["c"] = { "<cmd>lua require('user.plugins.reach').colorschemes()<cr>", "colorschemes" }
-  lvim.builtin.which_key.mappings["d"] = { "<cmd>lua require('user.plugins.reach').buffers()<cr>", "buffers" }
+  lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
   lvim.builtin.which_key.mappings["h"] = "which_key_ignore"
-  lvim.builtin.which_key.mappings["m"] = { "<cmd> lua require('user.plugins.reach').marks()<cr>", "marks" }
+  lvim.builtin.which_key.mappings["m"] = { "<cmd>lua require('user.telescope.custom_pickers').marks()<cr>", "marks" }
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit all" }
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
   lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<cr>", "dashboard" }
