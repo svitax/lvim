@@ -99,6 +99,9 @@ M.config = function()
       config = require("user.plugins.matchup").config(),
       -- event = "CursorMoved",
     },
+    {
+      "nvim-telescope/telescope-hop.nvim",
+    },
   }
 end
 

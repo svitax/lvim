@@ -5,8 +5,42 @@ local actions = require "telescope.actions"
 local builtin = require "telescope.builtin"
 local previewers = require "telescope.previewers"
 
--- Buffer switcher
 function M.switch_buffers(opts)
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    border = true,
+    initial_mode = "normal",
+    sort_lastused = false,
+    sort_mru = true,
+    -- ignore_current_buffer = true
+    -- path_display = { shorten = 5 },
+    path_display = function(_, path)
+      -- would be cool if instead of the path we could show the project
+      local tail = require("telescope.utils").path_tail(path)
+      return string.format("%s (%s)", tail, path)
+    end,
+    attach_mappings = function(_, map)
+      map("i", "<c-d>", actions.delete_buffer)
+      map("n", "<c-d>", actions.delete_buffer)
+      map("n", "d", actions.delete_buffer)
+      map("n", "q", actions.close)
+      map("n", ";", actions.select_default)
+      map("n", "s", function(prompt_bufnr)
+        local hop_opts = {
+          callback = actions.select_default,
+          loop_callback = actions.send_selected_to_qflist,
+        }
+        require("telescope").extensions.hop._hop(prompt_bufnr, hop_opts)
+      end)
+      return true
+    end,
+  }
+  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+  builtin.buffers(opts)
+end
+
+-- Buffer switcher
+function M.switch_buffers_dropdown(opts)
   opts = opts or {}
   local theme_opts = themes.get_dropdown {
     border = true,
