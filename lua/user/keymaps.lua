@@ -9,6 +9,11 @@ M.config = function()
   -- add your own keymapping
   lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
+  -- more ergonomic matchup
+  lvim.keys.normal_mode["<Tab>"] = "<plug>(matchup-%)"
+  lvim.keys.visual_mode["<Tab>"] = "<plug>(matchup-%)"
+  vim.api.nvim_set_keymap("o", "<Tab>", "<plug>(matchup-%)", { noremap = true })
+
   -- I use jkl; instead of hjkl
   lvim.keys.normal_mode[";"] = "l"
   lvim.keys.normal_mode["l"] = "h"

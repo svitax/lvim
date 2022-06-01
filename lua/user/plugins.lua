@@ -94,6 +94,11 @@ M.config = function()
         require("user.plugins.indentscope").config()
       end,
     },
+    {
+      "andymass/vim-matchup",
+      config = require("user.plugins.matchup").config(),
+      -- event = "CursorMoved",
+    },
   }
 end
 
