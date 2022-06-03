@@ -1,14 +1,9 @@
 local M = {}
 
 M.config = function()
-  -- general
-  -- to disable icons and use a minimalist setup, uncomment the following
-  -- lvim.use_icons = false
-
   -- set all my user commands
   require("user.usercmd").set_user_commands()
   -- keymappings [view all the defaults by pressing <leader>Lk]
-  -- add your own keymapping
 
   lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
