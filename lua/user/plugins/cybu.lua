@@ -12,6 +12,7 @@ M.config = function()
     },
     style = {
       hide_buffer_id = true,
+      path = "tail",
     },
     display_time = 1500,
   }
