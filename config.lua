@@ -12,6 +12,7 @@ lvim.lsp.diagnostics.virtual_text = false
 -- LunarVim Builtins
 -- =========================================
 require("user.plugins.alpha").config()
+require("user.plugins.cmp").config()
 require("user.plugins.dap").config()
 require("user.plugins.bufferline").config()
 require("user.plugins.lualine").config()
