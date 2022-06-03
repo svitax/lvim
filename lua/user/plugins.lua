@@ -115,6 +115,11 @@ M.config = function()
       config = require("user.plugins.lightbulb").config(),
     },
     {
+      "ldelossa/gh.nvim",
+      requires = { { "ldelossa/litee.nvim" } },
+      config = require("user.plugins.gh").config(),
+    },
+    {
       "weilbith/nvim-code-action-menu",
       cmd = "CodeActionMenu",
     },

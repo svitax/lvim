@@ -179,7 +179,68 @@ M.config = function()
   -- =========================================
   -- +Git
   -- =========================================
-  lvim.builtin.which_key.mappings["gg"] = { ":LazyGit<cr>", "lazygit" }
+  lvim.builtin.which_key.mappings["g"] = {
+    name = "+Git",
+    b = { "<cmd>Telescope git_branches<cr>", "checkout branch" },
+    c = { "<cmd>Telescope git_commits<cr>", "checkout commit" },
+    C = { "<cmd>Telescope git_bcommits<cr>", "checkout commit (for current file)" },
+    d = { "<cmd>Gitsigns diffthis HEAD<cr>", "git diff" },
+    g = { ":LazyGit<cr>", "lazygit" },
+    j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "next Hunk" },
+    k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "prev Hunk" },
+    l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "blame" },
+    o = { "<cmd>Telescope git_status<cr>", "open changed file" },
+    p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "preview hunk" },
+    r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "reset hunk" },
+    R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "reset buffer" },
+    s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "stage hunk" },
+    u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "undo stage hunk" },
+    h = {
+      name = "+Github",
+      c = {
+        name = "+Commits",
+        c = { "<cmd>GHCloseCommit<cr>", "close commit" },
+        e = { "<cmd>GHExpandCommit<cr>", "expand commit" },
+        o = { "<cmd>GHOpenToCommit<cr>", "open to commit" },
+        p = { "<cmd>GHPopOutCommit<cr>", "pop out commit" },
+        z = { "<cmd>GHCollapseCommit<cr>", "collapse commit" },
+      },
+      i = {
+        name = "+Issues",
+        p = { "<cmd>GHPreviewIssue<cr>", "preview issue" },
+      },
+      l = {
+        name = "+Litee",
+        t = { "<cmd>LTPanel<cr>", "toggle litee panel" },
+      },
+      r = {
+        name = "+Review",
+        b = { "<cmd>GHStartReview<cr>", "begin review" },
+        c = { "<cmd>GHCloseReview<cr>", "close review" },
+        d = { "<cmd>GHDeleteReview<cr>", "delete review" },
+        e = { "<cmd>GHExpandReview<cr>", "expand review" },
+        s = { "<cmd>GHSubmitReview<cr>", "submit review" },
+        z = { "<cmd>GHCollapseReview<cr>", "collapse review" },
+      },
+      p = {
+        name = "+Pull Request",
+        c = { "<cmd>GHClosePR<cr>", "close pr" },
+        d = { "<cmd>GHPRDetails<cr>", "pr details" },
+        e = { "<cmd>GHExpandPR<cr>", "expand pr" },
+        o = { "<cmd>GHOpenPR<cr>", "open pr" },
+        p = { "<cmd>GHPopOutPR<cr>", "pop out pr" },
+        r = { "<cmd>GHRefreshPR<cr>", "refresh pr" },
+        t = { "<cmd>GHOpenToPR<cr>", "open to pr" },
+        z = { "<cmd>GHCollapsePR<cr>", "collapse pr" },
+      },
+      t = {
+        name = "+Threads",
+        c = { "<cmd>GHCreateThread<cr>", "create thread" },
+        n = { "<cmd>GHNextThread<cr>", "next thread" },
+        t = { "<cmd>GHToggleThread<cr>", "toggle thread" },
+      },
+    },
+  }
 
   -- =========================================
   -- +LSP
