@@ -99,6 +99,11 @@ M.config = function()
       "nvim-telescope/telescope-hop.nvim",
       -- config = -- inside telescope file
     },
+    {
+      "rcarriga/nvim-dap-ui",
+      requires = { "mfussenegger/nvim-dap" },
+      config = require("dapui").setup {},
+    },
   }
 end
 
