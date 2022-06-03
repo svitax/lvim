@@ -97,6 +97,7 @@ M.config = function()
     },
     {
       "nvim-telescope/telescope-hop.nvim",
+      -- config = -- inside telescope file
     },
   }
 end
