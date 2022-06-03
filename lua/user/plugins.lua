@@ -104,6 +104,10 @@ M.config = function()
       requires = { "mfussenegger/nvim-dap" },
       config = require("dapui").setup {},
     },
+    {
+      "kosayoda/nvim-lightbulb",
+      config = require("user.plugins.lightbulb").config(),
+    },
   }
 end
 
