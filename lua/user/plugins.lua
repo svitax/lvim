@@ -108,6 +108,10 @@ M.config = function()
       "kosayoda/nvim-lightbulb",
       config = require("user.plugins.lightbulb").config(),
     },
+    {
+      "weilbith/nvim-code-action-menu",
+      cmd = "CodeActionMenu",
+    },
   }
 end
 

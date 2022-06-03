@@ -183,6 +183,7 @@ M.config = function()
   -- =========================================
   -- +LSP
   -- =========================================
+  lvim.builtin.which_key.mappings["la"] = { "<cmd>CodeActionMenu<cr>", "code actions" }
   lvim.builtin.which_key.mappings["ld"] = { "Trouble lsp_definitions<cr>", "definitions" }
   lvim.builtin.which_key.mappings["le"] = { "Trouble lsp_references<cr>", "references" }
   lvim.builtin.which_key.mappings["lL"] = { "Trouble loclist<cr>", "loclist" }
