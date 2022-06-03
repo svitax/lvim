@@ -22,7 +22,6 @@ M.config = function()
     cycle_group_fwd_key = nil,
     cycle_group_bwd_key = nil,
   }
-  require("user.keymaps").set_lightspeed_keymaps()
 end
 
 return M
