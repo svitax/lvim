@@ -5,8 +5,11 @@ M.config = function()
   -- to disable icons and use a minimalist setup, uncomment the following
   -- lvim.use_icons = false
 
+  -- set all my user commands
+  require("user.usercmd").set_user_commands()
   -- keymappings [view all the defaults by pressing <leader>Lk]
   -- add your own keymapping
+
   lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
   -- more ergonomic matchup
@@ -27,6 +30,9 @@ M.config = function()
 
   -- keep cursor centered and in-place when joining lines with J
   lvim.keys.normal_mode["J"] = "mzJ`z"
+
+  -- open URI under cursor, otherwise default to O
+  lvim.keys.normal_mode["O"] = ":OpenURIUnderCursor<cr>"
 
   -- lightspeed
   lvim.keys.normal_mode["s"] = "<Plug>Lightspeed_s"
@@ -188,6 +194,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["le"] = { "Trouble lsp_references<cr>", "references" }
   lvim.builtin.which_key.mappings["lL"] = { "Trouble loclist<cr>", "loclist" }
   lvim.builtin.which_key.mappings["lq"] = { "Trouble quicklist<cr>", "quicklist" }
+  lvim.builtin.which_key.mappings["l"]["r"] = { "<cmd>LspRename<cr>", "rename" }
   lvim.builtin.which_key.mappings["lx"] = { "Trouble document_diagnostics<cr>", "buffer diagnostics" }
   lvim.builtin.which_key.mappings["lX"] = { "Trouble workspace_diagnostics<cr>", "workspace diagnostics" }
 
