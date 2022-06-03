@@ -4,7 +4,10 @@ M.config = function()
   -- Additional Plugins
   lvim.plugins = {
     { "luisiacc/gruvbox-baby" },
-    { "svitax/fennec-gruvbox.nvim", branch = "gruvbox-baby" },
+    {
+      "svitax/fennec-gruvbox.nvim",
+      branch = "gruvbox-baby",
+    },
     {
       "SmiteshP/nvim-gps",
       requires = "nvim-treesitter/nvim-treesitter",
@@ -32,7 +35,10 @@ M.config = function()
       config = require("user.plugins.colorizer").config(),
       -- event = "BufRead",
     },
-    { "folke/trouble.nvim", cmd = "TroubleToggle" },
+    {
+      "folke/trouble.nvim",
+      cmd = "TroubleToggle",
+    },
     {
       "numToStr/Navigator.nvim",
       config = require("Navigator").setup(),
