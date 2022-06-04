@@ -38,8 +38,10 @@ M.config = function()
   lvim.keys.normal_mode["<C-k>"] = "<cmd>lua require('Navigator').up()<CR>"
   lvim.keys.normal_mode["<C-h>"] = "<cmd>lua require('Navigator').right()<CR>"
 
-  -- Increment
-  lvim.keys.normal_mode["<A-a>"] = "<C-a>"
+  -- Increment and decrement
+  lvim.keys.normal_mode["<A-;>"] = "<C-a>"
+  lvim.keys.normal_mode["<A-l>"] = "<C-x>"
+
   -- Harpoon marks
   lvim.keys.normal_mode["<A-1>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<cr>"
   lvim.keys.normal_mode["<A-2>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<cr>"
@@ -155,7 +157,6 @@ M.config = function()
   lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
-  lvim.builtin.which_key.mappings["m"] = { "<cmd>lua require('user.telescope.custom_pickers').marks()<cr>", "marks" }
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit all" }
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
   lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<cr>", "dashboard" }
@@ -271,13 +272,13 @@ M.config = function()
   -- +LSP
   -- =========================================
   lvim.builtin.which_key.mappings["la"] = { "<cmd>CodeActionMenu<cr>", "code actions" }
-  lvim.builtin.which_key.mappings["ld"] = { "Trouble lsp_definitions<cr>", "definitions" }
-  lvim.builtin.which_key.mappings["le"] = { "Trouble lsp_references<cr>", "references" }
-  lvim.builtin.which_key.mappings["lL"] = { "Trouble loclist<cr>", "loclist" }
-  lvim.builtin.which_key.mappings["lq"] = { "Trouble quicklist<cr>", "quicklist" }
+  lvim.builtin.which_key.mappings["l"]["d"] = { "<cmd>Trouble lsp_definitions<cr>", "definitions" }
+  lvim.builtin.which_key.mappings["le"] = { "<cmd>Trouble lsp_references<cr>", "references" }
+  lvim.builtin.which_key.mappings["lL"] = { "<cmd>Trouble loclist<cr>", "loclist" }
+  lvim.builtin.which_key.mappings["lq"] = { "<cmd>Trouble quicklist<cr>", "quicklist" }
   lvim.builtin.which_key.mappings["l"]["r"] = { "<cmd>LspRename<cr>", "rename" }
-  lvim.builtin.which_key.mappings["lx"] = { "Trouble document_diagnostics<cr>", "buffer diagnostics" }
-  lvim.builtin.which_key.mappings["lX"] = { "Trouble workspace_diagnostics<cr>", "workspace diagnostics" }
+  lvim.builtin.which_key.mappings["lx"] = { "<cmd>Trouble document_diagnostics<cr>", "buffer diagnostics" }
+  lvim.builtin.which_key.mappings["lX"] = { "<cmd>Trouble workspace_diagnostics<cr>", "workspace diagnostics" }
 
   -- =========================================
   -- +Search
@@ -295,6 +296,7 @@ M.config = function()
     ["f"] = { "<cmd>lua require('user.telescope.custom_pickers').find_files()<cr>", "files in project" },
     ["k"] = { "<cmd>Legendary<cr>", "keymaps" },
     ["l"] = { "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_files()<cr>", "lunarvim files" },
+    ["m"] = { "<cmd>lua require('user.telescope.custom_pickers').marks()<cr>", "marks" },
     ["n"] = { "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes" },
     ["p"] = { "<cmd>Telescope projects theme=ivy<cr>", "projects" },
     ["r"] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "recent files" },
