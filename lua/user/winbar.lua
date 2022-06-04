@@ -37,7 +37,7 @@ M.filename = function()
       file_icon_color = default_file_icon_color
     end
 
-    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#LineNr#" .. filename .. "%*"
+    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#CursorLineNr#" .. filename .. "%*"
   end
 end
 
@@ -59,8 +59,7 @@ M.gps = function()
     return ""
   else
     if not isempty(gps_location) then
-      return retval .. " " .. "%#LineNr#" .. icons.ui.ChevronRight .. " " .. gps_location .. "%*"
-      -- "%#LineNr#" .. filename .. "%*"
+      return retval .. " " .. "%#SpecialComment#" .. icons.ui.ChevronRight .. " " .. gps_location .. "%*"
     else
       return retval
     end
