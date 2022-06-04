@@ -132,6 +132,10 @@ M.config = function()
       config = require("user.plugins.wilder").config(),
       requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },
     },
+    {
+      "j-hui/fidget.nvim",
+      config = require("user.plugins.fidget").config(),
+    },
   }
 end
 
