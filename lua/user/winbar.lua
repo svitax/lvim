@@ -9,6 +9,16 @@ local function isempty(s)
   return s == nil or s == ""
 end
 
+M.harpoon_mark = function()
+  local status = require("harpoon.mark").status()
+  if status == "" then
+    return ""
+  end
+  -- return just the terminal number, cause the status method returns M1, M2, etc.
+  local number = (string.format("%s", status)):sub(-1)
+  return "  " .. number
+end
+
 M.filename = function()
   local filename = vim.fn.expand "%:t"
   local extension = ""
@@ -37,7 +47,21 @@ M.filename = function()
       file_icon_color = default_file_icon_color
     end
 
-    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#CursorLineNr#" .. filename .. "%*"
+    local harpoon_mark = M.harpoon_mark()
+
+    return " "
+      .. "%#"
+      .. hl_group
+      .. "#"
+      .. file_icon
+      .. "%*"
+      .. " "
+      .. "%#CursorLineNr#"
+      .. filename
+      .. "%*"
+      .. "%#SpecialComment#"
+      .. harpoon_mark
+      .. "%*"
   end
 end
 

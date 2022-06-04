@@ -40,6 +40,13 @@ M.config = function()
 
   -- Increment
   lvim.keys.normal_mode["<A-a>"] = "<C-a>"
+  -- Harpoon marks
+  lvim.keys.normal_mode["<A-1>"] = "<cmd>lua require('harpoon.ui').nav_file(1)<cr>"
+  lvim.keys.normal_mode["<A-2>"] = "<cmd>lua require('harpoon.ui').nav_file(2)<cr>"
+  lvim.keys.normal_mode["<A-3>"] = "<cmd>lua require('harpoon.ui').nav_file(3)<cr>"
+  lvim.keys.normal_mode["<A-4>"] = "<cmd>lua require('harpoon.ui').nav_file(4)<cr>"
+  lvim.keys.normal_mode["<A-5>"] = "<cmd>lua require('harpoon.ui').nav_file(5)<cr>"
+  lvim.keys.normal_mode["<A-6>"] = "<cmd>lua require('harpoon.ui').nav_file(6)<cr>"
 
   -- move current line up/down
   lvim.keys.normal_mode["<A-j>"] = ":m .+1<cr>=="
@@ -148,7 +155,6 @@ M.config = function()
   lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
-  lvim.builtin.which_key.mappings["h"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["m"] = { "<cmd>lua require('user.telescope.custom_pickers').marks()<cr>", "marks" }
   lvim.builtin.which_key.mappings["q"] = { "<cmd>qa<cr>", "quit all" }
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
@@ -242,6 +248,23 @@ M.config = function()
         t = { "<cmd>GHToggleThread<cr>", "toggle thread" },
       },
     },
+  }
+
+  -- =========================================
+  -- +Harpoon
+  -- =========================================
+  lvim.builtin.which_key.mappings["h"] = {
+    name = "+Harpoon",
+    ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "goto file 1" },
+    ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "goto file 2" },
+    ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "goto file 3" },
+    ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "goto file 4" },
+    ["5"] = { "<cmd>lua require('harpoon.ui').nav_file(5)<cr>", "goto file 5" },
+    ["6"] = { "<cmd>lua require('harpoon.ui').nav_file(6)<cr>", "goto file 6" },
+    ["a"] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "add file mark" },
+    ["h"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "show file marks" },
+    ["n"] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next file" },
+    ["p"] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous file" },
   }
 
   -- =========================================

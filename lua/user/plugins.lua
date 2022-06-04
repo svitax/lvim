@@ -136,6 +136,11 @@ M.config = function()
       "j-hui/fidget.nvim",
       config = require("user.plugins.fidget").config(),
     },
+    {
+      "ThePrimeagen/harpoon",
+      requires = "nvim-lua/plenary.nvim",
+      config = require("user.plugins.harpoon").config(),
+    },
   }
 end
 
