@@ -29,12 +29,6 @@ M.config = function()
   -- open URI under cursor, otherwise default to O
   lvim.keys.normal_mode["O"] = ":OpenURIUnderCursor<cr>"
 
-  -- lightspeed
-  lvim.keys.normal_mode["s"] = "<Plug>Lightspeed_s"
-  lvim.keys.normal_mode["S"] = "<Plug>Lightspeed_S"
-  lvim.keys.normal_mode["gs"] = "<Plug>Lightspeed_gs"
-  lvim.keys.normal_mode["gS"] = "<Plug>Lightspeed_gS"
-
   -- navigate windows/splits
   -- I have <C-;> happed to <C-h> on my keyboard since terminals don't recognize <C-;> as an actual thing
   lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require('Navigator').left()<CR>"

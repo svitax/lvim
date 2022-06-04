@@ -27,10 +27,6 @@ M.config = function()
       config = require("user.plugins.dressing").config(),
     },
     {
-      "ggandor/lightspeed.nvim",
-      config = require("user.plugins.lightspeed").config(),
-    },
-    {
       "norcalli/nvim-colorizer.lua",
       config = require("user.plugins.colorizer").config(),
       -- event = "BufRead",
@@ -123,6 +119,14 @@ M.config = function()
       "weilbith/nvim-code-action-menu",
       cmd = "CodeActionMenu",
     },
+    {
+      "ggandor/leap.nvim",
+      config = require("user.plugins.leap").config(),
+    },
+    -- {
+    --   "ggandor/lightspeed.nvim",
+    --   config = require("user.plugins.lightspeed").config(),
+    -- },
   }
 end
 
