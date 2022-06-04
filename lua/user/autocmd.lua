@@ -1,8 +1,10 @@
 local M = {}
 
 M.config = function()
+  local alpha_group = vim.api.nvim_create_augroup("alpha", { clear = true })
   vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "alpha",
+    group = alpha_group,
     command = "set laststatus=0 | autocmd BufLeave <buffer> set laststatus=" .. vim.opt.laststatus._value,
   })
 
