@@ -136,6 +136,10 @@ M.config = function()
       "j-hui/fidget.nvim",
       config = require("user.plugins.fidget").config(),
     },
+    { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
+    { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
+    { "dburian/cmp-markdown-link", after = "nvim-cmp" },
+    { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", after = "nvim-cmp" },
     {
       "ThePrimeagen/harpoon",
       requires = "nvim-lua/plenary.nvim",
