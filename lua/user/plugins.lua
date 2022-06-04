@@ -33,7 +33,7 @@ M.config = function()
     },
     {
       "folke/trouble.nvim",
-      cmd = "TroubleToggle",
+      cmd = { "Trouble", "TroubleToggle" },
     },
     {
       "numToStr/Navigator.nvim",
