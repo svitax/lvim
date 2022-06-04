@@ -21,6 +21,7 @@ M.config = function()
         "Outline",
         "spectre_panel",
         "toggleterm",
+        "",
       }
 
       if vim.tbl_contains(winbar_filetype_exclude, vim.bo.filetype) then

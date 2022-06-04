@@ -127,6 +127,11 @@ M.config = function()
     --   "ggandor/lightspeed.nvim",
     --   config = require("user.plugins.lightspeed").config(),
     -- },
+    {
+      "gelguy/wilder.nvim",
+      config = require("user.plugins.wilder").config(),
+      requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },
+    },
   }
 end
 
