@@ -3,8 +3,10 @@ local M = {}
 M.config = function()
   -- set all my user commands
   require("user.usercmd").set_user_commands()
-  -- keymappings [view all the defaults by pressing <leader>Lk]
 
+  -- keymappings [view all the lunarvim defaults by pressing <leader>Lk]
+
+  -- save with c-s
   lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
   -- more ergonomic matchup
@@ -169,6 +171,12 @@ M.config = function()
     ["o"] = { "<cmd>BDelete! other<CR>", "close other buffers" },
     ["p"] = { "<cmd>CybuPrev<cr>", "previous buffer" },
   }
+
+  -- =========================================
+  -- +Debug
+  -- =========================================
+
+  -- see "user.plugins.dap"
 
   -- =========================================
   -- +Git
