@@ -3,6 +3,7 @@ local M = {}
 M.config = function()
   -- local actions = require "telescope.actions"
   -- lvim.builtin.telescope.defaults.mappings.n.q = actions.close
+  lvim.builtin.telescope.pickers = { find_files = { theme = "ivy" } }
   lvim.builtin.telescope.extensions.hop = {
     -- the shown `keys` are the defaults, no need to set `keys` if defaults work for you ;)
     keys = { "a", "s", "d", "f", "g", "h", "l", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p" },

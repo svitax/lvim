@@ -150,6 +150,19 @@ M.config = function()
       after = { "nvim-cmp" },
       config = require("user.plugins.tabout").config,
     },
+    {
+      "rmagatti/auto-session",
+      config = require("user.plugins.auto_session").config,
+    },
+    {
+      "rmagatti/session-lens",
+      requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
+      config = require("user.plugins.session_lens").config,
+    },
+    {
+      "willthbill/opener.nvim",
+      config = require("user.plugins.opener").config,
+    },
   }
 end
 

@@ -154,8 +154,8 @@ M.config = function()
   -----]]------------[[-----
 
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up!<cr>", "write buffer" }
-  lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
+  lvim.builtin.which_key.mappings["c"] = { "<cmd>Clear<cr>", "clear" }
   lvim.builtin.which_key.mappings["e"] = { "<cmd>Neogen<cr>", "generate doc" }
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
   lvim.builtin.which_key.mappings["q"] = { "<cmd>lua require('user.usercmd').smart_quit()<cr>", "quit" }
@@ -299,7 +299,7 @@ M.config = function()
     ["l"] = { "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_files()<cr>", "lunarvim files" },
     ["m"] = { "<cmd>lua require('user.telescope.custom_pickers').marks()<cr>", "marks" },
     ["n"] = { "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes" },
-    ["p"] = { "<cmd>Telescope projects theme=ivy<cr>", "projects" },
+    ["p"] = { "<cmd>lua require('user.telescope.custom_pickers').projects()<cr>", "projects" },
     ["r"] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "recent files" },
     ["g"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
   }

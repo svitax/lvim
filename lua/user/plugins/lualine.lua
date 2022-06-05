@@ -60,6 +60,12 @@ M.config = function()
     padding = 0,
   }
 
+  local session = {
+    require("auto-session-library").current_session_name,
+    icon = icons.git.Repo .. " ",
+    color = { fg = c.line_fg },
+  }
+
   -- cool function for progress
   local progress = function()
     local current_line = vim.fn.line "."
@@ -123,7 +129,7 @@ M.config = function()
   lvim.builtin.lualine.sections = {
     -- lualine_a = { branch, diagnostics },
     lualine_a = { branch },
-    lualine_b = { diagnostics },
+    lualine_b = { session, diagnostics },
     lualine_c = {
       {
         function()
