@@ -14,11 +14,6 @@ M.config = function()
       config = require("nvim-gps").setup {},
     },
     {
-      "gfeiyou/command-center.nvim",
-      requires = "nvim-telescope/telescope.nvim",
-      config = require("user.plugins.command_center").config(),
-    },
-    {
       "mrjones2014/legendary.nvim",
       config = require("user.plugins.legendary").config(),
     },
