@@ -15,15 +15,15 @@ M.config = function()
     },
     {
       "mrjones2014/legendary.nvim",
-      config = require("user.plugins.legendary").config(),
+      config = require("user.plugins.legendary").config,
     },
     {
       "stevearc/dressing.nvim",
-      config = require("user.plugins.dressing").config(),
+      config = require("user.plugins.dressing").config,
     },
     {
       "norcalli/nvim-colorizer.lua",
-      config = require("user.plugins.colorizer").config(),
+      config = require("user.plugins.colorizer").config,
       -- event = "BufRead",
     },
     {
@@ -41,18 +41,18 @@ M.config = function()
     {
       "ghillb/cybu.nvim",
       requires = { "kyazdani42/nvim-web-devicons" }, --optional
-      config = require("user.plugins.cybu").config(),
+      config = require("user.plugins.cybu").config,
     },
     {
       "kazhala/close-buffers.nvim",
       event = "BufRead",
-      config = require("user.plugins.close_buffers").config(),
+      config = require("user.plugins.close_buffers").config,
       -- cmd = { "BDelete", "BDelete!", "BWipeout", "BWipeout!" },
     },
     { -- TODO: must not override my q/<Esc> (I need my <Esc> to quit from shell scripts and options in lf)
       "is0n/fm-nvim",
       cmd = { "Lf" },
-      config = require("user.plugins.fm").config(),
+      config = require("user.plugins.fm").config,
     },
     {
       "kdheepak/lazygit.nvim",
@@ -61,23 +61,23 @@ M.config = function()
     { "wakatime/vim-wakatime" },
     {
       "petertriho/nvim-scrollbar",
-      config = require("user.plugins.scrollbar").config(),
+      config = require("user.plugins.scrollbar").config,
     },
     {
       "kevinhwang91/nvim-hlslens",
-      config = require("user.plugins.hlslens").config(),
+      config = require("user.plugins.hlslens").config,
     },
     {
       "chentoast/marks.nvim",
-      config = require("user.plugins.marks").config(),
+      config = require("user.plugins.marks").config,
     },
     {
       "declancm/cinnamon.nvim",
-      config = require("user.plugins.cinnamon").config(),
+      config = require("user.plugins.cinnamon").config,
     },
     {
       "ray-x/lsp_signature.nvim",
-      config = require("user.plugins.lsp_signature").config(),
+      config = require("user.plugins.lsp_signature").config,
     },
     {
       "echasnovski/mini.nvim",
@@ -89,7 +89,7 @@ M.config = function()
     },
     {
       "andymass/vim-matchup",
-      config = require("user.plugins.matchup").config(),
+      config = require("user.plugins.matchup").config,
       -- event = "CursorMoved",
     },
     {
@@ -103,12 +103,12 @@ M.config = function()
     },
     {
       "kosayoda/nvim-lightbulb",
-      config = require("user.plugins.lightbulb").config(),
+      config = require("user.plugins.lightbulb").config,
     },
     {
       "ldelossa/gh.nvim",
       requires = { { "ldelossa/litee.nvim" } },
-      config = require("user.plugins.gh").config(),
+      config = require("user.plugins.gh").config,
     },
     {
       "weilbith/nvim-code-action-menu",
@@ -116,20 +116,16 @@ M.config = function()
     },
     {
       "ggandor/leap.nvim",
-      config = require("user.plugins.leap").config(),
+      config = require("user.plugins.leap").config,
     },
-    -- {
-    --   "ggandor/lightspeed.nvim",
-    --   config = require("user.plugins.lightspeed").config(),
-    -- },
     {
       "gelguy/wilder.nvim",
-      config = require("user.plugins.wilder").config(),
       requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },
+      config = require("user.plugins.wilder").config,
     },
     {
       "j-hui/fidget.nvim",
-      config = require("user.plugins.fidget").config(),
+      config = require("user.plugins.fidget").config,
     },
     { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
     { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
@@ -138,7 +134,7 @@ M.config = function()
     {
       "ThePrimeagen/harpoon",
       requires = "nvim-lua/plenary.nvim",
-      config = require("user.plugins.harpoon").config(),
+      config = require("user.plugins.harpoon").config,
     },
     {
       "danymat/neogen",
