@@ -154,7 +154,6 @@ M.config = function()
   -----]]------------[[-----
 
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up!<cr>", "write buffer" }
-  lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["c"] = { "<cmd>Clear<cr>", "clear" }
   lvim.builtin.which_key.mappings["e"] = { "<cmd>Neogen<cr>", "generate doc" }
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
