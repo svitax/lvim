@@ -6,6 +6,11 @@ M.config = function()
     return
   end
 
+  local icons_ok, icons = pcall(require, "user.icons")
+  if not icons_ok then
+    return
+  end
+
   lightbulb.setup {
     sign = {
       enabled = true,
@@ -20,7 +25,7 @@ M.config = function()
       events = { "CursorHold", "CursorHoldI" },
     },
   }
-  vim.fn.sign_define("LightBulbSign", { text = "", texthl = "LightBulbVirtualText" })
+  vim.fn.sign_define("LightBulbSign", { text = icons.ui.Lightbulb, texthl = "LightBulbVirtualText" })
   -- text = "",
   local c = require("fennec-gruvbox.colors").config()
 end
