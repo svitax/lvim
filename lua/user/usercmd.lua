@@ -1,5 +1,22 @@
 local M = {}
 
+M.smart_quit = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
+  if modified then
+    vim.ui.input({
+      prompt = "You have unsaved changes. Quit anyway? (y/n) ",
+    }, function(input)
+      if input == "y" then
+        vim.cmd "qa!"
+      end
+    end)
+  else
+    vim.cmd "SaveSession<cr>"
+    vim.cmd "qa!"
+  end
+end
+
 --- @author Rafat913
 --- https://www.reddit.com/r/neovim/comments/um3epn/comment/i8140hi/
 M.open_uri_under_cursor = function()
