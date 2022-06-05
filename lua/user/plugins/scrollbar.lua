@@ -1,19 +1,13 @@
-return {
-  "petertriho/nvim-scrollbar",
-  config = function()
-    local c = require("user.theme").gruvchad()
-    require("scrollbar").setup {
-      handle = {
-        color = c.one_bg2,
-      },
-      marks = {
-        Search = { color = c.orange },
-        Error = { color = c.red },
-        Warn = { color = c.yellow },
-        Info = { color = c.green },
-        Hint = { color = c.purple },
-        Misc = { color = c.dark_purple },
-      },
-    }
-  end,
-}
+local M = {}
+
+M.config = function()
+  local status_ok, scrollbar = pcall(require, "scrollbar")
+  if not status_ok then
+    return
+  end
+
+  scrollbar.setup {}
+  require("scrollbar.handlers.search").setup()
+end
+
+return M

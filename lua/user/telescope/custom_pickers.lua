@@ -5,8 +5,157 @@ local actions = require "telescope.actions"
 local builtin = require "telescope.builtin"
 local previewers = require "telescope.previewers"
 
--- Buffer switcher
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
+local conf = require("telescope.config").values
+local state = require "telescope.actions.state"
+local entry_display = require "telescope.pickers.entry_display"
+
+local history = require "project_nvim.utils.history"
+
+local lib = require "opener.lib"
+
+function M.projects(opts)
+  local open_project = function(prompt_bufnr)
+    local selection = state.get_selected_entry(prompt_bufnr)
+    if selection then -- TODO selection is sometimes NIL, why is that? It seems to be when the async job is running, or when you are searching in telescope
+      actions.close(prompt_bufnr)
+      -- local dir = selection[1]
+      local dir = selection.value
+      -- add a tiny delay before opening directory, since telescope has problems
+      -- when doing things before it is properly closed. For example:
+      -- https://github.com/nvim-telescope/telescope.nvim/issues/699
+      vim.defer_fn(function()
+        lib.open(dir)
+      end, 50)
+    end
+  end
+
+  local create_finder = function()
+    local results = history.get_recent_projects()
+
+    -- Reverse results
+    for i = 1, math.floor(#results / 2) do
+      results[i], results[#results - i + 1] = results[#results - i + 1], results[i]
+    end
+    local displayer = entry_display.create {
+      separator = " ",
+      items = {
+        {
+          width = 30,
+        },
+        {
+          remaining = true,
+        },
+      },
+    }
+
+    local function make_display(entry)
+      return displayer { entry.name, { entry.value, "Comment" } }
+    end
+
+    return finders.new_table {
+      results = results,
+      entry_maker = function(entry)
+        local name = vim.fn.fnamemodify(entry, ":t")
+        return {
+          display = make_display,
+          name = name,
+          value = entry,
+          ordinal = name .. " " .. entry,
+        }
+      end,
+    }
+  end
+
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    sort_lastused = true,
+    sort_mru = false,
+  }
+  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+
+  pickers.new(opts, {
+    prompt_title = "~ projects ~",
+    finder = create_finder(),
+    -- finder = finders.new_table {
+    --   results = recent_projects,
+    -- },
+    sorter = conf.generic_sorter(opts),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(open_project)
+      return true
+    end,
+  }):find()
+end
+
+function M.marks(opts)
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    border = true,
+    initial_mode = "normal",
+    sort_lastused = false,
+    sort_mru = true,
+    -- ignore_current_buffer = true
+    -- path_display = { shorten = 5 },
+    path_display = function(_, path)
+      -- would be cool if instead of the path we could show the project
+      local tail = require("telescope.utils").path_tail(path)
+      return string.format("%s (%s)", tail, path)
+    end,
+    attach_mappings = function(_, map)
+      map("n", "q", actions.close)
+      map("n", ";", actions.select_default)
+      map("n", "s", function(prompt_bufnr)
+        local hop_opts = {
+          callback = actions.select_default,
+          loop_callback = actions.send_selected_to_qflist,
+        }
+        require("telescope").extensions.hop._hop(prompt_bufnr, hop_opts)
+      end)
+      return true
+    end,
+  }
+  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+  builtin.marks(opts)
+end
+
 function M.switch_buffers(opts)
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    border = true,
+    initial_mode = "normal",
+    sort_lastused = false,
+    sort_mru = true,
+    -- ignore_current_buffer = true
+    -- path_display = { shorten = 5 },
+    path_display = function(_, path)
+      -- would be cool if instead of the path we could show the project
+      local tail = require("telescope.utils").path_tail(path)
+      return string.format("%s (%s)", tail, path)
+    end,
+    attach_mappings = function(_, map)
+      map("i", "<c-d>", actions.delete_buffer)
+      map("n", "<c-d>", actions.delete_buffer)
+      map("n", "d", actions.delete_buffer)
+      map("n", "q", actions.close)
+      map("n", ";", actions.select_default)
+      map("n", "s", function(prompt_bufnr)
+        local hop_opts = {
+          callback = actions.select_default,
+          loop_callback = actions.send_selected_to_qflist,
+        }
+        require("telescope").extensions.hop._hop(prompt_bufnr, hop_opts)
+      end)
+      return true
+    end,
+  }
+  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+  builtin.buffers(opts)
+end
+
+-- Buffer switcher
+function M.switch_buffers_dropdown(opts)
   opts = opts or {}
   local theme_opts = themes.get_dropdown {
     border = true,
@@ -200,19 +349,18 @@ function M.grep_last_search(opts)
   builtin.grep_string(opts)
 end
 
--- function M.find_lunarvim_files(opts)
---   opts = opts or {}
---   local theme_opts = themes.get_ivy {
---     sorting_strategy = "ascending",
---     layout_strategy = "bottom_pane",
---     prompt_prefix = ">> ",
---     prompt_title = "~ LunarVim files ~",
---     cwd = get_runtime_dir(),
---     search_dirs = { utils.join_paths(get_runtime_dir(), "lvim"), lvim.lsp.templates_dir },
---   }
---   opts = vim.tbl_deep_extend("force", theme_opts, opts)
---   builtin.find_files(opts)
--- end
+function M.find_lunarvim_files(opts)
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    sorting_strategy = "ascending",
+    layout_strategy = "bottom_pane",
+    prompt_title = "~ LunarVim files ~",
+    cwd = get_runtime_dir(),
+    search_dirs = { require("lvim.utils").join_paths(get_runtime_dir(), "lvim"), lvim.lsp.templates_dir },
+  }
+  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+  builtin.find_files(opts)
+end
 
 -- TODO: can't scroll down and up delta preview
 local delta = previewers.new_termopen_previewer {
