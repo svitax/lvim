@@ -6,6 +6,8 @@ M.config = function()
 
   wilder.setup { modes = { ":", "/", "?" } }
 
+  vim.api.nvim_set_keymap("c", "<Tab>", "<cmd>lua require('wilder').next()<cr>", { noremap = true })
+  vim.api.nvim_set_keymap("c", "<S-Tab>", "<cmd>lua require('wilder').previous()<cr>", { noremap = true })
   vim.api.nvim_set_keymap("c", "<C-j>", "<cmd>lua require('wilder').next()<cr>", { noremap = true })
   vim.api.nvim_set_keymap("c", "<C-k>", "<cmd>lua require('wilder').previous()<cr>", { noremap = true })
 
