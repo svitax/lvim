@@ -140,6 +140,16 @@ M.config = function()
       requires = "nvim-lua/plenary.nvim",
       config = require("user.plugins.harpoon").config(),
     },
+    {
+      "danymat/neogen",
+      config = require("neogen").setup {},
+    },
+    {
+      "abecodes/tabout.nvim",
+      wants = { "nvim-treesitter" },
+      after = { "nvim-cmp" },
+      config = require("user.plugins.tabout").config,
+    },
   }
 end
 

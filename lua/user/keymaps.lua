@@ -156,6 +156,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["a"] = { "<cmd>up!<cr>", "write buffer" }
   lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
+  lvim.builtin.which_key.mappings["e"] = { "<cmd>Neogen<cr>", "generate doc" }
   lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
   lvim.builtin.which_key.mappings["q"] = { "<cmd>lua require('user.usercmd').smart_quit()<cr>", "quit" }
   lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
