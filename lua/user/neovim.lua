@@ -10,6 +10,14 @@ M.config = function()
   vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
   -- vim.opt.list = true
   -- vim.opt.listchars:append "eol:"
+
+  vim.wo.foldlevel = 4
+  -- vim.wo.foldtext =
+  --   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+  vim.wo.foldnestmax = 3
+  vim.wo.foldminlines = 1
+  vim.cmd [[set foldmethod=expr]]
+  vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
 end
 
 return M

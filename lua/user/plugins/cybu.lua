@@ -16,6 +16,7 @@ M.config = function()
     },
     display_time = 1500,
   }
+  require("user.keymaps").set_cybu_keymaps()
 end
 
 return M

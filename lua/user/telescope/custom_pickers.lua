@@ -83,6 +83,19 @@ function M.projects(opts)
     -- },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
+      map("n", "f", find_project_files)
+      map("n", "b", browse_project_files)
+      map("n", "d", delete_project)
+      map("n", "s", search_in_project_files)
+      map("n", "r", recent_project_files)
+      map("n", "w", change_working_directory)
+
+      map("i", "<c-f>", find_project_files)
+      map("i", "<c-b>", browse_project_files)
+      map("i", "<c-d>", delete_project)
+      map("i", "<c-s>", search_in_project_files)
+      map("i", "<c-r>", recent_project_files)
+      map("i", "<c-w>", change_working_directory)
       actions.select_default:replace(open_project)
       return true
     end,

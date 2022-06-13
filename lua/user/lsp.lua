@@ -1,6 +1,9 @@
 local M = {}
 
 M.config = function()
+  lvim.lsp.diagnostics.virtual_text = false
+  lvim.lsp.document_highlight = true
+
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.offsetEncoding = { "utf-16" }
   require("lspconfig").clangd.setup { capabilities = capabilities }
@@ -28,7 +31,7 @@ M.config = function()
     },
   }
 
-  -- -- set additional linters
+  -- set additional linters
   local linters = require "lvim.lsp.null-ls.linters"
   linters.setup {
     -- { command = "flake8", filetypes = { "python" } },
@@ -53,6 +56,8 @@ M.config = function()
     -- },
   }
 
+  require("user.keymaps").set_lsp_buf_keymaps()
+
   -- if you don't want all the parsers change this to a table of the ones you want
   -- generic LSP settings
 
@@ -71,15 +76,56 @@ M.config = function()
   --   return server ~= "emmet_ls"
   -- end, lvim.lsp.automatic_configuration.skipped_servers)
 
-  -- -- you can set a custom on_attach function that will be used for all the language servers
-  -- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
-  -- lvim.lsp.on_attach_callback = function(client, bufnr)
-  --   local function buf_set_option(...)
-  --     vim.api.nvim_buf_set_option(bufnr, ...)
-  --   end
-  --   --Enable completion triggered by <c-x><c-o>
-  --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-  -- end
+  -- you can set a custom on_attach function that will be used for all the language servers
+  -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
+  lvim.lsp.on_attach_callback = function(client, bufnr)
+    local function add_lsp_buffer_keybindings(bufnr)
+      local mappings = {
+        normal_mode = "n",
+        insert_mode = "i",
+        visual_mode = "v",
+      }
+
+      if lvim.builtin.which_key.active then
+        -- Remap using which_key
+        local status_ok, wk = pcall(require, "which-key")
+        if not status_ok then
+          return
+        end
+        for mode_name, mode_char in pairs(mappings) do
+          wk.register(lvim.lsp.buffer_mappings[mode_name], { mode = mode_char, buffer = bufnr })
+        end
+      else
+        -- Remap using nvim api
+        for mode_name, mode_char in pairs(mappings) do
+          for key, remap in pairs(lvim.lsp.buffer_mappings[mode_name]) do
+            vim.api.nvim_buf_set_keymap(bufnr, mode_char, key, remap[1], { noremap = true, silent = true })
+          end
+        end
+      end
+    end
+
+    local lu = require "lvim.lsp.utils"
+    if lvim.lsp.document_highlight then
+      lu.setup_document_highlight(client, bufnr)
+    end
+    if lvim.lsp.code_lens_refresh then
+      lu.setup_codelens_refresh(client, bufnr)
+    end
+    add_lsp_buffer_keybindings(bufnr)
+
+    if client["name"] ~= "null-ls" then
+      local navic = require "nvim-navic"
+      navic.attach(client, bufnr)
+    end
+
+    -- local function buf_set_option(...)
+    --   vim.api.nvim_buf_set_option(bufnr, ...)
+    -- end
+
+    -- --Enable completion triggered by <c-x><c-o>
+    -- buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+  end
 end
 
 return M

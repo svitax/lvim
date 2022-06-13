@@ -67,13 +67,14 @@ M.config = function()
   })
 
   lvim.builtin.cmp.sources = {
+    { name = "kitty", priority = 100 },
     { name = "nvim_lsp", priority = 100 },
     { name = "path" },
     { name = "luasnip", priority = 90 },
     { name = "nvim_lua", priority = 80 },
-    { name = "cmp_tabnine", priority = 70, max_item_count = 5 },
+    -- { name = "cmp_tabnine", priority = 70, max_item_count = 5 },
     { name = "buffer", priority = 60 },
-    { name = "rg", priority = 50 },
+    -- { name = "rg", max_item_count = 5, priority = 50 },
     { name = "git" },
     { name = "markdown-link" },
     { name = "calc" },
@@ -91,7 +92,7 @@ M.config = function()
     vsnip = "(Snippet)",
     luasnip = "(Snippet)",
     buffer = "(Buffer)",
-    cmp_tabnine = "(Tabnine)",
+    -- cmp_tabnine = "(Tabnine)",
     tmux = "(TMUX)",
     nvim_lua = "(Lua)",
     rg = "(Ripgrep)",

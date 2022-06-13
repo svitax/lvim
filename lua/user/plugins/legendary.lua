@@ -7,6 +7,7 @@ M.config = function()
   end
 
   legendary.setup {}
+  require("user.keymaps").set_legendary_keymaps()
 end
 
 return M

@@ -16,19 +16,18 @@ M.config = function()
       ["<"] = { output = { left = "< ", right = " >" } },
     },
     mappings = {
-      add = "ys",
+      add = "gs",
       delete = "ds",
       find = "",
       find_left = "",
-      highlight = "yh",
+      highlight = "gh",
       replace = "cs",
       update_n_lines = "",
     },
     search_method = "cover_or_next",
   }
 
-  -- yss for add surround line
-  vim.api.nvim_set_keymap("n", "yss", "ys_", { noremap = false })
+  require("user.keymaps").set_surround_keymaps()
 end
 
 return M
