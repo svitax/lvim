@@ -1,6 +1,15 @@
 local M = {}
 
 M.config = function()
+  local spectre_group = vim.api.nvim_create_augroup("spectre", { clear = true })
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = "spectre_panel",
+    group = spectre_group,
+    callback = function()
+      vim.api.nvim_buf_set_keymap(0, "n", "q", ":q<cr>", { noremap = true, silent = true })
+    end,
+  })
+
   local alpha_group = vim.api.nvim_create_augroup("alpha", { clear = true })
   vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "alpha",
@@ -43,7 +52,7 @@ M.config = function()
         return
       end
 
-      local value = require("user.winbar").gps()
+      local value = require("user.winbar").navic()
 
       if value == nil then
         value = require("user.winbar").filename()

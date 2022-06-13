@@ -7,17 +7,17 @@ M.config = function()
   end
 
   fm.setup {
-    border = "rounded",
     edit_cmd = "edit",
-    height = 0.90,
-    width = 0.90,
-    -- mappings = {
-    --   vert_split = "<C-v>",
-    --   horz_split = "<C-s>",
-    --   tabedit = "<C-t>",
-    --   edit = "<C-e>",
-    -- },
+    ui = {
+      default = "float",
+      float = {
+        border = "rounded",
+        height = 0.90,
+        width = 0.90,
+      },
+    },
   }
+  require("user.keymaps").set_fm_keymaps()
 end
 
 return M

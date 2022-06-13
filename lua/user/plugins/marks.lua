@@ -7,6 +7,7 @@ M.config = function()
   end
 
   marks.setup {}
+  require("user.keymaps").set_marks_keymaps()
 end
 
 return M

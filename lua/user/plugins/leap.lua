@@ -40,9 +40,7 @@ M.config = function()
 
   -- Map them to your preferred key, like:
   require("leap").set_default_keymaps()
-  vim.keymap.set("n", "s", leap_all_windows, { silent = true })
-  vim.keymap.set("v", "s", leap_all_windows, { silent = true })
-  vim.keymap.set("o", "z", leap_all_windows, { silent = true })
+  require("user.keymaps").set_leap_keymaps()
 end
 
 return M

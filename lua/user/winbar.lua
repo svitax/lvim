@@ -1,10 +1,5 @@
 local M = {}
 
-local status_gps_ok, gps = pcall(require, "nvim-gps")
-if not status_gps_ok then
-  return
-end
-
 local function isempty(s)
   return s == nil or s == ""
 end
@@ -65,7 +60,42 @@ M.filename = function()
   end
 end
 
+M.navic = function()
+  local status_navic_ok, navic = pcall(require, "nvim-navic")
+  if not status_navic_ok then
+    return
+  end
+
+  local navic_status_ok, navic_location = pcall(navic.get_location, {})
+  if not navic_status_ok then
+    return
+  end
+
+  local icons = require "user.icons"
+
+  if not navic.is_available() then -- Returns boolean value indicating whether a output can be provided
+    return
+  end
+
+  local retval = M.filename()
+
+  if navic_location == "error" then
+    return ""
+  else
+    if not isempty(navic_location) then
+      return retval .. " " .. "%#SpecialComment#" .. icons.ui.ChevronRight .. " " .. navic_location .. "%*"
+    else
+      return retval
+    end
+  end
+end
+
 M.gps = function()
+  local status_gps_ok, gps = pcall(require, "nvim-gps")
+  if not status_gps_ok then
+    return
+  end
+
   local status_ok, gps_location = pcall(gps.get_location, {})
   if not status_ok then
     return

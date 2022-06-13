@@ -10,6 +10,7 @@ M.config = function()
   session_lens.setup {
     prompt_title = "~ sessions ~",
   }
+  require("user.keymaps").set_session_lens_keymaps()
 end
 
 return M

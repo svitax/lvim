@@ -7,7 +7,7 @@ lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "fennec-gruvbox"
 lvim.leader = "space"
-lvim.lsp.diagnostics.virtual_text = false
+lvim.work = false
 
 -- LunarVim Builtins
 -- =========================================
@@ -21,10 +21,8 @@ require("user.plugins.telescope").config()
 require("user.plugins.treesitter").config()
 require("user.plugins.toggleterm").config()
 require("user.plugins.notify").config()
-
--- Keymaps
--- =========================================
-require("user.keymaps").config()
+require("user.plugins.luasnip").config()
+require("user.plugins.whichkey").config()
 
 -- LSP
 -- =========================================
@@ -33,6 +31,10 @@ require("user.lsp").config()
 -- Plugins
 -- =========================================
 require("user.plugins").config()
+
+-- Keymaps
+-- =========================================
+require("user.keymaps").config()
 
 -- Autocommands
 -- =========================================

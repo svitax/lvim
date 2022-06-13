@@ -13,6 +13,7 @@ M.config = function()
     preserve_window_layout = { "this", "nameless" }, -- Types of deletion that should preserve the window layout
     next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
   }
+  require("user.keymaps").set_close_buffers_keymaps()
 end
 
 return M
