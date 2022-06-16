@@ -37,7 +37,7 @@ M.config = function()
     -- { "gbprod/cutlass.nvim" },
     { "smjonas/inc-rename.nvim", config = require("user.plugins.inc_rename").config },
     { "danymat/neogen", config = require("user.plugins.neogen").config },
-    { "windwp/nvim-spectre", config = require("user.plugins.spectre").config },
+    { "windwp/nvim-spectre", requires = "nvim-lua/plenary.nvim", config = require("user.plugins.spectre").config },
     { "RRethy/nvim-treesitter-endwise" },
     { "johmsalas/text-case.nvim", config = require("user.plugins.textcase").config },
     { "gbprod/yanky.nvim", config = require("user.plugins.yanky").config },
