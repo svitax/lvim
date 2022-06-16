@@ -24,6 +24,8 @@ M.config = function()
     { "dburian/cmp-markdown-link", after = "nvim-cmp", disable = lvim.work },
     { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
     { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp", disable = lvim.work },
+    { "dmitmel/cmp-cmdline-history", after = "nvim-cmp", disable = not lvim.work },
+    { "hrsh7th/cmp-cmdline", after = "nvim-cmp", disable = not lvim.work },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Debugging                         │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -140,6 +142,7 @@ M.config = function()
       "gelguy/wilder.nvim",
       requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },
       config = require("user.plugins.wilder").config,
+      disable = lvim.work,
     },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Windows                          │

@@ -66,6 +66,36 @@ M.config = function()
     },
   })
 
+  if lvim.work then
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.insert {
+        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+      },
+      sources = {
+        { name = "cmdline" },
+        { name = "cmdline_history" },
+        { name = "path" },
+      },
+      formatting = {
+        max_width = 30,
+      },
+    })
+
+    for _, cmd_type in ipairs { "/", "?", "@" } do
+      cmp.setup.cmdline(cmd_type, {
+        mapping = cmp.mapping.preset.insert {
+          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+        },
+        sources = {
+          { name = "buffer" },
+          { name = "cmdline_history" },
+        },
+      })
+    end
+  end
+
   lvim.builtin.cmp.sources = {
     { name = "kitty", priority = 100 },
     { name = "nvim_lsp", priority = 100 },
@@ -85,6 +115,8 @@ M.config = function()
   }
 
   lvim.builtin.cmp.formatting.source_names = {
+    cmdline = "(Cmd)",
+    cmdline_history = "(Hist)",
     nvim_lsp = "(LSP)",
     emoji = "(Emoji)",
     path = "(Path)",
@@ -117,6 +149,8 @@ M.config = function()
 
   lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
   lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
+
+  lvim.builtin.cmp.formatting.max_width = 30
 end
 
 return M
