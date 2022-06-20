@@ -66,35 +66,35 @@ M.config = function()
     },
   })
 
-  if lvim.work then
-    cmp.setup.cmdline(":", {
+  -- if lvim.work then
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.insert {
+      ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+      ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+    },
+    sources = {
+      { name = "cmdline" },
+      { name = "cmdline_history" },
+      { name = "path" },
+    },
+    formatting = {
+      max_width = 30,
+    },
+  })
+
+  for _, cmd_type in ipairs { "/", "?", "@" } do
+    cmp.setup.cmdline(cmd_type, {
       mapping = cmp.mapping.preset.insert {
         ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
         ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
       },
       sources = {
-        { name = "cmdline" },
+        { name = "buffer" },
         { name = "cmdline_history" },
-        { name = "path" },
-      },
-      formatting = {
-        max_width = 30,
       },
     })
-
-    for _, cmd_type in ipairs { "/", "?", "@" } do
-      cmp.setup.cmdline(cmd_type, {
-        mapping = cmp.mapping.preset.insert {
-          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-        },
-        sources = {
-          { name = "buffer" },
-          { name = "cmdline_history" },
-        },
-      })
-    end
   end
+  -- end
 
   lvim.builtin.cmp.sources = {
     { name = "kitty", priority = 100 },
@@ -147,8 +147,38 @@ M.config = function()
     },
   }
 
-  lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
-  lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
+  -- lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
+  -- lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
+
+  lvim.builtin.cmp.mapping = cmp.mapping.preset.insert {
+    ["<C-k>"] = cmp.mapping.select_prev_item(),
+    ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+    ["<Tab>"] = cmp.mapping(M.tab, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "s" }),
+    ["<C-e>"] = cmp.mapping.abort(),
+    -- ["<C-Space>"] = cmp.mapping.complete(),
+    ["<CR>"] = cmp.mapping(function(fallback)
+      if cmp.visible() and cmp.confirm(lvim.builtin.cmp.confirm_opts) then
+        if jumpable() then
+          luasnip.jump(1)
+        end
+        return
+      end
+
+      if jumpable() then
+        if not luasnip.jump(1) then
+          fallback()
+        end
+      else
+        fallback()
+      end
+    end),
+  }
+
+  -- lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" })
+  -- lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" })
 
   lvim.builtin.cmp.formatting.max_width = 30
 end

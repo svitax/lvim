@@ -24,8 +24,8 @@ M.config = function()
     { "dburian/cmp-markdown-link", after = "nvim-cmp", disable = lvim.work },
     { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
     { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp", disable = lvim.work },
-    { "dmitmel/cmp-cmdline-history", after = "nvim-cmp", disable = not lvim.work },
-    { "hrsh7th/cmp-cmdline", after = "nvim-cmp", disable = not lvim.work },
+    { "dmitmel/cmp-cmdline-history", after = "nvim-cmp" },
+    { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Debugging                         │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -139,12 +139,12 @@ M.config = function()
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config },
     { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config },
-    {
-      "gelguy/wilder.nvim",
-      requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },
-      config = require("user.plugins.wilder").config,
-      disable = lvim.work,
-    },
+    -- {
+    --   "gelguy/wilder.nvim",
+    --   requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },
+    --   config = require("user.plugins.wilder").config,
+    --   disable = lvim.work,
+    -- },
     -- { "vimpostor/vim-tpipeline", config = require("user.plugins.tpipeline").config },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Windows                          │
