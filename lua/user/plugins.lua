@@ -136,6 +136,7 @@ M.config = function()
         require("nvim-navic").setup {}
       end,
     },
+    -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config },
     { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config },
     {
