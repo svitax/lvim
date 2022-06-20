@@ -144,6 +144,7 @@ M.config = function()
       config = require("user.plugins.wilder").config,
       disable = lvim.work,
     },
+    -- { "vimpostor/vim-tpipeline", config = require("user.plugins.tpipeline").config },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Windows                          │
     -- ╰──────────────────────────────────────────────────────────╯
