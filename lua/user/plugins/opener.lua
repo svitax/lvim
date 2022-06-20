@@ -19,7 +19,7 @@ M.config = function()
         Lib.conf.last_loaded_session = nil
         vim.cmd "RestoreSession"
       end,
-      "NvimTreeOpen",
+      -- "NvimTreeOpen",
     },
   }
   require("telescope").load_extension "opener"
