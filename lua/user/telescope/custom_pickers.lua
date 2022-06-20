@@ -336,7 +336,7 @@ function M.grep_config_files(opts)
   local config_files_opts = { cwd = "~/.config/lvim", prompt_title = "~ grep LunarVim config files ~" }
   opts = vim.tbl_deep_extend("force", opts, config_files_opts)
 
-  M.find_files(opts)
+  M.grep_string(opts)
 end
 
 function M.grep_dotfiles(opts)
