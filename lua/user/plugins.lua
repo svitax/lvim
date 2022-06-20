@@ -29,7 +29,7 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Debugging                         │
     -- ╰──────────────────────────────────────────────────────────╯
-    { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = require("user.plugins.dapui").config },
+    -- { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = require("user.plugins.dapui").config },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Editing                          │
     -- ╰──────────────────────────────────────────────────────────╯
