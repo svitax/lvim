@@ -1,6 +1,7 @@
 local M = {}
 
 M.config = function()
+  lvim.builtin.treesitter.matchup = true
   lvim.builtin.treesitter.ensure_installed = {
     "bash",
     "c",
