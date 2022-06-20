@@ -131,7 +131,8 @@ M.config = function()
     -- { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter", config = require("nvim-gps").setup {} },
     {
       "SmiteshP/nvim-navic",
-      requires = "neovim/nvim-lspconfig",
+      after = "nvim-lspconfig",
+      -- requires = "neovim/nvim-lspconfig",
       config = function()
         require("nvim-navic").setup {}
       end,

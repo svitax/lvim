@@ -4,9 +4,9 @@ M.config = function()
   lvim.lsp.diagnostics.virtual_text = false
   lvim.lsp.document_highlight = true
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.offsetEncoding = { "utf-16" }
-  require("lspconfig").clangd.setup { capabilities = capabilities }
+  -- local capabilities = require("lvim.lsp").common_capabilities()
+  -- capabilities.offsetEncoding = { "utf-16" }
+  -- require("lspconfig").clangd.setup { capabilities = capabilities }
 
   -- set a formatter, this will override the language server formatting capabilities (if it exists)
   local formatters = require "lvim.lsp.null-ls.formatters"
@@ -39,7 +39,7 @@ M.config = function()
     { command = "pylint", filetypes = { "python" } },
     { command = "vint", filetypes = { "vim" } },
     { command = "cppcheck", filetypes = { "cpp", "c" } },
-    { command = "golangci_lint", filetypes = { "go" } },
+    -- { command = "golangci_lint", filetypes = { "go" } },
     { command = "markdownlint", filetypes = { "markdown" } },
     {
       -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -64,8 +64,8 @@ M.config = function()
   -- ---@usage disable automatic installation of servers
   -- lvim.lsp.automatic_servers_installation = false
 
-  -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
-  -- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
+  ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
+  ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
   -- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
   -- local opts = {} -- check the lspconfig documentation for a list of all possible options
   -- require("lvim.lsp.manager").setup("pyright", opts)
