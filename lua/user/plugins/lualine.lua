@@ -20,22 +20,52 @@ M.config = function()
     symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
     colored = true,
     update_in_insert = false,
-    always_visible = true,
+    always_visible = false,
   }
 
   local diff = {
     "diff",
-    colored = false,
-    symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " }, -- changes diff symbols
+    colored = true,
+    symbols = { added = icons.git.Add, modified = icons.git.Mod, removed = icons.git.Remove .. " " }, -- changes diff symbols
+    diff_color = {
+      added = { fg = c.soft_green },
+      modified = { fg = c.blue_gray },
+      removed = { fg = c.red },
+    },
     cond = hide_in_width,
   }
 
+  local mode_color = {
+    n = c.red,
+    i = c.soft_green,
+    v = c.soft_yellow,
+    [""] = c.blue_gray,
+    V = c.soft_yellow,
+    c = c.light_blue,
+    no = c.magenta,
+    s = c.orange,
+    S = c.orange,
+    [""] = c.orange,
+    ic = c.soft_yellow,
+    R = c.pink,
+    Rv = c.pink,
+    cv = c.red,
+    ce = c.red,
+    r = c.light_blue,
+    rm = c.light_blue,
+    ["r?"] = c.light_blue,
+    ["!"] = c.red,
+    t = c.red,
+  }
+
   local mode = {
-    "mode",
-    fmt = function(str)
-      return "-- " .. str .. " --"
+    function()
+      return " "
     end,
-    color = { fg = c.line_fg },
+    color = function()
+      return { fg = mode_color[vim.fn.mode()], bg = c.line_bg }
+    end,
+    padding = { left = 1, right = 0 },
   }
 
   local filetype = {
@@ -48,6 +78,7 @@ M.config = function()
     "branch",
     icons_enabled = true,
     icon = "",
+    color = { fg = c.line_fg },
   }
 
   local location = {
@@ -56,8 +87,14 @@ M.config = function()
   }
 
   local session = {
-    require("auto-session-library").current_session_name,
-    icon = icons.git.Repo .. " ",
+    function()
+      local auto_session_library = require "auto-session-library"
+      local status_ok, session_name = pcall(auto_session_library.current_session_name)
+      if not status_ok then
+        return " "
+      end
+      return " "
+    end,
     color = { fg = c.line_fg },
   }
 
@@ -112,30 +149,30 @@ M.config = function()
     cond = hide_in_width,
   }
 
+  local modified = {
+    function()
+      local fg = "#228b22" -- not modified
+      local mod = " "
+      if vim.bo.modified then
+        fg = "#c70039" -- unsaved
+        mod = ""
+      elseif not vim.bo.modifiable then
+        fg = "#a70089"
+        mod = ""
+      end -- readonly
+      vim.cmd("hi! lualine_filename_status guifg=" .. fg)
+      -- return "%t %m"
+      return mod
+    end,
+    color = { fg = c.line_fg },
+    -- color = "lualine_filename_status",
+  }
+
   lvim.builtin.lualine.sections = {
     -- lualine_a = { branch, diagnostics },
-    lualine_a = { branch },
-    lualine_b = { session, diagnostics },
-    lualine_c = {
-      {
-        function()
-          local fg = "#228b22" -- not modified
-          local mod = " "
-          if vim.bo.modified then
-            fg = "#c70039" -- unsaved
-            mod = ""
-          elseif not vim.bo.modifiable then
-            fg = "#a70089"
-            mod = ""
-          end -- readonly
-          vim.cmd("hi! lualine_filename_status guifg=" .. fg)
-          -- return "%t %m"
-          return mod
-        end,
-        -- color = "lualine_filename_status",
-      },
-      mode,
-    },
+    lualine_a = { mode, branch },
+    lualine_b = { session, modified },
+    lualine_c = { diagnostics },
     -- lualine_c = {},
     -- lualine_c = {
     --   { nvim_gps, cond = hide_in_width },
