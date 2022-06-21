@@ -22,6 +22,7 @@ M.config = function()
     { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", after = "nvim-cmp", disable = lvim.work },
     { "custompro98/cmp-kitty", after = "nvim-cmp", disable = lvim.work },
     { "dburian/cmp-markdown-link", after = "nvim-cmp", disable = lvim.work },
+    { "KadoBOT/cmp-plugins", after = "nvim-cmp", config = require("user.plugins.cmp_plugins").config },
     { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
     { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp", disable = lvim.work },
     { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },

@@ -112,6 +112,7 @@ M.config = function()
     { name = "treesitter" },
     { name = "crates" },
     { name = "tmux" },
+    { name = "plugins" },
   }
 
   lvim.builtin.cmp.formatting.source_names = {
@@ -131,6 +132,7 @@ M.config = function()
     kitty = "(Kitty)",
     git = "(Git)",
     ["markdown-link"] = "(Markdown)",
+    plugins = "(Plugins)",
   }
 
   local icons = require "user.icons"
