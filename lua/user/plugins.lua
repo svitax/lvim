@@ -140,6 +140,13 @@ M.config = function()
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config },
     { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config },
+    {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("todo-comments").setup {}
+      end,
+    },
     -- {
     --   "gelguy/wilder.nvim",
     --   requires = { { "kyazdani42/nvim-web-devicons" }, { "romgrk/fzy-lua-native" }, { "sharkdp/fd" } },

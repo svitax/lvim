@@ -283,6 +283,7 @@ M.config = function()
     },
     -- ["r"] = { "<cmd>LspRename<cr>", "rename" },
     -- ["s"] = { "", "symbols" },
+    ["t"] = { "<cmd>TodoTrouble<cr>", "todos" },
     -- ["w"] = { "", "del trailing whitespace" },
     -- ["W"] = { "", "del trailing newlines" },
     -- ["y"] = { "", "call hierarchy" },
