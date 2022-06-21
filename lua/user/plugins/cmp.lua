@@ -74,7 +74,7 @@ M.config = function()
     },
     sources = {
       { name = "cmdline" },
-      { name = "cmdline_history" },
+      -- { name = "cmdline_history" },
       { name = "path" },
     },
     formatting = {
@@ -90,7 +90,7 @@ M.config = function()
       },
       sources = {
         { name = "buffer" },
-        { name = "cmdline_history" },
+        -- { name = "cmdline_history" },
       },
     })
   end
@@ -133,6 +133,21 @@ M.config = function()
     ["markdown-link"] = "(Markdown)",
   }
 
+  local icons = require "user.icons"
+  lvim.builtin.cmp.formatting.max_width = 30
+  lvim.builtin.cmp.formatting.fields = { "kind", "abbr", "menu" }
+  lvim.builtin.cmp.formatting.format = function(entry, vim_item)
+    if entry.source.name == "cmdline" then
+      vim_item.kind = "⌘"
+      vim_item.menu = ""
+      return vim_item
+    end
+    vim_item.menu = lvim.builtin.cmp.formatting.source_names[entry.source.name] or vim_item.kind
+    vim_item.kind = icons.kind[vim_item.kind] or vim_item.kind
+
+    return vim_item
+  end
+
   lvim.builtin.cmp.sorting = {
     priority_weight = 2,
     comparators = {
@@ -147,40 +162,10 @@ M.config = function()
     },
   }
 
-  -- lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
-  -- lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
-
-  lvim.builtin.cmp.mapping = cmp.mapping.preset.insert {
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-    ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-    ["<Tab>"] = cmp.mapping(M.tab, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "s" }),
-    ["<C-e>"] = cmp.mapping.abort(),
-    -- ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping(function(fallback)
-      if cmp.visible() and cmp.confirm(lvim.builtin.cmp.confirm_opts) then
-        if jumpable() then
-          luasnip.jump(1)
-        end
-        return
-      end
-
-      if jumpable() then
-        if not luasnip.jump(1) then
-          fallback()
-        end
-      else
-        fallback()
-      end
-    end),
-  }
-
-  -- lvim.builtin.cmp.mapping["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" })
-  -- lvim.builtin.cmp.mapping["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" })
-
-  lvim.builtin.cmp.formatting.max_width = 30
+  lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
+  lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
+  lvim.builtin.cmp.mapping["<C-u>"] = cmp.mapping.scroll_docs(-4)
+  lvim.builtin.cmp.mapping["<C-d>"] = cmp.mapping.scroll_docs(4)
 end
 
 return M

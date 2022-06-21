@@ -24,7 +24,6 @@ M.config = function()
     { "dburian/cmp-markdown-link", after = "nvim-cmp", disable = lvim.work },
     { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
     { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp", disable = lvim.work },
-    { "dmitmel/cmp-cmdline-history", after = "nvim-cmp" },
     { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Debugging                         │
