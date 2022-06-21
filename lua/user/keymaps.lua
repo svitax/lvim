@@ -294,11 +294,28 @@ M.config = function()
   lvim.builtin.which_key.mappings["n"] = {
     name = "+Notes",
     -- ["a"] = { "", "agenda" },
-    -- ["f"] = { "", "file browser in notes" },
-    -- ["g"] = { "", "grep in notes" },
+    ["e"] = {
+      "<cmd>lua require('fm-nvim').Lf(vim.fn.fnameescape(vim.fn.expand '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax/evergreen-notes/'))<cr>",
+      "browse evergreen notes",
+    },
+    ["f"] = {
+      "<cmd>lua require('fm-nvim').Lf(vim.fn.fnameescape(vim.fn.expand '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax'))<cr>",
+      "browse fleeting notes",
+    },
+    ["g"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_notes()<cr>", "grep in notes" },
+    ["l"] = {
+      "<cmd>lua require('fm-nvim').Lf(vim.fn.fnameescape(vim.fn.expand '/Users/svitax/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax/literature-notes/'))<cr>",
+      "browse literature notes",
+    },
     -- ["n"] = { "", "new note" },
-    -- ["s"] = { "", "search file in notes" },
-    -- and some other mkdnflow mappings
+    ["j"] = { "<cmd>MkdnNextHeading<cr>", "next heading" },
+    ["k"] = { "<cmd>MkdnPrevHeading<cr>", "previous heading" },
+    ["s"] = { "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "search file in notes" },
+    ["r"] = { "<cmd>MkdnMoveSource<cr>", "rename link's source" },
+    ["t"] = { "<cmd>MkdnToggleToDo<cr>", "toggle todo item" },
+    ["n"] = { "<cmd>MkdnUpdateNumbering<cr>", "update list numbering" },
+    ["y"] = { "<cmd>MkdnYankAnchorLink<cr>", "yank anchor link" },
+    ["Y"] = { "<cmd>MkdnYankFileAnchorLink<cr>", "yank file anchor link" },
   }
 
   -- ╭──────────────────────────────────────────────────────────╮
@@ -373,7 +390,11 @@ function M.set_close_buffers_keymaps()
 end
 
 function M.set_fm_keymaps()
-  lvim.builtin.which_key.mappings["f"] = { "<cmd>Lf %<cr>", "file manager" }
+  lvim.builtin.which_key.mappings["f"] = {
+    -- "<cmd>lua require('fm-nvim').Lf(vim.fn.fnameescape(vim.fn.expand '%:p'))<cr>",
+    "<cmd>Lf %<cr>",
+    "file manager",
+  }
 end
 
 function M.set_lazygit_keymaps()
