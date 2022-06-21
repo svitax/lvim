@@ -323,11 +323,41 @@ function M.find_notes(opts)
 
   local config_files_opts = {
     cwd = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax",
-    prompt_title = "~ obsidian notes ~",
+    prompt_title = "~ search obsidian notes ~",
   }
   opts = vim.tbl_deep_extend("force", opts, config_files_opts)
 
   M.find_files(opts)
+end
+
+function M.grep_notes(opts)
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    -- find_command = { "rg", "--hidden", "--files", "--follow", "--glob=!.git" },
+    -- word_match = "-w",
+    -- sort_only_text = true,
+    only_sort_text = true,
+    disable_coordinates = true,
+    path_display = { "hidden" },
+    -- search = "",
+    cwd = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/svitax",
+    prompt_title = "~ grep obsidian notes ~",
+
+    file_ignore_patterns = {
+      "vendor/*",
+      "node_modules",
+      "%.jpg",
+      "%.jpeg",
+      "%.png",
+      "%.svg",
+      "%.otf",
+      "%.ttf",
+      "git/*",
+    },
+  }
+
+  opts = vim.tbl_deep_extend("force", opts, theme_opts)
+  builtin.live_grep(opts)
 end
 
 function M.grep_config_files(opts)
@@ -336,7 +366,7 @@ function M.grep_config_files(opts)
   local config_files_opts = { cwd = "~/.config/lvim", prompt_title = "~ grep LunarVim config files ~" }
   opts = vim.tbl_deep_extend("force", opts, config_files_opts)
 
-  M.grep_string(opts)
+  builtin.live_grep(opts)
 end
 
 function M.grep_dotfiles(opts)
@@ -345,7 +375,7 @@ function M.grep_dotfiles(opts)
   local config_files_opts = { cwd = "~/.config", prompt_title = "~ grep dotfiles ~" }
   opts = vim.tbl_deep_extend("force", opts, config_files_opts)
 
-  M.find_files(opts)
+  builtin.live_grep(opts)
 end
 
 function M.grep_last_search(opts)
@@ -372,7 +402,7 @@ function M.find_lunarvim_files(opts)
     search_dirs = { require("lvim.utils").join_paths(get_runtime_dir(), "lvim"), lvim.lsp.templates_dir },
   }
   opts = vim.tbl_deep_extend("force", theme_opts, opts)
-  builtin.find_files(opts)
+  M.find_files(opts)
 end
 
 -- TODO: can't scroll down and up delta preview
