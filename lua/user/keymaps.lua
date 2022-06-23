@@ -573,7 +573,7 @@ function M.set_smart_splits_keymaps()
 end
 
 function M.set_winshift_keymaps()
-  lvim.builtin.which_key.mappings["w"]["a"] = { "<cmd>WinShift", "win-move mode" }
+  lvim.builtin.which_key.mappings["w"]["a"] = { "<cmd>WinShift<cr>", "win-move mode" }
   lvim.builtin.which_key.mappings["w"]["j"] = { "<cmd>WinShift down<cr>", "switch window down" }
   lvim.builtin.which_key.mappings["w"]["k"] = { "<cmd>WinShift up<cr>", "switch window up" }
   lvim.builtin.which_key.mappings["w"]["l"] = { "<cmd>WinShift left<cr>", "switch window left" }
@@ -660,4 +660,14 @@ function M.set_vim_test_keymaps()
     ["v"] = { "<cmd>TestVisit<cr>", "visit last test file" },
   }
 end
+
+function M.set_qf_helper_keymaps()
+  lvim.builtin.which_key.mappings["o"] = {
+    name = "+Open",
+    ["q"] = { "<cmd>QFToggle<cr>", "toggle quickfix" },
+    ["l"] = { "<cmd>LLToggle<cr>", "toggle loclist" },
+    -- ["t"] = { "toggle filetree" },
+  }
+end
+
 return M

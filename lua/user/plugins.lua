@@ -100,6 +100,12 @@ M.config = function()
     -- ╰──────────────────────────────────────────────────────────╯
     { "willthbill/opener.nvim", config = require("user.plugins.opener").config },
     -- ╭──────────────────────────────────────────────────────────╮
+    -- │                         Quickfix                         │
+    -- ╰──────────────────────────────────────────────────────────╯
+    { "kevinhwang91/nvim-bqf", requires = { { "junegunn/fzf", run = require("user.plugins.fzf").run } } },
+    { "https://gitlab.com/yorickpeterse/nvim-pqf.git", config = require("user.plugins.pqf").config },
+    { "stevearc/qf_helper.nvim", config = require("user.plugins.qf_helper").config },
+    -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Sessions                         │
     -- ╰──────────────────────────────────────────────────────────╯
     { "rmagatti/auto-session", config = require("user.plugins.auto_session").config },
@@ -131,9 +137,11 @@ M.config = function()
       },
     },
     { "vim-test/vim-test", config = require("user.plugins.vim-test").config },
+    -- ╭──────────────────────────────────────────────────────────╮
     -- │                            UI                            │
     -- ╰──────────────────────────────────────────────────────────╯
     { "stevearc/dressing.nvim", config = require("user.plugins.dressing").config },
+    -- { "anuvyklack/hydra.nvim", requires = "anuvyklack/keymap-layer.nvim", config = require("user.plugins.hydra").config },
     { "mrjones2014/legendary.nvim", config = require("user.plugins.legendary").config },
     { "chentoast/marks.nvim", config = require("user.plugins.marks").config },
     {
@@ -155,7 +163,7 @@ M.config = function()
     },
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config },
-    { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config },
+    { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config, branch = "0.8" },
     {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
