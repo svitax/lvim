@@ -115,6 +115,21 @@ M.config = function()
     { "fladson/vim-kitty", event = "BufRead" },
     -- { "romgrk/nvim-treesitter-context" },
     -- ╭──────────────────────────────────────────────────────────╮
+    -- │                          Tasks                           │
+    -- ╰──────────────────────────────────────────────────────────╯
+    {
+      "skywind3000/asynctasks.vim",
+      requires = { "skywind3000/asyncrun.vim", "preservim/vimux" },
+      config = require("user.plugins.asynctasks").config,
+    },
+    {
+      "GustavoKatel/telescope-asynctasks.nvim",
+      requires = {
+        "nvim-lua/popup.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+      },
+    },
     -- │                            UI                            │
     -- ╰──────────────────────────────────────────────────────────╯
     { "stevearc/dressing.nvim", config = require("user.plugins.dressing").config },
