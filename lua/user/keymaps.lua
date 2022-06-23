@@ -145,7 +145,6 @@ M.config = function()
   lvim.builtin.which_key.mappings["o"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["q"] = { "<cmd>lua require('user.usercmd').smart_quit()<cr>", "quit" }
   lvim.builtin.which_key.mappings["r"] = "which_key_ignore"
-  lvim.builtin.which_key.mappings["t"] = { "<cmd>NvimTreeToggle<cr>", "file tree" }
   lvim.builtin.which_key.mappings["u"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["v"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["x"] = "which_key_ignore"
@@ -635,6 +634,19 @@ function M.set_spectre_keymaps()
     ["f"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "replace in file" },
     ["r"] = { "<cmd>lua require('spectre').open()<cr>", "replace in workspace" },
     ["w"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "replace word" },
+  }
+end
+
+function M.set_asynctasks_keymaps()
+  lvim.builtin.which_key.mappings["a"] = {
+    name = "+Tasks",
+    ["a"] = { ":AsyncTask<space>", "async task", silent = false },
+    ["e"] = { "<cmd>AsyncTaskEdit<cr>", "edit task file" },
+    ["l"] = { "<cmd>AsyncTaskLast<cr>", "run last task" },
+    ["L"] = { "<cmd>AsyncTaskList", "show tasks" },
+    ["m"] = { "<cmd>AsyncTaskMacro<cr>", "display task macros" },
+    ["p"] = { ":AsyncTaskProfile<space>", "change task profile", silent = false },
+    ["r"] = { "<cmd>Telescope asynctasks all<cr>", "run task" },
   }
 end
 
