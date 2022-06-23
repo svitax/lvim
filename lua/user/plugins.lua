@@ -130,6 +130,7 @@ M.config = function()
         "nvim-telescope/telescope.nvim",
       },
     },
+    { "vim-test/vim-test", config = require("user.plugins.vim-test").config },
     -- │                            UI                            │
     -- ╰──────────────────────────────────────────────────────────╯
     { "stevearc/dressing.nvim", config = require("user.plugins.dressing").config },

@@ -638,4 +638,14 @@ function M.set_spectre_keymaps()
   }
 end
 
+function M.set_vim_test_keymaps()
+  lvim.builtin.which_key.mappings["t"] = {
+    name = "+Test",
+    ["f"] = { "<cmd>TestFile<cr>", "run tests in file" },
+    ["l"] = { "<cmd>TestLast<cr>", "run last test" },
+    ["n"] = { "<cmd>TestNearest<cr>", "run nearest test" },
+    ["s"] = { "<cmd>TestSuite<cr>", "run test suite" },
+    ["v"] = { "<cmd>TestVisit<cr>", "visit last test file" },
+  }
+end
 return M
