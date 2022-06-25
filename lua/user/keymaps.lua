@@ -646,7 +646,7 @@ function M.set_asynctasks_keymaps()
     ["L"] = { "<cmd>AsyncTaskList", "show tasks" },
     ["m"] = { "<cmd>AsyncTaskMacro<cr>", "display task macros" },
     ["p"] = { ":AsyncTaskProfile<space>", "change task profile", silent = false },
-    ["r"] = { "<cmd>Telescope asynctasks all<cr>", "run task" },
+    ["r"] = { "<cmd>Telescope asynctasks all theme=ivy<cr>", "run task" },
   }
 end
 
