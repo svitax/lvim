@@ -20,12 +20,12 @@ M.config = function()
     -- │                        Completion                        │
     -- ╰──────────────────────────────────────────────────────────╯
     { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-    { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", after = "nvim-cmp", disable = lvim.work },
+    -- { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", after = "nvim-cmp", disable = lvim.work },
     { "custompro98/cmp-kitty", after = "nvim-cmp", disable = lvim.work },
-    { "dburian/cmp-markdown-link", after = "nvim-cmp", disable = lvim.work },
+    -- { "dburian/cmp-markdown-link", after = "nvim-cmp", disable = lvim.work },
     { "KadoBOT/cmp-plugins", after = "nvim-cmp", config = require("user.plugins.cmp_plugins").config },
     { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
-    { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp", disable = lvim.work },
+    -- { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp", disable = lvim.work },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Debugging                         │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -50,19 +50,20 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           Git                            │
     -- ╰──────────────────────────────────────────────────────────╯
+    -- {
     -- TODO: set_gh_keymaps()
-    {
-      "ldelossa/gh.nvim",
-      requires = { { "ldelossa/litee.nvim" } },
-      config = require("user.plugins.gh").config,
-      disable = lvim.work,
-    },
+    --   "ldelossa/gh.nvim",
+    --   requires = { { "ldelossa/litee.nvim" } },
+    --   config = require("user.plugins.gh").config,
+    --   disable = lvim.work,
+    -- },
     { "kdheepak/lazygit.nvim", config = require("user.plugins.lazygit").config },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           LSP                            │
     -- ╰──────────────────────────────────────────────────────────╯
     { "j-hui/fidget.nvim", config = require("user.plugins.fidget").config },
     { "ray-x/lsp_signature.nvim", config = require("user.plugins.lsp_signature").config },
+    -- TODO: replace code-action-menu and lightbulb with lspsaga?
     { "weilbith/nvim-code-action-menu", config = require("user.plugins.code_action_menu").config },
     { "kosayoda/nvim-lightbulb", config = require("user.plugins.lightbulb").config },
     { "folke/trouble.nvim", config = require("user.plugins.trouble").config },
@@ -188,14 +189,14 @@ M.config = function()
     -- │                     Optional plugins                     │
     -- ╰──────────────────────────────────────────────────────────╯
     { "wakatime/vim-wakatime", disable = lvim.work },
-    {
-      "xeluxee/competitest.nvim",
-      requires = "MunifTanjim/nui.nvim",
-      config = function()
-        require("competitest").setup {}
-      end,
-      disable = lvim.work,
-    },
+    -- {
+    --   "xeluxee/competitest.nvim",
+    --   requires = "MunifTanjim/nui.nvim",
+    --   config = function()
+    --     require("competitest").setup {}
+    --   end,
+    --   disable = lvim.work,
+    -- },
   }
 end
 
