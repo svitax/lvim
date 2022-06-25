@@ -40,7 +40,7 @@ M.config = function()
     { command = "vint", filetypes = { "vim" } },
     { command = "cppcheck", filetypes = { "cpp", "c" } },
     -- { command = "golangci_lint", filetypes = { "go" } },
-    { command = "markdownlint", filetypes = { "markdown" } },
+    { command = "markdownlint", filetypes = { "markdown" }, extra_args = { "--disable", "MD013", "MD010" } },
     {
       -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
       command = "shellcheck",
