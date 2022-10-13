@@ -22,6 +22,25 @@ if has('conceal')
   let s:concealends = ' concealends'
 endif
 
+" syn region mkdMath start="\\\@<!\$" end="\$" concealends
+" syn region mkdMath start="\\\@<!\$\$" end="\$\$" concealends
+
+syn include @LATEX syntax/tex.vim
+syn region mkdMath start=/\v\\@<!\$\S@=/ end=/\v\\@<!\$\d@!/ keepend contains=@LATEX
+syn region mkdMath start=/\\\@<!\\(/ end=/\\\@<!\\)/ keepend contains=@LATEX
+syn match pandocEscapedDollar /\\\$/ conceal cchar=$
+syn match pandocProtectedFromInlineLaTeX /\\\@<!\${.*}\(\(\s\|[[:punct:]]\)\([^$]*\|.*\(\\\$.*\)\{2}\)\n\n\|$\)\@=/ display
+
+syn region mkdMath start=/\$\$/ end=/\$\$/ keepend contains=@LATEX
+syn region mkdMath start=/\\\@<!\\\[/ end=/\\\@<!\\\]/ keepend contains=@LATEX
+
+syn match pandocLaTeXCommand /\\[[:alpha:]]\+\(\({.\{-}}\)\=\(\[.\{-}\]\)\=\)*/ contains=@LATEX
+syn region pandocLaTeXRegion start=/\\begin{\z(.\{-}\)}/ end=/\\end{\z1}/ keepend contains=@LATEX
+" we rehighlight sectioning commands, because otherwise tex.vim captures all text until EOF or a new sectioning command
+syn region pandocLaTexSection start=/\\\(part\|chapter\|\(sub\)\{,2}section\|\(sub\)\=paragraph\)\*\=\(\[.*\]\)\={/ end=/\}/ keepend
+syn match pandocLaTexSectionCmd /\\\(part\|chapter\|\(sub\)\{,2}section\|\(sub\)\=paragraph\)/ contained containedin=pandocLaTexSection
+syn match pandocLaTeXDelimiter /[[\]{}]/ contained containedin=pandocLaTexSection
+
 " additions to HTML groups
 let s:oneline = ''
 syn region mkdItalic matchgroup=mkdItalic start="\%(\*\|_\)"    end="\%(\*\|_\)"
@@ -128,7 +147,7 @@ syn match mdCheckbox "- \[ \]" contained containedin=mdTask conceal cchar=☐
 syn match mdCompleteTask "^ *- \[x\].*$" contains=mdCompleteMark
 syn match mdCompleteTask "\(^ *[\*-] \)\@!.*@done.*$"
 syn match mdCompleteMark "- \[x\]" contained containedin=mdCompleteTask conceal cchar=
- 
+
 syn match mdCancelledTask "^ *- X.*$" contains=mdCancelMark
 syn match mdCancelMark "- X" contained containedin=mdCancelledTask conceal cchar=✗
 

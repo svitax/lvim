@@ -33,6 +33,47 @@ M.config = function()
   end
 
   ls.add_snippets(nil, {
+    markdown = {
+      snip({
+        trig = "beg",
+        namr = "Begin Env",
+      }, {
+        text "\\begin{",
+        insert(1),
+        text { "}", "" },
+        text { "\t" },
+        insert(2),
+        text { "", "" },
+        text { "\\end{" },
+        rep(1),
+        text { "}" },
+      }),
+      snip(
+        { trig = "ali", name = "align" },
+        { text { "\\begin{align*}", "", "\t" }, insert(1), text { "" }, text "\\end{align*}" }
+      ),
+      snip({ trig = "hat", namr = "hat", descr = "hat" }, { text { "\\hat{" }, insert(1), text { "}" } }),
+      snip({ trig = "ldo", namr = "ldots" }, { text "\\ldots" }),
+      snip({ trig = "=>", namr = "implies" }, { text { "\\implies" } }),
+      snip({ trig = "=<", namr = "implied by" }, { text { "\\impliedby" } }),
+      snip({ trig = "iff", namr = "iff" }, { text "\\iff" }),
+      snip({ trig = "frac", namr = "fraction" }, { text "\\frac{", insert(1), text "}{", insert(2), text "}" }),
+      snip({ trig = "==", namr = "equals" }, { text "&= ", insert(1), text " \\\\" }),
+      snip({ trig = "!=", namr = "not equal" }, { text "\\neq" }),
+      snip({ trig = "ceil", namr = "ceil" }, { text "\\left\\ceil ", insert(1), text " \\right\\rceil", insert(2) }),
+      snip({ trig = "floor", namr = "floor" }, { text "\\left\\floor ", insert(1), text " \\right\\rfloor", insert(2) }),
+      snip(
+        { trig = "pmat", namr = "p matrix" },
+        { text "\\begin{pmatrix} ", insert(1), text " \\end{pmatrix}", insert(2) }
+      ),
+      snip(
+        { trig = "bmat", namr = "b matrix" },
+        { text "\\begin{bmatrix} ", insert(1), text " \\end{bmatrix}", insert(2) }
+      ),
+      snip({ trig = "bar", namr = "bar" }, { text "\\overline{", insert(1), text "}", insert(2) }),
+      snip({ trig = "ep", namr = "epsilon" }, { text "\\epsilon", insert(1) }),
+      -- snip({}, {}),
+    },
     all = {
       -- ls.parser.parse_snippet("ier", "if err != nil { $0 }"),
       -- s("req", fmt("local {} = require('{}')", { insert(1, "default"), rep(1) })),

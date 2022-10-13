@@ -14,7 +14,8 @@ M.config = function()
       "  Configuration",
       "<CMD>edit " .. require("lvim.config"):get_user_config_path() .. " <CR>",
     },
-    { "q", "  Quit", "<cmd>lua require('user.usercmd').smart_quit()<CR>" },
+    -- { "q", "  Quit", "<cmd>lua require('user.usercmd').smart_quit()<CR>" },
+    { "q", "  Quit", "<cmd>qa!<CR>" },
   }
 end
 

@@ -1,16 +1,29 @@
 local M = {}
 
 M.config = function()
+  require("lvim.lsp.manager").setup "marksman"
+  -- require("lvim.lsp.manager").setup "sqls"
   lvim.lsp.diagnostics.virtual_text = false
   lvim.lsp.document_highlight = true
 
-  -- local capabilities = require("lvim.lsp").common_capabilities()
-  -- capabilities.offsetEncoding = { "utf-16" }
-  -- require("lspconfig").clangd.setup { capabilities = capabilities }
+  local capabilities = require("lvim.lsp").common_capabilities()
+  capabilities.offsetEncoding = { "utf-16" }
+  -- capabilities.fallbackFlags = { "-std=c++11" }
+  local init_option = { fallbackFlags = { "-std=c++17" } }
+  require("lspconfig").clangd.setup { capabilities = capabilities, init_option = init_option }
 
   -- set a formatter, this will override the language server formatting capabilities (if it exists)
   local formatters = require "lvim.lsp.null-ls.formatters"
   formatters.setup {
+    -- {
+    --   -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+    --   command = "prettierd",
+    --   ---@usage arguments to pass to the formatter
+    --   -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+    --   extra_args = { "--print-with", "100" },
+    --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+    --   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc", "markdown" },
+    -- },
     { command = "gofumpt", filetypes = { "go" } },
     { command = "golines", filetypes = { "go" } },
     { command = "stylua", filetypes = { "lua" } },
@@ -20,27 +33,29 @@ M.config = function()
     { command = "shellharden", filetypes = { "sh" } },
     -- { command = "clang_format", filetypes = { "cpp", "c" } },
     { command = "uncrustify", filetypes = { "cpp", "c" } },
+    { command = "sqlfluff", filetypes = { "sql" }, extra_args = { "--dialect", "postgres" } },
+    { command = "rustywind", filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" } },
     {
-      -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-      command = "prettier",
-      ---@usage arguments to pass to the formatter
-      -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+      command = "prettierd",
       extra_args = { "--print-with", "100" },
-      ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-      filetypes = { "typescript", "typescriptreact", "markdown" },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc", "markdown", "css" },
     },
+    { command = "eslint_d", filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
   }
 
   -- set additional linters
   local linters = require "lvim.lsp.null-ls.linters"
   linters.setup {
+    { command = "eslint_d", filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
     -- { command = "flake8", filetypes = { "python" } },
     -- { command = "mypy", filetypes = { "python" }, extra_args = { "--strict" } },
     { command = "pylint", filetypes = { "python" } },
     { command = "vint", filetypes = { "vim" } },
     { command = "cppcheck", filetypes = { "cpp", "c" } },
+    -- { command = "gccdiag", filetypes = { "cpp", "c" } },
     -- { command = "golangci_lint", filetypes = { "go" } },
     { command = "markdownlint", filetypes = { "markdown" }, extra_args = { "--disable", "MD013", "MD010" } },
+    { command = "sqlfluff", filetypes = { "sql" }, extra_args = { "--dialect", "postgres" } },
     {
       -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
       command = "shellcheck",
@@ -114,7 +129,7 @@ M.config = function()
     end
     add_lsp_buffer_keybindings(bufnr)
 
-    if client["name"] ~= "null-ls" then
+    if client["name"] ~= "null-ls" and client["name"] ~= "sqls" then
       local navic = require "nvim-navic"
       navic.attach(client, bufnr)
     end

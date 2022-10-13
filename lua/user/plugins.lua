@@ -3,6 +3,14 @@ local M = {}
 M.config = function()
   -- Additional Plugins
   lvim.plugins = {
+    { "tpope/vim-dadbod" },
+    {
+      "kristijanhusak/vim-dadbod-ui",
+      config = function()
+        require("user.keymaps").set_dbui_keymaps()
+      end,
+    },
+    { "kristijanhusak/vim-dadbod-completion" },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Buffers                          │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -37,7 +45,7 @@ M.config = function()
     -- { "gbprod/cutlass.nvim" },
     { "smjonas/inc-rename.nvim", config = require("user.plugins.inc_rename").config },
     { "danymat/neogen", config = require("user.plugins.neogen").config },
-    { "windwp/nvim-spectre", requires = "nvim-lua/plenary.nvim", config = require("user.plugins.spectre").config },
+    -- { "windwp/nvim-spectre", requires = "nvim-lua/plenary.nvim", config = require("user.plugins.spectre").config },
     { "RRethy/nvim-treesitter-endwise" },
     { "johmsalas/text-case.nvim", config = require("user.plugins.textcase").config },
     { "gbprod/yanky.nvim", config = require("user.plugins.yanky").config },
@@ -95,11 +103,12 @@ M.config = function()
       disable = lvim.work,
     },
     { "jakewvincent/mkdnflow.nvim", config = require("user.plugins.mkdnflow").config },
-    { "plasticboy/vim-markdown", config = require("user.plugins.vim-markdown").config },
+    { "preservim/vim-markdown", config = require("user.plugins.vim-markdown").config },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Projects                         │
     -- ╰──────────────────────────────────────────────────────────╯
     { "willthbill/opener.nvim", config = require("user.plugins.opener").config },
+    -- { "charludo/projectmgr.nvim", config = require("user.plugins.projectmgr").config },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Quickfix                         │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -119,7 +128,10 @@ M.config = function()
     -- │                          Syntax                          │
     -- ╰──────────────────────────────────────────────────────────╯
     { "VebbNix/lf-vim", event = "BufRead" },
-    { "fladson/vim-kitty", event = "BufRead" },
+    { "nvim-treesitter/playground" },
+    { "jbyuki/nabla.nvim" },
+    -- { "lervag/vimtex" },
+    -- { "fladson/vim-kitty", event = "BufRead" },
     -- { "romgrk/nvim-treesitter-context" },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Tasks                           │
@@ -168,9 +180,9 @@ M.config = function()
     {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("todo-comments").setup {}
-      end,
+      -- config = function()
+      --   require("todo-comments").setup()
+      -- end,
     },
     -- {
     --   "gelguy/wilder.nvim",
@@ -179,6 +191,25 @@ M.config = function()
     --   disable = lvim.work,
     -- },
     -- { "vimpostor/vim-tpipeline", config = require("user.plugins.tpipeline").config },
+    -- ╭──────────────────────────────────────────────────────────╮
+    -- │                         Web Dev                          │
+    -- ╰──────────────────────────────────────────────────────────╯
+    {
+      "vuki656/package-info.nvim",
+      requires = "MunifTanjim/nui.nvim",
+      config = function()
+        require("package-info").setup()
+      end,
+    },
+    {
+      "David-Kunz/cmp-npm",
+      requires = { "nvim-lua/plenary.nvim" },
+      -- { name = 'npm', keyword_length = 4 }
+    },
+    {
+      "kalvinpearce/gitignore-gen.nvim",
+      requires = { { "nvim-lua/plenary.nvim" } },
+    },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Windows                          │
     -- ╰──────────────────────────────────────────────────────────╯

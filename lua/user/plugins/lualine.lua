@@ -125,6 +125,7 @@ M.config = function()
       end
       local buf_ft = vim.bo.filetype
       local buf_client_names = {}
+      local trim = vim.fn.winwidth(0) < 100
 
       -- add client
       for _, client in pairs(buf_clients) do
@@ -135,15 +136,39 @@ M.config = function()
 
       -- add formatter
       local formatters = require "lvim.lsp.null-ls.formatters"
-      local supported_formatters = formatters.list_registered(buf_ft)
+      local supported_formatters = {}
+      for _, fmt in pairs(formatters.list_registered(buf_ft)) do
+        local _added_formatter = fmt
+        if trim then
+          _added_formatter = string.sub(fmt, 1, 4)
+        end
+        table.insert(supported_formatters, _added_formatter)
+      end
       vim.list_extend(buf_client_names, supported_formatters)
 
       -- add linter
       local linters = require "lvim.lsp.null-ls.linters"
-      local supported_linters = linters.list_registered(buf_ft)
+      local supported_linters = {}
+      for _, lnt in pairs(linters.list_registered(buf_ft)) do
+        local _added_linter = lnt
+        if trim then
+          _added_linter = string.sub(lnt, 1, 4)
+        end
+        table.insert(supported_linters, _added_linter)
+      end
       vim.list_extend(buf_client_names, supported_linters)
 
-      return "[" .. table.concat(buf_client_names, ", ") .. "]"
+      -- remove any duplicate client names before returning them
+      local hash = {}
+      local unique_buf_client_names = {}
+      for _, v in ipairs(buf_client_names) do
+        if not hash[v] then
+          unique_buf_client_names[#unique_buf_client_names + 1] = v
+          hash[v] = true
+        end
+      end
+
+      return "[" .. table.concat(unique_buf_client_names, ", ") .. "]"
     end,
     color = { gui = "bold" },
     cond = hide_in_width,

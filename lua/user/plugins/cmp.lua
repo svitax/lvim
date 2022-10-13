@@ -58,6 +58,12 @@ M.config = function()
     return
   end
 
+  cmp.setup.filetype("markdown", {
+    mapping = cmp.mapping.preset.insert {
+      ["<CR>"] = cmp.mapping.confirm { select = true },
+    },
+  })
+
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources {
       { name = "git" },
@@ -113,6 +119,7 @@ M.config = function()
     { name = "crates" },
     { name = "tmux" },
     { name = "plugins" },
+    { name = "vim-dadbod-completion" },
   }
 
   lvim.builtin.cmp.formatting.source_names = {
@@ -131,8 +138,8 @@ M.config = function()
     rg = "(Ripgrep)",
     kitty = "(Kitty)",
     git = "(Git)",
-    ["markdown-link"] = "(Markdown)",
     plugins = "(Plugins)",
+    ["vim-dadbod-completion"] = "(DB)",
   }
 
   local icons = require "user.icons"

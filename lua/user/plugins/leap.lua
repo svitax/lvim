@@ -6,6 +6,7 @@ M.config = function()
     return
   end
   leap.setup {
+    highlight_unlabeled = true,
     case_insensitive = true,
     -- Leaving the appropriate list empty effectively disables "smart" mode,
     -- and forces auto-jump to be on or off.

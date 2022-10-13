@@ -4,7 +4,7 @@ require("user.neovim").config()
 -- LunarVim configuration
 -- =========================================
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "fennec-gruvbox"
 lvim.leader = "space"
 lvim.work = false
@@ -12,6 +12,7 @@ lvim.work = false
 -- LunarVim Builtins
 -- =========================================
 require("user.plugins.alpha").config()
+require("user.plugins.autopairs").config()
 require("user.plugins.cmp").config()
 require("user.plugins.dap").config()
 require("user.plugins.bufferline").config()

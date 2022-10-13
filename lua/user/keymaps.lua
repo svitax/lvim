@@ -151,6 +151,9 @@ M.config = function()
   lvim.builtin.which_key.mappings["y"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["z"] = "which_key_ignore"
   lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<cr>", "dashboard" }
+  -- lvim.builtin.which_key.mappings["S"] = "which_key_ignore"
+  -- lvim.builtin.which_key.mappings["E"] = "which_key_ignore"
+  -- lvim.builtin.which_key.mappings["W"] = "which_key_ignore"
 
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                         +Buffers                         │
@@ -266,23 +269,30 @@ M.config = function()
     -- ["A"] = { vim.lsp.codelens.run, "codelens action" },
     -- ["b"] = { "", "" },
     -- ["c"] = { "", "compile" },
+    ["d"] = { "<cmd>lua require('lvim.lsp.peek').Peek('definition')<cr>", "peek definition" },
     -- ["e"] = { "", "evaluate" },
     ["f"] = { require("lvim.lsp.utils").format, "format" },
     -- ["h"] = { "", "" },
-    ["i"] = { "<cmd>LspInfo", "lsp info" },
-    ["I"] = { "<cmd>LspInstallInfo", "lsp install info" },
+    ["i"] = { "<cmd>LspInfo<cr>", "lsp info" },
+    ["I"] = { "<cmd>LspInstallInfo<cr>", "lsp install info" },
     ["j"] = { vim.diagnostic.goto_next, "next diagnostic" },
     ["k"] = { vim.diagnostic.goto_prev, "prev diagnostic" },
-    -- ["o"] = { "", "organize imports" },
-    ["p"] = {
-      name = "+peek",
-      d = { "<cmd>lua require('lvim.lsp.peek').Peek('definition')<cr>", "peek definition" },
-      t = { "<cmd>lua require('lvim.lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
-      i = { "<cmd>lua require('lvim.lsp.peek').Peek('implementation')<cr>", "peek implementation" },
+    ["K"] = { vim.lsp.buf.hover, "show hover" },
+    ["l"] = {
+      function()
+        local config = lvim.lsp.diagnostics.float
+        config.scope = "line"
+        vim.diagnostic.open_float(0, config)
+      end,
+      "line diagnostics",
     },
+    -- ["o"] = { "", "organize imports" },
+    ["p"] = { "<cmd>lua require('lvim.lsp.peek').Peek('implementation')<cr>", "peek implementation" },
     -- ["r"] = { "<cmd>LspRename<cr>", "rename" },
     -- ["s"] = { "", "symbols" },
+    ["s"] = { vim.lsp.buf.signature_help, "signature help" },
     ["t"] = { "<cmd>TodoTrouble<cr>", "todos" },
+    ["T"] = { "<cmd>lua require('lvim.lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
     -- ["w"] = { "", "del trailing whitespace" },
     -- ["W"] = { "", "del trailing newlines" },
     -- ["y"] = { "", "call hierarchy" },
@@ -336,6 +346,7 @@ M.config = function()
     ["l"] = { "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_files()<cr>", "lunarvim files" },
     ["n"] = { "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes" },
     -- ["o"] = { "", "look up online" },
+    -- ["p"] = { "<cmd>ProjectMgr<cr>", "project manager" },
     ["p"] = { "<cmd>lua require('user.telescope.projects').find_projects()<cr>", "projects" },
     ["r"] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "recent files" },
     -- ["t"] = { "", "dictionary" },
@@ -360,9 +371,9 @@ function M.set_legendary_keymaps()
 end
 
 function M.set_trouble_keymaps()
-  lvim.builtin.which_key.mappings["l"]["d"] = { "<cmd>Trouble lsp_definitions<cr>", "definitions" }
-  lvim.builtin.which_key.mappings["l"]["D"] = { "<cmd>Trouble lsp_references<cr>", "references" }
-  lvim.builtin.which_key.mappings["l"]["l"] = { "<cmd>Trouble loclist<cr>", "loclist" }
+  lvim.builtin.which_key.mappings["l"]["D"] = { "<cmd>Trouble lsp_definitions<cr>", "definitions" }
+  lvim.builtin.which_key.mappings["l"]["e"] = { "<cmd>Trouble lsp_references<cr>", "references" }
+  lvim.builtin.which_key.mappings["l"]["L"] = { "<cmd>Trouble loclist<cr>", "loclist" }
   lvim.builtin.which_key.mappings["l"]["q"] = { "<cmd>Trouble quicklist<cr>", "quicklist" }
   lvim.builtin.which_key.mappings["l"]["x"] = { "<cmd>Trouble document_diagnostics<cr>", "buffer diagnostics" }
   lvim.builtin.which_key.mappings["l"]["X"] = { "<cmd>Trouble workspace_diagnostics<cr>", "workspace diagnostics" }
@@ -668,6 +679,18 @@ function M.set_qf_helper_keymaps()
     ["l"] = { "<cmd>LLToggle<cr>", "toggle loclist" },
     -- ["t"] = { "toggle filetree" },
   }
+end
+
+function M.set_dbui_keymaps()
+  lvim.builtin.which_key.mappings["e"] = { name = "+Databases" }
+  lvim.builtin.which_key.mappings["e"]["a"] = { ":DBUIAddConnection<space>", "add database connection", silent = false }
+  lvim.builtin.which_key.mappings["e"]["e"] = { "<Plug>(DBUI_EditBindParameters)", "dbui edit bind parameters" }
+  lvim.builtin.which_key.mappings["e"]["f"] = { "<cmd>DBUIFindBuffer<cr>", "find/assign buffer database" }
+  lvim.builtin.which_key.mappings["e"]["l"] = { ":DBUILastQueryInfo<cr>", "last query info" }
+  lvim.builtin.which_key.mappings["e"]["r"] = { "<cmd>DBUIRenameBuffer<cr>", "rename buffer database" }
+  lvim.builtin.which_key.mappings["e"]["R"] = { "<Plug>(DBUI_ToggleResultLayout)", "dbui expanded results view" }
+  lvim.builtin.which_key.mappings["e"]["s"] = { "<Plug>(DBUI_ExecuteQuery)", "dbui execute query" }
+  lvim.builtin.which_key.mappings["e"]["t"] = { "<cmd>DBUIToggle<cr>", "toggle dbui" }
 end
 
 return M
