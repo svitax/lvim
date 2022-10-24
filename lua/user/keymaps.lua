@@ -171,29 +171,29 @@ M.config = function()
   -- │                         +Comment                         │
   -- ╰──────────────────────────────────────────────────────────╯
   lvim.builtin.which_key.mappings["/"] = {
-    "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>",
+    "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>",
     "comment line",
   }
   lvim.builtin.which_key.mappings["c"] = {
     name = "+Comment",
-    ["a"] = { "<cmd>lua require('Comment.api').insert_linewise_eol()<cr>", "comment end of line" },
-    ["b"] = { "<cmd>lua require('Comment.api').toggle_current_blockwise()<cr>", "comment block" },
+    ["a"] = { "<cmd>lua require('Comment.api').insert.linewise.eol()<cr>", "comment end of line" },
+    ["b"] = { "<cmd>lua require('Comment.api').toggle.blockwise.current()<cr>", "comment block" },
     ["c"] = {
-      "<cmd>lua require('Comment.api').toggle_current_linewise()<cr>",
+      "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>",
       "comment line",
     },
-    ["o"] = { "<cmd>lua require('Comment.api').insert_linewise_below()<cr>", "comment below" },
-    ["O"] = { "<cmd>lua require('Comment.api').insert_linewise_above()<cr>", "comment above" },
+    ["o"] = { "<cmd>lua require('Comment.api').insert.linewise.below()<cr>", "comment below" },
+    ["O"] = { "<cmd>lua require('Comment.api').insert.linewise.above()<cr>", "comment above" },
   }
 
   lvim.builtin.which_key.vmappings["/"] = {
-    "<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>",
+    "<ESC><CMD>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
     "comment line",
   }
   lvim.builtin.which_key.vmappings["c"] = {
     name = "+Comment",
-    ["c"] = { "<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "comment line" },
-    ["b"] = { "<ESC><CMD>lua require('Comment.api').toggle_blockwise_op(vim.fn.visualmode())<cr>", "comment block" },
+    ["c"] = { "<ESC><CMD>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "comment line" },
+    ["b"] = { "<ESC><CMD>lua require('Comment.api').toggle.blockwise(vim.fn.visualmode())<cr>", "comment block" },
   }
 
   -- ╭──────────────────────────────────────────────────────────╮

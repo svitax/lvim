@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = function()
-  vim.opt.cmdheight = 2
+  vim.opt.cmdheight = 1
   -- vim.opt.laststatus = 0
   -- vim.g.tpipeline_autoembed = 0
 
@@ -13,6 +13,8 @@ M.config = function()
   vim.g.neovide_cursor_trail_length = 0.2
   vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
   vim.wo.foldlevel = 99
+  vim.opt.title = false
+  vim.cmd "set clipboard+=unnamedplus"
   -- vim.opt.list = true
   -- vim.opt.listchars:append "eol:"
 end

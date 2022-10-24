@@ -12,7 +12,7 @@ M.smart_quit = function()
       end
     end)
   else
-    vim.cmd "SaveSession<cr>"
+    -- vim.cmd "SaveSession<cr>"
     vim.cmd "qa!"
   end
 end

@@ -118,12 +118,12 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Sessions                         │
     -- ╰──────────────────────────────────────────────────────────╯
-    { "rmagatti/auto-session", config = require("user.plugins.auto_session").config },
-    {
-      "rmagatti/session-lens",
-      requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-      config = require("user.plugins.session_lens").config,
-    },
+    -- { "rmagatti/auto-session", config = require("user.plugins.auto_session").config },
+    -- {
+    --   "rmagatti/session-lens",
+    --   requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
+    --   config = require("user.plugins.session_lens").config,
+    -- },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Syntax                          │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -165,15 +165,29 @@ M.config = function()
         require("user.plugins.indentscope").config()
       end,
     },
-    -- { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter", config = require("nvim-gps").setup {} },
     {
-      "SmiteshP/nvim-navic",
-      after = "nvim-lspconfig",
-      -- requires = "neovim/nvim-lspconfig",
+      "utilyre/barbecue.nvim",
+      requires = {
+        "neovim/nvim-lspconfig",
+        "smiteshp/nvim-navic",
+        "kyazdani42/nvim-web-devicons", -- optional
+      },
       config = function()
-        require("nvim-navic").setup {}
+        require("barbecue").setup()
       end,
     },
+    -- { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter", config = require("nvim-gps").setup {} },
+    -- {
+    --   "SmiteshP/nvim-navic",
+    --   after = "nvim-lspconfig",
+    --   -- requires = "neovim/nvim-lspconfig",
+    --   config = function()
+    --     require("nvim-navic").setup {
+    --       highlight = true,
+    --       depth_limit = 6,
+    --     }
+    --   end,
+    -- },
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config },
     { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config, branch = "0.8" },
@@ -219,7 +233,7 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                     Optional plugins                     │
     -- ╰──────────────────────────────────────────────────────────╯
-    { "wakatime/vim-wakatime", disable = lvim.work },
+    -- { "wakatime/vim-wakatime", disable = lvim.work },
     -- {
     --   "xeluxee/competitest.nvim",
     --   requires = "MunifTanjim/nui.nvim",
