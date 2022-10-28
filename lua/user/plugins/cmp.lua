@@ -100,11 +100,11 @@ M.config = function()
       },
     })
   end
-  -- end
 
   lvim.builtin.cmp.sources = {
     { name = "kitty", priority = 100 },
     { name = "nvim_lsp", priority = 100 },
+    { name = "cmdline" },
     { name = "path" },
     { name = "luasnip", priority = 90 },
     { name = "nvim_lua", priority = 80 },

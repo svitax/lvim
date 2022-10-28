@@ -129,10 +129,10 @@ M.config = function()
     end
     add_lsp_buffer_keybindings(bufnr)
 
-    if client["name"] ~= "null-ls" and client["name"] ~= "sqls" then
-      local navic = require "nvim-navic"
-      navic.attach(client, bufnr)
-    end
+    -- if client["name"] ~= "null-ls" and client["name"] ~= "sqls" then
+    --   local navic = require "nvim-navic"
+    --   navic.attach(client, bufnr)
+    -- end
 
     -- local function buf_set_option(...)
     --   vim.api.nvim_buf_set_option(bufnr, ...)

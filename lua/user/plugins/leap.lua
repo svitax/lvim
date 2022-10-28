@@ -7,17 +7,18 @@ M.config = function()
   end
   leap.setup {
     highlight_unlabeled = true,
-    case_insensitive = true,
+    case_sensitive = false,
     -- Leaving the appropriate list empty effectively disables "smart" mode,
     -- and forces auto-jump to be on or off.
-    safe_labels = { "s", "f", "g", "h", "t", "u", "n", "/", "F", "L", "N", "H", "G", "M", "U", "T", "?", "Z" },
+    -- safe_labels = { "s", "f", "g", "h", "t", "u", "n", "/", "F", "L", "N", "H", "G", "M", "U", "T", "?", "Z" },
     special_keys = {
-      repeat_search = "<enter>",
-      next_match = "<enter>",
-      prev_match = "<tab>",
-      next_group = "<space>",
-      prev_group = "<tab>",
-      eol = "<space>",
+      next_target = { "<enter>" },
+      --   repeat_search = "<enter>",
+      --   next_match = "<enter>",
+      --   prev_match = "<tab>",
+      --   next_group = "<space>",
+      --   prev_group = "<tab>",
+      --   eol = "<space>",
     },
   }
 
@@ -26,9 +27,7 @@ M.config = function()
     require("leap").leap {
       ["target-windows"] = vim.tbl_filter(function(win)
         return vim.api.nvim_win_get_config(win).focusable
-      end, vim.api.nvim_tabpage_list_wins(
-        0
-      )),
+      end, vim.api.nvim_tabpage_list_wins(0)),
     }
   end
 

@@ -1,6 +1,7 @@
 local M = {}
 M.config = function()
   local c = require("fennec-gruvbox.colors").config()
+  local components = require "lvim.core.lualine.components"
 
   local status_ok, lualine = pcall(require, "lualine")
   if not status_ok then
@@ -96,6 +97,22 @@ M.config = function()
       return " "
     end,
     color = { fg = c.line_fg },
+  }
+
+  local harpoon_mark = {
+    function()
+      local status = require("harpoon.mark").status()
+      if status == "" then
+        return ""
+      end
+      -- return just the terminal number, cause the status method returns M1, M2, etc.
+      local number = (string.format("%s", status)):sub(-1)
+      return "  " .. number
+    end,
+    -- color = { fg = c.soft_yellow },
+    color = function()
+      return { fg = mode_color[vim.fn.mode()], bg = c.line_bg }
+    end,
   }
 
   -- cool function for progress
@@ -194,9 +211,10 @@ M.config = function()
   }
 
   lvim.builtin.lualine.sections = {
+    -- python_env
     -- lualine_a = { branch, diagnostics },
-    lualine_a = { mode, branch },
-    lualine_b = { session, modified },
+    lualine_a = { mode, harpoon_mark, branch },
+    lualine_b = { components.python_env },
     lualine_c = { diagnostics },
     -- lualine_c = {},
     -- lualine_c = {

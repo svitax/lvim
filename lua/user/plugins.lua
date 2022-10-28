@@ -69,8 +69,8 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           LSP                            │
     -- ╰──────────────────────────────────────────────────────────╯
-    { "j-hui/fidget.nvim", config = require("user.plugins.fidget").config },
-    { "ray-x/lsp_signature.nvim", config = require("user.plugins.lsp_signature").config },
+    -- { "j-hui/fidget.nvim", config = require("user.plugins.fidget").config },
+    -- { "ray-x/lsp_signature.nvim", config = require("user.plugins.lsp_signature").config },
     -- TODO: replace code-action-menu and lightbulb with lspsaga?
     { "weilbith/nvim-code-action-menu", config = require("user.plugins.code_action_menu").config },
     { "kosayoda/nvim-lightbulb", config = require("user.plugins.lightbulb").config },
@@ -166,21 +166,59 @@ M.config = function()
       end,
     },
     {
-      "utilyre/barbecue.nvim",
-      requires = {
-        "neovim/nvim-lspconfig",
-        "smiteshp/nvim-navic",
-        "kyazdani42/nvim-web-devicons", -- optional
-      },
-      config = function()
-        require("barbecue").setup()
-      end,
-    },
-    {
       "folke/noice.nvim",
       event = "VimEnter",
       config = function()
-        require("noice").setup()
+        require("noice").setup {
+          cmdline = {
+            format = {
+              cmdline = {
+                view = "cmdline",
+              },
+              search_down = {
+                view = "cmdline",
+              },
+              search_up = {
+                view = "cmdline",
+              },
+              IncRename = {
+                pattern = "^:%s*IncRename%s+",
+                icon = " ",
+                conceal = true,
+                opts = {
+                  relative = "cursor",
+                  size = { min_width = 20 },
+                  position = { row = -3, col = 0 },
+                },
+              },
+            },
+          },
+          routes = {
+            {
+              view = "notify",
+              filter = { event = "msg_showmode" },
+            },
+          },
+          lsp = {
+            documentation = {
+              opts = {
+                border = { style = "rounded" },
+                relative = "cursor",
+                position = {
+                  row = 2,
+                },
+                win_options = {
+                  concealcursor = "n",
+                  conceallevel = 3,
+                  winhighlight = {
+                    Normal = "LspFloat",
+                    FloatBorder = "LspFloatBorder",
+                  },
+                },
+              },
+            },
+          },
+        }
       end,
       requires = {
         "MunifTanjim/nui.nvim",
