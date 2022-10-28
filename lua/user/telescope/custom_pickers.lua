@@ -7,6 +7,7 @@ local previewers = require "telescope.previewers"
 
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
+local sorters = require "telescope.sorters"
 local conf = require("telescope.config").values
 local state = require "telescope.actions.state"
 local entry_display = require "telescope.pickers.entry_display"
@@ -75,31 +76,33 @@ function M.projects(opts)
   }
   opts = vim.tbl_deep_extend("force", theme_opts, opts)
 
-  pickers.new(opts, {
-    prompt_title = "~ projects ~",
-    finder = create_finder(),
-    -- finder = finders.new_table {
-    --   results = recent_projects,
-    -- },
-    sorter = conf.generic_sorter(opts),
-    attach_mappings = function(prompt_bufnr, map)
-      map("n", "f", find_project_files)
-      map("n", "b", browse_project_files)
-      map("n", "d", delete_project)
-      map("n", "s", search_in_project_files)
-      map("n", "r", recent_project_files)
-      map("n", "w", change_working_directory)
+  pickers
+    .new(opts, {
+      prompt_title = "~ projects ~",
+      finder = create_finder(),
+      -- finder = finders.new_table {
+      --   results = recent_projects,
+      -- },
+      sorter = conf.generic_sorter(opts),
+      attach_mappings = function(prompt_bufnr, map)
+        map("n", "f", find_project_files)
+        map("n", "b", browse_project_files)
+        map("n", "d", delete_project)
+        map("n", "s", search_in_project_files)
+        map("n", "r", recent_project_files)
+        map("n", "w", change_working_directory)
 
-      map("i", "<c-f>", find_project_files)
-      map("i", "<c-b>", browse_project_files)
-      map("i", "<c-d>", delete_project)
-      map("i", "<c-s>", search_in_project_files)
-      map("i", "<c-r>", recent_project_files)
-      map("i", "<c-w>", change_working_directory)
-      actions.select_default:replace(open_project)
-      return true
-    end,
-  }):find()
+        map("i", "<c-f>", find_project_files)
+        map("i", "<c-b>", browse_project_files)
+        map("i", "<c-d>", delete_project)
+        map("i", "<c-s>", search_in_project_files)
+        map("i", "<c-r>", recent_project_files)
+        map("i", "<c-w>", change_working_directory)
+        actions.select_default:replace(open_project)
+        return true
+      end,
+    })
+    :find()
 end
 
 function M.marks(opts)
@@ -303,10 +306,19 @@ end
 function M.find_dotfiles(opts)
   opts = opts or {}
 
-  local dotfiles_opts = { cwd = "~/.config", prompt_title = "~ dotfiles ~" }
+  local dirs = {
+    "~/.dotfiles",
+    "~/.config",
+  }
+  local find_command = { "rg", "--hidden", "--files", "--follow", "--glob", "!.git/*", "" }
+  for _, path in ipairs(dirs) do
+    table.insert(find_command, vim.fn.expand(path))
+  end
+  local dotfiles_opts = { prompt_title = "~ dotfiles ~", find_command = find_command }
   opts = vim.tbl_deep_extend("force", opts, dotfiles_opts)
 
-  M.find_files(opts)
+  -- M.find_files(opts)
+  builtin.find_files(opts)
 end
 
 function M.find_lunarvim_config_files(opts)
