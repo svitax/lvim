@@ -58,8 +58,8 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           Git                            │
     -- ╰──────────────────────────────────────────────────────────╯
-    -- {
     -- TODO: set_gh_keymaps()
+    -- {
     --   "ldelossa/gh.nvim",
     --   requires = { { "ldelossa/litee.nvim" } },
     --   config = require("user.plugins.gh").config,
