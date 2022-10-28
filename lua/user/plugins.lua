@@ -193,9 +193,9 @@ M.config = function()
     {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
-      -- config = function()
-      --   require("todo-comments").setup()
-      -- end,
+      config = function()
+        require("todo-comments").setup()
+      end,
     },
     -- {
     --   "gelguy/wilder.nvim",
