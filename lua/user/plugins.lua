@@ -187,18 +187,6 @@ M.config = function()
         "rcarriga/nvim-notify",
       },
     },
-    -- { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter", config = require("nvim-gps").setup {} },
-    -- {
-    --   "SmiteshP/nvim-navic",
-    --   after = "nvim-lspconfig",
-    --   -- requires = "neovim/nvim-lspconfig",
-    --   config = function()
-    --     require("nvim-navic").setup {
-    --       highlight = true,
-    --       depth_limit = 6,
-    --     }
-    --   end,
-    -- },
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config },
     { "luukvbaal/stabilize.nvim", config = require("user.plugins.stabilize").config, branch = "0.8" },
