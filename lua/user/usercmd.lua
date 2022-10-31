@@ -24,7 +24,9 @@ M.open_uri_under_cursor = function()
     if type(uri) ~= "nil" then
       uri = string.gsub(uri, "#", "\\#") -- double escapes any # signs
       uri = '"' .. uri .. '"'
-      vim.cmd("!open " .. uri .. " > /dev/null")
+      -- TODO: add a check for macOS to use open instead of xdg-open for linux.
+      -- vim.cmd("!open " .. uri .. " > /dev/null")
+      vim.cmd("!xdg-open " .. uri .. " > /dev/null")
       vim.cmd "mode"
       -- print(uri)
       return true
