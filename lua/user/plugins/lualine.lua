@@ -213,7 +213,10 @@ M.config = function()
   lvim.builtin.lualine.sections = {
     -- python_env
     -- lualine_a = { branch, diagnostics },
-    lualine_a = { mode, harpoon_mark, branch },
+    lualine_a = {
+      mode, --[[ harpoon_mark,]]
+      branch,
+    },
     lualine_b = { components.python_env },
     lualine_c = { diagnostics },
     -- lualine_c = {},
@@ -275,6 +278,7 @@ M.config = function()
   custom_gruvbox.inactive.c = { fg = c.line_fg, bg = c.line_bg }
 
   lvim.builtin.lualine.options.theme = custom_gruvbox
+  -- lvim.builtin.lualine.options.theme = "gruvbox-baby"
 end
 
 return M

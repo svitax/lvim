@@ -269,30 +269,19 @@ M.config = function()
     -- ["A"] = { vim.lsp.codelens.run, "codelens action" },
     -- ["b"] = { "", "" },
     -- ["c"] = { "", "compile" },
-    ["d"] = { "<cmd>lua require('lvim.lsp.peek').Peek('definition')<cr>", "peek definition" },
     -- ["e"] = { "", "evaluate" },
     ["f"] = { require("lvim.lsp.utils").format, "format" },
     -- ["h"] = { "", "" },
     ["i"] = { "<cmd>LspInfo<cr>", "lsp info" },
-    ["I"] = { "<cmd>LspInstallInfo<cr>", "lsp install info" },
-    ["j"] = { vim.diagnostic.goto_next, "next diagnostic" },
-    ["k"] = { vim.diagnostic.goto_prev, "prev diagnostic" },
+    -- ["I"] = { "<cmd>LspInstallInfo<cr>", "lsp install info" },
     ["K"] = { vim.lsp.buf.hover, "show hover" },
-    ["l"] = {
-      function()
-        local config = lvim.lsp.diagnostics.float
-        config.scope = "line"
-        vim.diagnostic.open_float(0, config)
-      end,
-      "line diagnostics",
-    },
     -- ["o"] = { "", "organize imports" },
-    ["p"] = { "<cmd>lua require('lvim.lsp.peek').Peek('implementation')<cr>", "peek implementation" },
-    -- ["r"] = { "<cmd>LspRename<cr>", "rename" },
+    -- ["p"] = { "", "peek implementation" },
+    -- ["r"] = { "<cmd>IncRename<cr>", "rename" },
     -- ["s"] = { "", "symbols" },
     ["s"] = { vim.lsp.buf.signature_help, "signature help" },
-    ["t"] = { "<cmd>TodoTrouble<cr>", "todos" },
-    ["T"] = { "<cmd>lua require('lvim.lsp.peek').Peek('typeDefinition')<cr>", "peek type definition" },
+    ["t"] = { "<cmd>TodoQuickFix<cr>", "todos" },
+    -- ["T"] = { "", "peek type definition" },
     -- ["w"] = { "", "del trailing whitespace" },
     -- ["W"] = { "", "del trailing newlines" },
     -- ["y"] = { "", "call hierarchy" },
@@ -430,34 +419,22 @@ function M.set_code_action_menu_keymaps()
   lvim.builtin.which_key.mappings["l"]["a"] = { "<cmd>CodeActionMenu<cr>", "code actions" }
 end
 
-function M.set_leap_keymaps()
-  vim.keymap.set("n", "s", leap_all_windows, { silent = true })
-  vim.keymap.set("v", "s", leap_all_windows, { silent = true })
-  vim.keymap.set("o", "z", leap_all_windows, { silent = true })
+function M.set_leap_keymaps(multi_cursor_s, multi_cursor_lines)
+  lvim.builtin.which_key.mappings["y"] = { multi_cursor_s, "multi cursor" }
+  lvim.builtin.which_key.mappings["u"] = { multi_cursor_lines, "multi cursor lines" }
+  -- vim.keymap.set("n", "s", leap_all_windows, { silent = true })
+  -- vim.keymap.set("v", "s", leap_all_windows, { silent = true })
+  -- vim.keymap.set("o", "z", leap_all_windows, { silent = true })
 end
 
 function M.set_lsp_buf_keymaps()
   lvim.lsp.buffer_mappings.normal_mode = {
     ["K"] = { vim.lsp.buf.hover, "show hover" },
-    ["gd"] = { vim.lsp.buf.definition, "goto definition" },
+    ["gi"] = { vim.lsp.buf.definition, "goto definition" },
     ["gD"] = { vim.lsp.buf.declaration, "goto declaration" },
     ["gr"] = { vim.lsp.buf.references, "goto references" },
     ["gI"] = { vim.lsp.buf.implementation, "goto implementation" },
     ["gS"] = { vim.lsp.buf.signature_help, "show signature help" },
-    ["gp"] = {
-      function()
-        require("lvim.lsp.peek").Peek "definition"
-      end,
-      "peek definition",
-    },
-    ["gl"] = {
-      function()
-        local config = lvim.lsp.diagnostics.float
-        config.scope = "line"
-        vim.diagnostic.open_float(0, config)
-      end,
-      "show line diagnostics",
-    },
   }
 end
 
@@ -617,17 +594,29 @@ end
 function M.set_textcase_keymaps()
   lvim.builtin.which_key.mappings["i"] = {
     name = "+Textcase",
-    ["u"] = { ":lua require('textcase').lsp_rename('to_upper_case')<CR>", "uppercase" },
-    ["l"] = { ":lua require('textcase').lsp_rename('to_lower_case')<CR>", "lowercase" },
-    ["s"] = { ":lua require('textcase').lsp_rename('to_snake_case')<CR>", "snake case" },
-    ["d"] = { ":lua require('textcase').lsp_rename('to_dash_case')<CR>", "dash case" },
-    ["n"] = { ":lua require('textcase').lsp_rename('to_constant_case')<CR>", "constant case" },
-    ["."] = { ":lua require('textcase').lsp_rename('to_dot_case')<CR>", "dot case" },
-    ["a"] = { ":lua require('textcase').lsp_rename('to_phrase_case')<CR>", "phrase case" },
-    ["c"] = { ":lua require('textcase').lsp_rename('to_camel_case')<CR>", "camel case" },
-    ["p"] = { ":lua require('textcase').lsp_rename('to_pascal_case')<CR>", "pascal case" },
-    ["t"] = { ":lua require('textcase').lsp_rename('to_title_case')<CR>", "title case" },
-    ["f"] = { ":lua require('textcase').lsp_rename('to_path_case')<CR>", "path case" },
+    ["u"] = { ":lua require('textcase').current_word('to_upper_case')<CR>", "cur_w uppercase" },
+    ["l"] = { ":lua require('textcase').current_word('to_lower_case')<CR>", "cur_w lowercase" },
+    ["s"] = { ":lua require('textcase').current_word('to_snake_case')<CR>", "cur_w snake case" },
+    ["d"] = { ":lua require('textcase').current_word('to_dash_case')<CR>", "cur_w dash case" },
+    ["n"] = { ":lua require('textcase').current_word('to_constant_case')<CR>", "cur_w constant case" },
+    ["."] = { ":lua require('textcase').current_word('to_dot_case')<CR>", "cur_w dot case" },
+    ["a"] = { ":lua require('textcase').current_word('to_phrase_case')<CR>", "cur_w phrase case" },
+    ["c"] = { ":lua require('textcase').current_word('to_camel_case')<CR>", "cur_w camel case" },
+    ["p"] = { ":lua require('textcase').current_word('to_pascal_case')<CR>", "cur_w pascal case" },
+    ["t"] = { ":lua require('textcase').current_word('to_title_case')<CR>", "cur_w title case" },
+    ["f"] = { ":lua require('textcase').current_word('to_path_case')<CR>", "cur_w path case" },
+
+    ["U"] = { ":lua require('textcase').lsp_rename('to_upper_case')<CR>", "lsp uppercase" },
+    ["L"] = { ":lua require('textcase').lsp_rename('to_lower_case')<CR>", "lsp lowercase" },
+    ["S"] = { ":lua require('textcase').lsp_rename('to_snake_case')<CR>", "lsp snake case" },
+    ["D"] = { ":lua require('textcase').lsp_rename('to_dash_case')<CR>", "lsp dash case" },
+    ["N"] = { ":lua require('textcase').lsp_rename('to_constant_case')<CR>", "lsp constant case" },
+    [">"] = { ":lua require('textcase').lsp_rename('to_dot_case')<CR>", "lsp dot case" },
+    ["A"] = { ":lua require('textcase').lsp_rename('to_phrase_case')<CR>", "lsp phrase case" },
+    ["C"] = { ":lua require('textcase').lsp_rename('to_camel_case')<CR>", "lsp camel case" },
+    ["P"] = { ":lua require('textcase').lsp_rename('to_pascal_case')<CR>", "lsp pascal case" },
+    ["T"] = { ":lua require('textcase').lsp_rename('to_title_case')<CR>", "lsp title case" },
+    ["F"] = { ":lua require('textcase').lsp_rename('to_path_case')<CR>", "lsp path case" },
   }
   lvim.builtin.which_key.vmappings["i"] = lvim.builtin.which_key.mappings["i"]
 end
@@ -691,6 +680,19 @@ function M.set_dbui_keymaps()
   lvim.builtin.which_key.mappings["e"]["R"] = { "<Plug>(DBUI_ToggleResultLayout)", "dbui expanded results view" }
   lvim.builtin.which_key.mappings["e"]["s"] = { "<Plug>(DBUI_ExecuteQuery)", "dbui execute query" }
   lvim.builtin.which_key.mappings["e"]["t"] = { "<cmd>DBUIToggle<cr>", "toggle dbui" }
+end
+
+function M.set_lspsaga_keymaps()
+  lvim.builtin.which_key.mappings["l"]["a"] = { "<cmd>Lspsaga code_action<cr>", "code actions" }
+  lvim.builtin.which_key.mappings["l"]["d"] = { "<cmd>Lspsaga peed_definition<cr>", "peek definition" }
+  lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>Lspsaga lsp_finder<cr>", "definitions & references" }
+  lvim.builtin.which_key.mappings["l"]["j"] = { "<cmd>Lspsaga show_line_diagnostics<cr>", "next diagnostic" }
+  lvim.builtin.which_key.mappings["l"]["k"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "prev diagnostic" }
+  vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<cr>", M.opts_normal)
+  vim.keymap.set("n", "gl", "<cmd>Lspsaga show_line_diagnostics<cr>", M.opts_normal)
+  vim.keymap.set("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", M.opts_normal)
+  vim.keymap.set("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", M.opts_normal)
+  vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<cr>", M.opts_normal)
 end
 
 return M
