@@ -1,6 +1,8 @@
 local M = {}
 
 M.config = function()
+  -- test
+  -- test merge
   -- Additional Plugins
   lvim.plugins = {
     -- ╭──────────────────────────────────────────────────────────╮
