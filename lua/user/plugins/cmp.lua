@@ -22,8 +22,8 @@ M.tab = function(fallback)
     neogen.jump_next()
   elseif methods.check_backspace() then
     fallback()
-  else
-    methods.feedkeys("<Plug>(Tabout)", "")
+    -- else
+    --   methods.feedkeys("<Plug>(Tabout)", "")
   end
 end
 
@@ -47,8 +47,8 @@ M.shift_tab = function(fallback)
     neogen.jump_prev()
   elseif methods.check_backspace() then
     fallback()
-  else
-    methods.feedkeys("<Plug>(Tabout)", "")
+    -- else
+    --   methods.feedkeys("<Plug>(Tabout)", "")
   end
 end
 
@@ -66,9 +66,10 @@ M.config = function()
 
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources {
+      { name = "conventionalcommits" },
       { name = "git" },
       { name = "buffer" },
-      { name = "rg" },
+      -- { name = "rg" },
     },
   })
 
@@ -123,6 +124,7 @@ M.config = function()
   }
 
   lvim.builtin.cmp.formatting.source_names = {
+
     cmdline = "(Cmd)",
     cmdline_history = "(Hist)",
     nvim_lsp = "(LSP)",
@@ -137,6 +139,7 @@ M.config = function()
     nvim_lua = "(Lua)",
     rg = "(Ripgrep)",
     kitty = "(Kitty)",
+    name = "(CC)",
     git = "(Git)",
     plugins = "(Plugins)",
     ["vim-dadbod-completion"] = "(DB)",
