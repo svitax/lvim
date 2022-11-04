@@ -1,17 +1,17 @@
 require("lvim.lsp.manager").setup("emmet_ls", {
-  filetypes = { "typescriptreact" },
+  filetypes = { "typescript" },
 })
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
     command = "prettierd",
-    filetypes = { "typescriptreact" },
+    filetypes = { "typescript" },
   },
   {
     -- NOTE: sometimes it needs a "eslint_d restart" to pickup plugins.
     command = "eslint_d",
-    filetypes = { "typescriptreact" },
+    filetypes = { "typescript" },
   },
 }
 
@@ -20,6 +20,10 @@ linters.setup {
   {
     -- NOTE: sometimes it needs a "eslint_d restart" to pickup plugins.
     command = "eslint_d",
-    filetypes = { "typescriptreact" },
+    filetypes = { "typescript" },
+  },
+  {
+    command = "tsc",
+    filetypes = { "typescript" },
   },
 }

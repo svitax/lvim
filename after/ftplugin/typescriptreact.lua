@@ -23,4 +23,8 @@ linters.setup {
     command = "eslint_d",
     filetypes = { "typescriptreact" },
   },
+  {
+    command = "tsc",
+    filetypes = { "typescriptreact" },
+  },
 }
