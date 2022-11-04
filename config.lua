@@ -1,5 +1,5 @@
 -- Neovim configuration
-require("user.neovim").config()
+reload "user.neovim"
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                  LunarVim configuration                  │
@@ -12,19 +12,19 @@ lvim.work = false
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                    LunarVim Builtins                     │
 --  ╰──────────────────────────────────────────────────────────╯
-require("user.plugins.alpha").config()
-require("user.plugins.autopairs").config()
-require("user.plugins.cmp").config()
-require("user.plugins.dap").config()
-require("user.plugins.bufferline").config()
-require("user.plugins.lualine").config()
-require("user.plugins.nvimtree").config()
-require("user.plugins.telescope").config()
-require("user.plugins.treesitter").config()
-require("user.plugins.toggleterm").config()
-require("user.plugins.notify").config()
-require("user.plugins.luasnip").config()
-require("user.plugins.whichkey").config()
+reload "user.builtin.alpha"
+reload "user.builtin.autopairs"
+reload "user.builtin.cmp"
+reload "user.builtin.dap"
+reload "user.builtin.bufferline"
+reload "user.builtin.lualine"
+reload "user.builtin.nvimtree"
+reload "user.builtin.telescope"
+reload "user.builtin.treesitter"
+reload "user.builtin.toggleterm"
+reload "user.builtin.luasnip"
+reload "user.builtin.whichkey"
+reload "user.icons"
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                           LSP                            │

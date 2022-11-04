@@ -6,7 +6,13 @@ M.config = function()
     return
   end
 
-  cinnamon.setup { extra_keymaps = true, scroll_limit = 100 }
+  cinnamon.setup {
+    default_keymaps = true,
+    extra_keymaps = true,
+    extended_keymaps = true,
+    always_scroll = true,
+    scroll_limit = 100,
+  }
 end
 
 return M

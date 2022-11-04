@@ -14,13 +14,19 @@ M.config = function()
     forest_green = "#689d6a",
     soft_yellow = "#d1b171",
     light_blue = "#7daea3",
-    blue_gray = "#89b482",
+    -- blue_gray = "#89b482",
     magenta = "#ce8196",
     orange = "#e78a4e",
     gray = "#DEDEDE",
     comment = "#665c54",
     red = "#ec6b64",
     error_red = "#c14a4a",
+    diff = {
+      add = "#26332c",
+      change = "#594e36",
+      delete = "#572E33",
+      text = "#314753",
+    },
   }
   local c = require("gruvbox-baby.colors").config()
   -- vim.g.gruvbox_baby_highlights = { Normal = { fg = colors.orange } }
@@ -62,6 +68,16 @@ M.config = function()
     LeapBackdrop = { fg = c.comment },
     -- LeapMatch = { fg = c.foreground, style = "bold" },
     -- END leap.nvim
+
+    -- START yanky.nvim
+    YankyPut = { bg = c.background_light },
+    YankyYanked = { bg = c.medium_gray },
+    -- END yanky.nvim
+
+    -- START package-info
+    PackageInfoOutdatedVersion = { fg = c.orange },
+    PackageInfoUpToDateVersion = { fg = c.comment },
+    -- END package-info
   }
   vim.api.nvim_set_hl(0, "LeapMatch", {
     fg = c.foreground, -- for light themes, set to 'black' or similar

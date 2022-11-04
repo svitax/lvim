@@ -91,6 +91,7 @@ M.config = function()
   -- more useful if we'd pass in custom targets too).
 
   local function paranormal(targets)
+    -- TODO: when live-command insert is fixed, change normal! to Norm!
     -- Get the :normal sequence to be executed.
     local input = vim.fn.input "normal! "
     if #input < 1 then

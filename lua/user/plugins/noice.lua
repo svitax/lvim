@@ -13,6 +13,9 @@ M.config = function()
       long_message_to_split = true,
       lsp_doc_border = true,
     },
+    messages = {
+      enabled = false,
+    },
     -- show @ recording messages in notify
     routes = {
       {

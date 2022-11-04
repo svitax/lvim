@@ -1,0 +1,17 @@
+---
+base: lua53
+globals:
+  vim:
+    any: true
+  lvim:
+    any: true
+  get_runtime_dir:
+    args:
+      - type: nil
+        required: false
+  reload:
+    args:
+      - type: string
+  join_paths:
+    args:
+      - type: ...

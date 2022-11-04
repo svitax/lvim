@@ -44,8 +44,8 @@ M.config = function()
   lvim.keys.normal_mode["<A-k>"] = ":m .-2<cr>=="
 
   -- toggleterm maps
-  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.plugins.toggleterm').toggle_term2()<cr>"
-  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.plugins.toggleterm').toggle_term3()<cr>"
+  lvim.keys.normal_mode["<A-a>"] = "<cmd>lua require('user.builtin.toggleterm').toggle_term2()<cr>"
+  lvim.keys.normal_mode["<A-s>"] = "<cmd>lua require('user.builtin.toggleterm').toggle_term3()<cr>"
   -- lvim.keys.normal_mode["<A-d>"] = ""
   -- lvim.keys.normal_mode["<A-f>"] = ""
   -- lvim.keys.normal_mode["<A-g>"] = ""
@@ -138,10 +138,21 @@ M.config = function()
   -- lvim.builtin.which_key.mappings["a"] = { "<cmd>up!<cr>", "write buffer" }
   lvim.builtin.which_key.mappings["c"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["e"] = "which_key_ignore"
+  lvim.builtin.which_key.mappings["h"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["i"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["j"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["k"] = "which_key_ignore"
-  lvim.builtin.which_key.mappings["m"] = "which_key_ignore"
+  -- lvim.builtin.which_key.mappings["m"] = "which_key_ignore"
+  lvim.builtin.which_key.mappings["M"] = {
+    name = "+Mode",
+    ["p"] = { "package-info" },
+    ["i"] = { "<cmd>TypescriptAddMissingImports<cr>", "add missing typescript imports" },
+    ["o"] = { "<cmd>TypescriptOrganizeImports<cr>", "organize typescript imports" },
+    ["u"] = { "<cmd>TypescriptRemoveUnused<cr>", "remove unused typescript variables" },
+    ["f"] = { "<cmd>TypescriptFixAll<cr>", "fix all typescript issues" },
+    ["r"] = { "<cmd>TypescriptRenameFile<cr>", "rename typescript file" },
+    ["d"] = { "<cmd>TypescriptGoToSourceDefinition<cr>", "go to source definition" },
+  }
   lvim.builtin.which_key.mappings["o"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["q"] = { "<cmd>lua require('user.usercmd').smart_quit()<cr>", "quit" }
   lvim.builtin.which_key.mappings["r"] = "which_key_ignore"
@@ -158,14 +169,8 @@ M.config = function()
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                         +Buffers                         │
   -- ╰──────────────────────────────────────────────────────────╯
-  lvim.builtin.which_key.mappings["b"] = {
-    name = "+Buffers",
-    ["b"] = { "<cmd>lua require('user.telescope.custom_pickers').switch_buffers()<cr>", "switch buffers" },
-    ["c"] = { "<cmd>Clear<cr>", "clear session" },
-    ["s"] = { "<cmd>up!<cr>", "save buffer" },
-    -- ["w"] = { "", "save all buffers" },
-    -- ["x"] = { "", "scratch buffer" },
-  }
+  lvim.builtin.which_key.mappings["b"] = { "buffers" }
+  M.set_buffers_keymaps()
 
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                         +Comment                         │
@@ -205,15 +210,16 @@ M.config = function()
     c = { "<cmd>Telescope git_commits<cr>", "checkout commit" },
     C = { "<cmd>Telescope git_bcommits<cr>", "checkout commit (for current file)" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "git diff" },
-    j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "next Hunk" },
-    k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "prev Hunk" },
-    l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "blame" },
+    -- j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "next Hunk" },
+    -- k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "prev Hunk" },
+    -- l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "blame" },
     o = { "<cmd>Telescope git_status<cr>", "open changed file" },
-    p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "preview hunk" },
-    r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "reset hunk" },
+    -- p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "preview hunk" },
+    -- r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "reset hunk" },
     R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "reset buffer" },
-    s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "stage hunk" },
-    u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "undo stage hunk" },
+    -- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "stage hunk" },
+    s = { "staging mode" },
+    -- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "undo stage hunk" },
     h = {
       name = "+Github",
       c = {
@@ -337,7 +343,11 @@ M.config = function()
     -- ["o"] = { "", "look up online" },
     -- ["p"] = { "<cmd>ProjectMgr<cr>", "project manager" },
     ["p"] = { "<cmd>lua require('user.telescope.projects').find_projects()<cr>", "projects" },
-    ["r"] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "recent files" },
+    -- ["r"] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "recent files" },
+    ["r"] = {
+      "<cmd>lua require('telescope').extensions.recent_files.pick(require('telescope.themes').get_ivy{})<cr>",
+      "recent files",
+    },
     -- ["t"] = { "", "dictionary" },
     -- ["T"] = { "", "thesaurus" },
     ["g"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
@@ -346,13 +356,8 @@ M.config = function()
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                         +Windows                         │
   -- ╰──────────────────────────────────────────────────────────╯
-  lvim.builtin.which_key.mappings["w"] = {
-    name = "+Windows",
-    ["d"] = { "<cmd>close<cr>", "delete window" },
-    ["o"] = { "<cmd>only<cr>", "delete other windows" },
-    ["s"] = { "<cmd>split<CR>", "split window" },
-    ["v"] = { "<cmd>vsplit<cr>", "vsplit window" },
-  }
+  lvim.builtin.which_key.mappings["w"] = { "windows" }
+  M.set_windows_keymaps()
 end
 
 function M.set_legendary_keymaps()
@@ -378,15 +383,15 @@ function M.set_cybu_keymaps()
   -- cycle buffers
   vim.keymap.set("n", "<S-h>", "<cmd>CybuPrev<cr>", M.opts_normal)
   vim.keymap.set("n", "<S-l>", "<cmd>CybuNext<cr>", M.opts_normal)
-  lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>CybuNext<cr>", "next buffer" }
-  lvim.builtin.which_key.mappings["b"]["p"] = { "<cmd>CybuPrev<cr>", "previous buffer" }
+  -- lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>CybuNext<cr>", "next buffer" }
+  -- lvim.builtin.which_key.mappings["b"]["p"] = { "<cmd>CybuPrev<cr>", "previous buffer" }
 end
 
 function M.set_close_buffers_keymaps()
-  lvim.builtin.which_key.mappings["b"]["a"] = { "<cmd>BDelete all<cr>", "delete all buffers" }
-  lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BDelete this<CR>", "delete buffer" }
-  lvim.builtin.which_key.mappings["b"]["h"] = { "<cmd>BDelete! hidden<cr>", "delete hidden buffers" }
-  lvim.builtin.which_key.mappings["b"]["o"] = { "<cmd>BDelete! other<CR>", "delete other buffers" }
+  -- lvim.builtin.which_key.mappings["b"]["a"] = { "<cmd>BDelete all<cr>", "delete all buffers" }
+  -- lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BDelete this<CR>", "delete buffer" }
+  -- lvim.builtin.which_key.mappings["b"]["h"] = { "<cmd>BDelete! hidden<cr>", "delete hidden buffers" }
+  -- lvim.builtin.which_key.mappings["b"]["o"] = { "<cmd>BDelete! other<CR>", "delete other buffers" }
 end
 
 function M.set_fm_keymaps()
@@ -398,7 +403,8 @@ function M.set_fm_keymaps()
 end
 
 function M.set_lazygit_keymaps()
-  lvim.builtin.which_key.mappings["g"]["g"] = { "<cmd>LazyGit<cr>", "lazygit" }
+  -- lvim.builtin.which_key.mappings["g"]["g"] = { "<cmd>LazyGit<cr>", "lazygit" }
+  lvim.builtin.which_key.mappings["g"]["g"] = { "<cmd>FloatermNew lazygit<cr>", "lazygit" }
 end
 
 function M.set_marks_keymaps()
@@ -430,7 +436,7 @@ end
 function M.set_lsp_buf_keymaps()
   lvim.lsp.buffer_mappings.normal_mode = {
     ["K"] = { vim.lsp.buf.hover, "show hover" },
-    ["gi"] = { vim.lsp.buf.definition, "goto definition" },
+    ["gd"] = { vim.lsp.buf.definition, "goto definition" },
     ["gD"] = { vim.lsp.buf.declaration, "goto declaration" },
     ["gr"] = { vim.lsp.buf.references, "goto references" },
     ["gI"] = { vim.lsp.buf.implementation, "goto implementation" },
@@ -515,18 +521,27 @@ function M.set_neogen_keymaps()
   lvim.builtin.which_key.mappings["l"]["g"] = { "<cmd>Neogen<cr>", "generate doc" }
 end
 
-function M.set_yanky_keymaps()
+function M.set_yanky_keymaps(yanky_hydra)
   -- better yank (stays in position after yank)
   vim.keymap.set("n", "y", "<Plug>(YankyYank)", { noremap = false })
   vim.keymap.set("x", "y", "<Plug>(YankyYank)", { noremap = false })
+  lvim.builtin.which_key.mappings["s"]["y"] = { "<cmd>Telescope yank_history<cr>", "yanks" }
 
-  -- yanky put (for yank-ring)
-  vim.keymap.set("n", "p", "<Plug>(YankyPutAfter)", M.opts_normal)
-  vim.keymap.set("x", "p", "<Plug>(YankyPutAfter)", M.opts_visual)
-  vim.keymap.set("n", "P", "<Plug>(YankyPutBefore)", M.opts_normal)
-  vim.keymap.set("x", "P", "<Plug>(YankyPutBefore)", M.opts_visual)
-  vim.keymap.set("n", "<A-n>", "<Plug>(YankyCycleForward)", M.opts_normal)
-  vim.keymap.set("n", "<A-p>", "<Plug>(YankyCycleBackward)", M.opts_normal)
+  local function t(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  end
+  -- choose/change the mappings if you want
+  for key, putAction in pairs {
+    ["p"] = "<Plug>(YankyPutAfter)",
+    ["P"] = "<Plug>(YankyPutBefore)",
+    ["gp"] = "<Plug>(YankyGPutAfter)",
+    ["gP"] = "<Plug>(YankyGPutBefore)",
+  } do
+    vim.keymap.set({ "n", "x" }, key, function()
+      vim.fn.feedkeys(t(putAction))
+      yanky_hydra:activate()
+    end)
+  end
 
   -- better pasting in visual mode
   -- lvim.keys.visual_mode["p"] = [["_dP]]
@@ -541,32 +556,32 @@ function M.set_session_lens_keymaps()
 end
 
 function M.set_smart_splits_keymaps()
-  lvim.builtin.which_key.mappings["w"]["J"] = {
-    "<cmd>lua require('smart-splits').resize_down()<cr>",
-    "resize window down",
-  }
-  lvim.builtin.which_key.mappings["w"]["K"] = { "<cmd>lua require('smart-splits').resize_up()<cr>", "resize window up" }
-  lvim.builtin.which_key.mappings["w"]["L"] = {
-    "<cmd>lua require('smart-splits').resize_left()<cr>",
-    "resize window left",
-  }
-  lvim.builtin.which_key.mappings["w"]["r"] = {
-    "<cmd>lua require('smart-splits').start_resize_mode()<cr>",
-    "win-resize move",
-  }
-  lvim.builtin.which_key.mappings["w"][":"] = {
-    "<cmd>lua require('smart-splits').resize_right()<cr>",
-    "resize window right",
-  }
+  -- lvim.builtin.which_key.mappings["w"]["J"] = {
+  --   "<cmd>lua require('smart-splits').resize_down()<cr>",
+  --   "resize window down",
+  -- }
+  -- lvim.builtin.which_key.mappings["w"]["K"] = { "<cmd>lua require('smart-splits').resize_up()<cr>", "resize window up" }
+  -- lvim.builtin.which_key.mappings["w"]["L"] = {
+  --   "<cmd>lua require('smart-splits').resize_left()<cr>",
+  --   "resize window left",
+  -- }
+  -- lvim.builtin.which_key.mappings["w"]["r"] = {
+  --   "<cmd>lua require('smart-splits').start_resize_mode()<cr>",
+  --   "win-resize move",
+  -- }
+  -- lvim.builtin.which_key.mappings["w"][":"] = {
+  --   "<cmd>lua require('smart-splits').resize_right()<cr>",
+  --   "resize window right",
+  -- }
 end
 
 function M.set_winshift_keymaps()
-  lvim.builtin.which_key.mappings["w"]["a"] = { "<cmd>WinShift<cr>", "win-move mode" }
-  lvim.builtin.which_key.mappings["w"]["j"] = { "<cmd>WinShift down<cr>", "switch window down" }
-  lvim.builtin.which_key.mappings["w"]["k"] = { "<cmd>WinShift up<cr>", "switch window up" }
-  lvim.builtin.which_key.mappings["w"]["l"] = { "<cmd>WinShift left<cr>", "switch window left" }
-  lvim.builtin.which_key.mappings["w"]["w"] = { "<cmd>WinShift swap<cr>", "swap window" }
-  lvim.builtin.which_key.mappings["w"][";"] = { "<cmd>WinShift right<cr>", "switch window right" }
+  -- lvim.builtin.which_key.mappings["w"]["a"] = { "<cmd>WinShift<cr>", "win-move mode" }
+  -- lvim.builtin.which_key.mappings["w"]["j"] = { "<cmd>WinShift down<cr>", "switch window down" }
+  -- lvim.builtin.which_key.mappings["w"]["k"] = { "<cmd>WinShift up<cr>", "switch window up" }
+  -- lvim.builtin.which_key.mappings["w"]["l"] = { "<cmd>WinShift left<cr>", "switch window left" }
+  -- lvim.builtin.which_key.mappings["w"]["w"] = { "<cmd>WinShift swap<cr>", "swap window" }
+  -- lvim.builtin.which_key.mappings["w"][";"] = { "<cmd>WinShift right<cr>", "switch window right" }
 end
 
 function M.set_windex_keymaps()
@@ -577,18 +592,18 @@ function M.set_windex_keymaps()
   vim.keymap.set("n", "<C-k>", "<cmd>lua require('windex').switch_window('up')<cr>", M.opts_normal)
   vim.keymap.set("n", "<C-h>", "<cmd>lua require('windex').switch_window('right')<cr>", M.opts_normal)
 
-  lvim.builtin.which_key.mappings["w"]["z"] = {
-    "<cmd>lua require('windex').toggle_maximize()<cr>",
-    "toggle maximize window",
-  }
-  lvim.builtin.which_key.mappings["w"]["S"] = {
-    "<cmd>lua require('windex').create_pane('horizontal')<cr>",
-    "split tmux pane",
-  }
-  lvim.builtin.which_key.mappings["w"]["V"] = {
-    "<cmd>lua require('windex').create_pane('vertical')<cr>",
-    "vsplit tmux pane",
-  }
+  -- lvim.builtin.which_key.mappings["w"]["z"] = {
+  --   "<cmd>lua require('windex').toggle_maximize()<cr>",
+  --   "toggle maximize window",
+  -- }
+  -- lvim.builtin.which_key.mappings["w"]["S"] = {
+  --   "<cmd>lua require('windex').create_pane('horizontal')<cr>",
+  --   "split tmux pane",
+  -- }
+  -- lvim.builtin.which_key.mappings["w"]["V"] = {
+  --   "<cmd>lua require('windex').create_pane('vertical')<cr>",
+  --   "vsplit tmux pane",
+  -- }
 end
 
 function M.set_textcase_keymaps()
@@ -684,15 +699,269 @@ end
 
 function M.set_lspsaga_keymaps()
   lvim.builtin.which_key.mappings["l"]["a"] = { "<cmd>Lspsaga code_action<cr>", "code actions" }
-  lvim.builtin.which_key.mappings["l"]["d"] = { "<cmd>Lspsaga peed_definition<cr>", "peek definition" }
+  lvim.builtin.which_key.mappings["l"]["p"] = { "<cmd>Lspsaga peek_definition<cr>", "peek definition" }
   lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>Lspsaga lsp_finder<cr>", "definitions & references" }
-  lvim.builtin.which_key.mappings["l"]["j"] = { "<cmd>Lspsaga show_line_diagnostics<cr>", "next diagnostic" }
-  lvim.builtin.which_key.mappings["l"]["k"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "prev diagnostic" }
+  lvim.builtin.which_key.mappings["l"]["j"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next diagnostic" }
+  lvim.builtin.which_key.mappings["l"]["k"] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev diagnostic" }
+  lvim.builtin.which_key.mappings["l"]["l"] = { "<cmd>Lspsaga show_line_diagnostics<cr>", "show line diagnostics" }
+  vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<cr>", M.opts_normal)
   vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<cr>", M.opts_normal)
-  vim.keymap.set("n", "gl", "<cmd>Lspsaga show_line_diagnostics<cr>", M.opts_normal)
   vim.keymap.set("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", M.opts_normal)
   vim.keymap.set("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", M.opts_normal)
-  vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<cr>", M.opts_normal)
+  vim.keymap.set("n", "gl", "<cmd>Lspsaga show_line_diagnostics<cr>", M.opts_normal)
+end
+
+function M.set_grapple_keymaps()
+  lvim.builtin.which_key.mappings["m"] = { "<cmd>lua require('grapple').toggle()<cr>", "toggle file tag" }
+end
+
+function M.set_portal_keymaps()
+  lvim.builtin.which_key.mappings["o"] = { "<cmd>lua require('portal').jump_backward({query = {'tagged'}})<cr>", "jump back tags" }
+  lvim.builtin.which_key.mappings["i"] = { "<cmd>lua require('portal').jump_forward({query = {'tagged'}})<cr>", "jump forward tags" }
+
+  vim.keymap.set("n", "<C-o>", "<cmd>lua require('portal').jump_backward({query = {'different', 'valid'}})<cr>", {})
+  vim.keymap.set("n", "<C-i>", "<cmd>lua require('portal').jump_forward({query = {'different', 'valid'}})<cr>", {})
+
+  vim.keymap.set("n", "<A-o>", "<cmd>lua require('portal').jump_backward({query = {'different'}})<cr>", {})
+  vim.keymap.set("n", "<A-i>", "<cmd>lua require('portal').jump_forward({query = {'different'}})<cr>", {})
+end
+
+function M.set_package_info_keymaps()
+  local status_ok, hydra = pcall(require, "hydra")
+  if not status_ok then
+    return
+  end
+
+  hydra {
+    name = "package-info",
+    hint = [[
+ _t_: toggle versions      _s_: show versions       _c_: hide versions
+ ^
+ _i_: install dependency   _u_: update dependency   _d_: delete dependency
+ ^
+ _p_: change dependency version                   ^^_q_, _<Esc>_: quit
+    ]],
+    config = {
+      invoke_on_body = true,
+      color = "red", -- exit yanky mode if foreign keys are pressed
+      hint = {
+        type = "window", -- one of "statusline", "cmdline", "window"
+        position = "bottom", -- only applies for type = "window"
+        border = "rounded", -- only applies for type = "window"
+      },
+    },
+    body = "<leader>Mp",
+    heads = {
+      -- show dependency versions.
+      { "s", "<cmd>lua require('package-info').show()<cr>", {} },
+      -- hide dependency versions.
+      { "c", "<cmd>lua require('package-info').hide()<cr>", {} },
+      -- toggle dependency versions.
+      { "t", "<cmd>lua require('package-info').toggle()<cr>", {} },
+      -- update dependency on line.
+      { "u", "<cmd>lua require('package-info').update()<cr>", { exit = false } },
+      -- delete dependency on line.
+      { "d", "<cmd>lua require('package-info').delete()<cr>", { exit = false } },
+      -- install new dependency.
+      { "i", "<cmd>lua require('package-info').install()<cr>", { exit = false } },
+      -- install different dependency version.
+      { "p", "<cmd>lua require('package-info').change_version()<cr>", {} },
+      { "q", nil, { exit = true, nowait = true, desc = "quit" } },
+      { "<Esc>", nil, { exit = true, nowait = true, desc = "quit" } },
+    },
+  }
+end
+
+function M.set_gitsigns_keymaps()
+  local status_ok, gs = pcall(require, "gitsigns")
+  if not status_ok then
+    return
+  end
+
+  local status_ok, hydra = pcall(require, "hydra")
+  if not status_ok then
+    return
+  end
+
+  hydra {
+    name = "Git",
+    hint = [[
+ Stage/unstage hunks
+ _s_: Stage hunk    _r_: Reset hunk         _S_: Stage buffer   _U_: Undo last stage
+ ^
+ Navigation
+ _a_: All hunks     _n_, _gn_: Next hunk    _N_, _gN_: Prev hunk
+ ^
+ _=_: Preview hunk  _d_: Show deleted       _b_: Blame line
+ ^
+ _C_: Commit
+ ^
+ _q_, _<Esc>_: Quit
+    ]],
+    body = "<leader>gs",
+    config = {
+      invoke_on_body = true,
+      color = "pink", -- let me press other keys _without_ exiting git mode
+      hint = {
+        type = "window", -- one of "statusline", "cmdline", "window"
+        position = "bottom-right", -- only applies for type = "window"
+        border = "rounded", -- only applies for type = "window"
+      },
+
+      on_enter = function()
+        gs.toggle_signs(true)
+        gs.toggle_deleted(true) -- show deleted lines
+        gs.toggle_linehl(true) -- light up changed lines
+        gs.toggle_word_diff(true) -- highlight changed words
+        gs.setqflist("all", { open = false }) -- all hunks in qf, but don't open qf list
+      end,
+      on_exit = function()
+        gs.toggle_deleted(false)
+        gs.toggle_linehl(false)
+        gs.toggle_word_diff(false)
+        vim.cmd "echo" -- clear the echo area
+      end,
+    },
+    mode = { "n", "x" },
+    heads = {
+      { "gn", ":cn<CR>", { silent = true, desc = "next hunk" } },
+      { "gN", ":cp<CR>", { silent = true, desc = "prev hunk" } },
+      { "n", gs.next_hunk, { desc = "next hunk" } },
+      { "N", gs.prev_hunk, { desc = "prev hunk" } },
+      {
+        "a",
+        function()
+          gs.setqflist("all", { open = true })
+        end,
+        { desc = "set qflist" },
+      },
+      { "s", gs.stage_hunk, { desc = "stage hunk" } },
+      { "U", gs.undo_stage_hunk, { desc = "undo stage" } },
+      { "r", gs.reset_hunk, { desc = "reset hunk" } },
+      { "S", gs.stage_buffer, { desc = "stage buffer" } },
+      { "=", gs.preview_hunk, { desc = "preview hunk" } },
+      { "b", gs.blame_line, { desc = "blame line" } },
+      { "d", gs.toggle_deleted, { nowait = true, desc = "show deleted lines" } },
+      { "C", ":tab Git commit<CR>", { silent = true, exit = true, desc = "commit changes" } },
+      { "q", nil, { exit = true, nowait = true, desc = "quit" } },
+      { "<Esc>", nil, { exit = true, nowait = true, desc = "quit" } },
+    },
+  }
+end
+
+function M.set_buffers_keymaps()
+  local status_ok, hydra = pcall(require, "hydra")
+  if not status_ok then
+    return
+  end
+
+  hydra {
+    name = "Buffers",
+    hint = [[
+ ^^   Delete            ^^   Cycle
+ ^^------------         ^^------------
+ _d_ : this buffer      _n_ : next buffer
+ _a_ : all buffers      _p_ : previous buffer
+ _h_ : hidden buffers
+ _o_ : other buffers
+ ^
+ _s_ : save buffer     _c_ : clear session
+ _b_ : buffer picker   _q_, _<Esc>_: quit
+ ]],
+    config = {
+      invoke_on_body = true,
+      hint = {
+        type = "window", -- one of "statusline", "cmdline", "window"
+        position = "bottom", -- only applies for type = "window"
+        border = "rounded", -- only applies for type = "window"
+      },
+    },
+    body = "<leader>b",
+    mode = "n",
+    heads = {
+      {
+        "b",
+        "<cmd>lua require('user.telescope.custom_pickers').switch_buffers()<cr>",
+        { desc = "switch buffers", exit = true },
+      },
+      { "c", "<cmd>Clear<cr>", { desc = "clear session", exit = true } },
+      { "s", "<cmd>up!<cr>", { desc = "save buffer", exit = true } },
+      { "n", "<cmd>CybuNext<cr>", { desc = "next buffer" } },
+      { "p", "<cmd>CybuPrev<cr>", { desc = "previous buffer" } },
+      { "a", "<cmd>BDelete all<cr>", { desc = "delete all buffers", exit = true } },
+      { "d", "<cmd>BDelete this<CR>", { desc = "delete buffer", exit = true } },
+      { "h", "<cmd>BDelete! hidden<cr>", { desc = "delete hidden buffers" } },
+      { "o", "<cmd>BDelete! other<CR>", { desc = "delete other buffers" } },
+      --{ "w",  "", "save all buffers" },
+      --{ "x", "", "scratch buffer" },
+      { "<Esc>", nil, { exit = true } },
+      { "q", nil, { exit = true } },
+    },
+  }
+end
+
+function M.set_windows_keymaps()
+  local status_ok, hydra = pcall(require, "hydra")
+  if not status_ok then
+    return
+  end
+
+  hydra {
+    hint = [[
+ ^^^^^^     Move    ^^^^^^    ^^     Split         ^^  Tmux Split
+ ^^^^^^-------------^^^^^^    ^^---------------    ^^-------------
+ ^ ^ _k_ ^ ^   ^ ^ _K_ ^ ^    _s_: horizontally    _S_ : horizontally
+ _l_ ^ ^ _;_   _L_ ^ ^ _:_    _v_: vertically      _V_ : vertically
+ ^ ^ _j_ ^ ^   ^ ^ _J_ ^ ^    _d_: delete
+ focus^^^^^^   window^^^^   ^^_o_: delete others
+      ^^^^^^         ^^^^   ^^_z_: zoom
+ ^
+ ^^^^^^    Modes    ^^^^^^
+ ^^^^^^-------------^^^^^^
+ _a_: window move
+ _r_: window resize^^^^^^^    _q_, _<Esc>_ : quit
+]],
+    config = {
+      invoke_on_body = true,
+      hint = {
+        type = "window", -- one of "statusline", "cmdline", "window"
+        position = "bottom", -- only applies for type = "window"
+        border = "rounded",
+      },
+    },
+    mode = "n",
+    body = "<leader>w",
+    heads = {
+      -- Move focus
+      { "l", "<cmd>lua require('windex').switch_window('left')<cr>" },
+      { "j", "<cmd>lua require('windex').switch_window('down')<cr>" },
+      { "k", "<cmd>lua require('windex').switch_window('up')<cr>" },
+      { ";", "<cmd>lua require('windex').switch_window('right')<cr>" },
+      -- Move window
+      { "a", "<cmd>WinShift<cr>", { desc = "win-move mode", exit = true } },
+      { "L", "<cmd>WinShift left<CR>" },
+      { "J", "<cmd>WinShift down<CR>" },
+      { "K", "<cmd>WinShift up<CR>" },
+      { ":", "<cmd>WinShift right<CR>" },
+      -- Split
+      { "s", "<cmd>split<cr>" },
+      { "v", "<cmd>vsplit<cr>" },
+      { "S", "<cmd>lua require('windex').create_pane('horizontal')<cr>" },
+      { "V", "<cmd>lua require('windex').create_pane('vertical')<cr>" },
+      { "d", "<cmd>try | close | catch | endtry<CR>", { desc = "delete window" } },
+      { "o", "<cmd>try | only | catch | endtry<CR>", { desc = "delete other windows" } },
+      -- Size
+      { "r", "<cmd>lua require('smart-splits').start_resize_mode()<cr>", { desc = "win-resize mode", exit = true } },
+      { "z", "<cmd>lua require('windex').toggle_maximize()<cr>", { exit = true } },
+      -- { "<C-j>", "<cmd>lua require('smart-splits').resize_down()<cr>" },
+      -- { "<C-k>", "<cmd>lua require('smart-splits').resize_up()<cr>" },
+      -- { "<C-l>", "<cmd>lua require('smart-splits').resize_left()<cr>" },
+      -- { "<C-;>", "<cmd>lua require('smart-splits').resize_right()<cr>" },
+      -- { "=", "<C-w>=", { desc = "equalize" } },
+      { "<Esc>", nil, { exit = true } },
+      { "q", nil, { exit = true } },
+    },
+  }
 end
 
 return M
