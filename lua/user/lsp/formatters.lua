@@ -3,6 +3,7 @@ return {
   -- NOTE: sometimes it needs a "eslint_d restart" to pickup plugins.
   eslintd = { command = "eslint_d" },
   rustywind = { command = "rustywind" },
+  stylelint = { command = "stylelint" },
   uncrustify = { command = "uncrustify" },
   clang_format = { command = "clang_format" },
   gofumpt = { command = "gofumpt" },

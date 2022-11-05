@@ -3,6 +3,9 @@ lvim.lsp.document_highlight = true
 
 require("user.keymaps").set_lsp_buf_keymaps()
 
+-- NOTE: need to skip cssls so I can do my custom config later in after/ftplugin/
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "cssls" })
+
 -- ---@usage disable automatic installation of servers
 -- lvim.lsp.automatic_servers_installation = false
 
