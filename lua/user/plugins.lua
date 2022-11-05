@@ -1,7 +1,6 @@
 local M = {}
 
 M.config = function()
-  -- TODO: delete harpoon configs and files.
   -- TODO: fix all instances of telescope.load_extension.
 
   lvim.plugins = {

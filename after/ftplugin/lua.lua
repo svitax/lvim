@@ -1,10 +1,10 @@
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "stylua", filetypes = { "lua" } },
+  require("user.lsp.formatters").stylua,
 }
 
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "selene", filetypes = { "lua" } },
-  -- { command = "luacheck", filetypes = { "lua" } },
+  require("user.lsp.linters").selene,
+  -- require("user.lsp.linters").luacheck,
 }

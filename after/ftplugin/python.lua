@@ -1,16 +1,16 @@
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black", filetypes = { "python" } },
-  { command = "isort", filetypes = { "python" } },
-  -- { command = "reorder_python_imports", filetypes = { "python" } },
+  require("user.lsp.formatters").black,
+  require("user.lsp.formatters").isort,
+  require("user.lsp.formatters").reorder_python_imports,
 }
 
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "pylint", filetypes = { "python" } },
-  -- { command = "flake8", filetypes = { "python" } },
-  -- { command = "mypy", filetypes = { "python" }, extra_args = { "--strict" } },
-  -- { command = "pydocstyle", filetypes = { "python" } },
-  -- { command = "pylama", filetypes = { "python" } },
-  -- { command = "vulture", filetypes = { "python" } },
+  require("user.lsp.linters").pylint,
+  require("user.lsp.linters").flake8,
+  require("user.lsp.linters").mypy,
+  require("user.lsp.linters").pydocstyle,
+  require("user.lsp.linters").pylama,
+  require("user.lsp.linters").vulture,
 }
