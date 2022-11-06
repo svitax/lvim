@@ -173,13 +173,13 @@ M.config = function()
       lock = M.l["lspsaga"],
     },
     -- TODO: wait until anticonceal is in stable, then attempt to make this work.
-    -- {
-    --   "lvimuser/lsp-inlayhints.nvim",
-    --   config = function()
-    --     require("lsp-inlayhints").setup {}
-    --   end,
-    --   lock = M.l["lsp-inlayhints"],
-    -- },
+    {
+      "lvimuser/lsp-inlayhints.nvim",
+      config = function()
+        require("lsp-inlayhints").setup {}
+      end,
+      lock = M.l["lsp-inlayhints"],
+    },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Navigation                        │
     -- ╰──────────────────────────────────────────────────────────╯

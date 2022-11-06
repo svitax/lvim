@@ -1,6 +1,3 @@
-local cssls_opts = require "user.lsp.cssls"
-require("lvim.lsp.manager").setup("cssls", cssls_opts)
-
 local emmet_opts = require "user.lsp.emmet_ls"
 require("lvim.lsp.manager").setup("emmet_ls", emmet_opts)
 
