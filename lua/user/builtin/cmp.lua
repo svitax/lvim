@@ -10,6 +10,7 @@ end
 
 local luasnip = require "luasnip"
 local methods = require("lvim.core.cmp").methods
+local types = require "cmp.types"
 
 local tab = function(fallback)
   if cmp.visible() then
@@ -89,9 +90,23 @@ for _, cmd_type in ipairs { "/", "?", "@" } do
   })
 end
 
+lvim.builtin.cmp.experimental.ghost_text = true
 lvim.builtin.cmp.sources = {
   { name = "kitty", priority = 100 },
-  { name = "nvim_lsp", priority = 100 },
+  {
+    name = "nvim_lsp",
+    priority = 100,
+    entry_filter = function(entry, ctx)
+      local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
+      if kind == "Snippet" and ctx.prev_context.filetype == "java" then
+        return false
+      end
+      if kind == "Text" then
+        return false
+      end
+      return true
+    end,
+  },
   -- { name = "cmdline" },
   { name = "path" },
   { name = "luasnip", priority = 90 },
@@ -111,7 +126,6 @@ lvim.builtin.cmp.sources = {
 }
 
 lvim.builtin.cmp.formatting.source_names = {
-
   cmdline = "(Cmd)",
   cmdline_history = "(Hist)",
   nvim_lsp = "(LSP)",
@@ -132,29 +146,72 @@ lvim.builtin.cmp.formatting.source_names = {
   ["vim-dadbod-completion"] = "(DB)",
 }
 
-local icons = lvim.icons
+-- local icons = lvim.icons
 lvim.builtin.cmp.formatting.max_width = 30
-lvim.builtin.cmp.formatting.fields = { "kind", "abbr", "menu" }
 lvim.builtin.cmp.formatting.format = function(entry, vim_item)
-  if entry.source.name == "cmdline" then
-    vim_item.kind = "⌘"
-    vim_item.menu = ""
-    return vim_item
+  local max_width = lvim.builtin.cmp.formatting.max_width
+  if max_width ~= 0 and #vim_item.abbr > max_width then
+    vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. lvim.icons.ui.Ellipsis
   end
-  vim_item.menu = lvim.builtin.cmp.formatting.source_names[entry.source.name] or vim_item.kind
-  vim_item.kind = icons.kind[vim_item.kind] or vim_item.kind
+  if lvim.use_icons then
+    vim_item.kind = lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
+
+    if entry.source.name == "copilot" then
+      vim_item.kind = lvim.icons.git.Octoface
+      vim_item.kind_hl_group = "CmpItemKindCopilot"
+    end
+
+    if entry.source.name == "cmp_tabnine" then
+      vim_item.kind = lvim.icons.misc.Robot
+      vim_item.kind_hl_group = "CmpItemKindTabnine"
+    end
+
+    if entry.source.name == "crates" then
+      vim_item.kind = lvim.icons.misc.Package
+      vim_item.kind_hl_group = "CmpItemKindCrate"
+    end
+
+    if entry.source.name == "lab.quick_data" then
+      vim_item.kind = lvim.icons.misc.CircuitBoard
+      vim_item.kind_hl_group = "CmpItemKindConstant"
+    end
+
+    if entry.source.name == "emoji" then
+      vim_item.kind = lvim.icons.misc.Smiley
+      vim_item.kind_hl_group = "CmpItemKindEmoji"
+    end
+  end
+
+  if entry.source.name == "nvim_lsp" then
+    vim_item.menu = "(" .. entry.source.source.client.name .. ")"
+  else
+    vim_item.menu = lvim.builtin.cmp.formatting.source_names[entry.source.name]
+    vim_item.dup = lvim.builtin.cmp.formatting.duplicates[entry.source.name] or lvim.builtin.cmp.formatting.duplicates_default
+  end
 
   return vim_item
 end
 
+-- NOTE: deprioritize emmet_ls snippet
+local function deprioritize_snippet(entry1, entry2)
+  if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
+    return false
+  end
+  if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
+    return true
+  end
+end
 lvim.builtin.cmp.sorting = {
   priority_weight = 2,
   comparators = {
+    deprioritize_snippet,
     cmp.config.compare.offset,
     cmp.config.compare.exact,
+    cmp.config.compare.scopes,
     cmp.config.compare.score,
+    cmp.config.compare.recently_used,
+    cmp.config.compare.locality,
     cmp.config.compare.kind,
-    -- require "cmp_tabnine.compare",
     cmp.config.compare.sort_text,
     cmp.config.compare.length,
     cmp.config.compare.order,
@@ -163,5 +220,5 @@ lvim.builtin.cmp.sorting = {
 
 lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(tab, { "i", "c" })
 lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "c" })
-lvim.builtin.cmp.mapping["<C-u>"] = cmp.mapping.scroll_docs(-4)
-lvim.builtin.cmp.mapping["<C-d>"] = cmp.mapping.scroll_docs(4)
+lvim.builtin.cmp.mapping["<A-u>"] = cmp.mapping.scroll_docs(-4)
+lvim.builtin.cmp.mapping["<A-d>"] = cmp.mapping.scroll_docs(4)
