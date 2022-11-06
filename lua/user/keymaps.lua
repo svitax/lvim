@@ -57,6 +57,9 @@ M.config = function()
   -- no highlight on esc
   lvim.keys.normal_mode["<Esc>"] = "<cmd>nohlsearch<cr>"
 
+  -- save file with <C-s>
+  lvim.keys.normal_mode["<C-s>"] = "<cmd>up!<cr>"
+
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                          Visual                          │
   -- ╰──────────────────────────────────────────────────────────╯
@@ -206,14 +209,14 @@ M.config = function()
   -- ╰──────────────────────────────────────────────────────────╯
   lvim.builtin.which_key.mappings["g"] = {
     name = "+Git",
-    b = { "<cmd>Telescope git_branches<cr>", "checkout branch" },
-    c = { "<cmd>Telescope git_commits<cr>", "checkout commit" },
-    C = { "<cmd>Telescope git_bcommits<cr>", "checkout commit (for current file)" },
+    b = { "<cmd>Telescope git_branches theme=ivy<cr>", "checkout branch" },
+    c = { "<cmd>Telescope git_commits theme=ivy<cr>", "checkout commit" },
+    C = { "<cmd>Telescope git_bcommits theme=ivy<cr>", "checkout commit (for current file)" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "git diff" },
     -- j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "next Hunk" },
     -- k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "prev Hunk" },
     -- l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "blame" },
-    o = { "<cmd>Telescope git_status<cr>", "open changed file" },
+    o = { "<cmd>Telescope git_status theme=ivy<cr>", "open changed file" },
     -- p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "preview hunk" },
     -- r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "reset hunk" },
     R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "reset buffer" },
@@ -743,7 +746,7 @@ function M.set_package_info_keymaps()
     ]],
     config = {
       invoke_on_body = true,
-      color = "red", -- exit yanky mode if foreign keys are pressed
+      color = "pink", -- exit yanky mode if foreign keys are pressed
       hint = {
         type = "window", -- one of "statusline", "cmdline", "window"
         position = "bottom", -- only applies for type = "window"
@@ -759,11 +762,11 @@ function M.set_package_info_keymaps()
       -- toggle dependency versions.
       { "t", "<cmd>lua require('package-info').toggle()<cr>", {} },
       -- update dependency on line.
-      { "u", "<cmd>lua require('package-info').update()<cr>", { exit = false } },
+      { "u", "<cmd>lua require('package-info').update()<cr>", {} },
       -- delete dependency on line.
-      { "d", "<cmd>lua require('package-info').delete()<cr>", { exit = false } },
+      { "d", "<cmd>lua require('package-info').delete()<cr>", {} },
       -- install new dependency.
-      { "i", "<cmd>lua require('package-info').install()<cr>", { exit = false } },
+      { "i", "<cmd>lua require('package-info').install()<cr>", {} },
       -- install different dependency version.
       { "p", "<cmd>lua require('package-info').change_version()<cr>", {} },
       { "q", nil, { exit = true, nowait = true, desc = "quit" } },
@@ -842,6 +845,7 @@ function M.set_gitsigns_keymaps()
       { "=", gs.preview_hunk, { desc = "preview hunk" } },
       { "b", gs.blame_line, { desc = "blame line" } },
       { "d", gs.toggle_deleted, { nowait = true, desc = "show deleted lines" } },
+      -- TODO: send this to lazygit commit instead (with commitizen maybe)
       { "C", ":tab Git commit<CR>", { silent = true, exit = true, desc = "commit changes" } },
       { "q", nil, { exit = true, nowait = true, desc = "quit" } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = "quit" } },
@@ -889,11 +893,12 @@ function M.set_buffers_keymaps()
       { "n", "<cmd>CybuNext<cr>", { desc = "next buffer" } },
       { "p", "<cmd>CybuPrev<cr>", { desc = "previous buffer" } },
       { "a", "<cmd>BDelete all<cr>", { desc = "delete all buffers", exit = true } },
-      { "d", "<cmd>BDelete this<CR>", { desc = "delete buffer", exit = true } },
+      { "d", "<cmd>BDelete this<cr>", { desc = "delete buffer", exit = true } },
       { "h", "<cmd>BDelete! hidden<cr>", { desc = "delete hidden buffers" } },
-      { "o", "<cmd>BDelete! other<CR>", { desc = "delete other buffers" } },
+      { "o", "<cmd>BDelete! other<cr>", { desc = "delete other buffers" } },
       --{ "w",  "", "save all buffers" },
       --{ "x", "", "scratch buffer" },
+      { "<Space>", "<cmd>lua require('which-key').show(' ')<cr>", { desc = false, exit = true } },
       { "<Esc>", nil, { exit = true } },
       { "q", nil, { exit = true } },
     },
@@ -958,6 +963,7 @@ function M.set_windows_keymaps()
       -- { "<C-l>", "<cmd>lua require('smart-splits').resize_left()<cr>" },
       -- { "<C-;>", "<cmd>lua require('smart-splits').resize_right()<cr>" },
       -- { "=", "<C-w>=", { desc = "equalize" } },
+      { "<Space>", "<cmd>lua require('which-key').show(' ')<cr>", { desc = false, exit = true } },
       { "<Esc>", nil, { exit = true } },
       { "q", nil, { exit = true } },
     },

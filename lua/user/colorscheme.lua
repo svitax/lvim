@@ -20,7 +20,7 @@ M.config = function()
     gray = "#DEDEDE",
     comment = "#665c54",
     red = "#ec6b64",
-    error_red = "#c14a4a",
+    error_red = "#ec6b64",
     diff = {
       add = "#26332c",
       change = "#594e36",
@@ -28,6 +28,7 @@ M.config = function()
       text = "#314753",
     },
   }
+
   local c = require("gruvbox-baby.colors").config()
   -- vim.g.gruvbox_baby_highlights = { Normal = { fg = colors.orange } }
   vim.g.gruvbox_baby_highlights = {
@@ -78,6 +79,13 @@ M.config = function()
     PackageInfoOutdatedVersion = { fg = c.orange },
     PackageInfoUpToDateVersion = { fg = c.comment },
     -- END package-info
+
+    -- START diagnostics
+    DiagnosticError = { fg = c.red },
+    DiagnosticWarn = { fg = c.soft_yellow },
+    DiagnosticInfo = { fg = c.light_blue },
+    -- DiagnosticHint = { fg = c.forest_green },
+    -- END diagnostics
   }
   vim.api.nvim_set_hl(0, "LeapMatch", {
     fg = c.foreground, -- for light themes, set to 'black' or similar

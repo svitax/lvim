@@ -36,10 +36,30 @@ M.config = function()
     -- TODO: gruvbox-baby blue_gray color clashes with other colors. find better alternative, or change MatchParen fg.
     { "luisiacc/gruvbox-baby", lock = M.l["gruvbox-baby"] },
     -- Color highlighter.
+    -- {
+    --   "norcalli/nvim-colorizer.lua",
+    --   config = require("user.plugins.colorizer").config,
+    --   lock = M.l["nvim-colorizer"],
+    -- },
     {
-      "norcalli/nvim-colorizer.lua",
-      config = require("user.plugins.colorizer").config,
-      lock = M.l["nvim-colorizer"],
+      "brenoprata10/nvim-highlight-colors",
+      config = function()
+        require("nvim-highlight-colors").setup {
+          render = "background",
+          enable_named_colors = true,
+          enable_tailwind = false,
+        }
+      end,
+      lock = M.l["nvim-highlight-colors"],
+    },
+    {
+      "mrshmllow/document-color.nvim",
+      config = function()
+        require("document-color").setup {
+          mode = "background", -- "background" | "foreground" | "single"
+        }
+      end,
+      lock = M.l["document-color"],
     },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Completion                        │
@@ -411,6 +431,10 @@ M.l = {
   ["gruvbox-baby"] = true,
   -- "norcalli/nvim-colorizer.lua"
   ["nvim-colorizer"] = true,
+  -- "brenoprata10/nvim-highlight-colors"
+  ["nvim-highlight-colors"] = true,
+  -- "mrshmllow/document-color.nvim"
+  ["document-color"] = true,
   -- "hrsh7th/cmp-cmdline"
   ["cmp-cmdline"] = true,
   -- "petertriho/cmp-git"

@@ -1,5 +1,10 @@
-local c = require("fennec-gruvbox.colors").config()
+-- local c = require("fennec-gruvbox.colors").config()
+local c = require("gruvbox-baby.colors").config()
 local components = require "lvim.core.lualine.components"
+-- TODO: extra colors for my lualine config. need to fold this into gruvbox-baby some day.
+c.line_fg = "#7c6f64"
+c.line_bg = "#3c3836"
+c.line_active_fg = "#d4be98"
 
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
