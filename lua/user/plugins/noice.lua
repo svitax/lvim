@@ -14,12 +14,17 @@ M.config = function()
       lsp_doc_border = true,
     },
     messages = {
-      enabled = false,
+      enabled = true,
+      view = "mini",
+      view_error = "mini",
+      view_warn = "mini",
+      view_history = "messages",
+      view_search = "cmdline",
     },
     -- show @ recording messages in notify
     routes = {
       {
-        view = "notify",
+        view = "mini",
         filter = { event = "msg_showmode" },
       },
     },
@@ -43,6 +48,20 @@ M.config = function()
       },
     },
   }
+
+  -- TODO: figure out how to make these work with smooth scrolling
+  -- vim.keymap.set("n", "<c-d>", function()
+  --   if not require("noice.lsp").scroll(4) then
+  --     return "<c-d>"
+  --   end
+  -- end, { silent = true, expr = true })
+  -- vim.keymap.set("n", "<c-u>", function()
+  --   if not require("noice.lsp").scroll(-4) then
+  --     return "<c-u>"
+  --   end
+  -- end, { silent = true, expr = true })
+
+  require("telescope").load_extension "noice"
 end
 
 return M

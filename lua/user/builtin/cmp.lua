@@ -1,57 +1,34 @@
-local status_ok, cmp = pcall(require, "cmp")
-if not status_ok then
+local cmp_ok, cmp = pcall(require, "cmp")
+if not cmp_ok then
   return
 end
 
-local status_ok, neogen = pcall(require, "neogen")
-if not status_ok then
-  return
-end
+local cmdline_mappings = cmp.mapping.preset.cmdline()
+cmdline_mappings["<C-j>"] = cmdline_mappings["<S-Tab>"]
+cmdline_mappings["<C-k>"] = cmdline_mappings["<Tab>"]
 
-local luasnip = require "luasnip"
-local methods = require("lvim.core.cmp").methods
-local types = require "cmp.types"
-
-local tab = function(fallback)
-  if cmp.visible() then
-    cmp.select_next_item()
-  elseif vim.api.nvim_get_mode().mode == "c" then
-    fallback()
-  elseif luasnip.expandable() then
-    luasnip.expand()
-  elseif methods.jumpable() then
-    luasnip.jump(1)
-  elseif neogen.jumpable() then
-    neogen.jump_next()
-  elseif methods.check_backspace() then
-    fallback()
-    -- else
-    --   methods.feedkeys("<Plug>(Tabout)", "")
-  end
-end
-
-local shift_tab = function(fallback)
-  if cmp.visible() then
-    cmp.select_prev_item()
-  elseif vim.api.nvim_get_mode().mode == "c" then
-    fallback()
-  elseif methods.jumpable(-1) then
-    luasnip.jump(-1)
-  elseif neogen.jumpable(true) then
-    neogen.jump_prev()
-  elseif methods.check_backspace() then
-    fallback()
-    -- else
-    --   methods.feedkeys("<Plug>(Tabout)", "")
-  end
-end
+cmp.setup.cmdline(":", {
+  mapping = cmdline_mappings,
+  sources = {
+    { name = "cmdline" },
+    { name = "path" },
+  },
+  formatting = {
+    max_width = 30,
+  },
+})
+cmp.setup.cmdline({ "/", "?", "@" }, {
+  mapping = cmdline_mappings,
+  sources = {
+    { name = "buffer" },
+  },
+})
 
 cmp.setup.filetype("markdown", {
   mapping = cmp.mapping.preset.insert {
     ["<CR>"] = cmp.mapping.confirm { select = true },
   },
 })
-
 cmp.setup.filetype("gitcommit", {
   sources = cmp.config.sources {
     { name = "conventionalcommits" },
@@ -61,38 +38,50 @@ cmp.setup.filetype("gitcommit", {
   },
 })
 
--- if lvim.work then
-cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.insert {
-    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-  },
-  sources = {
-    { name = "cmdline" },
-    -- { name = "cmdline_history" },
-    { name = "path" },
-  },
-  formatting = {
-    max_width = 30,
-  },
-})
+local neogen = require "neogen"
+local luasnip = require "luasnip"
+local lvim_methods = require("lvim.core.cmp").methods
 
-for _, cmd_type in ipairs { "/", "?", "@" } do
-  cmp.setup.cmdline(cmd_type, {
-    mapping = cmp.mapping.preset.insert {
-      ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-      ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-    },
-    sources = {
-      { name = "buffer" },
-      -- { name = "cmdline_history" },
-    },
-  })
+-- NOTE: add neogen + cmp jumping capabilities
+local tab = function(fallback)
+  if cmp.visible() then
+    cmp.select_next_item()
+  elseif luasnip.expand_or_locally_jumpable() then
+    luasnip.expand_or_jump()
+  elseif lvim_methods.jumpable(1) then
+    luasnip.jump(1)
+  elseif neogen.jumpable() then
+    neogen.jump_next()
+  else
+    fallback()
+  end
 end
+local shift_tab = function(fallback)
+  if cmp.visible() then
+    cmp.select_prev_item()
+  elseif luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  elseif neogen.jumpable(true) then
+    neogen.jump_prev()
+  else
+    fallback()
+    -- else
+    --   methods.feedkeys("<Plug>(Tabout)", "")
+  end
+end
+lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(tab, { "i", "c" })
+lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "c" })
 
+-- NOTE: scroll cmp docs with A-u and A-d instead
+lvim.builtin.cmp.mapping["<A-u>"] = cmp.mapping.scroll_docs(-4)
+lvim.builtin.cmp.mapping["<A-d>"] = cmp.mapping.scroll_docs(4)
+
+lvim.builtin.cmp.cmdline.enable = false
 lvim.builtin.cmp.experimental.ghost_text = true
+lvim.builtin.cmp.confirm_opts.select = true
+
+local types = require "cmp.types"
 lvim.builtin.cmp.sources = {
-  { name = "kitty", priority = 100 },
   {
     name = "nvim_lsp",
     priority = 100,
@@ -107,7 +96,6 @@ lvim.builtin.cmp.sources = {
       return true
     end,
   },
-  -- { name = "cmdline" },
   { name = "path" },
   { name = "luasnip", priority = 90 },
   { name = "nvim_lua", priority = 80 },
@@ -115,7 +103,6 @@ lvim.builtin.cmp.sources = {
   { name = "buffer", priority = 60 },
   -- { name = "rg", max_item_count = 5, priority = 50 },
   { name = "git" },
-  { name = "markdown-link" },
   { name = "calc" },
   { name = "emoji" },
   { name = "treesitter" },
@@ -148,6 +135,7 @@ lvim.builtin.cmp.formatting.source_names = {
 
 -- local icons = lvim.icons
 lvim.builtin.cmp.formatting.max_width = 30
+-- NOTE: show which lsp server a completion item came from
 lvim.builtin.cmp.formatting.format = function(entry, vim_item)
   local max_width = lvim.builtin.cmp.formatting.max_width
   if max_width ~= 0 and #vim_item.abbr > max_width then
@@ -192,7 +180,7 @@ lvim.builtin.cmp.formatting.format = function(entry, vim_item)
   return vim_item
 end
 
--- NOTE: deprioritize emmet_ls snippet
+-- NOTE: deprioritize snippet items (mostly so emmet_ls snippets don't appear first)
 local function deprioritize_snippet(entry1, entry2)
   if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
     return false
@@ -217,8 +205,3 @@ lvim.builtin.cmp.sorting = {
     cmp.config.compare.order,
   },
 }
-
-lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(tab, { "i", "c" })
-lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "c" })
-lvim.builtin.cmp.mapping["<A-u>"] = cmp.mapping.scroll_docs(-4)
-lvim.builtin.cmp.mapping["<A-d>"] = cmp.mapping.scroll_docs(4)

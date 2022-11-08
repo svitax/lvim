@@ -1,8 +1,6 @@
 local M = {}
 
 M.config = function()
-  -- TODO: fix all instances of telescope.load_extension.
-
   lvim.plugins = {
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Buffers                          │
@@ -43,22 +41,12 @@ M.config = function()
     -- },
     {
       "brenoprata10/nvim-highlight-colors",
-      config = function()
-        require("nvim-highlight-colors").setup {
-          render = "background",
-          enable_named_colors = true,
-          enable_tailwind = false,
-        }
-      end,
+      config = require("user.plugins.nvim_highlight_colors").config,
       lock = M.l["nvim-highlight-colors"],
     },
     {
       "mrshmllow/document-color.nvim",
-      config = function()
-        require("document-color").setup {
-          mode = "background", -- "background" | "foreground" | "single"
-        }
-      end,
+      config = require("user.plugins.document_color").config,
       lock = M.l["document-color"],
     },
     -- ╭──────────────────────────────────────────────────────────╮
@@ -124,17 +112,13 @@ M.config = function()
     -- add/delete/change surroundings with ys{motion}{char}, ds{char}, and cs{target}{replacement}
     {
       "kylechui/nvim-surround",
-      config = function()
-        require("nvim-surround").setup {
-          keymaps = {
-            -- I just don't want this to conflict with visual S for leap backward
-            visual = "gX",
-          },
-        }
-        -- TODO: change default highlight group for NvimSurroundHighlight to same as matching pair.
-        -- highlight default link NvimSurroundHighlight --matching pair?
-      end,
+      config = require("user.plugins.nvim_surround").config,
       lock = M.l["nvim-surround"],
+    },
+    {
+      "monaqa/dial.nvim",
+      config = require("user.plugins.dial").config,
+      lock = M.l["dial"],
     },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Files                           │
@@ -192,7 +176,7 @@ M.config = function()
       config = require("user.plugins.lspsaga").config,
       lock = M.l["lspsaga"],
     },
-    -- TODO: wait until anticonceal is in stable, then attempt to make this work.
+    -- TODO: wait until anticonceal is in stable, then attempt to make this work (and with tsserver).
     {
       "lvimuser/lsp-inlayhints.nvim",
       config = function()
@@ -235,7 +219,11 @@ M.config = function()
     --   lock = M.l["portal"]
     -- },
     -- TODO: add telescope-hop bindings to all telescope pickers
-    { "nvim-telescope/telescope-hop.nvim", lock = M.l["telescope-hop"] },
+    {
+      "nvim-telescope/telescope-hop.nvim",
+      config = require("user.plugins.telescope_hop").config,
+      lock = M.l["telescope-hop"],
+    },
     -- TODO: add vim-wordmotion
     -- { "chaoren/vim-wordmotion", event = "BufRead" },
 
@@ -282,9 +270,7 @@ M.config = function()
     {
       "zbirenbaum/neodim",
       -- event = "LspAttach",
-      config = function()
-        require("neodim").setup { blend_color = "#282828", alpha = 0.60 }
-      end,
+      config = require("user.plugins.neodim").config,
       lock = M.l["neodim"],
     },
     -- { "fladson/vim-kitty", event = "BufRead" },
@@ -327,10 +313,7 @@ M.config = function()
     {
       "folke/noice.nvim",
       config = require("user.plugins.noice").config(),
-      requires = {
-        "MunifTanjim/nui.nvim",
-        "rcarriga/nvim-notify",
-      },
+      requires = { "MunifTanjim/nui.nvim" },
       lock = M.l["noice"],
     },
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
@@ -338,13 +321,7 @@ M.config = function()
     {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("todo-comments").setup {
-          highlight = {
-            multiline = false,
-          },
-        }
-      end,
+      config = require("user.plugins.todo_comments").config,
       lock = M.l["todo-comments"],
     },
     -- TODO: live-command's Norm doesn't work if you want to insert spaces (it just keeps repeating the prev inserts.)
@@ -388,7 +365,7 @@ M.config = function()
       requires = { { "nvim-lua/plenary.nvim" } },
       lock = M.l["gitignore-gen"],
     },
-    -- TODO: add a filetype dependent which_key mapping on "" for typescript.nvim
+    -- TODO: lsp-inlayhints in typescript conflicts with typescript.nvim
     {
       "jose-elias-alvarez/typescript.nvim",
       config = function()
@@ -415,9 +392,9 @@ M.config = function()
   }
 end
 
--- Last Lunarvim update: Nov. 03 2022 (1eb4188)
--- Last core Lunarvim plugins update: Nov. 04 2022
--- Last plugins update: Nov. 02 2022
+-- Last Lunarvim update: Nov. 07 2022 (43a6ebb)
+-- Last core Lunarvim plugins update: Nov. 07 2022
+-- Last plugins update: Nov. 07 2022
 M.l = {
   -- "kwkarlwang/bufjump.nvim"
   ["bufjump"] = true,
@@ -459,6 +436,8 @@ M.l = {
   ["yanky"] = true,
   -- "kylechui/nvim-surround"
   ["nvim-surround"] = true,
+  -- "monaqa/dial.nvim"
+  ["dial"] = true,
   -- "is0n/fm-nvim"
   ["fm-nvim"] = true,
   -- "smartpde/telescope-recent-files"

@@ -12,6 +12,11 @@ end
 require("user.keymaps").set_lsp_buf_keymaps()
 
 -- NOTE: need to skip cssls so I can do my custom config later in after/ftplugin/
+-- NOTE: need to skip gopls so lsp-inlayhints can attach.
+-- TODO: check if skipping server config can be avoided if I attach lsp-inlayhints through an autocommand (look at the README.)
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "gopls" })
+-- NOTE: skip tailwindcss because I only want to load it if a project has a tailwindcss dependency (see after/ftplugin)
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tailwindcss" })
 -- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "cssls" })
 -- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "sumneko_lua" })
 

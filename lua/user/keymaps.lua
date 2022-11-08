@@ -35,9 +35,9 @@ M.config = function()
   -- open URI under cursor, otherwise default to O
   lvim.keys.normal_mode["O"] = ":OpenURIUnderCursor<cr>"
 
-  -- Increment and decrement
-  lvim.keys.normal_mode["<A-;>"] = "<C-a>"
-  lvim.keys.normal_mode["<A-l>"] = "<C-x>"
+  -- -- Increment and decrement
+  -- lvim.keys.normal_mode["<A-;>"] = "<C-a>"
+  -- lvim.keys.normal_mode["<A-l>"] = "<C-x>"
 
   -- move current line up/down
   lvim.keys.normal_mode["<A-j>"] = ":m .+1<cr>=="
@@ -145,17 +145,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["i"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["j"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["k"] = "which_key_ignore"
-  -- lvim.builtin.which_key.mappings["m"] = "which_key_ignore"
-  lvim.builtin.which_key.mappings["M"] = {
-    name = "+Mode",
-    ["p"] = { "package-info" },
-    ["i"] = { "<cmd>TypescriptAddMissingImports<cr>", "add missing typescript imports" },
-    ["o"] = { "<cmd>TypescriptOrganizeImports<cr>", "organize typescript imports" },
-    ["u"] = { "<cmd>TypescriptRemoveUnused<cr>", "remove unused typescript variables" },
-    ["f"] = { "<cmd>TypescriptFixAll<cr>", "fix all typescript issues" },
-    ["r"] = { "<cmd>TypescriptRenameFile<cr>", "rename typescript file" },
-    ["d"] = { "<cmd>TypescriptGoToSourceDefinition<cr>", "go to source definition" },
-  }
+  lvim.builtin.which_key.mappings["m"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["o"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["q"] = { "<cmd>lua require('user.usercmd').smart_quit()<cr>", "quit" }
   lvim.builtin.which_key.mappings["r"] = "which_key_ignore"
@@ -340,6 +330,7 @@ M.config = function()
     },
     ["C"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_config_files()<cr>", "grep in config files" },
     -- ["d"] = { "", "files in directory" },
+    ["e"] = { "<cmd>Telescope noice theme=ivy<cr>", "messages & errors" },
     ["f"] = { "<cmd>lua require('user.telescope.custom_pickers').find_files()<cr>", "files in project" },
     ["l"] = { "<cmd>lua require('user.telescope.custom_pickers').find_lunarvim_files()<cr>", "lunarvim files" },
     ["n"] = { "<cmd>lua require('user.telescope.custom_pickers').find_notes()<cr>", "notes" },
@@ -353,7 +344,8 @@ M.config = function()
     },
     -- ["t"] = { "", "dictionary" },
     -- ["T"] = { "", "thesaurus" },
-    ["g"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
+    ["G"] = { "<cmd>lua require('user.telescope.custom_pickers').grep_files()<cr>", "grep in project" },
+    ["g"] = { "<cmd>lua require('user.telescope.custom_pickers').fuzzy_grep_files()<cr>", "fuzzy grep in project" },
   }
 
   -- ╭──────────────────────────────────────────────────────────╮
@@ -390,6 +382,7 @@ function M.set_cybu_keymaps()
   -- lvim.builtin.which_key.mappings["b"]["p"] = { "<cmd>CybuPrev<cr>", "previous buffer" }
 end
 
+-- TODO: do I need close_buffers_keymaps? I folded all of this into a Buffers hydra.
 function M.set_close_buffers_keymaps()
   -- lvim.builtin.which_key.mappings["b"]["a"] = { "<cmd>BDelete all<cr>", "delete all buffers" }
   -- lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BDelete this<CR>", "delete buffer" }
@@ -417,12 +410,13 @@ function M.set_marks_keymaps()
   }
 end
 
-function M.set_surround_keymaps()
-  -- Make special mapping for "add surrounding for line"
-  vim.api.nvim_set_keymap("n", "gss", "gs_", { noremap = false })
-  -- Remap adding surrounding to Visual mode selection
-  vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
-end
+-- TODO: do I still need set_surround_keymaps? they were for mini.surround.
+-- function M.set_surround_keymaps()
+--   -- Make special mapping for "add surrounding for line"
+--   vim.api.nvim_set_keymap("n", "gss", "gs_", { noremap = false })
+--   -- Remap adding surrounding to Visual mode selection
+--   vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+-- end
 
 function M.set_code_action_menu_keymaps()
   lvim.builtin.which_key.mappings["l"]["a"] = { "<cmd>CodeActionMenu<cr>", "code actions" }
@@ -528,7 +522,7 @@ function M.set_yanky_keymaps(yanky_hydra)
   -- better yank (stays in position after yank)
   vim.keymap.set("n", "y", "<Plug>(YankyYank)", { noremap = false })
   vim.keymap.set("x", "y", "<Plug>(YankyYank)", { noremap = false })
-  lvim.builtin.which_key.mappings["s"]["y"] = { "<cmd>Telescope yank_history<cr>", "yanks" }
+  lvim.builtin.which_key.mappings["s"]["y"] = { "<cmd>Telescope yank_history theme=ivy<cr>", "yanks" }
 
   local function t(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -558,6 +552,7 @@ function M.set_session_lens_keymaps()
   lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>SearchSession<cr>", "sessions" }
 end
 
+-- TODO: do I need smart_splits_keymaps? I folded all of this into a Windows hydra.
 function M.set_smart_splits_keymaps()
   -- lvim.builtin.which_key.mappings["w"]["J"] = {
   --   "<cmd>lua require('smart-splits').resize_down()<cr>",
@@ -578,6 +573,7 @@ function M.set_smart_splits_keymaps()
   -- }
 end
 
+-- TODO: do I need winshift_keymaps? I folded all of this into a Windows hydra.
 function M.set_winshift_keymaps()
   -- lvim.builtin.which_key.mappings["w"]["a"] = { "<cmd>WinShift<cr>", "win-move mode" }
   -- lvim.builtin.which_key.mappings["w"]["j"] = { "<cmd>WinShift down<cr>", "switch window down" }
@@ -729,6 +725,17 @@ function M.set_portal_keymaps()
   vim.keymap.set("n", "<A-i>", "<cmd>lua require('portal').jump_forward({query = {'different'}})<cr>", {})
 end
 
+function M.set_dial_keymaps()
+  -- Increment and decrement
+  -- TODO: use lvim which_key mappings instead, need noremap=true
+  vim.api.nvim_set_keymap("n", "<A-;>", require("dial.map").inc_normal(), { noremap = true })
+  vim.api.nvim_set_keymap("n", "<A-l>", require("dial.map").dec_normal(), { noremap = true })
+  vim.api.nvim_set_keymap("v", "<A-;>", require("dial.map").inc_visual(), { noremap = true })
+  vim.api.nvim_set_keymap("v", "<A-l>", require("dial.map").dec_visual(), { noremap = true })
+  vim.api.nvim_set_keymap("v", "g<A-;>", require("dial.map").inc_gvisual(), { noremap = true })
+  vim.api.nvim_set_keymap("v", "g<A-l>", require("dial.map").dec_gvisual(), { noremap = true })
+end
+
 function M.set_package_info_keymaps()
   local status_ok, hydra = pcall(require, "hydra")
   if not status_ok then
@@ -753,7 +760,7 @@ function M.set_package_info_keymaps()
         border = "rounded", -- only applies for type = "window"
       },
     },
-    body = "<leader>Mp",
+    body = "<leader>mp",
     heads = {
       -- show dependency versions.
       { "s", "<cmd>lua require('package-info').show()<cr>", {} },
@@ -773,6 +780,19 @@ function M.set_package_info_keymaps()
       { "<Esc>", nil, { exit = true, nowait = true, desc = "quit" } },
     },
   }
+
+  local status_ok, which_key = pcall(require, "which-key")
+  if not status_ok then
+    return
+  end
+  local opts = lvim.builtin.which_key.opts
+  local mappings = {
+    ["m"] = {
+      name = "Mode",
+      ["p"] = { "package-info" },
+    },
+  }
+  which_key.register(mappings, opts)
 end
 
 function M.set_gitsigns_keymaps()
@@ -968,6 +988,27 @@ function M.set_windows_keymaps()
       { "q", nil, { exit = true } },
     },
   }
+end
+
+function M.set_typescript_keymaps()
+  local status_ok, which_key = pcall(require, "which-key")
+  if not status_ok then
+    return
+  end
+  local opts = lvim.builtin.which_key.opts
+  local mappings = {
+    ["m"] = {
+      name = "Mode",
+      -- ["p"] = { "package-info" },
+      ["i"] = { "<cmd>TypescriptAddMissingImports<cr>", "add missing typescript imports" },
+      ["o"] = { "<cmd>TypescriptOrganizeImports<cr>", "organize typescript imports" },
+      ["u"] = { "<cmd>TypescriptRemoveUnused<cr>", "remove unused typescript variables" },
+      ["f"] = { "<cmd>TypescriptFixAll<cr>", "fix all typescript issues" },
+      ["r"] = { "<cmd>TypescriptRenameFile<cr>", "rename typescript file" },
+      ["d"] = { "<cmd>TypescriptGoToSourceDefinition<cr>", "go to source definition" },
+    },
+  }
+  which_key.register(mappings, opts)
 end
 
 return M

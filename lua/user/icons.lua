@@ -27,13 +27,18 @@ lvim.icons.dev = {
     color = "#00a4ff",
     name = "Dockerfile",
   },
+  [".git"] = {
+    icon = "",
+    color = "#aaeaff",
+    name = "GitIgnore",
+  },
   [".gitignore"] = {
-    icon = "",
+    icon = "",
     color = "#aaeaff",
     name = "GitIgnore",
   },
   [".gitmodules"] = {
-    icon = "",
+    icon = "",
     color = "#aaeaff",
     name = "GitModules",
   },
@@ -63,7 +68,7 @@ lvim.icons.dev = {
     name = "Rust",
   },
   ["toml"] = {
-    icon = "[T]",
+    icon = "",
     color = "#ffffff",
     name = "Toml",
   },
@@ -87,8 +92,23 @@ lvim.icons.dev = {
     color = "#98c15c",
     name = "Xml",
   },
+  ["package.json"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "NodeJS",
+  },
+  ["package-lock.json"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "NodeJS",
+  },
   ["yaml"] = {
-    icon = "",
+    icon = "",
+    color = "#ff5252",
+    name = "Yaml",
+  },
+  ["yml"] = {
+    icon = "",
     color = "#ff5252",
     name = "Yaml",
   },
@@ -102,14 +122,45 @@ lvim.icons.dev = {
     color = "#efefef",
     name = "EslintIgnore",
   },
-  ["yml"] = {
-    icon = "",
-    color = "#ff5252",
-    name = "Yaml",
-  },
   ["Makefile"] = {
     icon = "M",
     color = "#e3833e",
     name = "Makefile",
   },
+  [".tmux.conf"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "Tmux",
+  },
+  ["zsh"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "Shell",
+  },
+  [".zshrc"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "Shell",
+  },
+  ["sh"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "Shell",
+  },
+  ["bash"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "Shell",
+  },
+  ["lfrc"] = {
+    icon = "",
+    color = "#98c15c",
+    name = "Shell",
+  },
 }
+
+if not lvim.icons.dev then
+  return
+end
+
+require("nvim-web-devicons").set_icon(lvim.icons.dev)

@@ -5,5 +5,12 @@
   "typescript.inlayHints.includeInlayVariableTypeHints": true,
   "typescript.inlayHints.includeInlayPropertyDeclarationTypeHints": true,
   "typescript.inlayHints.includeInlayFunctionLikeReturnTypeHints": true,
-  "typescript.inlayHints.includeInlayEnumMemberValueHints": true
+  "typescript.inlayHints.includeInlayEnumMemberValueHints": true,
+  "javascript.inlayHints.includeInlayParameterNameHints": "all",
+  "javascript.inlayHints.includeInlayParameterNameHintsWhenArgumentMatchesName": true,
+  "javascript.inlayHints.includeInlayFunctionParameterTypeHints": true,
+  "javascript.inlayHints.includeInlayVariableTypeHints": true,
+  "javascript.inlayHints.includeInlayPropertyDeclarationTypeHints": true,
+  "javascript.inlayHints.includeInlayFunctionLikeReturnTypeHints": true,
+  "javascript.inlayHints.includeInlayEnumMemberValueHints": true
 }
