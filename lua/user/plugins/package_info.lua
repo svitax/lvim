@@ -7,7 +7,8 @@ M.config = function()
   end
 
   package_info.setup {}
-  require("user.keymaps").set_package_info_keymaps()
+  -- NOTE: I've set this to be registered only when we enter a .json file.
+  -- require("user.keymaps").set_package_info_keymaps()
 end
 
 return M
