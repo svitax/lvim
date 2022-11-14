@@ -14,7 +14,7 @@ formatters.setup {
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   require("user.lsp.linters").eslintd,
-  require("user.lsp.linters").tsc,
+  -- require("user.lsp.linters").tsc,
   -- require("user.lsp.linters").xo,
 }
 

@@ -7,6 +7,9 @@ M.config = function()
   end
 
   yanky.setup {
+    preserve_cursor_position = {
+      enabled = true,
+    },
     picker = {
       select = {
         action = require("yanky.picker").actions.put "gp", -- put after cursor and leave the cursor after
@@ -17,8 +20,8 @@ M.config = function()
   --  ╭──────────────────────────────────────────────────────────╮
   --  │                       Yanky hydra                        │
   --  ╰──────────────────────────────────────────────────────────╯
-  local status_ok, hydra = pcall(require, "hydra")
-  if not status_ok then
+  local hydra_ok, hydra = pcall(require, "hydra")
+  if not hydra_ok then
     return
   end
 
@@ -26,10 +29,10 @@ M.config = function()
     name = "Yank ring",
     hint = [[
  Cycle yanks
- _<A-n>_: Cycle forward    _<A-p>_: Cycle backward
+ _n_: Cycle forward    _N_: Cycle backward
  ^
  Put
- _p_: Put after     _P_: Put before
+ _p_: Put after        _P_: Put before
  ^
  _q_, _<Esc>_: Quit
     ]],
@@ -45,8 +48,8 @@ M.config = function()
     heads = {
       { "p", "<Plug>(YankyPutAfter)", { desc = "put after" } },
       { "P", "<Plug>(YankyPutBefore)", { desc = "put before" } },
-      { "<A-n>", "<Plug>(YankyCycleForward)", { private = true, desc = "↓ cycle forward" } },
-      { "<A-p>", "<Plug>(YankyCycleBackward)", { private = true, desc = "↑ cycle backward" } },
+      { "n", "<Plug>(YankyCycleForward)", { private = true, desc = "↓ cycle forward" } },
+      { "N", "<Plug>(YankyCycleBackward)", { private = true, desc = "↑ cycle backward" } },
       { "q", nil, { exit = true, nowait = true, desc = "quit" } },
       { "<Esc>", nil, { exit = true, nowait = true, desc = "quit" } },
     },

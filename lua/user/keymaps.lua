@@ -18,6 +18,10 @@ M.config = function()
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                          Normal                          │
   -- ╰──────────────────────────────────────────────────────────╯
+  -- Make sure tmux has the following so Home and End works as intended inside it
+  -- bind-key -n Home send Escape "OH"
+  -- bind-key -n End send Escape "OF"
+
   -- I use jkl; instead of hjkl
   lvim.keys.normal_mode[";"] = "l"
   lvim.keys.normal_mode["l"] = "h"
@@ -68,6 +72,9 @@ M.config = function()
   lvim.keys.visual_mode[";"] = "l"
   lvim.keys.visual_mode["l"] = "h"
 
+  -- preserve cursor position on yank
+  lvim.keys.visual_mode["y"] = "y`]"
+
   -- Move visual selection up/down
   lvim.keys.visual_mode["<A-j>"] = ":m '>+1<cr>gv=gv"
   lvim.keys.visual_mode["<A-k>"] = ":m '<-2<cr>gv=gv"
@@ -88,11 +95,14 @@ M.config = function()
   lvim.keys.insert_mode["<cr>"] = "<cr><c-g>u"
   lvim.keys.insert_mode["<space>"] = "<space><c-g>u"
 
+  -- <C-Bs> maps to <C-h> in terminals, but I like to have <C-bs> delete the previous word.
+  lvim.keys.insert_mode["<C-h>"] = "<C-w>"
+
+  -- <A-bs> is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
+  lvim.keys.insert_mode["<A-bs>"] = "<C-w>"
+
   -- Fix previous spelling mistake
   lvim.keys.insert_mode["<A-h>"] = "<c-g>u<Esc>[s1z=`]a<c-g>u"
-
-  -- A-del is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
-  lvim.keys.insert_mode["<A-bs>"] = "<c-w>"
 
   -- select all
   lvim.keys.insert_mode["<A-a>"] = "<ESC>ggVG<CR>"
@@ -100,9 +110,6 @@ M.config = function()
   -- ergonmic mappings for end of line and beginning of line my terminal has Cmd+Left mapped to S4 and Cmd+Right mapped to 12
   lvim.keys.insert_mode["<S-Left>"] = "<Esc>_i"
   lvim.keys.insert_mode["<S-Right>"] = "<Esc>$a"
-
-  -- A-del is mapped to delete previous word on my keyboard (macos), make that consistent inside nvim
-  lvim.keys.insert_mode["<A-bs>"] = "<c-w>"
 
   -- emacs-like maps for insert mode
   -- lvim.keys.insert_mode["<C-a>"] = "<esc>I"
@@ -152,7 +159,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["u"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["v"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["x"] = "which_key_ignore"
-  lvim.builtin.which_key.mappings["y"] = "which_key_ignore"
+  -- lvim.builtin.which_key.mappings["y"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["z"] = "which_key_ignore"
   lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<cr>", "dashboard" }
   -- lvim.builtin.which_key.mappings["S"] = "which_key_ignore"
@@ -315,7 +322,20 @@ M.config = function()
     ["y"] = { "<cmd>MkdnYankAnchorLink<cr>", "yank anchor link" },
     ["Y"] = { "<cmd>MkdnYankFileAnchorLink<cr>", "yank file anchor link" },
   }
-
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         +Packer                          │
+  --  ╰──────────────────────────────────────────────────────────╯
+  lvim.builtin.which_key.mappings["p"] = {
+    name = "Packer",
+    c = { "<cmd>PackerCompile<cr>", "packer compile" },
+    i = { "<cmd>PackerInstall<cr>", "packer install" },
+    r = { "<cmd>lua require('lvim.plugin-loader').recompile()<cr>", "recompile" },
+    s = { "<cmd>PackerSync<cr>", "packer sync" },
+    S = { "<cmd>PackerSync --preview<cr>", "packer sync --preview" },
+    t = { "<cmd>PackerStatus<cr>", "packer status" },
+    U = { "<cmd>PackerUpdate --preview<cr>", "packer update --preview" },
+    u = { "<cmd>PackerUpdate --preview<cr>", "packer update" },
+  }
   -- ╭──────────────────────────────────────────────────────────╮
   -- │                         +Search                          │
   -- ╰──────────────────────────────────────────────────────────╯
@@ -409,14 +429,6 @@ function M.set_marks_keymaps()
     "marks",
   }
 end
-
--- TODO: do I still need set_surround_keymaps? they were for mini.surround.
--- function M.set_surround_keymaps()
---   -- Make special mapping for "add surrounding for line"
---   vim.api.nvim_set_keymap("n", "gss", "gs_", { noremap = false })
---   -- Remap adding surrounding to Visual mode selection
---   vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
--- end
 
 function M.set_code_action_menu_keymaps()
   lvim.builtin.which_key.mappings["l"]["a"] = { "<cmd>CodeActionMenu<cr>", "code actions" }
@@ -520,8 +532,8 @@ end
 
 function M.set_yanky_keymaps(yanky_hydra)
   -- better yank (stays in position after yank)
-  vim.keymap.set("n", "y", "<Plug>(YankyYank)", { noremap = false })
-  vim.keymap.set("x", "y", "<Plug>(YankyYank)", { noremap = false })
+  -- vim.keymap.set("n", "y", "<Plug>(YankyYank)", { noremap = true })
+  -- vim.keymap.set("x", "y", "<Plug>(YankyYank)", { noremap = true })
   lvim.builtin.which_key.mappings["s"]["y"] = { "<cmd>Telescope yank_history theme=ivy<cr>", "yanks" }
 
   local function t(str)
@@ -885,7 +897,7 @@ function M.set_buffers_keymaps()
  ^^   Delete            ^^   Cycle
  ^^------------         ^^------------
  _d_ : this buffer      _n_ : next buffer
- _a_ : all buffers      _p_ : previous buffer
+ _a_ : all buffers      _N_ : previous buffer
  _h_ : hidden buffers
  _o_ : other buffers
  ^
@@ -911,7 +923,7 @@ function M.set_buffers_keymaps()
       { "c", "<cmd>Clear<cr>", { desc = "clear session", exit = true } },
       { "s", "<cmd>up!<cr>", { desc = "save buffer", exit = true } },
       { "n", "<cmd>CybuNext<cr>", { desc = "next buffer" } },
-      { "p", "<cmd>CybuPrev<cr>", { desc = "previous buffer" } },
+      { "N", "<cmd>CybuPrev<cr>", { desc = "previous buffer" } },
       { "a", "<cmd>BDelete all<cr>", { desc = "delete all buffers", exit = true } },
       { "d", "<cmd>BDelete this<cr>", { desc = "delete buffer", exit = true } },
       { "h", "<cmd>BDelete! hidden<cr>", { desc = "delete hidden buffers" } },
@@ -1009,6 +1021,14 @@ function M.set_typescript_keymaps()
     },
   }
   which_key.register(mappings, opts)
+end
+
+function M.set_ufo_keymaps()
+  -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+  lvim.keys.normal_mode["zR"] = { "<cmd>require('ufo').openAllFolds()<cr>", "open all folds" }
+  lvim.keys.normal_mode["zM"] = { "<cmd>require('ufo').closeAllFolds()<cr>", "close all folds" }
+  lvim.keys.normal_mode["zr"] = { "<cmd>require('ufo').openFoldsExceptKinds()<cr>", "open folds" }
+  lvim.keys.normal_mode["zm"] = { "<cmd>require('ufo').closeFoldsWith()<cr>", "close folds" }
 end
 
 return M

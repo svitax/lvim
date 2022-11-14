@@ -8,7 +8,7 @@ cmdline_mappings["<C-j>"] = cmdline_mappings["<S-Tab>"]
 cmdline_mappings["<C-k>"] = cmdline_mappings["<Tab>"]
 
 cmp.setup.cmdline(":", {
-  mapping = cmdline_mappings,
+  -- mapping = cmdline_mappings,
   sources = {
     { name = "cmdline" },
     { name = "path" },
@@ -18,7 +18,7 @@ cmp.setup.cmdline(":", {
   },
 })
 cmp.setup.cmdline({ "/", "?", "@" }, {
-  mapping = cmdline_mappings,
+  -- mapping = cmdline_mappings,
   sources = {
     { name = "buffer" },
   },

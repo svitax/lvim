@@ -14,96 +14,96 @@ local entry_display = require "telescope.pickers.entry_display"
 
 local history = require "project_nvim.utils.history"
 
-local lib = require "opener.lib"
+-- local lib = require "opener.lib"
 
-function M.projects(opts)
-  local open_project = function(prompt_bufnr)
-    local selection = state.get_selected_entry(prompt_bufnr)
-    if selection then -- TODO selection is sometimes NIL, why is that? It seems to be when the async job is running, or when you are searching in telescope
-      actions.close(prompt_bufnr)
-      -- local dir = selection[1]
-      local dir = selection.value
-      -- add a tiny delay before opening directory, since telescope has problems
-      -- when doing things before it is properly closed. For example:
-      -- https://github.com/nvim-telescope/telescope.nvim/issues/699
-      vim.defer_fn(function()
-        lib.open(dir)
-      end, 50)
-    end
-  end
+-- function M.projects(opts)
+--   local open_project = function(prompt_bufnr)
+--     local selection = state.get_selected_entry(prompt_bufnr)
+--     if selection then -- TODO selection is sometimes NIL, why is that? It seems to be when the async job is running, or when you are searching in telescope
+--       actions.close(prompt_bufnr)
+--       -- local dir = selection[1]
+--       local dir = selection.value
+--       -- add a tiny delay before opening directory, since telescope has problems
+--       -- when doing things before it is properly closed. For example:
+--       -- https://github.com/nvim-telescope/telescope.nvim/issues/699
+--       vim.defer_fn(function()
+--         lib.open(dir)
+--       end, 50)
+--     end
+--   end
 
-  local create_finder = function()
-    local results = history.get_recent_projects()
+--   local create_finder = function()
+--     local results = history.get_recent_projects()
 
-    -- Reverse results
-    for i = 1, math.floor(#results / 2) do
-      results[i], results[#results - i + 1] = results[#results - i + 1], results[i]
-    end
-    local displayer = entry_display.create {
-      separator = " ",
-      items = {
-        {
-          width = 30,
-        },
-        {
-          remaining = true,
-        },
-      },
-    }
+--     -- Reverse results
+--     for i = 1, math.floor(#results / 2) do
+--       results[i], results[#results - i + 1] = results[#results - i + 1], results[i]
+--     end
+--     local displayer = entry_display.create {
+--       separator = " ",
+--       items = {
+--         {
+--           width = 30,
+--         },
+--         {
+--           remaining = true,
+--         },
+--       },
+--     }
 
-    local function make_display(entry)
-      return displayer { entry.name, { entry.value, "Comment" } }
-    end
+--     local function make_display(entry)
+--       return displayer { entry.name, { entry.value, "Comment" } }
+--     end
 
-    return finders.new_table {
-      results = results,
-      entry_maker = function(entry)
-        local name = vim.fn.fnamemodify(entry, ":t")
-        return {
-          display = make_display,
-          name = name,
-          value = entry,
-          ordinal = name .. " " .. entry,
-        }
-      end,
-    }
-  end
+--     return finders.new_table {
+--       results = results,
+--       entry_maker = function(entry)
+--         local name = vim.fn.fnamemodify(entry, ":t")
+--         return {
+--           display = make_display,
+--           name = name,
+--           value = entry,
+--           ordinal = name .. " " .. entry,
+--         }
+--       end,
+--     }
+--   end
 
-  opts = opts or {}
-  local theme_opts = themes.get_ivy {
-    sort_lastused = true,
-    sort_mru = false,
-  }
-  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+--   opts = opts or {}
+--   local theme_opts = themes.get_ivy {
+--     sort_lastused = true,
+--     sort_mru = false,
+--   }
+--   opts = vim.tbl_deep_extend("force", theme_opts, opts)
 
-  pickers
-    .new(opts, {
-      prompt_title = "~ projects ~",
-      finder = create_finder(),
-      -- finder = finders.new_table {
-      --   results = recent_projects,
-      -- },
-      sorter = conf.generic_sorter(opts),
-      attach_mappings = function(prompt_bufnr, map)
-        map("n", "f", find_project_files)
-        map("n", "b", browse_project_files)
-        map("n", "d", delete_project)
-        map("n", "s", search_in_project_files)
-        map("n", "r", recent_project_files)
-        map("n", "w", change_working_directory)
+--   pickers
+--     .new(opts, {
+--       prompt_title = "~ projects ~",
+--       finder = create_finder(),
+--       -- finder = finders.new_table {
+--       --   results = recent_projects,
+--       -- },
+--       sorter = conf.generic_sorter(opts),
+--       attach_mappings = function(prompt_bufnr, map)
+--         map("n", "f", find_project_files)
+--         map("n", "b", browse_project_files)
+--         map("n", "d", delete_project)
+--         map("n", "s", search_in_project_files)
+--         map("n", "r", recent_project_files)
+--         map("n", "w", change_working_directory)
 
-        map("i", "<c-f>", find_project_files)
-        map("i", "<c-b>", browse_project_files)
-        map("i", "<c-d>", delete_project)
-        map("i", "<c-s>", search_in_project_files)
-        map("i", "<c-r>", recent_project_files)
-        map("i", "<c-w>", change_working_directory)
-        actions.select_default:replace(open_project)
-        return true
-      end,
-    })
-    :find()
-end
+--         map("i", "<c-f>", find_project_files)
+--         map("i", "<c-b>", browse_project_files)
+--         map("i", "<c-d>", delete_project)
+--         map("i", "<c-s>", search_in_project_files)
+--         map("i", "<c-r>", recent_project_files)
+--         map("i", "<c-w>", change_working_directory)
+--         actions.select_default:replace(open_project)
+--         return true
+--       end,
+--     })
+--     :find()
+-- end
 
 function M.marks(opts)
   opts = opts or {}

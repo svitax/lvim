@@ -19,7 +19,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "markdown_inline",
 }
 
-lvim.builtin.treesitter.ignore_install = { "haskell", "python" }
+-- lvim.builtin.treesitter.ignore_install = { "haskell", "python" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.incremental_selection = {
   enable = true,

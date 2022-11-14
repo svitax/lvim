@@ -7,7 +7,6 @@ reload "user.neovim"
 lvim.log.level = "warn"
 lvim.format_on_save = false
 lvim.leader = "space"
-lvim.work = false
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                    LunarVim Builtins                     │

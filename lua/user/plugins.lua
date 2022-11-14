@@ -2,6 +2,11 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+    -- TODO: delete nvim-colorizer files
+    -- TODO: delete cmp-plugins files
+    -- TODO: delete gh.nvim files
+    -- TODO: delete legendary.nvim files
+    -- { "mrjones2014/legendary.nvim", config = require("user.plugins.legendary").config, lock = M.l["legendary"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Buffers                          │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -34,16 +39,12 @@ M.config = function()
     -- TODO: gruvbox-baby blue_gray color clashes with other colors. find better alternative, or change MatchParen fg.
     { "luisiacc/gruvbox-baby", lock = M.l["gruvbox-baby"] },
     -- Color highlighter.
-    -- {
-    --   "norcalli/nvim-colorizer.lua",
-    --   config = require("user.plugins.colorizer").config,
-    --   lock = M.l["nvim-colorizer"],
-    -- },
     {
       "brenoprata10/nvim-highlight-colors",
       config = require("user.plugins.nvim_highlight_colors").config,
       lock = M.l["nvim-highlight-colors"],
     },
+    -- Color highlighter for tailwindcss and any lsp servers that support textDocument/documentColor
     {
       "mrshmllow/document-color.nvim",
       config = require("user.plugins.document_color").config,
@@ -56,15 +57,8 @@ M.config = function()
     { "hrsh7th/cmp-cmdline", after = "nvim-cmp", lock = M.l["cmp-cmdline"] },
     { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", after = "nvim-cmp", lock = M.l["cmp-git"] },
     -- { "custompro98/cmp-kitty", after = "nvim-cmp", disable = lvim.work },
-    -- nvim-cmp source for Neovim plugins.
-    {
-      "KadoBOT/cmp-plugins",
-      after = "nvim-cmp",
-      config = require("user.plugins.cmp_plugins").config,
-      lock = M.l["cmp-plugins"],
-    },
     -- nvim-cmp source for ripgrep.
-    { "lukas-reineke/cmp-rg", after = "nvim-cmp", lock = M.l["cmp-rg"] },
+    -- { "lukas-reineke/cmp-rg", after = "nvim-cmp", lock = M.l["cmp-rg"] },
     { "davidsierradz/cmp-conventionalcommits", after = "nvim-cmp", lock = M.l["cmp-conventionalcommits"] },
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                        Databases                         │
@@ -104,11 +98,9 @@ M.config = function()
     { "johmsalas/text-case.nvim", config = require("user.plugins.textcase").config, lock = M.l["text-case"] },
     -- <A-n> and <A-p> to cycle through yank history (like Emacs 'kill-ring.')
     -- TODO: fix issue where "p" with YankyPutAfter and yanky_hydra:activate makes it so p doesn't work in macros.
-    -- TODO: should I use YankyPut or YankyGPut as default for "p".
     { "gbprod/yanky.nvim", config = require("user.plugins.yanky").config, lock = M.l["yanky"] },
     -- TODO: add vim-visual-multi
     -- { "mg979/vim-visual-multi" },
-    -- TODO: fix nvim-surround 'ys' not working with yanky.
     -- add/delete/change surroundings with ys{motion}{char}, ds{char}, and cs{target}{replacement}
     {
       "kylechui/nvim-surround",
@@ -129,13 +121,6 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           Git                            │
     -- ╰──────────────────────────────────────────────────────────╯
-    -- TODO: set_gh_keymaps()
-    -- {
-    --   "ldelossa/gh.nvim",
-    --   requires = { { "ldelossa/litee.nvim" } },
-    --   config = require("user.plugins.gh").config,
-    --   disable = lvim.work,
-    -- },
     -- vim-floaterm has the best integration with lazygit, I can open things to edit directly in current Neovim instance.
     -- TODO: refactor vim-floaterm config into separate file or replace with unception.
     {
@@ -165,8 +150,6 @@ M.config = function()
     --  │                         Keymaps                          │
     --  ╰──────────────────────────────────────────────────────────╯
     { "anuvyklack/hydra.nvim", config = require("user.plugins.hydra").config, lock = M.l["hydra"] },
-    -- TODO: do I need legendary.nvim?
-    { "mrjones2014/legendary.nvim", config = require("user.plugins.legendary").config, lock = M.l["legendary"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           LSP                            │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -218,27 +201,13 @@ M.config = function()
     --   end,
     --   lock = M.l["portal"]
     -- },
-    -- TODO: add telescope-hop bindings to all telescope pickers
-    {
-      "nvim-telescope/telescope-hop.nvim",
-      config = require("user.plugins.telescope_hop").config,
-      lock = M.l["telescope-hop"],
-    },
     -- TODO: add vim-wordmotion
     -- { "chaoren/vim-wordmotion", event = "BufRead" },
 
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Notes                           │
     -- ╰──────────────────────────────────────────────────────────╯
-    -- <Space>np for live markdown preview.
-    {
-      "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
-      config = require("user.plugins.markdown_preview").config,
-      ft = { "markdown" },
-      disable = lvim.work,
-      lock = M.l["markdown-preview"],
-    },
+    -- TODO: do I need mkdnflow
     -- Lightweight vimwiki for markdown.
     { "jakewvincent/mkdnflow.nvim", config = require("user.plugins.mkdnflow").config, lock = M.l["mkdnflow"] },
     { "preservim/vim-markdown", config = require("user.plugins.vim-markdown").config, lock = M.l["vim-markdown"] },
@@ -246,7 +215,7 @@ M.config = function()
     -- │                         Projects                         │
     -- ╰──────────────────────────────────────────────────────────╯
     -- TODO: do I need opener.nvim?
-    { "willthbill/opener.nvim", config = require("user.plugins.opener").config, lock = M.l["opener"] },
+    -- { "willthbill/opener.nvim", config = require("user.plugins.opener").config, lock = M.l["opener"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Quickfix                         │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -274,34 +243,33 @@ M.config = function()
       lock = M.l["neodim"],
     },
     -- { "fladson/vim-kitty", event = "BufRead" },
-    -- { "romgrk/nvim-treesitter-context" },
+    { "romgrk/nvim-treesitter-context" },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Tasks                           │
     -- ╰──────────────────────────────────────────────────────────╯
-    -- TODO: learn how to use asynctasks
-    {
-      "skywind3000/asynctasks.vim",
-      requires = { "skywind3000/asyncrun.vim", "preservim/vimux" },
-      config = require("user.plugins.asynctasks").config,
-      lock = M.l["asynctasks"],
-    },
-    {
-      "GustavoKatel/telescope-asynctasks.nvim",
-      requires = {
-        "nvim-lua/popup.nvim",
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-      },
-      lock = M.l["telescope-asynctasks"],
-    },
-    { "vim-test/vim-test", config = require("user.plugins.vim-test").config, lock = M.l["vim-test"] },
+    -- -- TODO: learn how to use asynctasks
+    -- {
+    --   "skywind3000/asynctasks.vim",
+    --   requires = { "skywind3000/asyncrun.vim", "preservim/vimux" },
+    --   config = require("user.plugins.asynctasks").config,
+    --   lock = M.l["asynctasks"],
+    -- },
+    -- {
+    --   "GustavoKatel/telescope-asynctasks.nvim",
+    --   requires = {
+    --     "nvim-lua/popup.nvim",
+    --     "nvim-lua/plenary.nvim",
+    --     "nvim-telescope/telescope.nvim",
+    --   },
+    --   lock = M.l["telescope-asynctasks"],
+    -- },
+    -- { "vim-test/vim-test", config = require("user.plugins.vim-test").config, lock = M.l["vim-test"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                            UI                            │
     -- ╰──────────────────────────────────────────────────────────╯
-    -- TODO: do I need dressing.nvim?
     { "stevearc/dressing.nvim", config = require("user.plugins.dressing").config, lock = M.l["dressing"] },
     -- TODO: do I need marks.nvim?
-    { "chentoast/marks.nvim", config = require("user.plugins.marks").config, lock = M.l["marks"] },
+    -- { "chentoast/marks.nvim", config = require("user.plugins.marks").config, lock = M.l["marks"] },
     {
       "echasnovski/mini.nvim",
       branch = "stable",
@@ -316,7 +284,7 @@ M.config = function()
       requires = { "MunifTanjim/nui.nvim" },
       lock = M.l["noice"],
     },
-    -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config },
+    -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config, lock = M.l["ufo"] },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config, lock = M.l["satellite"] },
     {
       "folke/todo-comments.nvim",
@@ -325,19 +293,19 @@ M.config = function()
       lock = M.l["todo-comments"],
     },
     -- TODO: live-command's Norm doesn't work if you want to insert spaces (it just keeps repeating the prev inserts.)
-    {
-      "smjonas/live-command.nvim",
-      -- live-command supports semantic versioning via tags
-      -- tag = "1.*",
-      config = function()
-        require("live-command").setup {
-          commands = {
-            Norm = { cmd = "norm" },
-          },
-        }
-      end,
-      lock = M.l["live-command"],
-    },
+    -- {
+    --   "smjonas/live-command.nvim",
+    --   -- live-command supports semantic versioning via tags
+    --   -- tag = "1.*",
+    --   config = function()
+    --     require("live-command").setup {
+    --       commands = {
+    --         Norm = { cmd = "norm" },
+    --       },
+    --     }
+    --   end,
+    --   lock = M.l["live-command"],
+    -- },
     -- mostly useful when you have at least 3 windows open, not sure if I wanna use this
     -- {
     --   "nvim-zh/colorful-winsep.nvim",
@@ -360,11 +328,11 @@ M.config = function()
       -- { name = 'npm', keyword_length = 4 }
       lock = M.l["cmp-npm"],
     },
-    {
-      "kalvinpearce/gitignore-gen.nvim",
-      requires = { { "nvim-lua/plenary.nvim" } },
-      lock = M.l["gitignore-gen"],
-    },
+    -- {
+    --   "kalvinpearce/gitignore-gen.nvim",
+    --   requires = { { "nvim-lua/plenary.nvim" } },
+    --   lock = M.l["gitignore-gen"],
+    -- },
     -- TODO: lsp-inlayhints in typescript conflicts with typescript.nvim
     {
       "jose-elias-alvarez/typescript.nvim",
@@ -374,6 +342,7 @@ M.config = function()
         ---@diagnostic disable-next-line: missing-parameter
         vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver" })
       end,
+      lock = M.l["typescript"],
     },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Windows                          │
@@ -392,130 +361,134 @@ M.config = function()
   }
 end
 
--- Last Lunarvim update: Nov. 07 2022 (43a6ebb)
--- Last core Lunarvim plugins update: Nov. 07 2022
--- Last plugins update: Nov. 07 2022
+-- Last Lunarvim update: Nov. 13 2022 ()
+-- Last core Lunarvim plugins update: Nov. 13 2022
+-- Last plugins update: Nov. 13 2022
 M.l = {
   -- "kwkarlwang/bufjump.nvim"
-  ["bufjump"] = true,
+  ["bufjump"] = false,
   -- "kazhala/close-buffers.nvim"
-  ["close-buffers"] = true,
+  ["close-buffers"] = false,
   -- "ghillb/cybu.nvim"
-  ["cybu"] = true,
+  ["cybu"] = false,
   -- "ThePrimeagen/harpoon"
-  ["harpoon"] = true,
+  ["harpoon"] = false,
   -- "luisiacc/gruvbox-baby"
-  ["gruvbox-baby"] = true,
+  ["gruvbox-baby"] = false,
   -- "norcalli/nvim-colorizer.lua"
-  ["nvim-colorizer"] = true,
+  ["nvim-colorizer"] = false,
   -- "brenoprata10/nvim-highlight-colors"
-  ["nvim-highlight-colors"] = true,
+  ["nvim-highlight-colors"] = false,
   -- "mrshmllow/document-color.nvim"
-  ["document-color"] = true,
+  ["document-color"] = false,
   -- "hrsh7th/cmp-cmdline"
-  ["cmp-cmdline"] = true,
+  ["cmp-cmdline"] = false,
   -- "petertriho/cmp-git"
-  ["cmp-git"] = true,
+  ["cmp-git"] = false,
   -- "KadoBOT/cmp-plugins"
-  ["cmp-plugins"] = true,
+  ["cmp-plugins"] = false,
   -- "lukas-reineke/cmp-rg"
-  ["cmp-rg"] = true,
+  ["cmp-rg"] = false,
   -- "davidsierradz/cmp-conventionalcommits"
-  ["cmp-conventionalcommits"] = true,
+  ["cmp-conventionalcommits"] = false,
   -- "LudoPinelli/comment-box.nvim"
-  ["comment-box"] = true,
+  ["comment-box"] = false,
   -- "smjonas/inc-rename.nvim"
-  ["inc-rename"] = true,
+  ["inc-rename"] = false,
   -- "danymat/neogen"
-  ["neogen"] = true,
+  ["neogen"] = false,
   -- "RRethy/nvim-treesitter-endwise"
-  ["treesitter-endwise"] = true,
+  ["treesitter-endwise"] = false,
   -- "johmsalas/text-case.nvim"
-  ["text-case"] = true,
+  ["text-case"] = false,
   -- "gbprod/yanky.nvim"
-  ["yanky"] = true,
+  ["yanky"] = false,
   -- "kylechui/nvim-surround"
-  ["nvim-surround"] = true,
+  ["nvim-surround"] = false,
   -- "monaqa/dial.nvim"
-  ["dial"] = true,
+  ["dial"] = false,
   -- "is0n/fm-nvim"
-  ["fm-nvim"] = true,
+  ["fm-nvim"] = false,
   -- "smartpde/telescope-recent-files"
-  ["telescope-recent-files"] = true,
+  ["telescope-recent-files"] = false,
   -- "voldikss/vim-floaterm"
-  ["vim-floaterm"] = true,
+  ["vim-floaterm"] = false,
   -- "sindrets/diffview.nvim"
-  ["diffview"] = true,
+  ["diffview"] = false,
   -- "anuvyklack/hydra.nvim"
-  ["hydra"] = true,
+  ["hydra"] = false,
   -- "mrjones2014/legendary.nvim"
-  ["legendary"] = true,
+  ["legendary"] = false,
   -- "glepnir/lspsaga.nvim"
-  ["lspsaga"] = true,
+  ["lspsaga"] = false,
   -- "lvimuser/lsp-inlayhints.nvim"
-  ["lsp-inlayhints"] = true,
+  ["lsp-inlayhints"] = false,
   -- "declancm/cinnamon.nvim"
-  ["cinnamon"] = true,
+  ["cinnamon"] = false,
   -- "ggandor/leap.nvim"
-  ["leap"] = true,
+  ["leap"] = false,
   -- "ggandor/flit.nvim"
-  ["flit"] = true,
+  ["flit"] = false,
   --   "cbochs/grapple.nvim",
-  ["grapple"] = true,
+  ["grapple"] = false,
   --   "cbochs/portal.nvim",
-  ["portal"] = true,
+  ["portal"] = false,
   -- "nvim-telescope/telescope-hop.nvim"
-  ["telescope-hop"] = true,
+  ["telescope-hop"] = false,
   -- "iamcco/markdown-preview.nvim"
-  ["markdown-preview"] = true,
+  ["markdown-preview"] = false,
   -- "jakewvincent/mkdnflow.nvim"
-  ["mkdnflow"] = true,
+  ["mkdnflow"] = false,
   -- "preservim/vim-markdown"
-  ["vim-markdown"] = true,
+  ["vim-markdown"] = false,
   -- "willthbill/opener.nvim"
-  ["opener"] = true,
+  ["opener"] = false,
   -- "kevinhwang91/nvim-bqf"
-  ["nvim-bqf"] = true,
+  ["nvim-bqf"] = false,
   -- "https://gitlab.com/yorickpeterse/nvim-pqf.git"
-  ["nvim-pqf"] = true,
+  ["nvim-pqf"] = false,
   -- "VebbNix/lf-vim"
-  ["lf-vim"] = true,
+  ["lf-vim"] = false,
   -- "nvim-treesitter/playground"
-  ["playground"] = true,
+  ["playground"] = false,
   -- "zbirenbaum/neodim"
-  ["neodim"] = true,
+  ["neodim"] = false,
   -- "skywind3000/asynctasks.vim"
-  ["asynctasks"] = true,
+  ["asynctasks"] = false,
   -- "GustavoKatel/telescope-asynctasks.nvim"
-  ["telescope-asynctasks"] = true,
+  ["telescope-asynctasks"] = false,
   -- "vim-test/vim-test"
-  ["vim-test"] = true,
+  ["vim-test"] = false,
   -- "stevearc/dressing.nvim"
-  ["dressing"] = true,
+  ["dressing"] = false,
   -- "chentoast/marks.nvim"
-  ["marks"] = true,
+  ["marks"] = false,
   -- "echasnovski/mini.nvim"
-  ["mini"] = true,
+  ["mini"] = false,
   -- "folke/noice.nvim"
-  ["noice"] = true,
+  ["noice"] = false,
+  -- "kevinhwang91/nvim-ufo"
+  ["ufo"] = false,
   -- "lewis6991/satellite.nvim",
-  ["satellite"] = true,
+  ["satellite"] = false,
   -- "folke/todo-comments.nvim"
-  ["todo-comments"] = true,
+  ["todo-comments"] = false,
   -- "smjonas/live-command.nvim"
-  ["live-command"] = true,
+  ["live-command"] = false,
   -- "vuki656/package-info.nvim",
-  ["package-info"] = true,
+  ["package-info"] = false,
   -- "David-Kunz/cmp-npm"
-  ["cmp-npm"] = true,
+  ["cmp-npm"] = false,
   -- "kalvinpearce/gitignore-gen.nvim"
-  ["gitignore-gen"] = true,
+  ["gitignore-gen"] = false,
+  -- "jose-elias-alvarez/typescript.nvim"
+  ["typescript"] = false,
   -- "mrjones2014/smart-splits.nvim"
-  ["smart-splits"] = true,
+  ["smart-splits"] = false,
   -- "declancm/windex.nvim"
-  ["windex"] = true,
+  ["windex"] = false,
   -- "sindrets/winshift.nvim"
-  ["winshift"] = true,
+  ["winshift"] = false,
 }
 
 return M
