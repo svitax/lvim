@@ -36,22 +36,20 @@ M.config = function()
     TSKeyword = { fg = c.red },
     TSKeywordFunction = { fg = c.red },
     TSConditional = { fg = c.red },
-    TresitterContext = { bg = "#3c3836", fg = c.foreground },
     NormalFloat = { bg = "#1e2021", fg = c.foreground },
     FloatBorder = { bg = "#1e2021", fg = c.foreground },
-    -- " custom highlight group(buildin & Treesitter)
-    -- hi Comment cterm=NONE ctermfg=245 gui=NONE guifg=#928374
-    -- hi GitSignsCurrentLineBlame ctermfg=245 gui=italic guifg=#928374
-
-    -- hi TSKeyword ctermfg=167 gui=italic guifg=#ea6962
-    -- hi TSKeywordFunction ctermfg=167 gui=italic guifg=#ea6962
-    -- hi TSConditional ctermfg=167 gui=italic guifg=#ea6962
-    -- hi TreesitterContext ctermfg=223 ctermbg=237 guifg=#ddc7a1 guibg=#3c3836
-    -- hi NormalFloat ctermfg=223 ctermbg=237 guifg=#ddc7a1 guibg=#1E2021
-    -- hi FloatBorder  ctermfg=142 guifg=#a9b665 guibg=#1E2021
-    -- hi lualine_c_inactive ctermfg=223 ctermbg=237 gui=italic guifg=#ddc7a1 guibg=#3c3836
-
     -- Normal = { fg = "#123123", bg = "NONE", style = "underline" },
+
+    -- START treesitter-context
+    TreesitterContext = { bg = "#3c3836", fg = c.foreground },
+    -- TreesitterContextLineNumber = { bg = "#3c3836", fg = c.foreground },
+    -- TreesitterContextBottom = { style = "underline" },
+    -- END treesitter-context
+    --
+    -- START hlargs
+    Hlargs = { fg = c.blue_gray },
+    -- END hlargs
+
     -- START navic
     NavicIconsFile = { fg = c.comment },
     NavicIconsModule = { fg = c.soft_yellow },

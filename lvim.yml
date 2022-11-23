@@ -9,6 +9,12 @@ globals:
     args:
       - type: nil
         required: false
+  import:
+    args:
+      - type: any
+        required: true
+      - type: function
+        required: false
   reload:
     args:
       - type: string

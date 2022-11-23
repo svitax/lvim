@@ -6,7 +6,11 @@ M.config = function()
     return
   end
 
-  legendary.setup {}
+  legendary.setup {
+    which_key = {
+      auto_register = true,
+    },
+  }
   require("user.keymaps").set_legendary_keymaps()
 end
 

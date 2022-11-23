@@ -8,8 +8,8 @@ M.config = function()
 
   dressing.setup {
     input = {
-      enabled = true,
       winblend = 0,
+      insert_only = false,
       override = function(conf)
         conf = {
           relative = "cursor",
@@ -24,8 +24,16 @@ M.config = function()
         }
         return conf
       end,
+      mappings = {
+        n = {
+          ["q"] = "Close",
+        },
+      },
     },
     select = {
+      enabled = true,
+      -- backend = require("telescope.themes").get_ivy {},
+      backend = { "telescope" },
       telescope = require("telescope.themes").get_ivy {},
     },
   }

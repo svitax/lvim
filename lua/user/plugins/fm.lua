@@ -7,15 +7,15 @@ M.config = function()
   end
 
   fm.setup {
-    edit_cmd = "edit",
-    ui = {
-      default = "float",
-      float = {
-        border = "rounded",
-        height = 0.90,
-        width = 0.90,
-      },
-    },
+    -- edit_cmd = "edit",
+    -- ui = {
+    --   default = "float",
+    --   float = {
+    --     border = "rounded",
+    --     height = 0.90,
+    --     width = 0.90,
+    --   },
+    -- },
   }
   require("user.keymaps").set_fm_keymaps()
 end

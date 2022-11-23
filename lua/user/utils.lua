@@ -45,4 +45,8 @@ function M.project_has_prettier_dependency()
   return (vim.fn.glob ".prettierrc*" ~= "" or vim.fn.glob "prettier.*" ~= "" or M.is_in_package_json "prettier")
 end
 
+function M.project_has_eslint_dependency()
+  return (vim.fn.glob ".eslint*" ~= "" or vim.fn.glob "eslint.*" ~= "" or M.is_in_package_json "eslint")
+end
+
 return M

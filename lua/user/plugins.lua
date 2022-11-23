@@ -2,11 +2,6 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
-    -- TODO: delete nvim-colorizer files
-    -- TODO: delete cmp-plugins files
-    -- TODO: delete gh.nvim files
-    -- TODO: delete legendary.nvim files
-    -- { "mrjones2014/legendary.nvim", config = require("user.plugins.legendary").config, lock = M.l["legendary"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Buffers                          │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -150,6 +145,7 @@ M.config = function()
     --  │                         Keymaps                          │
     --  ╰──────────────────────────────────────────────────────────╯
     { "anuvyklack/hydra.nvim", config = require("user.plugins.hydra").config, lock = M.l["hydra"] },
+    { "mrjones2014/legendary.nvim", config = require("user.plugins.legendary").config, lock = M.l["legendary"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           LSP                            │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -243,7 +239,17 @@ M.config = function()
       lock = M.l["neodim"],
     },
     -- { "fladson/vim-kitty", event = "BufRead" },
-    { "romgrk/nvim-treesitter-context" },
+    -- Sticky headers
+    { "romgrk/nvim-treesitter-context", lock = M.l["treesitter-context"] },
+    { "miversen33/import.nvim", lock = M.l["import"] },
+    {
+      "m-demare/hlargs.nvim",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      config = import("hlargs", function(hlargs, cool)
+        hlargs.setup {}
+      end),
+      lock = M.l["hlargs"],
+    },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Tasks                           │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -278,12 +284,12 @@ M.config = function()
       end,
       lock = M.l["mini"],
     },
-    {
-      "folke/noice.nvim",
-      config = require("user.plugins.noice").config(),
-      requires = { "MunifTanjim/nui.nvim" },
-      lock = M.l["noice"],
-    },
+    -- {
+    --   "folke/noice.nvim",
+    --   config = require("user.plugins.noice").config(),
+    --   requires = { "MunifTanjim/nui.nvim" },
+    --   lock = M.l["noice"],
+    -- },
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config, lock = M.l["ufo"] },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config, lock = M.l["satellite"] },
     {
@@ -363,7 +369,7 @@ end
 
 -- Last Lunarvim update: Nov. 13 2022 ()
 -- Last core Lunarvim plugins update: Nov. 13 2022
--- Last plugins update: Nov. 13 2022
+-- Last plugins update: Nov. 17 2022
 M.l = {
   -- "kwkarlwang/bufjump.nvim"
   ["bufjump"] = false,
@@ -375,8 +381,6 @@ M.l = {
   ["harpoon"] = false,
   -- "luisiacc/gruvbox-baby"
   ["gruvbox-baby"] = false,
-  -- "norcalli/nvim-colorizer.lua"
-  ["nvim-colorizer"] = false,
   -- "brenoprata10/nvim-highlight-colors"
   ["nvim-highlight-colors"] = false,
   -- "mrshmllow/document-color.nvim"
@@ -385,8 +389,6 @@ M.l = {
   ["cmp-cmdline"] = false,
   -- "petertriho/cmp-git"
   ["cmp-git"] = false,
-  -- "KadoBOT/cmp-plugins"
-  ["cmp-plugins"] = false,
   -- "lukas-reineke/cmp-rg"
   ["cmp-rg"] = false,
   -- "davidsierradz/cmp-conventionalcommits"
@@ -453,6 +455,9 @@ M.l = {
   ["playground"] = false,
   -- "zbirenbaum/neodim"
   ["neodim"] = false,
+  ["treesitter-context"] = false,
+  ["import"] = false,
+  ["hlargs"] = false,
   -- "skywind3000/asynctasks.vim"
   ["asynctasks"] = false,
   -- "GustavoKatel/telescope-asynctasks.nvim"

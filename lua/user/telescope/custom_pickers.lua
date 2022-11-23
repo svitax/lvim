@@ -417,6 +417,19 @@ function M.find_lunarvim_files(opts)
   M.find_files(opts)
 end
 
+function M.grep_lunarvim_files(opts)
+  opts = opts or {}
+  local theme_opts = themes.get_ivy {
+    sorting_strategy = "ascending",
+    layout_strategy = "bottom_pane",
+    prompt_title = "~ LunarVim files ~",
+    cwd = get_runtime_dir(),
+    search_dirs = { require("lvim.utils").join_paths(get_runtime_dir(), "lvim"), lvim.lsp.templates_dir },
+  }
+  opts = vim.tbl_deep_extend("force", theme_opts, opts)
+  M.grep_files(opts)
+end
+
 -- TODO: can't scroll down and up delta preview
 local delta = previewers.new_termopen_previewer {
   get_command = function(entry)

@@ -1,5 +1,7 @@
 -- local actions = require "telescope.actions"
 -- lvim.builtin.telescope.defaults.mappings.n.q = actions.close
+lvim.builtin.telescope.defaults.mappings.i["<C-h>"] = "<c-s-w>"
+lvim.builtin.telescope.defaults.wrap_results = true
 lvim.builtin.telescope.pickers = {
   find_files = { theme = "ivy" },
   grep_string = { theme = "ivy" },
