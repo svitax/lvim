@@ -163,6 +163,13 @@ M.config = function()
       end,
       lock = M.l["lsp-inlayhints"],
     },
+    {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {}
+      end,
+    },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Navigation                        │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -284,12 +291,12 @@ M.config = function()
       end,
       lock = M.l["mini"],
     },
-    -- {
-    --   "folke/noice.nvim",
-    --   config = require("user.plugins.noice").config(),
-    --   requires = { "MunifTanjim/nui.nvim" },
-    --   lock = M.l["noice"],
-    -- },
+    {
+      "folke/noice.nvim",
+      config = require("user.plugins.noice").config(),
+      requires = { "MunifTanjim/nui.nvim" },
+      lock = M.l["noice"],
+    },
     -- { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = require("user.plugins.ufo").config, lock = M.l["ufo"] },
     { "lewis6991/satellite.nvim", config = require("user.plugins.satellite").config, lock = M.l["satellite"] },
     {

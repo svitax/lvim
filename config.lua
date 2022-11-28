@@ -1,5 +1,3 @@
-require "import"
-
 -- Neovim configuration
 reload "user.neovim"
 
