@@ -113,6 +113,14 @@ M.config = function()
     -- <Space>f to use lf file manager within Neovim. Allows me to use many other file managers as well.
     { "is0n/fm-nvim", config = require("user.plugins.fm").config, lock = M.l["fm-nvim"] },
     { "smartpde/telescope-recent-files", config = require("user.plugins.recent_files").config, lock = M.l["telescope-recent-files"] },
+    -- {
+    --   "SidOfc/carbon.nvim",
+    --   config = function()
+    --     require("carbon").setup {
+    --       auto_open = false,
+    --     }
+    --   end,
+    -- },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           Git                            │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -252,9 +260,9 @@ M.config = function()
     {
       "m-demare/hlargs.nvim",
       requires = { "nvim-treesitter/nvim-treesitter" },
-      config = import("hlargs", function(hlargs, cool)
-        hlargs.setup {}
-      end),
+      config = function()
+        require("hlargs").setup {}
+      end,
       lock = M.l["hlargs"],
     },
     -- ╭──────────────────────────────────────────────────────────╮

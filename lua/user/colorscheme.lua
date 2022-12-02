@@ -39,6 +39,8 @@ M.config = function()
     NormalFloat = { bg = "#1e2021", fg = c.foreground },
     FloatBorder = { bg = "#1e2021", fg = c.foreground },
     -- Normal = { fg = "#123123", bg = "NONE", style = "underline" },
+    Search = { fg = c.background, bg = c.foreground },
+    IncSearch = { fg = c.forest_green, bg = c.comment },
 
     -- START treesitter-context
     TreesitterContext = { bg = "#3c3836", fg = c.foreground },
