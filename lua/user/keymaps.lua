@@ -222,7 +222,7 @@ M.config = function()
     -- ["t"] = { "Fid type definition" },
     -- ["w"] = { "Delete trailing whitespace" },
     -- ["W"] = { "Delete trailing newlines" },
-    ["x"] = { "<cmd>Telescope diagnostics theme=ivy<cr>", "List errors" },
+    ["x"] = { "<cmd>Trouble document_diagnostics<cr>", "List errors" },
     -- ["y"] = { "call hierarchy" },
   }
 
@@ -1082,8 +1082,8 @@ return M
 <leader>bc - Clone buffer
 <leader>bC - Clone buffer other window
 <leader>bd - Kill buffer
-<leader>bi - ibuffer
-<leader>bI - ibuffer workspace
+<leader>bi - ibuffer (bufler.nvim)
+<leader>bI - ibuffer workspace (bufler.nvim)
 <leader>bk - Kill buffer
 <leader>bK - Kill all buffers
 <leader>bl - l Switch to last buffer
@@ -1188,7 +1188,7 @@ notes group
 <leader>nY - Org export to clipboard as...
 
 open group
-<leader>o- - Dired
+<leader>o- - Dired (dirvish.nvim)
 <leader>oa - org agenda group
 <leader>oA - Org agenda
 <leader>ob - Default browser

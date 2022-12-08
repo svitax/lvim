@@ -19,6 +19,32 @@ M.config = function()
         ["vim.lsp.util.stylize_markdown"] = true,
         ["cmp.entry.get_documentation"] = true,
       },
+      hover = {
+        view = "cmdline",
+        opts = {
+          enter = false,
+          size = {
+            height = "auto",
+            max_height = 5,
+            min_height = 1,
+          },
+          border = {
+            padding = { top = 1, left = 0 },
+          },
+        },
+      },
+      signature = {
+        view = "cmdline",
+        opts = {
+          enter = false,
+          size = {
+            height = 1,
+          },
+          border = {
+            padding = { top = 1, left = 0 },
+          },
+        },
+      },
     },
     messages = {
       enabled = true,
@@ -67,6 +93,18 @@ M.config = function()
   --     return "<c-u>"
   --   end
   -- end, { silent = true, expr = true })
+  --
+  vim.keymap.set({ "n", "i" }, "<c-d>", function()
+    if not require("noice.lsp").scroll(4) then
+      return "<c-f>"
+    end
+  end, { silent = true, expr = true })
+
+  vim.keymap.set({ "n", "i" }, "<c-u>", function()
+    if not require("noice.lsp").scroll(-4) then
+      return "<c-b>"
+    end
+  end, { silent = true, expr = true })
 
   require("telescope").load_extension "noice"
 end

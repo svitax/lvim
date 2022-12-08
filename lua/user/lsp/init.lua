@@ -27,6 +27,36 @@ lvim.lsp.diagnostics.signs.values = {
   { name = "DiagnosticSignInfo", text = "" },
 }
 
+local lspconfig = require "lspconfig"
+require("lspconfig.configs").fennel_language_server = {
+  default_config = {
+    -- replace it with true path
+    cmd = { "/home/svitax/.cargo/bin/fennel-language-server" },
+    filetypes = { "fennel", "fnl" },
+    single_file_support = true,
+    -- source code resides in directory `fnl/`
+    root_dir = lspconfig.util.root_pattern "fnl",
+    settings = {
+      fennel = {
+        workspace = {
+          -- If you are using hotpot.nvim or aniseed,
+          -- make the server aware of neovim runtime files.
+          library = vim.api.nvim_list_runtime_paths(),
+        },
+        diagnostics = {
+          globals = { "vim" },
+        },
+      },
+    },
+  },
+}
+lspconfig.fennel_language_server.setup {}
+
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  require("user.lsp.formatters").fnlfmt,
+}
+
 -- ---@usage disable automatic installation of servers
 -- lvim.lsp.automatic_servers_installation = false
 

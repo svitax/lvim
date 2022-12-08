@@ -17,4 +17,5 @@ return {
   -- TODO: look into beautysh
   beautysh = { command = "beautysh" },
   sqlfluff = { command = "sqlfluff", extra_args = { "--dialect", "postgres" } },
+  fnlfmt = { name = "fnlfmt" },
 }

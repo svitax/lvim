@@ -2,6 +2,40 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
+    { "rktjmp/hotpot.nvim" },
+    { "~/Desktop/projects/dirvish.nvim" },
+    { "eraserhd/parinfer-rust", run = "cargo build --release" },
+    {
+      "harrygallagher4/nvim-parinfer-rust",
+      event = "InsertEnter",
+      config = function()
+        vim.api.nvim_create_autocmd("VimEnter", {
+          callback = function()
+            require("parinfer").setup()
+          end,
+        })
+      end,
+    },
+    {
+      "nvim-neorg/neorg",
+      run = ":Neorg sync-parsers",
+      config = function()
+        require("neorg").setup {
+          load = {
+            ["core.defaults"] = {},
+            ["core.norg.concealer"] = {},
+            ["core.norg.completion"] = {
+              config = {
+                engine = "nvim-cmp",
+              },
+            },
+            ["core.norg.dirman"] = {},
+            -- ["core.gtd.base"] = {},
+          },
+        }
+      end,
+      requires = "nvim-lua/plenary.nvim",
+    },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Buffers                          │
     -- ╰──────────────────────────────────────────────────────────╯
