@@ -17,7 +17,10 @@ lvim.builtin.treesitter.ensure_installed = {
   "regex",
   "markdown",
   "markdown_inline",
+  "org",
 }
+
+lvim.builtin.treesitter.highlight.additional_vim_regex_highlighting = { "org" }
 
 -- lvim.builtin.treesitter.ignore_install = { "haskell", "python" }
 lvim.builtin.treesitter.highlight.enabled = true

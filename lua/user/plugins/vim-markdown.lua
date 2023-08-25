@@ -7,6 +7,9 @@ M.config = function()
   end
 
   -- vim_markdown.setup {}
+  vim.opt.spell = false
+  -- vim.cmd [[set nospell]]
+
   vim.g.vim_markdown_folding_disabled = 1
   vim.g.vim_markdown_frontmatter = 1
   -- vim.g.vim_markdown_conceal = 0

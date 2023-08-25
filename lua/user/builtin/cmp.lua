@@ -82,6 +82,8 @@ lvim.builtin.cmp.confirm_opts.select = true
 
 local types = require "cmp.types"
 lvim.builtin.cmp.sources = {
+  { name = "conjure", priority = 101 },
+  { name = "orgmode", priority = 101 },
   {
     name = "nvim_lsp",
     priority = 100,
@@ -100,7 +102,7 @@ lvim.builtin.cmp.sources = {
   { name = "luasnip", priority = 90 },
   { name = "nvim_lua", priority = 80 },
   -- { name = "cmp_tabnine", priority = 70, max_item_count = 5 },
-  { name = "buffer", priority = 60 },
+  -- { name = "buffer", priority = 60 },
   -- { name = "rg", max_item_count = 5, priority = 50 },
   { name = "git" },
   { name = "calc" },
@@ -113,6 +115,8 @@ lvim.builtin.cmp.sources = {
 }
 
 lvim.builtin.cmp.formatting.source_names = {
+  orgmode = "(Org)",
+  conjure = "(Conjure)",
   cmdline = "(Cmd)",
   cmdline_history = "(Hist)",
   nvim_lsp = "(LSP)",

@@ -2,9 +2,11 @@ local M = {}
 
 M.config = function()
   -- lvim.colorscheme = "fennec-gruvbox"
+  -- lvim.colorscheme = "oxocarbon"
 
   -- gruvbox-baby config
   lvim.colorscheme = "gruvbox-baby"
+  -- lvim.colorscheme = "gruvbox-flat"
   vim.g.gruvbox_baby_background_color = "dark"
   vim.g.gruvbox_baby_telescope_theme = 1
   -- vim.g.gruvbox_baby_use_original_palette = false

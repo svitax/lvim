@@ -8,7 +8,6 @@ M.config = function()
 
   dressing.setup {
     input = {
-      winblend = 0,
       insert_only = false,
       override = function(conf)
         conf = {

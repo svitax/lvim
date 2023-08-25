@@ -28,6 +28,13 @@ M.config = function()
     end,
   })
 
+  local spell_group = vim.api.nvim_create_augroup("spell", { clear = true })
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = "markdown",
+    group = spell_group,
+    command = "setlocal nospell",
+  })
+
   -- vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost" }, {
   --   callback = function()
   --     local winbar_filetype_exclude = {

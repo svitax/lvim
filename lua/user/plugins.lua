@@ -2,8 +2,15 @@ local M = {}
 
 M.config = function()
   lvim.plugins = {
-    { "rktjmp/hotpot.nvim" },
     { "~/Desktop/projects/dirvish.nvim" },
+    {
+      "rktjmp/hotpot.nvim",
+      config = function()
+        require("hotpot").setup {
+          enable_hotpot_diagnostics = false,
+        }
+      end,
+    },
     { "eraserhd/parinfer-rust", run = "cargo build --release" },
     {
       "harrygallagher4/nvim-parinfer-rust",
@@ -15,26 +22,6 @@ M.config = function()
           end,
         })
       end,
-    },
-    {
-      "nvim-neorg/neorg",
-      run = ":Neorg sync-parsers",
-      config = function()
-        require("neorg").setup {
-          load = {
-            ["core.defaults"] = {},
-            ["core.norg.concealer"] = {},
-            ["core.norg.completion"] = {
-              config = {
-                engine = "nvim-cmp",
-              },
-            },
-            ["core.norg.dirman"] = {},
-            -- ["core.gtd.base"] = {},
-          },
-        }
-      end,
-      requires = "nvim-lua/plenary.nvim",
     },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Buffers                          │
@@ -65,6 +52,7 @@ M.config = function()
     -- │                          Colors                          │
     -- ╰──────────────────────────────────────────────────────────╯
     { "svitax/fennec-gruvbox.nvim", branch = "gruvbox-baby" },
+    { "nyoom-engineering/oxocarbon.nvim" },
     -- TODO: gruvbox-baby blue_gray color clashes with other colors. find better alternative, or change MatchParen fg.
     { "luisiacc/gruvbox-baby", lock = M.l["gruvbox-baby"] },
     -- Color highlighter.
@@ -89,6 +77,7 @@ M.config = function()
     -- nvim-cmp source for ripgrep.
     -- { "lukas-reineke/cmp-rg", after = "nvim-cmp", lock = M.l["cmp-rg"] },
     { "davidsierradz/cmp-conventionalcommits", after = "nvim-cmp", lock = M.l["cmp-conventionalcommits"] },
+    { "PaterJason/cmp-conjure", after = "nvim-cmp" },
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                        Databases                         │
     --  ╰──────────────────────────────────────────────────────────╯
@@ -158,6 +147,13 @@ M.config = function()
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                           Git                            │
     -- ╰──────────────────────────────────────────────────────────╯
+    { "TimUntersberger/neogit" },
+    {
+      "eddyekofo94/gruvbox-flat.nvim",
+      config = function()
+        vim.g.gruvbox_flat_style = "hard"
+      end,
+    },
     -- vim-floaterm has the best integration with lazygit, I can open things to edit directly in current Neovim instance.
     -- TODO: refactor vim-floaterm config into separate file or replace with unception.
     {
@@ -212,6 +208,12 @@ M.config = function()
         require("trouble").setup {}
       end,
     },
+    {
+      "Olical/conjure",
+      config = function()
+        -- vim.cmd [[let g:conjure#filetype#fennel = 'conjure.client.fennel.stdio' ]]
+      end,
+    },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                        Navigation                        │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -248,14 +250,13 @@ M.config = function()
     -- },
     -- TODO: add vim-wordmotion
     -- { "chaoren/vim-wordmotion", event = "BufRead" },
-
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                          Notes                           │
     -- ╰──────────────────────────────────────────────────────────╯
     -- TODO: do I need mkdnflow
     -- Lightweight vimwiki for markdown.
-    { "jakewvincent/mkdnflow.nvim", config = require("user.plugins.mkdnflow").config, lock = M.l["mkdnflow"] },
-    { "preservim/vim-markdown", config = require("user.plugins.vim-markdown").config, lock = M.l["vim-markdown"] },
+    -- { "jakewvincent/mkdnflow.nvim", config = require("user.plugins.mkdnflow").config, lock = M.l["mkdnflow"] },
+    -- { "preservim/vim-markdown", config = require("user.plugins.vim-markdown").config, lock = M.l["vim-markdown"] },
     -- ╭──────────────────────────────────────────────────────────╮
     -- │                         Projects                         │
     -- ╰──────────────────────────────────────────────────────────╯
@@ -290,7 +291,7 @@ M.config = function()
     -- { "fladson/vim-kitty", event = "BufRead" },
     -- Sticky headers
     { "romgrk/nvim-treesitter-context", lock = M.l["treesitter-context"] },
-    { "miversen33/import.nvim", lock = M.l["import"] },
+    -- { "miversen33/import.nvim", lock = M.l["import"] },
     {
       "m-demare/hlargs.nvim",
       requires = { "nvim-treesitter/nvim-treesitter" },

@@ -7,6 +7,8 @@ reload "user.neovim"
 lvim.log.level = "warn"
 lvim.format_on_save = false
 lvim.leader = "space"
+vim.opt.spell = false
+vim.g.gruvbox_flat_style = "hard"
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                    LunarVim Builtins                     │

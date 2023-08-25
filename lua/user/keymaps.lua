@@ -19,6 +19,10 @@ M.config = function()
   -- │                          Normal                          │
   -- ╰──────────────────────────────────────────────────────────╯
   local map = require("legendary").keymap
+  -- vim.cmd [[let maplocalleader = " m"]]
+  vim.cmd [[let maplocalleader = ","]]
+  -- map { "<leader>m", "<localleader>", description = "Local leader", mode = { "n", "v" } }
+  --
   -- Make sure tmux has the following so Home and End works as intended inside it
   -- bind-key -n Home send Escape "OH"
   -- bind-key -n End send Escape "OF"
@@ -167,7 +171,7 @@ M.config = function()
   lvim.builtin.which_key.mappings["j"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["k"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["l"] = "which_key_ignore"
-  lvim.builtin.which_key.mappings["m"] = "which_key_ignore"
+  lvim.builtin.which_key.mappings["m"] = "local leader"
   lvim.builtin.which_key.mappings["o"] = "which_key_ignore"
   lvim.builtin.which_key.mappings["q"] = { "<cmd>lua require('user.usercmd').smart_quit()<cr>", "Quit" }
   lvim.builtin.which_key.mappings["r"] = "which_key_ignore"
